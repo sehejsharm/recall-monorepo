@@ -20,6 +20,10 @@ export interface StorageAdapter {
   loadReadHistory(): Promise<Record<string, ReadRecord>>;
   saveReadRecord(record: ReadRecord): Promise<void>;
 
+  /** Bookmarked (flagged) question ids -> true. */
+  loadBookmarks(): Promise<Record<string, true>>;
+  saveBookmark(questionId: string, on: boolean): Promise<void>;
+
   /** XP / streak / achievements. null until the first card is graded. */
   loadStats(): Promise<GamificationState | null>;
   saveStats(state: GamificationState): Promise<void>;
@@ -36,6 +40,7 @@ export interface StorageAdapter {
 export class MemoryStorageAdapter implements StorageAdapter {
   private progress: Record<string, ProgressRecord> = {};
   private reads: Record<string, ReadRecord> = {};
+  private bookmarks: Record<string, true> = {};
   private stats: GamificationState | null = null;
 
   async loadProgress() {
@@ -49,6 +54,13 @@ export class MemoryStorageAdapter implements StorageAdapter {
   }
   async saveReadRecord(record: ReadRecord) {
     this.reads[record.materialId] = record;
+  }
+  async loadBookmarks() {
+    return { ...this.bookmarks };
+  }
+  async saveBookmark(questionId: string, on: boolean) {
+    if (on) this.bookmarks[questionId] = true;
+    else delete this.bookmarks[questionId];
   }
   async loadStats() {
     return this.stats;
@@ -71,6 +83,7 @@ export class MemoryStorageAdapter implements StorageAdapter {
   async clearAll() {
     this.progress = {};
     this.reads = {};
+    this.bookmarks = {};
     this.stats = null;
   }
 }

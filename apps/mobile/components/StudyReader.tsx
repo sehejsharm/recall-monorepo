@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import { ScrollView, Pressable, Text, View } from "react-native";
+import * as Speech from "expo-speech";
+import { Ionicons } from "@expo/vector-icons";
 import Markdown from "react-native-markdown-display";
 import { topicCounts, type StudyMaterial } from "@jyotir/core";
 import { repo } from "@/lib/content";
@@ -58,6 +61,25 @@ export function StudyReader({
   const isRead = useJyotir((s) => Boolean(s.reads[material.id]));
   const markRead = useJyotir((s) => s.markRead);
 
+  const [speaking, setSpeaking] = useState(false);
+  useEffect(() => () => { void Speech.stop(); }, []);
+
+  const toggleSpeak = () => {
+    if (speaking) {
+      void Speech.stop();
+      setSpeaking(false);
+      return;
+    }
+    const plain = material.content
+      .replace(/```[\s\S]*?```/g, "")
+      .replace(/[#>*_`|~-]/g, " ")
+      .replace(/\[(.*?)\]\(.*?\)/g, "$1")
+      .replace(/\s+/g, " ")
+      .trim();
+    setSpeaking(true);
+    Speech.speak(plain, { onDone: () => setSpeaking(false), onStopped: () => setSpeaking(false) });
+  };
+
   const pending = counts.due + counts.fresh;
   const ctaLabel =
     pending > 0
@@ -65,6 +87,7 @@ export function StudyReader({
       : "Drill This Topic Now (All Caught Up)";
 
   const handleDrill = () => {
+    void Speech.stop();
     if (!isRead) markRead(material.id);
     onDrill();
   };
@@ -75,13 +98,19 @@ export function StudyReader({
         <Text className="text-xs text-muted">
           {material.title} · {material.estimatedReadTime} min read
         </Text>
-        {isRead ? (
-          <Text className="text-xs font-semibold text-correct">read ✓</Text>
-        ) : (
-          <Pressable onPress={() => markRead(material.id)} hitSlop={8}>
-            <Text className="text-xs text-muted">mark as read</Text>
+        <View className="flex-row items-center gap-4">
+          <Pressable onPress={toggleSpeak} hitSlop={8} className="flex-row items-center gap-1">
+            <Ionicons name={speaking ? "stop-circle" : "volume-medium"} size={15} color={speaking ? "#34D399" : "#8B8B93"} />
+            <Text className={`text-xs ${speaking ? "text-correct" : "text-muted"}`}>{speaking ? "Stop" : "Listen"}</Text>
           </Pressable>
-        )}
+          {isRead ? (
+            <Text className="text-xs font-semibold text-correct">read ✓</Text>
+          ) : (
+            <Pressable onPress={() => markRead(material.id)} hitSlop={8}>
+              <Text className="text-xs text-muted">mark as read</Text>
+            </Pressable>
+          )}
+        </View>
       </View>
 
       <ScrollView

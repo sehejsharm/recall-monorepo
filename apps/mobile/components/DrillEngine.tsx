@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
 import { Animated, PanResponder, Pressable, Text, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { achievementById, OPTION_KEYS, optionText } from "@jyotir/core";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
 
@@ -14,12 +15,18 @@ export function DrillEngine({
   topicId,
   onStudy,
   reviewMode = false,
+  bookmarkMode = false,
+  customTopicIds,
   onExit
 }: {
   topicId: string;
   onStudy?: () => void;
   /** Cross-exam review: due-only queue, no study tab. */
   reviewMode?: boolean;
+  /** Drill only the user's bookmarked questions. */
+  bookmarkMode?: boolean;
+  /** Custom drill across an explicit set of topics. */
+  customTopicIds?: string[];
   /** Secondary action on the completion screen (e.g. back to home). */
   onExit?: () => void;
 }) {
@@ -27,19 +34,26 @@ export function DrillEngine({
   const drill = useJyotir((s) => s.drill);
   const ready = useJyotir((s) => s.ready);
   const newlyUnlocked = useJyotir((s) => s.newlyUnlocked);
+  const bookmarks = useJyotir((s) => s.bookmarks);
 
-  const start = () => {
-    store.getState().clearNewlyUnlocked();
-    reviewMode ? store.getState().startReview() : store.getState().startDrill(topicId);
+  const begin = () => {
+    const st = store.getState();
+    st.clearNewlyUnlocked();
+    if (reviewMode) st.startReview();
+    else if (bookmarkMode) st.startBookmarkedDrill();
+    else if (customTopicIds) st.startCustomDrill(customTopicIds);
+    else st.startDrill(topicId);
   };
+  const start = begin;
   const leave = (fn?: () => void) => {
     store.getState().clearNewlyUnlocked();
     fn?.();
   };
 
   useEffect(() => {
-    if (ready) (reviewMode ? store.getState().startReview() : store.getState().startDrill(topicId));
-  }, [ready, topicId, reviewMode, store]);
+    if (ready) begin();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ready, topicId, reviewMode, bookmarkMode, store]);
 
   const pan = useRef(new Animated.Value(0)).current;
   const panResponder = useMemo(
@@ -167,6 +181,13 @@ export function DrillEngine({
             <Text className="text-[11px] font-bold text-correct-bright">{drill.combo}x</Text>
           </View>
         )}
+        <Pressable onPress={() => store.getState().toggleBookmark(question.id)} hitSlop={10}>
+          <Ionicons
+            name={bookmarks[question.id] ? "bookmark" : "bookmark-outline"}
+            size={18}
+            color={bookmarks[question.id] ? "#34D399" : "#55555C"}
+          />
+        </Pressable>
       </View>
 
       <Animated.View

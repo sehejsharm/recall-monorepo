@@ -4,5 +4,6 @@ export * from "./scheduler";
 export * from "./gamification";
 export * from "./storage";
 export * from "./content-repo";
+export * from "./mock";
 export * from "./sync";
 export * from "./store";

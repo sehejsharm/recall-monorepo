@@ -16,6 +16,12 @@ export interface ContentRepo {
   topicById(topicId: string): Topic | undefined;
   materialByTopic(topicId: string): StudyMaterial | undefined;
   questionsByTopic(topicId: string): Question[];
+  /** Every topic in an exam, flattened across its subjects (in order). */
+  topicsByExam(examId: string): Topic[];
+  /** Every question in an exam, across all subjects/topics. */
+  questionsByExam(examId: string): Question[];
+  /** Questions for an arbitrary set of topics (custom drills). */
+  questionsByTopics(topicIds: string[]): Question[];
   /** Every question across every exam — backs the cross-exam review queue. */
   allQuestions(): Question[];
   /** The exam a topic belongs to (for per-exam XP attribution). */
@@ -80,6 +86,16 @@ export function createContentRepo(source: ContentSource): ContentRepo {
     topicById: (topicId) => topicById.get(topicId),
     materialByTopic: (topicId) => materialByTopic.get(topicId),
     questionsByTopic: (topicId) => questionsByTopic.get(topicId) ?? [],
+    topicsByExam: (examId) =>
+      byOrder(subjectsByExam.get(examId) ?? []).flatMap((s) =>
+        byOrder(topicsBySubject.get(s.id) ?? [])
+      ),
+    questionsByExam: (examId) =>
+      byOrder(subjectsByExam.get(examId) ?? [])
+        .flatMap((s) => byOrder(topicsBySubject.get(s.id) ?? []))
+        .flatMap((t) => questionsByTopic.get(t.id) ?? []),
+    questionsByTopics: (topicIds) =>
+      topicIds.flatMap((id) => questionsByTopic.get(id) ?? []),
     allQuestions: () => source.questions,
     examIdForTopic: (topicId) => examIdByTopic.get(topicId)
   };

@@ -78,3 +78,25 @@ uniqueness at module load. Regenerate the SQL after editing content:
 ```bash
 pnpm seed:generate        # emits supabase/seed.sql and supabase/setup.sql
 ```
+
+## Mobile app (Expo / React Native)
+
+`apps/mobile` is the native iOS + Android app, sharing the entire `packages/core`
+engine with the web app. Feature-complete with the web build, plus:
+
+- **Mock-test mode** — timed, scored papers per exam.
+- **Custom drills** — pick any subjects/topics.
+- **Bookmarks** — flag questions into a focused review deck.
+- **Daily reminders** — local notifications (expo-notifications).
+- **Light / dark / system theme** — runtime-switchable.
+- **Read-aloud notes** — TTS via expo-speech.
+- **Email auth + cross-device sync** and anonymized leaderboards.
+
+```bash
+pnpm dev:mobile               # Expo dev server
+npx expo install              # pin native dep versions
+```
+
+Cloud sync/auth is optional — set `EXPO_PUBLIC_SUPABASE_URL` and
+`EXPO_PUBLIC_SUPABASE_ANON_KEY`. Shipping to stores: see
+[`apps/mobile`](apps/mobile) + [`STORE.md`](STORE.md) and [`PRIVACY.md`](PRIVACY.md).

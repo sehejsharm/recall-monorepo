@@ -39,6 +39,9 @@ export class SqliteStorageAdapter implements StorageAdapter {
         id    INTEGER PRIMARY KEY CHECK (id = 1),
         json  TEXT NOT NULL
       );
+      CREATE TABLE IF NOT EXISTS bookmarks (
+        question_id TEXT PRIMARY KEY
+      );
     `);
   }
 
@@ -126,6 +129,24 @@ export class SqliteStorageAdapter implements StorageAdapter {
     );
   }
 
+  async loadBookmarks(): Promise<Record<string, true>> {
+    const rows = this.db.getAllSync<{ question_id: string }>("SELECT question_id FROM bookmarks");
+    const out: Record<string, true> = {};
+    for (const r of rows) out[r.question_id] = true;
+    return out;
+  }
+
+  async saveBookmark(questionId: string, on: boolean): Promise<void> {
+    if (on) {
+      this.db.runSync(
+        "INSERT INTO bookmarks (question_id) VALUES (?) ON CONFLICT(question_id) DO NOTHING",
+        [questionId]
+      );
+    } else {
+      this.db.runSync("DELETE FROM bookmarks WHERE question_id = ?", [questionId]);
+    }
+  }
+
   async loadStats(): Promise<GamificationState | null> {
     const row = this.db.getFirstSync<{ json: string }>("SELECT json FROM stats WHERE id = 1");
     return row ? (JSON.parse(row.json) as GamificationState) : null;
@@ -158,6 +179,6 @@ export class SqliteStorageAdapter implements StorageAdapter {
   }
 
   async clearAll(): Promise<void> {
-    this.db.execSync("DELETE FROM progress; DELETE FROM reads; DELETE FROM stats;");
+    this.db.execSync("DELETE FROM progress; DELETE FROM reads; DELETE FROM stats; DELETE FROM bookmarks;");
   }
 }

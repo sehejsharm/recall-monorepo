@@ -4,6 +4,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { repo } from "@/lib/content";
 import { useJyotir } from "@/lib/store-provider";
 import { ProfileStrip } from "@/components/ProfileStrip";
+import { BottomNav } from "@/components/BottomNav";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function ExamPickerScreen() {
   const router = useRouter();
@@ -12,8 +14,8 @@ export default function ExamPickerScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-oled">
-      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8">
-        <Text className="text-3xl font-bold tracking-tight text-ink">Jyotir</Text>
+      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8 pb-28">
+        <Text className="text-3xl font-bold tracking-tight text-ink">Recall</Text>
         <Text className="mb-5 mt-1 text-sm text-muted">
           Drill. Read. Repeat. Nothing else.
         </Text>
@@ -50,6 +52,12 @@ export default function ExamPickerScreen() {
           <View className="mb-6 h-[68px] rounded-2xl border border-edge bg-surface" />
         )}
 
+        <View className="mb-6 flex-row gap-2.5">
+          <QuickAction icon="timer-outline" label="Mock test" href="/mock" />
+          <QuickAction icon="construct-outline" label="Custom" href="/custom" />
+          <QuickAction icon="bookmark-outline" label="Saved" href="/bookmarks" />
+        </View>
+
         <Text className="mb-3 text-xs font-semibold uppercase tracking-wider text-faint">
           Exams
         </Text>
@@ -64,6 +72,20 @@ export default function ExamPickerScreen() {
           ))}
         </View>
       </ScrollView>
+      <BottomNav />
     </SafeAreaView>
+  );
+}
+
+function QuickAction({ icon, label, href }: { icon: keyof typeof Ionicons.glyphMap; label: string; href: string }) {
+  const router = useRouter();
+  return (
+    <Pressable
+      onPress={() => router.push(href as never)}
+      className="flex-1 items-center gap-1.5 rounded-2xl border border-edge bg-surface py-3.5 active:bg-raised"
+    >
+      <Ionicons name={icon} size={20} color="#34D399" />
+      <Text className="text-xs font-semibold text-muted">{label}</Text>
+    </Pressable>
   );
 }

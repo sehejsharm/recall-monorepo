@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ACHIEVEMENTS, isStreakActive, levelProgress, RANKS } from "@jyotir/core";
 import { useJyotir } from "@/lib/store-provider";
+import { BottomNav } from "@/components/BottomNav";
 
 function Stat({ label, value, accent }: { label: string; value: string | number; accent?: boolean }) {
   return (
@@ -25,7 +26,7 @@ export default function StatsScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-oled">
-      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8">
+      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8 pb-28">
         <Pressable onPress={() => router.back()} hitSlop={12}>
           <Text className="text-xs text-muted">← Home</Text>
         </Pressable>
@@ -100,6 +101,7 @@ export default function StatsScreen() {
           </>
         )}
       </ScrollView>
+      <BottomNav />
     </SafeAreaView>
   );
 }

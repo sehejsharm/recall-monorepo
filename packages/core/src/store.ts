@@ -26,6 +26,12 @@ export type DrillPhase = "idle" | "question" | "revealed" | "complete";
  */
 export const REVIEW_SCOPE = "__review__";
 
+/** Sentinel drill scope for a custom multi-topic drill. */
+export const CUSTOM_SCOPE = "__custom__";
+
+/** Sentinel drill scope for the bookmarked-questions drill. */
+export const BOOKMARK_SCOPE = "__bookmark__";
+
 export interface DrillSession {
   topicId: string | null;
   queue: DrillCard[];
@@ -48,6 +54,8 @@ export interface JyotirState {
   ready: boolean;
   progress: Record<string, ProgressRecord>;
   reads: Record<string, ReadRecord>;
+  /** Flagged question ids the user saved for a focused review deck. */
+  bookmarks: Record<string, true>;
   stats: GamificationState;
   /** Achievement ids unlocked since the UI last consumed them (for toasts). */
   newlyUnlocked: string[];
@@ -59,11 +67,21 @@ export interface JyotirState {
   startDrill(topicId: string, limit?: number): void;
   /** Builds a due-only queue spanning every exam (the daily review). */
   startReview(limit?: number): void;
+  /** Drill a custom set of topics (custom drill builder). */
+  startCustomDrill(topicIds: string[], limit?: number): void;
+  /** Drill only the user's bookmarked questions. */
+  startBookmarkedDrill(limit?: number): void;
   reveal(): void;
   grade(knewIt: boolean): void;
   exitDrill(): void;
 
   markRead(materialId: string): void;
+  /** Toggle a question's bookmark flag (persisted). */
+  toggleBookmark(questionId: string): void;
+  /** True if the question is bookmarked. */
+  isBookmarked(questionId: string): boolean;
+  /** How many questions are bookmarked. */
+  bookmarkedCount(): number;
   countsForTopic(topicId: string): TopicCounts;
   /** Total due cards across all exams — drives the home "Review" badge. */
   dueTotal(): number;
@@ -117,17 +135,19 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
     ready: false,
     progress: {},
     reads: {},
+    bookmarks: {},
     stats: initialGamification(),
     newlyUnlocked: [],
     drill: emptyDrill(),
 
     async hydrate() {
-      const [progress, reads, stats] = await Promise.all([
+      const [progress, reads, bookmarks, stats] = await Promise.all([
         adapter.loadProgress(),
         adapter.loadReadHistory(),
+        adapter.loadBookmarks(),
         adapter.loadStats()
       ]);
-      set({ progress, reads, stats: normalizeGamification(stats), ready: true });
+      set({ progress, reads, bookmarks, stats: normalizeGamification(stats), ready: true });
     },
 
     startDrill(topicId, limit = DEFAULT_QUEUE_LIMIT) {
@@ -149,6 +169,32 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
         drill: {
           ...emptyDrill(),
           topicId: REVIEW_SCOPE,
+          queue,
+          phase: queue.length > 0 ? "question" : "complete"
+        }
+      });
+    },
+
+    startCustomDrill(topicIds, limit = DEFAULT_QUEUE_LIMIT) {
+      const queue = buildQueue(repo.questionsByTopics(topicIds), get().progress, new Date(), limit);
+      set({
+        drill: {
+          ...emptyDrill(),
+          topicId: CUSTOM_SCOPE,
+          queue,
+          phase: queue.length > 0 ? "question" : "complete"
+        }
+      });
+    },
+
+    startBookmarkedDrill(limit = DEFAULT_QUEUE_LIMIT) {
+      const ids = new Set(Object.keys(get().bookmarks));
+      const questions = repo.allQuestions().filter((q) => ids.has(q.id));
+      const queue = buildQueue(questions, get().progress, new Date(), limit);
+      set({
+        drill: {
+          ...emptyDrill(),
+          topicId: BOOKMARK_SCOPE,
           queue,
           phase: queue.length > 0 ? "question" : "complete"
         }
@@ -251,6 +297,25 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
       persist(adapter.saveReadRecord(record));
     },
 
+    toggleBookmark(questionId) {
+      const on = !get().bookmarks[questionId];
+      set((s) => {
+        const next = { ...s.bookmarks };
+        if (on) next[questionId] = true;
+        else delete next[questionId];
+        return { bookmarks: next };
+      });
+      persist(adapter.saveBookmark(questionId, on));
+    },
+
+    isBookmarked(questionId) {
+      return Boolean(get().bookmarks[questionId]);
+    },
+
+    bookmarkedCount() {
+      return Object.keys(get().bookmarks).length;
+    },
+
     countsForTopic(topicId) {
       return topicCounts(repo.questionsByTopic(topicId), get().progress);
     },
@@ -271,6 +336,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
       set({
         progress: {},
         reads: {},
+        bookmarks: {},
         stats: initialGamification(),
         newlyUnlocked: [],
         drill: emptyDrill()

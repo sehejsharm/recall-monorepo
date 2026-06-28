@@ -3,6 +3,7 @@ import type { GamificationState, ProgressRecord, ReadRecord, StorageAdapter } fr
 const PROGRESS_KEY = "jyotir.progress.v1";
 const READS_KEY = "jyotir.reads.v1";
 const STATS_KEY = "jyotir.stats.v1";
+const BOOKMARKS_KEY = "jyotir.bookmarks.v1";
 
 /**
  * localStorage-backed StorageAdapter. Progress is a few KB even after
@@ -46,6 +47,17 @@ export class WebStorageAdapter implements StorageAdapter {
     this.write(READS_KEY, all);
   }
 
+  async loadBookmarks(): Promise<Record<string, true>> {
+    return this.read<true>(BOOKMARKS_KEY);
+  }
+
+  async saveBookmark(questionId: string, on: boolean): Promise<void> {
+    const all = this.read<true>(BOOKMARKS_KEY);
+    if (on) all[questionId] = true;
+    else delete all[questionId];
+    this.write(BOOKMARKS_KEY, all);
+  }
+
   async loadStats(): Promise<GamificationState | null> {
     if (typeof window === "undefined") return null;
     try {
@@ -81,6 +93,6 @@ export class WebStorageAdapter implements StorageAdapter {
 
   async clearAll(): Promise<void> {
     if (typeof window === "undefined") return;
-    for (const k of [PROGRESS_KEY, READS_KEY, STATS_KEY]) window.localStorage.removeItem(k);
+    for (const k of [PROGRESS_KEY, READS_KEY, STATS_KEY, BOOKMARKS_KEY]) window.localStorage.removeItem(k);
   }
 }
