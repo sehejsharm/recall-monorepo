@@ -66,12 +66,36 @@ For local server use (Prisma / re-seeding), also from **Settings → Database**:
 `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and
 `NEXT_PUBLIC_SITE_URL`, then **redeploy**.
 
-**Locally:**
+**Locally (web):**
 
 ```bash
 cp .env.example apps/web/.env.local   # fill in the two NEXT_PUBLIC_ values
 pnpm dev:web
 ```
+
+### Mobile app (Expo) — this is what powers the in-app Account / sign-in screen
+
+The mobile app reads **`EXPO_PUBLIC_`-prefixed** variables (not the `NEXT_PUBLIC_`
+ones). Until both are present, `getSupabase()` returns `null` and the Account
+screen shows "Cloud sync isn't configured" with **no sign-in form** — that's the
+"no sign in" you're seeing, not a bug.
+
+- `EXPO_PUBLIC_SUPABASE_URL` = your Project URL (`https://<ref>.supabase.co`)
+- `EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY` = your `sb_publishable_…` key
+  (the app also accepts `EXPO_PUBLIC_SUPABASE_ANON_KEY`)
+
+**Local dev:** create `apps/mobile/.env` (gitignored) with those two lines, then
+`pnpm dev:mobile`. Expo inlines `EXPO_PUBLIC_*` at bundle time.
+
+**EAS builds (store apps):** add the same two vars to each profile's `env` block
+in `apps/mobile/eas.json`, or as EAS environment variables
+(`eas env:create`). The publishable key is client-safe to commit; the URL is not
+secret either. Rebuild after changing them — `EXPO_PUBLIC_*` values are baked in
+at build time, so a new build is required for them to take effect.
+
+> You must also have run `supabase/setup.sql` (step 2) on the project, or
+> sign-in will succeed but the leaderboard/sync RPCs (`leaderboard_by_exam`,
+> `my_rank`, …) will error.
 
 That's it. The **Account** link on the home screen now offers magic-link
 sign-in, and `SyncProvider` pushes/pulls progress automatically on load, on

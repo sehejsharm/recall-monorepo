@@ -90,6 +90,6 @@ screenshot.)
   permission is only requested on that tap. Notifications are a single optional
   local daily reminder — no push server, no marketing. This satisfies the
   App Store guideline against unprompted permission requests.
-- **Content:** fully bundled and offline — ~3,000 questions across 7 exams
-  (CFA and FRM each cover 10 topic areas / 60 readings / 520 questions). No
-  user-generated content and no moderation surface.
+- **Content:** fully bundled and offline — ~3,100 questions across 10 exam
+  tracks, including CFA Level I/II/III and FRM Part I & II as separate
+  selectable tracks. No user-generated content and no moderation surface.
