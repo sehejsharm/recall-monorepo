@@ -35,7 +35,15 @@ export const expTopics: Topic[] = [
   { id: "cfa2-fixed-income-term-structure", subjectId: "cfa2-fixed-income", name: "Term Structure & Interest Rate Models", slug: "term-structure", orderIndex: 2 },
   { id: "cfa2-fixed-income-cds", subjectId: "cfa2-fixed-income", name: "Credit Default Swaps", slug: "cds", orderIndex: 3 },
   { id: "cfa2-derivatives-forwards-futures", subjectId: "cfa2-derivatives", name: "Forward & Futures Pricing", slug: "forwards-futures", orderIndex: 2 },
-  { id: "cfa2-financial-reporting-income-taxes", subjectId: "cfa2-financial-reporting", name: "Income Taxes (Deferred Tax)", slug: "income-taxes", orderIndex: 3 }
+  { id: "cfa2-financial-reporting-income-taxes", subjectId: "cfa2-financial-reporting", name: "Income Taxes (Deferred Tax)", slug: "income-taxes", orderIndex: 3 },
+  { id: "cfa2-equity-industry-analysis", subjectId: "cfa2-equity", name: "Industry & Competitive Analysis", slug: "industry-analysis", orderIndex: 5 },
+  { id: "cfa2-derivatives-option-strategies", subjectId: "cfa2-derivatives", name: "Option Strategies & Greeks", slug: "option-strategies", orderIndex: 3 },
+  { id: "cfa2-quantitative-methods-simulation", subjectId: "cfa2-quantitative-methods", name: "Simulation & Probabilistic Methods", slug: "simulation", orderIndex: 3 },
+  { id: "cfa2-economics-regulation", subjectId: "cfa2-economics", name: "Economics of Regulation", slug: "regulation", orderIndex: 2 },
+  { id: "cfa2-alternative-investments-commodities", subjectId: "cfa2-alternative-investments", name: "Commodities & Commodity Derivatives", slug: "commodities", orderIndex: 2 },
+  { id: "cfa2-ethics-gips", subjectId: "cfa2-ethics", name: "GIPS Standards", slug: "gips", orderIndex: 2 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions", subjectId: "cfa2-corporate-issuers", name: "Mergers, Acquisitions & Restructuring", slug: "mergers-acquisitions", orderIndex: 2 },
+  { id: "cfa2-portfolio-management-trading-execution", subjectId: "cfa2-portfolio-management", name: "Trading, Execution & Rebalancing", slug: "trading-execution", orderIndex: 2 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -544,6 +552,171 @@ A forward's value at t: **V_t = (F_t − F₀) × discount factor** (zero at ini
 - **Income tax expense = taxes payable + ΔDTL − ΔDTA**.`,
     estimatedReadTime: 2,
     orderIndex: 3
+  },
+  {
+    id: "cfa2-equity-industry-analysis-m01",
+    topicId: "cfa2-equity-industry-analysis",
+    title: "Industry & Competitive Analysis",
+    content: `## Framework
+1. **Classify** the industry (by business cycle sensitivity — cyclical vs. defensive — and by life-cycle stage: embryonic → growth → shakeout → mature → decline).
+2. **Analyze structure** with **Porter's Five Forces**: rivalry, new entrants, substitutes, supplier power, buyer power.
+3. **Competitive position** & strategy (Porter: **cost leadership, differentiation, focus**).
+
+## Key drivers
+- **Industry life cycle** shapes margins and growth: growth stage = high growth, falling prices; mature = consolidation, stable margins.
+- **Barriers to entry**, pricing power, industry concentration (few players → more pricing power), and exposure to **macro, demographic, technological, governmental, and social** influences.
+- **Experience curve**: unit costs fall with cumulative output (a barrier favoring incumbents).
+
+## For valuation
+- A company can only sustain returns above its cost of capital with a durable **competitive advantage (moat)**.
+- Map industry forces to forecasts of **revenue growth, margins, and reinvestment** used in the DCF.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-derivatives-option-strategies-m01",
+    topicId: "cfa2-derivatives-option-strategies",
+    title: "Option Strategies & Greeks",
+    content: `## Core positions
+- **Covered call** (long stock + short call): income, caps upside. **Protective put** (long stock + long put): floors downside.
+- **Collar**: protective put financed by a short call — bounded payoff.
+
+## Spreads & combinations
+- **Bull call spread** / **bear put spread**: directional, limited risk & reward.
+- **Straddle** (long call + put, same strike): profits from large moves **either** direction (long volatility). **Strangle**: cheaper, wider strikes.
+- **Butterfly**: profits if the underlying stays near the middle strike (short volatility).
+
+## The Greeks
+| Greek | Sensitivity to | Note |
+| --- | --- | --- |
+| **Delta** | underlying price | hedge ratio |
+| **Gamma** | change in delta | largest ATM near expiry |
+| **Vega** | volatility | largest ATM, long-dated |
+| **Theta** | time decay | hurts long options |
+| **Rho** | interest rates | small for short-dated |
+
+- **Delta hedging** is dynamic (rebalance due to gamma). Maximum gain/loss and **breakevens** are standard exam computations.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa2-quantitative-methods-simulation-m01",
+    topicId: "cfa2-quantitative-methods-simulation",
+    title: "Simulation & Probabilistic Methods",
+    content: `## Monte Carlo simulation
+Generates thousands of random scenarios from assumed input distributions to build a **distribution of outcomes** (e.g. option values, VaR, retirement wealth).
+- Strengths: handles **complex, path-dependent, non-linear** payoffs and many interacting variables.
+- Limits: only as good as the input assumptions ("garbage in, garbage out"); **statistical**, not analytical.
+
+## Other tools
+- **Historical simulation**: resample actual past data (no distribution assumption).
+- **Bootstrapping**: repeatedly resample (with replacement) from observed data to estimate a sampling distribution / standard errors.
+- **Sensitivity analysis**: vary one input at a time. **Scenario analysis**: change a coherent set of inputs.
+
+## Probability essentials
+- **Bayes' formula** updates a prior probability with new evidence: P(A|B) = P(B|A)·P(A) / P(B).
+- Track **correlations** between inputs — ignoring them understates or overstates portfolio risk. Use enough trials for the estimate to **converge**.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa2-economics-regulation-m01",
+    topicId: "cfa2-economics-regulation",
+    title: "Economics of Regulation",
+    content: `## Why regulate
+- **Market failures**: externalities, public goods, information asymmetry, and **natural monopoly** (one provider is most efficient → price regulation).
+- Regulators also protect investors/consumers and ensure financial stability.
+
+## Types
+- **Statutes** (legislatures), **administrative regulations** (agencies), and **judicial law**.
+- **Economic** regulation (prices, entry — e.g. utilities) vs. **prudential** (safety/soundness of financial firms) vs. **disclosure/conduct**.
+- **Self-regulating organizations (SROs)** can be granted authority (e.g. exchanges).
+
+## Analyst lens
+- **Regulatory capture**: regulators serve the regulated industry's interests.
+- **Regulatory arbitrage**: firms exploit gaps/differences across jurisdictions.
+- Assess **costs vs. benefits** (compliance costs, unintended consequences). Regulation changes industry economics — barriers to entry, pricing, and risk — so it feeds directly into valuation and risk assessment.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa2-alternative-investments-commodities-m01",
+    topicId: "cfa2-alternative-investments-commodities",
+    title: "Commodities & Commodity Derivatives",
+    content: `Commodity **spot** exposure is hard to hold (storage), so investors use **futures**.
+
+## Total return of a futures position
+**Price return + roll return + collateral return.**
+- **Roll return** depends on the curve: **backwardation** (futures < spot) → **positive** roll yield as you roll up to spot; **contango** (futures > spot) → **negative** roll yield.
+
+## Pricing theories
+- **Insurance/hedging-pressure (Keynes)**: producers hedge by selling futures → futures sit below expected spot (normal backwardation).
+- **Theory of storage**: futures ≈ spot + storage cost − **convenience yield**. High convenience yield (tight supply) → backwardation.
+
+## Portfolio role
+- **Inflation hedge** and diversifier; commodities often rise with unexpected inflation when stocks/bonds fall.
+- No income/dividends; returns driven by supply-demand, the curve shape, and the **collateral** (cash) yield. Sub-sectors: energy, metals, agriculture, livestock.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa2-ethics-gips-m01",
+    topicId: "cfa2-ethics-gips",
+    title: "GIPS Standards",
+    content: `**GIPS** are voluntary, ethical standards for **fair representation and full disclosure** of investment performance.
+
+## Core rules
+- Compliance is **firm-wide** (all or nothing). Define the **firm** appropriately.
+- **Composites**: include **all actual fee-paying, discretionary** portfolios of a similar strategy — prevents cherry-picking and survivorship bias. Non-discretionary accounts are excluded.
+- Show a minimum of **5 years** (or since inception), building to **10**.
+- Returns are **time-weighted** (removing client cash-flow timing); present a **benchmark** and a measure of **dispersion**.
+
+## Other points
+- **Verification** is firm-wide, performed by an independent third party, and **recommended but not required**.
+- Must not present **false or misleading** performance; disclose fees, methodology, and significant events.
+- GIPS does not replace local law; where law conflicts, follow law and disclose. The standards reduce the information asymmetry between managers and prospective clients.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa2-corporate-issuers-mergers-acquisitions-m01",
+    topicId: "cfa2-corporate-issuers-mergers-acquisitions",
+    title: "Mergers, Acquisitions & Restructuring",
+    content: `## Types & motives
+- **Horizontal** (same industry — synergies/market power), **vertical** (supply chain), **conglomerate** (diversification).
+- Motives: **synergies**, growth, economies of scale, tax benefits, undervaluation. Beware **managerial hubris** and empire-building.
+
+## Payment & defenses
+- **Cash vs. stock** offer: stock shares risk with the target; cash transfers all risk/reward to the acquirer.
+- Takeover defenses: **poison pill, staggered board, golden parachute, white knight, greenmail, Pac-Man**.
+
+## Valuation of the deal
+- **DCF**, comparable companies, and **comparable transactions** (which include a control premium).
+- **Synergies** and the **premium** paid determine who wins: **Gains_target = premium**; **Gains_acquirer = synergies − premium**. Overpaying destroys acquirer value (the **winner's curse**).
+
+## Restructuring
+- **Divestitures, spin-offs, carve-outs, leveraged buyouts** — often to unlock value or refocus. Regulators review for **antitrust** (e.g. HHI concentration).`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa2-portfolio-management-trading-execution-m01",
+    topicId: "cfa2-portfolio-management-trading-execution",
+    title: "Trading, Execution & Rebalancing",
+    content: `## Execution costs
+- **Explicit** (commissions, fees, taxes) + **implicit** (bid-ask **spread**, **market impact**, **delay/slippage**, **opportunity cost** of unfilled orders).
+- **Implementation shortfall** = paper-portfolio return − actual return — the most complete cost measure. **VWAP** is a common benchmark.
+
+## Order types & algos
+- **Market** (immediacy, pays impact) vs. **limit** (price control, risks non-execution).
+- Algorithms: **VWAP/TWAP**, **implementation-shortfall** (balances impact vs. timing risk), and **liquidity-seeking**. Slice large orders to limit impact.
+
+## Rebalancing
+- **Calendar** vs. **percentage-range (corridor)**. Wider corridors for **higher transaction costs**, higher risk tolerance, and lower correlation; narrower for higher volatility.
+- Rebalancing is **contrarian** (sell winners, buy losers) and can earn a **diversification return**; it controls risk, not return.
+- Trade **urgency**: aggressive trades pay impact but cut timing risk; patient trades risk adverse price moves.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
   }
 ];
 
@@ -882,5 +1055,117 @@ export const expQuestions: Question[] = [
   { id: "cfa2-financial-reporting-income-taxes-q09", topicId: "cfa2-financial-reporting-income-taxes", text: "For analysis, a DTL expected to keep growing and never reverse is often treated as:", optionA: "Debt", optionB: "Equity", optionC: "A current asset", optionD: "Revenue", correctOption: "B", explanation: "If a DTL is not expected to reverse, analysts may reclassify it toward equity rather than a liability.", orderIndex: 8 },
   { id: "cfa2-financial-reporting-income-taxes-q10", topicId: "cfa2-financial-reporting-income-taxes", text: "Permanent differences affect a company's:", optionA: "Deferred tax balances", optionB: "Effective tax rate", optionC: "Revenue recognition", optionD: "Inventory method", correctOption: "B", explanation: "Because they never reverse, permanent differences change the effective tax rate, not deferred taxes.", orderIndex: 9 },
   { id: "cfa2-financial-reporting-income-taxes-q11", topicId: "cfa2-financial-reporting-income-taxes", text: "A warranty expense accrued for books but deductible only when paid creates a:", optionA: "Deferred tax liability", optionB: "Deferred tax asset", optionC: "Permanent difference", optionD: "Goodwill", correctOption: "B", explanation: "Book expense recognized before the tax deduction means more tax is paid now, creating a DTA that reverses when paid.", orderIndex: 10 },
-  { id: "cfa2-financial-reporting-income-taxes-q12", topicId: "cfa2-financial-reporting-income-taxes", text: "Deferred tax assets and liabilities are measured using the:", optionA: "Historical tax rate", optionB: "Tax rate expected to apply when the difference reverses", optionC: "Risk-free rate", optionD: "Average industry rate", correctOption: "B", explanation: "Deferred taxes use the enacted/expected future tax rate applicable when the temporary difference reverses.", orderIndex: 11 }
+  { id: "cfa2-financial-reporting-income-taxes-q12", topicId: "cfa2-financial-reporting-income-taxes", text: "Deferred tax assets and liabilities are measured using the:", optionA: "Historical tax rate", optionB: "Tax rate expected to apply when the difference reverses", optionC: "Risk-free rate", optionD: "Average industry rate", correctOption: "B", explanation: "Deferred taxes use the enacted/expected future tax rate applicable when the temporary difference reverses.", orderIndex: 11 },
+
+  // Industry & competitive analysis
+  { id: "cfa2-equity-industry-analysis-q01", topicId: "cfa2-equity-industry-analysis", text: "Porter's Five Forces include rivalry, new entrants, substitutes, supplier power and:", optionA: "Buyer (customer) power", optionB: "Inflation", optionC: "The risk-free rate", optionD: "Dividend policy", correctOption: "A", explanation: "The fifth force is the bargaining power of buyers/customers.", orderIndex: 0 },
+  { id: "cfa2-equity-industry-analysis-q02", topicId: "cfa2-equity-industry-analysis", text: "A defensive (non-cyclical) industry is characterized by demand that is:", optionA: "Highly sensitive to the business cycle", optionB: "Relatively stable across the business cycle", optionC: "Always declining", optionD: "Zero", correctOption: "B", explanation: "Defensive industries (e.g., utilities, staples) have stable demand regardless of the economic cycle.", orderIndex: 1 },
+  { id: "cfa2-equity-industry-analysis-q03", topicId: "cfa2-equity-industry-analysis", text: "In the growth stage of the industry life cycle, firms typically experience:", optionA: "Declining demand", optionB: "Rapid demand growth and often falling prices", optionC: "Stable mature margins", optionD: "Liquidation", correctOption: "B", explanation: "The growth phase sees fast volume growth, new entrants, and price declines as scale builds.", orderIndex: 2 },
+  { id: "cfa2-equity-industry-analysis-q04", topicId: "cfa2-equity-industry-analysis", text: "High barriers to entry tend to:", optionA: "Reduce incumbents' pricing power", optionB: "Protect incumbents and support higher, more durable margins", optionC: "Guarantee losses", optionD: "Eliminate rivalry", correctOption: "B", explanation: "Entry barriers shield incumbents from new competition, supporting profitability.", orderIndex: 3 },
+  { id: "cfa2-equity-industry-analysis-q05", topicId: "cfa2-equity-industry-analysis", text: "A highly concentrated industry (few large players) generally has:", optionA: "Less pricing power", optionB: "More pricing power", optionC: "No competitive advantage", optionD: "Zero margins", correctOption: "B", explanation: "Fewer competitors typically means greater pricing power and less destructive rivalry.", orderIndex: 4 },
+  { id: "cfa2-equity-industry-analysis-q06", topicId: "cfa2-equity-industry-analysis", text: "Porter's generic competitive strategies are cost leadership, focus and:", optionA: "Differentiation", optionB: "Diversification", optionC: "Vertical integration", optionD: "Hedging", correctOption: "A", explanation: "The three generic strategies are cost leadership, differentiation, and focus.", orderIndex: 5 },
+  { id: "cfa2-equity-industry-analysis-q07", topicId: "cfa2-equity-industry-analysis", text: "The experience (learning) curve implies that unit costs:", optionA: "Rise with cumulative output", optionB: "Fall with cumulative output", optionC: "Are constant", optionD: "Are random", correctOption: "B", explanation: "Cumulative production experience lowers unit costs, advantaging high-volume incumbents.", orderIndex: 6 },
+  { id: "cfa2-equity-industry-analysis-q08", topicId: "cfa2-equity-industry-analysis", text: "A firm can sustain returns above its cost of capital only with a durable:", optionA: "Dividend", optionB: "Competitive advantage (moat)", optionC: "Share buyback", optionD: "Tax loss", correctOption: "B", explanation: "Without a moat, competition erodes excess returns toward the cost of capital.", orderIndex: 7 },
+  { id: "cfa2-equity-industry-analysis-q09", topicId: "cfa2-equity-industry-analysis", text: "Strong supplier power in an industry tends to:", optionA: "Raise input costs and squeeze margins", optionB: "Lower input costs", optionC: "Have no effect", optionD: "Eliminate rivalry", correctOption: "A", explanation: "Powerful suppliers can charge more, compressing the industry's profitability.", orderIndex: 8 },
+  { id: "cfa2-equity-industry-analysis-q10", topicId: "cfa2-equity-industry-analysis", text: "The threat of substitutes is greatest when:", optionA: "Substitutes are costly and inferior", optionB: "Close substitutes are cheap and readily available", optionC: "There are no substitutes", optionD: "Switching costs are high", correctOption: "B", explanation: "Cheap, comparable substitutes cap prices and limit industry profitability.", orderIndex: 9 },
+  { id: "cfa2-equity-industry-analysis-q11", topicId: "cfa2-equity-industry-analysis", text: "Industry analysis feeds equity valuation primarily by informing forecasts of:", optionA: "Revenue growth, margins and reinvestment", optionB: "The risk-free rate", optionC: "The number of shares", optionD: "Dividend dates", correctOption: "A", explanation: "Industry structure shapes the revenue, margin, and reinvestment assumptions in a DCF.", orderIndex: 10 },
+  { id: "cfa2-equity-industry-analysis-q12", topicId: "cfa2-equity-industry-analysis", text: "A mature-stage industry is typically characterized by:", optionA: "Explosive growth", optionB: "Consolidation and stable margins", optionC: "No competition", optionD: "Rapid new entry", correctOption: "B", explanation: "Maturity brings slower growth, consolidation, and relatively stable margins among survivors.", orderIndex: 11 },
+
+  // Option strategies & Greeks
+  { id: "cfa2-derivatives-option-strategies-q01", topicId: "cfa2-derivatives-option-strategies", text: "A covered call position consists of:", optionA: "Long stock and a short call", optionB: "Long stock and a long put", optionC: "Two long calls", optionD: "A short put only", correctOption: "A", explanation: "A covered call is long the underlying plus a written (short) call, earning premium while capping upside.", orderIndex: 0 },
+  { id: "cfa2-derivatives-option-strategies-q02", topicId: "cfa2-derivatives-option-strategies", text: "A protective put provides:", optionA: "Income with capped upside", optionB: "A downside floor while keeping upside", optionC: "Unlimited downside", optionD: "No effect on risk", correctOption: "B", explanation: "Buying a put on a held asset sets a loss floor while retaining upside (less the premium).", orderIndex: 1 },
+  { id: "cfa2-derivatives-option-strategies-q03", topicId: "cfa2-derivatives-option-strategies", text: "A long straddle profits when the underlying:", optionA: "Stays flat", optionB: "Makes a large move in either direction", optionC: "Rises only", optionD: "Pays a dividend", correctOption: "B", explanation: "A long straddle (call + put at the same strike) is long volatility and gains on large moves up or down.", orderIndex: 2 },
+  { id: "cfa2-derivatives-option-strategies-q04", topicId: "cfa2-derivatives-option-strategies", text: "A collar combines a long put and a:", optionA: "Short call (to finance the put)", optionB: "Long call", optionC: "Short stock", optionD: "Long bond", correctOption: "A", explanation: "A collar buys a protective put and sells a call to offset its cost, bounding both downside and upside.", orderIndex: 3 },
+  { id: "cfa2-derivatives-option-strategies-q05", topicId: "cfa2-derivatives-option-strategies", text: "Delta measures option sensitivity to a change in:", optionA: "Volatility", optionB: "The underlying's price", optionC: "Time", optionD: "Interest rates", correctOption: "B", explanation: "Delta is the change in option value per unit change in the underlying — the hedge ratio.", orderIndex: 4 },
+  { id: "cfa2-derivatives-option-strategies-q06", topicId: "cfa2-derivatives-option-strategies", text: "Vega is largest for options that are:", optionA: "Deep in the money and short-dated", optionB: "At the money and longer-dated", optionC: "Already expired", optionD: "Deep out of the money", correctOption: "B", explanation: "Vega (volatility sensitivity) peaks for at-the-money, longer-maturity options.", orderIndex: 5 },
+  { id: "cfa2-derivatives-option-strategies-q07", topicId: "cfa2-derivatives-option-strategies", text: "Theta generally represents an option's:", optionA: "Gain from volatility", optionB: "Time decay (loss of value as expiry nears)", optionC: "Rate sensitivity", optionD: "Delta", correctOption: "B", explanation: "Theta measures the erosion of option value with the passage of time.", orderIndex: 6 },
+  { id: "cfa2-derivatives-option-strategies-q08", topicId: "cfa2-derivatives-option-strategies", text: "A bull call spread is constructed by:", optionA: "Buying a lower-strike call and selling a higher-strike call", optionB: "Selling both calls", optionC: "Buying two puts", optionD: "Shorting the stock", correctOption: "A", explanation: "A bull call spread buys a lower-strike call and writes a higher-strike call — bullish, with limited risk and reward.", orderIndex: 7 },
+  { id: "cfa2-derivatives-option-strategies-q09", topicId: "cfa2-derivatives-option-strategies", text: "A long butterfly spread profits most when the underlying:", optionA: "Moves sharply", optionB: "Stays near the middle strike at expiry", optionC: "Falls to zero", optionD: "Doubles", correctOption: "B", explanation: "A long butterfly is a short-volatility strategy that pays off when the price stays near the central strike.", orderIndex: 8 },
+  { id: "cfa2-derivatives-option-strategies-q10", topicId: "cfa2-derivatives-option-strategies", text: "Gamma is largest for options that are:", optionA: "At the money near expiration", optionB: "Deep in the money", optionC: "Long-dated and far OTM", optionD: "Expired", correctOption: "A", explanation: "Gamma (rate of change of delta) peaks for at-the-money options close to expiry.", orderIndex: 9 },
+  { id: "cfa2-derivatives-option-strategies-q11", topicId: "cfa2-derivatives-option-strategies", text: "A covered call's maximum gain occurs when the stock at expiry is:", optionA: "Far below the strike", optionB: "At or above the call's strike", optionC: "Zero", optionD: "Irrelevant", correctOption: "B", explanation: "Upside is capped at the strike; max gain = (strike − purchase price) + premium received.", orderIndex: 10 },
+  { id: "cfa2-derivatives-option-strategies-q12", topicId: "cfa2-derivatives-option-strategies", text: "A delta-neutral hedge must be rebalanced because of:", optionA: "Rho", optionB: "Gamma (delta changes as the underlying moves)", optionC: "Theta only", optionD: "The strike price", correctOption: "B", explanation: "Gamma causes delta to change with the underlying, so a static hedge drifts and needs dynamic rebalancing.", orderIndex: 11 },
+
+  // Simulation & probabilistic methods
+  { id: "cfa2-quantitative-methods-simulation-q01", topicId: "cfa2-quantitative-methods-simulation", text: "Monte Carlo simulation produces a:", optionA: "Single point estimate", optionB: "Distribution of possible outcomes", optionC: "Risk-free rate", optionD: "Closed-form solution", correctOption: "B", explanation: "By running many random scenarios, Monte Carlo builds a full distribution of outcomes.", orderIndex: 0 },
+  { id: "cfa2-quantitative-methods-simulation-q02", topicId: "cfa2-quantitative-methods-simulation", text: "A key limitation of Monte Carlo simulation is that it:", optionA: "Cannot handle complexity", optionB: "Is only as reliable as its input assumptions", optionC: "Requires no data", optionD: "Gives an analytical answer", correctOption: "B", explanation: "Results depend entirely on the assumed input distributions and relationships ('garbage in, garbage out').", orderIndex: 1 },
+  { id: "cfa2-quantitative-methods-simulation-q03", topicId: "cfa2-quantitative-methods-simulation", text: "Monte Carlo is especially valuable for valuing instruments with:", optionA: "Linear payoffs only", optionB: "Complex, path-dependent or non-linear payoffs", optionC: "No risk", optionD: "Fixed coupons", correctOption: "B", explanation: "Simulation handles path-dependency and non-linearity that closed-form models cannot easily address.", orderIndex: 2 },
+  { id: "cfa2-quantitative-methods-simulation-q04", topicId: "cfa2-quantitative-methods-simulation", text: "Bootstrapping estimates a sampling distribution by:", optionA: "Assuming normality", optionB: "Repeatedly resampling, with replacement, from observed data", optionC: "Using a single sample once", optionD: "Ignoring the data", correctOption: "B", explanation: "Bootstrapping resamples the observed data many times to approximate the sampling distribution and standard errors.", orderIndex: 3 },
+  { id: "cfa2-quantitative-methods-simulation-q05", topicId: "cfa2-quantitative-methods-simulation", text: "Historical simulation differs from Monte Carlo in that it:", optionA: "Assumes a parametric distribution", optionB: "Resamples actual past data without a distribution assumption", optionC: "Cannot use real data", optionD: "Is purely analytical", correctOption: "B", explanation: "Historical simulation reuses the empirical distribution of past observations rather than a modeled one.", orderIndex: 4 },
+  { id: "cfa2-quantitative-methods-simulation-q06", topicId: "cfa2-quantitative-methods-simulation", text: "Bayes' formula is used to:", optionA: "Update a prior probability with new evidence", optionB: "Compute duration", optionC: "Estimate beta", optionD: "Price a bond", correctOption: "A", explanation: "Bayes' rule revises a prior probability given new information: P(A|B) = P(B|A)P(A)/P(B).", orderIndex: 5 },
+  { id: "cfa2-quantitative-methods-simulation-q07", topicId: "cfa2-quantitative-methods-simulation", text: "Sensitivity analysis differs from scenario analysis in that sensitivity analysis:", optionA: "Changes many inputs at once", optionB: "Varies one input at a time", optionC: "Uses no inputs", optionD: "Is a simulation", correctOption: "B", explanation: "Sensitivity analysis changes a single variable; scenario analysis changes a coherent set of variables together.", orderIndex: 6 },
+  { id: "cfa2-quantitative-methods-simulation-q08", topicId: "cfa2-quantitative-methods-simulation", text: "Ignoring correlations among inputs in a simulation will most likely:", optionA: "Have no effect", optionB: "Misstate the portfolio's risk", optionC: "Eliminate risk", optionD: "Guarantee accuracy", correctOption: "B", explanation: "Correlations drive aggregate risk; omitting them biases the simulated outcome distribution.", orderIndex: 7 },
+  { id: "cfa2-quantitative-methods-simulation-q09", topicId: "cfa2-quantitative-methods-simulation", text: "Increasing the number of Monte Carlo trials primarily improves:", optionA: "The validity of the assumptions", optionB: "The convergence/precision of the estimate", optionC: "The input data quality", optionD: "The risk-free rate", correctOption: "B", explanation: "More trials reduce simulation noise so the estimate converges, but cannot fix flawed assumptions.", orderIndex: 8 },
+  { id: "cfa2-quantitative-methods-simulation-q10", topicId: "cfa2-quantitative-methods-simulation", text: "A retirement-wealth projection that accounts for uncertain returns is best done with:", optionA: "A single deterministic forecast", optionB: "Monte Carlo simulation", optionC: "A coupon calculation", optionD: "A trend line", correctOption: "B", explanation: "Monte Carlo captures the distribution of possible wealth paths under uncertain returns.", orderIndex: 9 },
+  { id: "cfa2-quantitative-methods-simulation-q11", topicId: "cfa2-quantitative-methods-simulation", text: "An advantage of Monte Carlo over an analytical (closed-form) model is its ability to:", optionA: "Always be faster", optionB: "Incorporate many interacting variables and constraints flexibly", optionC: "Avoid assumptions entirely", optionD: "Guarantee the true answer", correctOption: "B", explanation: "Simulation flexibly models complex, multi-variable problems that lack tractable closed-form solutions.", orderIndex: 10 },
+  { id: "cfa2-quantitative-methods-simulation-q12", topicId: "cfa2-quantitative-methods-simulation", text: "In Monte Carlo, random draws are generated from:", optionA: "The realized future", optionB: "Specified probability distributions for the inputs", optionC: "A single historical value", optionD: "The benchmark only", correctOption: "B", explanation: "Each input is sampled from an assumed probability distribution to create scenarios.", orderIndex: 11 },
+
+  // Economics of regulation
+  { id: "cfa2-economics-regulation-q01", topicId: "cfa2-economics-regulation", text: "A natural monopoly is a market failure best addressed by:", optionA: "Encouraging many small entrants", optionB: "Price/economic regulation of the single efficient provider", optionC: "Banning the product", optionD: "No intervention", correctOption: "B", explanation: "When one provider is most efficient, regulators often control prices/entry rather than force competition.", orderIndex: 0 },
+  { id: "cfa2-economics-regulation-q02", topicId: "cfa2-economics-regulation", text: "An externality is an example of a:", optionA: "Market failure justifying regulation", optionB: "Perfectly efficient market", optionC: "Tax shelter", optionD: "Risk-free asset", correctOption: "A", explanation: "Externalities (costs/benefits not borne by the transacting parties) are a classic rationale for regulation.", orderIndex: 1 },
+  { id: "cfa2-economics-regulation-q03", topicId: "cfa2-economics-regulation", text: "'Regulatory capture' describes a situation where regulators:", optionA: "Serve the public exclusively", optionB: "Come to serve the interests of the regulated industry", optionC: "Are abolished", optionD: "Set zero rules", correctOption: "B", explanation: "Capture occurs when the regulated industry unduly influences its regulator's decisions.", orderIndex: 2 },
+  { id: "cfa2-economics-regulation-q04", topicId: "cfa2-economics-regulation", text: "Firms exploiting differences in rules across jurisdictions engage in:", optionA: "Regulatory arbitrage", optionB: "Tax-loss harvesting", optionC: "Index rebalancing", optionD: "Greenmail", correctOption: "A", explanation: "Regulatory arbitrage shifts activity to where rules are most favorable.", orderIndex: 3 },
+  { id: "cfa2-economics-regulation-q05", topicId: "cfa2-economics-regulation", text: "Prudential regulation primarily aims to ensure the:", optionA: "Safety and soundness of financial institutions", optionB: "Maximum number of competitors", optionC: "Lowest possible prices", optionD: "Highest taxes", correctOption: "A", explanation: "Prudential regulation focuses on the stability/solvency of financial firms and the system.", orderIndex: 4 },
+  { id: "cfa2-economics-regulation-q06", topicId: "cfa2-economics-regulation", text: "A self-regulating organization (SRO) is one that:", optionA: "Has no authority", optionB: "Is granted regulatory authority over its members (e.g., an exchange)", optionC: "Replaces all government", optionD: "Only sets taxes", correctOption: "B", explanation: "SROs (like exchanges) are private bodies delegated authority to regulate their members.", orderIndex: 5 },
+  { id: "cfa2-economics-regulation-q07", topicId: "cfa2-economics-regulation", text: "Disclosure requirements address which market failure?", optionA: "Natural monopoly", optionB: "Information asymmetry", optionC: "Public goods", optionD: "Externalities", correctOption: "B", explanation: "Mandatory disclosure reduces information asymmetry between firms and investors/consumers.", orderIndex: 6 },
+  { id: "cfa2-economics-regulation-q08", topicId: "cfa2-economics-regulation", text: "When assessing a regulation, analysts weigh its benefits against its:", optionA: "Compliance costs and unintended consequences", optionB: "Dividend yield", optionC: "Beta", optionD: "Coupon", correctOption: "A", explanation: "Sound regulatory analysis is cost-benefit, accounting for compliance burdens and side effects.", orderIndex: 7 },
+  { id: "cfa2-economics-regulation-q09", topicId: "cfa2-economics-regulation", text: "Regulation that raises barriers to entry tends to:", optionA: "Reduce incumbents' profitability", optionB: "Protect incumbents' pricing power", optionC: "Have no valuation impact", optionD: "Lower all prices", correctOption: "B", explanation: "Higher regulatory entry barriers can shield incumbents, affecting industry economics and valuation.", orderIndex: 8 },
+  { id: "cfa2-economics-regulation-q10", topicId: "cfa2-economics-regulation", text: "A public good (e.g., national defense) is under-provided by markets because it is:", optionA: "Excludable and rival", optionB: "Non-excludable and non-rival", optionC: "Highly profitable", optionD: "Easy to price", correctOption: "B", explanation: "Non-excludable, non-rival goods invite free-riding, so markets under-provide them — a regulation rationale.", orderIndex: 9 },
+  { id: "cfa2-economics-regulation-q11", topicId: "cfa2-economics-regulation", text: "Administrative regulations are issued by:", optionA: "Legislatures", optionB: "Government agencies", optionC: "Courts", optionD: "Shareholders", correctOption: "B", explanation: "Agencies issue administrative regulations under authority delegated by statute.", orderIndex: 10 },
+  { id: "cfa2-economics-regulation-q12", topicId: "cfa2-economics-regulation", text: "From an investment standpoint, a major regulatory change is significant because it:", optionA: "Never affects companies", optionB: "Can alter industry structure, costs and risk — hence valuation", optionC: "Only changes accounting", optionD: "Is irrelevant to risk", correctOption: "B", explanation: "Regulation reshapes barriers, pricing, and risk, feeding directly into cash-flow and discount-rate assumptions.", orderIndex: 11 },
+
+  // Commodities & commodity derivatives
+  { id: "cfa2-alternative-investments-commodities-q01", topicId: "cfa2-alternative-investments-commodities", text: "Most commodity investors gain exposure through:", optionA: "Holding the physical spot commodity", optionB: "Futures contracts", optionC: "Dividends", optionD: "Coupons", correctOption: "B", explanation: "Because physical storage is costly/impractical, investors usually use commodity futures.", orderIndex: 0 },
+  { id: "cfa2-alternative-investments-commodities-q02", topicId: "cfa2-alternative-investments-commodities", text: "The total return of a commodity futures position is price return, collateral return and:", optionA: "Roll return", optionB: "Dividend return", optionC: "Coupon return", optionD: "Tax return", correctOption: "A", explanation: "Futures total return = price return + roll return + collateral (cash) return.", orderIndex: 1 },
+  { id: "cfa2-alternative-investments-commodities-q03", topicId: "cfa2-alternative-investments-commodities", text: "A market in backwardation (futures below spot) produces a roll return that is:", optionA: "Positive", optionB: "Negative", optionC: "Zero", optionD: "Undefined", correctOption: "A", explanation: "Rolling up toward a higher spot in backwardation generates a positive roll yield.", orderIndex: 2 },
+  { id: "cfa2-alternative-investments-commodities-q04", topicId: "cfa2-alternative-investments-commodities", text: "Contango (futures above spot) generates a roll return that is:", optionA: "Positive", optionB: "Negative", optionC: "Zero", optionD: "Equal to the coupon", correctOption: "B", explanation: "Rolling into successively cheaper-to-hold-but-higher-priced contracts in contango creates a negative roll yield.", orderIndex: 3 },
+  { id: "cfa2-alternative-investments-commodities-q05", topicId: "cfa2-alternative-investments-commodities", text: "The theory of storage relates futures prices to spot plus storage cost minus the:", optionA: "Convenience yield", optionB: "Dividend yield", optionC: "Risk-free rate", optionD: "Beta", correctOption: "A", explanation: "Futures ≈ spot + storage − convenience yield; a high convenience yield pushes toward backwardation.", orderIndex: 4 },
+  { id: "cfa2-alternative-investments-commodities-q06", topicId: "cfa2-alternative-investments-commodities", text: "The insurance/hedging-pressure theory suggests producers selling futures cause prices to sit:", optionA: "Above expected spot", optionB: "Below expected future spot (normal backwardation)", optionC: "At the risk-free rate", optionD: "At zero", correctOption: "B", explanation: "Producer hedging pressure depresses futures below the expected spot, compensating long speculators.", orderIndex: 5 },
+  { id: "cfa2-alternative-investments-commodities-q07", topicId: "cfa2-alternative-investments-commodities", text: "Commodities are often added to portfolios as a(n):", optionA: "Inflation hedge and diversifier", optionB: "Source of dividends", optionC: "Risk-free asset", optionD: "Duration hedge", correctOption: "A", explanation: "Commodities tend to rise with unexpected inflation and diversify stock/bond portfolios.", orderIndex: 6 },
+  { id: "cfa2-alternative-investments-commodities-q08", topicId: "cfa2-alternative-investments-commodities", text: "Unlike stocks and bonds, commodities provide:", optionA: "No income (dividends or coupons)", optionB: "Guaranteed coupons", optionC: "Voting rights", optionD: "A fixed maturity value", correctOption: "A", explanation: "Commodities generate no cash income; return comes from price, roll, and collateral yield.", orderIndex: 7 },
+  { id: "cfa2-alternative-investments-commodities-q09", topicId: "cfa2-alternative-investments-commodities", text: "The collateral return component of a futures strategy comes from:", optionA: "The cash held to back the futures", optionB: "Dividends on the commodity", optionC: "The convenience yield", optionD: "Storage costs", correctOption: "A", explanation: "Futures require little cash outlay, so the backing collateral earns a (cash/T-bill) yield.", orderIndex: 8 },
+  { id: "cfa2-alternative-investments-commodities-q10", topicId: "cfa2-alternative-investments-commodities", text: "A high convenience yield typically signals:", optionA: "Abundant supply and contango", optionB: "Tight supply and a tendency toward backwardation", optionC: "Zero demand", optionD: "Negative prices", correctOption: "B", explanation: "Scarcity raises the convenience yield of holding the physical, pushing the curve toward backwardation.", orderIndex: 9 },
+  { id: "cfa2-alternative-investments-commodities-q11", topicId: "cfa2-alternative-investments-commodities", text: "Commodity returns are primarily driven by:", optionA: "Dividend policy", optionB: "Supply-demand dynamics and the futures-curve shape", optionC: "Share buybacks", optionD: "Credit ratings", correctOption: "B", explanation: "Physical supply/demand and the resulting curve (roll yield) drive commodity futures returns.", orderIndex: 10 },
+  { id: "cfa2-alternative-investments-commodities-q12", topicId: "cfa2-alternative-investments-commodities", text: "Major commodity sub-sectors include energy, metals, livestock and:", optionA: "Agriculture", optionB: "Equities", optionC: "Government bonds", optionD: "Currencies", correctOption: "A", explanation: "Commodity indices span energy, industrial/precious metals, agriculture, and livestock.", orderIndex: 11 },
+
+  // GIPS standards
+  { id: "cfa2-ethics-gips-q01", topicId: "cfa2-ethics-gips", text: "GIPS compliance is claimed on a:", optionA: "Composite basis", optionB: "Firm-wide basis", optionC: "Per-client basis", optionD: "Per-security basis", correctOption: "B", explanation: "A firm either complies with GIPS firm-wide or not at all; partial compliance is prohibited.", orderIndex: 0 },
+  { id: "cfa2-ethics-gips-q02", topicId: "cfa2-ethics-gips", text: "A GIPS composite must include all:", optionA: "Best-performing portfolios", optionB: "Actual fee-paying, discretionary portfolios of a similar strategy", optionC: "Model portfolios", optionD: "Terminated accounts only", correctOption: "B", explanation: "Composites group every actual fee-paying discretionary portfolio of a strategy to prevent cherry-picking.", orderIndex: 1 },
+  { id: "cfa2-ethics-gips-q03", topicId: "cfa2-ethics-gips", text: "GIPS requires performance to be reported using ____ returns.", optionA: "Money-weighted", optionB: "Time-weighted", optionC: "Simple price", optionD: "Nominal coupon", correctOption: "B", explanation: "Time-weighted returns remove the effect of client cash-flow timing, the GIPS default.", orderIndex: 2 },
+  { id: "cfa2-ethics-gips-q04", topicId: "cfa2-ethics-gips", text: "When first claiming compliance, a firm must show at least ____ of compliant history.", optionA: "1 year", optionB: "5 years (or since inception)", optionC: "20 years", optionD: "No history", correctOption: "B", explanation: "A minimum of five years (or since inception) is required, building toward ten years.", orderIndex: 3 },
+  { id: "cfa2-ethics-gips-q05", topicId: "cfa2-ethics-gips", text: "GIPS verification is:", optionA: "Mandatory", optionB: "Voluntary, firm-wide, and performed by an independent third party", optionC: "Done per composite by CFA Institute", optionD: "Prohibited", correctOption: "B", explanation: "Verification is recommended (not required), covers the whole firm, and is done by an independent verifier.", orderIndex: 4 },
+  { id: "cfa2-ethics-gips-q06", topicId: "cfa2-ethics-gips", text: "Non-discretionary portfolios are:", optionA: "Required in composites", optionB: "Excluded from composites", optionC: "The only ones included", optionD: "Reported separately as fact", correctOption: "B", explanation: "Only discretionary portfolios belong in composites; client-imposed constraints make accounts non-discretionary.", orderIndex: 5 },
+  { id: "cfa2-ethics-gips-q07", topicId: "cfa2-ethics-gips", text: "The primary purpose of GIPS is to ensure:", optionA: "Higher returns", optionB: "Fair representation and full disclosure of performance", optionC: "Lower fees", optionD: "Tax efficiency", correctOption: "B", explanation: "GIPS standardizes performance presentation for fairness and transparency to prospective clients.", orderIndex: 6 },
+  { id: "cfa2-ethics-gips-q08", topicId: "cfa2-ethics-gips", text: "Including only the firm's surviving, successful portfolios would introduce:", optionA: "Survivorship bias (which GIPS prevents via composites)", optionB: "No bias", optionC: "A tax", optionD: "A discount", correctOption: "A", explanation: "Composite construction including all relevant portfolios prevents survivorship and selection bias.", orderIndex: 7 },
+  { id: "cfa2-ethics-gips-q09", topicId: "cfa2-ethics-gips", text: "GIPS presentations must include a benchmark and a measure of:", optionA: "Dispersion", optionB: "Beta only", optionC: "Duration", optionD: "Tax rate", correctOption: "A", explanation: "Composites show an appropriate benchmark and internal dispersion of portfolio returns.", orderIndex: 8 },
+  { id: "cfa2-ethics-gips-q10", topicId: "cfa2-ethics-gips", text: "Presenting deliberately misleading performance figures:", optionA: "Is allowed if disclosed", optionB: "Violates GIPS' fair-representation principle", optionC: "Is required", optionD: "Has no consequence", correctOption: "B", explanation: "GIPS prohibits false or misleading performance and requires full, fair disclosure.", orderIndex: 9 },
+  { id: "cfa2-ethics-gips-q11", topicId: "cfa2-ethics-gips", text: "If local law conflicts with GIPS, a firm should:", optionA: "Ignore the law", optionB: "Follow the law and disclose the conflict", optionC: "Abandon GIPS entirely", optionD: "Do nothing", correctOption: "B", explanation: "Where law conflicts with GIPS, comply with law and disclose the conflict.", orderIndex: 10 },
+  { id: "cfa2-ethics-gips-q12", topicId: "cfa2-ethics-gips", text: "GIPS standards are best described as:", optionA: "Mandatory regulations", optionB: "Voluntary ethical performance-presentation standards", optionC: "Tax rules", optionD: "Accounting principles", correctOption: "B", explanation: "GIPS are voluntary, ethical standards for presenting investment performance.", orderIndex: 11 },
+
+  // Mergers, acquisitions & restructuring
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q01", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "A merger between two firms in the same industry and stage of production is:", optionA: "Vertical", optionB: "Horizontal", optionC: "Conglomerate", optionD: "A spin-off", correctOption: "B", explanation: "Horizontal mergers combine competitors in the same business, often for synergies or market power.", orderIndex: 0 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q02", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "A vertical merger combines firms that are:", optionA: "Direct competitors", optionB: "At different stages of the same supply chain", optionC: "In unrelated industries", optionD: "Identical", correctOption: "B", explanation: "Vertical mergers join a company with a supplier or customer along its value chain.", orderIndex: 1 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q03", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "In an all-stock deal, the target shareholders:", optionA: "Bear none of the deal risk", optionB: "Share in the combined firm's risk and reward", optionC: "Receive only cash", optionD: "Lose all upside", correctOption: "B", explanation: "Stock consideration gives target holders an ongoing stake, sharing post-merger risk/reward with the acquirer.", orderIndex: 2 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q04", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "A 'poison pill' is a:", optionA: "Takeover defense that makes acquisition more costly", optionB: "Type of dividend", optionC: "Accounting method", optionD: "Synergy estimate", correctOption: "A", explanation: "A poison pill lets existing holders buy shares cheaply if a raider crosses a threshold, deterring hostile bids.", orderIndex: 3 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q05", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "The gain to target shareholders in an acquisition is generally the:", optionA: "Premium paid over the pre-bid price", optionB: "Entire synergy", optionC: "Acquirer's market cap", optionD: "Risk-free rate", correctOption: "A", explanation: "Target holders capture the takeover premium; acquirer gains = synergies − premium.", orderIndex: 4 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q06", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "The 'winner's curse' in M&A refers to:", optionA: "Underpaying for a target", optionB: "Overpaying such that the premium exceeds the synergies", optionC: "Avoiding all deals", optionD: "Paying in cash", correctOption: "B", explanation: "Aggressive bidding can lead the acquirer to overpay, destroying its own shareholders' value.", orderIndex: 5 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q07", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "Comparable transaction analysis includes a control premium because it uses:", optionA: "Minority public prices", optionB: "Prices actually paid to acquire whole companies", optionC: "Book values", optionD: "Risk-free rates", correctOption: "B", explanation: "Transaction comps reflect prices paid for control, so they embed a control premium.", orderIndex: 6 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q08", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "A spin-off is a form of:", optionA: "Acquisition", optionB: "Corporate restructuring/divestiture", optionC: "Dividend reinvestment", optionD: "Stock split", correctOption: "B", explanation: "A spin-off separates a business unit into an independent company — a restructuring/divestiture.", orderIndex: 7 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q09", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "Antitrust regulators assess a horizontal merger partly using the:", optionA: "Herfindahl-Hirschman Index (HHI)", optionB: "Sharpe ratio", optionC: "Dividend yield", optionD: "Duration", correctOption: "A", explanation: "The HHI measures market concentration; large increases can trigger antitrust scrutiny.", orderIndex: 8 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q10", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "Managerial 'hubris' as a merger motive tends to:", optionA: "Increase deal discipline", optionB: "Lead to overpaying for targets", optionC: "Reduce premiums", optionD: "Improve synergies", correctOption: "B", explanation: "Overconfident managers may overestimate synergies and overpay, harming acquirer value.", orderIndex: 9 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q11", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "Inviting a friendly 'white knight' is a response to a:", optionA: "Dividend cut", optionB: "Hostile takeover bid", optionC: "Stock split", optionD: "Bond default", correctOption: "B", explanation: "A white knight is a preferred acquirer sought to fend off a hostile bidder.", orderIndex: 10 },
+  { id: "cfa2-corporate-issuers-mergers-acquisitions-q12", topicId: "cfa2-corporate-issuers-mergers-acquisitions", text: "A cash offer, versus a stock offer, transfers more of the deal's risk and reward to the:", optionA: "Target shareholders", optionB: "Acquirer", optionC: "Regulators", optionD: "Bondholders", correctOption: "B", explanation: "With cash, target holders exit at a fixed price and the acquirer bears all subsequent risk/reward.", orderIndex: 11 },
+
+  // Trading, execution & rebalancing
+  { id: "cfa2-portfolio-management-trading-execution-q01", topicId: "cfa2-portfolio-management-trading-execution", text: "Which is an implicit trading cost?", optionA: "Commission", optionB: "Market impact", optionC: "Exchange fee", optionD: "Transaction tax", correctOption: "B", explanation: "Market impact is implicit; commissions, fees and taxes are explicit costs.", orderIndex: 0 },
+  { id: "cfa2-portfolio-management-trading-execution-q02", topicId: "cfa2-portfolio-management-trading-execution", text: "Implementation shortfall measures the gap between:", optionA: "Two benchmarks", optionB: "A paper-portfolio return and the actual executed return", optionC: "Beta and alpha", optionD: "Bid and ask only", correctOption: "B", explanation: "Implementation shortfall captures total cost as the difference between a decision-price portfolio and the real one.", orderIndex: 1 },
+  { id: "cfa2-portfolio-management-trading-execution-q03", topicId: "cfa2-portfolio-management-trading-execution", text: "A market order prioritizes:", optionA: "Price control", optionB: "Immediacy of execution (at the cost of impact)", optionC: "Avoiding execution", optionD: "Zero cost", correctOption: "B", explanation: "Market orders execute immediately but pay the spread/impact; limit orders control price but risk non-execution.", orderIndex: 2 },
+  { id: "cfa2-portfolio-management-trading-execution-q04", topicId: "cfa2-portfolio-management-trading-execution", text: "A limit order's main risk is:", optionA: "Paying high impact", optionB: "Non-execution if the price isn't reached", optionC: "Immediate fill", optionD: "Zero risk", correctOption: "B", explanation: "Limit orders may not fill, creating opportunity cost if the price moves away.", orderIndex: 3 },
+  { id: "cfa2-portfolio-management-trading-execution-q05", topicId: "cfa2-portfolio-management-trading-execution", text: "VWAP is a benchmark comparing fills to the:", optionA: "Closing price", optionB: "Volume-weighted average price over the trading period", optionC: "Risk-free rate", optionD: "Prior day's open", correctOption: "B", explanation: "VWAP measures execution quality against the volume-weighted average traded price.", orderIndex: 4 },
+  { id: "cfa2-portfolio-management-trading-execution-q06", topicId: "cfa2-portfolio-management-trading-execution", text: "An implementation-shortfall algorithm explicitly trades off market impact against:", optionA: "Dividends", optionB: "Timing (price) risk", optionC: "Beta", optionD: "Duration", correctOption: "B", explanation: "IS algos balance trading fast (impact) against trading slow (price-drift/timing risk).", orderIndex: 5 },
+  { id: "cfa2-portfolio-management-trading-execution-q07", topicId: "cfa2-portfolio-management-trading-execution", text: "Slicing a large order into smaller child orders aims to:", optionA: "Increase market impact", optionB: "Reduce market impact", optionC: "Raise commissions", optionD: "Guarantee a fill", correctOption: "B", explanation: "Breaking up a large order limits the price impact of demanding too much liquidity at once.", orderIndex: 6 },
+  { id: "cfa2-portfolio-management-trading-execution-q08", topicId: "cfa2-portfolio-management-trading-execution", text: "Corridor (percentage-range) rebalancing triggers a trade when:", optionA: "A set date arrives", optionB: "A weight breaches its tolerance band", optionC: "A dividend is paid", optionD: "Volatility is zero", correctOption: "B", explanation: "Corridor rebalancing acts on drift past a band rather than on the calendar.", orderIndex: 7 },
+  { id: "cfa2-portfolio-management-trading-execution-q09", topicId: "cfa2-portfolio-management-trading-execution", text: "Rebalancing corridors should be wider for assets with:", optionA: "Higher transaction costs", optionB: "Higher volatility", optionC: "Higher correlation only", optionD: "Lower risk tolerance", correctOption: "A", explanation: "Higher trading costs justify wider bands; higher volatility argues for narrower bands.", orderIndex: 8 },
+  { id: "cfa2-portfolio-management-trading-execution-q10", topicId: "cfa2-portfolio-management-trading-execution", text: "Disciplined rebalancing is inherently a ____ strategy.", optionA: "Momentum", optionB: "Contrarian", optionC: "Buy-and-hold", optionD: "Risk-free", correctOption: "B", explanation: "Rebalancing sells winners and buys losers — a contrarian action that can earn a diversification return.", orderIndex: 9 },
+  { id: "cfa2-portfolio-management-trading-execution-q11", topicId: "cfa2-portfolio-management-trading-execution", text: "The opportunity-cost component of implementation shortfall arises from:", optionA: "Commissions", optionB: "Unfilled portions of an order as the price moves away", optionC: "Taxes", optionD: "The spread only", correctOption: "B", explanation: "Shares left unexecuted whose price moves adversely create a missed-trade (opportunity) cost.", orderIndex: 10 },
+  { id: "cfa2-portfolio-management-trading-execution-q12", topicId: "cfa2-portfolio-management-trading-execution", text: "A more aggressive (liquidity-demanding) execution generally has:", optionA: "Higher market impact but lower timing risk", optionB: "Lower impact and lower timing risk", optionC: "No cost", optionD: "Higher opportunity cost", correctOption: "A", explanation: "Trading quickly raises impact cost but reduces exposure to adverse price drift.", orderIndex: 11 }
 ];
