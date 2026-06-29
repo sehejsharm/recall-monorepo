@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { repo } from "@/lib/content";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export function generateStaticParams() {
   return repo.exams().map((e) => ({ exam: e.slug }));
@@ -38,14 +39,21 @@ export default async function SubjectsPage({
   const exam = repo.examBySlug(examSlug);
   if (!exam) notFound();
   const subjects = repo.subjectsByExam(exam.id);
+  const topicCount = repo.topicsByExam(exam.id).length;
+  const questionCount = repo.questionsByExam(exam.id).length;
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 py-14">
       <header className="mb-8">
-        <Link href="/" className="text-xs text-muted hover:text-ink">
-          ← All exams
-        </Link>
+        <Breadcrumbs items={[{ name: "Home", href: "/" }, { name: exam.name, href: `/${exam.slug}` }]} />
         <h1 className="mt-3 text-2xl font-bold tracking-tight">{exam.name}</h1>
+        <p className="mt-2 text-sm leading-relaxed text-muted">
+          Prepare for {exam.name} with free, high-yield study notes and{" "}
+          <strong className="text-ink">{questionCount.toLocaleString()}</strong> practice questions
+          across <strong className="text-ink">{subjects.length}</strong> subjects and {topicCount}{" "}
+          topics. {exam.tagline}. Read a 2-minute note, then drill its questions with spaced
+          repetition — works fully offline, no sign-up required.
+        </p>
       </header>
 
       <ul className="flex flex-col gap-2.5">

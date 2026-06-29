@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { repo } from "@/lib/content";
 import { TopicList } from "@/components/TopicList";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export function generateStaticParams() {
   return repo.exams().flatMap((e) =>
@@ -41,5 +42,17 @@ export default async function TopicsPage({
   const subject = repo.subjectBySlug(exam.id, subjectSlug);
   if (!subject) notFound();
 
-  return <TopicList examSlug={exam.slug} examName={exam.name} subjectId={subject.id} subjectName={subject.name} subjectSlug={subject.slug} />;
+  return (
+    <>
+      <Breadcrumbs
+        visible={false}
+        items={[
+          { name: "Home", href: "/" },
+          { name: exam.name, href: `/${exam.slug}` },
+          { name: subject.name, href: `/${exam.slug}/${subject.slug}` }
+        ]}
+      />
+      <TopicList examSlug={exam.slug} examName={exam.name} subjectId={subject.id} subjectName={subject.name} subjectSlug={subject.slug} />
+    </>
+  );
 }

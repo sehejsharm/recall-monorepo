@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { repo } from "@/lib/content";
 import { TopicShell } from "@/components/TopicShell";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
 
 export function generateStaticParams() {
   return repo.exams().flatMap((e) =>
@@ -86,6 +87,15 @@ export default async function TopicPage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <Breadcrumbs
+        visible={false}
+        items={[
+          { name: "Home", href: "/" },
+          { name: exam.name, href: `/${exam.slug}` },
+          { name: subject.name, href: `/${exam.slug}/${subject.slug}` },
+          { name: topic.name, href: `/${exam.slug}/${subject.slug}/${topic.slug}` }
+        ]}
       />
       <TopicShell
         examSlug={exam.slug}
