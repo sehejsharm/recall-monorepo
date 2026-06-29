@@ -27,6 +27,64 @@ export interface Exam {
   /** One-line positioning shown on the exam picker. */
   tagline: string;
   orderIndex: number;
+  /**
+   * Optional grouping: exams sharing a `family` are levels/parts of one
+   * program (e.g. CFA Level I/II/III). The picker shows a single family card
+   * and the user then chooses a level.
+   */
+  family?: string;
+  /** Family display name shown on the grouped card (e.g. "CFA Program"). */
+  familyName?: string;
+  /** Family one-liner for the grouped card. */
+  familyTagline?: string;
+  /** Short level label shown on the chooser chip (e.g. "Level I", "Part I"). */
+  levelLabel?: string;
+}
+
+/**
+ * A row in the exam picker: either a standalone exam (one level) or a family
+ * (program) the user picks a level within.
+ */
+export interface ExamGroup {
+  id: string;
+  name: string;
+  tagline: string;
+  orderIndex: number;
+  /** Ordered levels; length 1 for a standalone exam. */
+  levels: Exam[];
+}
+
+/** Collapse level/part exams (same `family`) into one picker row each. */
+export function groupExams(exams: Exam[]): ExamGroup[] {
+  const groups: ExamGroup[] = [];
+  const byFamily = new Map<string, ExamGroup>();
+  for (const exam of [...exams].sort((a, b) => a.orderIndex - b.orderIndex)) {
+    if (exam.family) {
+      const existing = byFamily.get(exam.family);
+      if (existing) {
+        existing.levels.push(exam);
+      } else {
+        const group: ExamGroup = {
+          id: exam.family,
+          name: exam.familyName ?? exam.name,
+          tagline: exam.familyTagline ?? exam.tagline,
+          orderIndex: exam.orderIndex,
+          levels: [exam]
+        };
+        byFamily.set(exam.family, group);
+        groups.push(group);
+      }
+    } else {
+      groups.push({
+        id: exam.id,
+        name: exam.name,
+        tagline: exam.tagline,
+        orderIndex: exam.orderIndex,
+        levels: [exam]
+      });
+    }
+  }
+  return groups;
 }
 
 export interface Subject {

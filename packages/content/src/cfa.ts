@@ -13,7 +13,11 @@ export const cfaLevel1 = defineBundle({
     slug: "cfa-1",
     name: "CFA Level I",
     tagline: "Foundations: Ethics · FRA · Equity · Fixed Income · Derivatives",
-    orderIndex: 5
+    orderIndex: 5,
+    family: "cfa",
+    familyName: "CFA Program",
+    familyTagline: "Chartered Financial Analyst — pick your level",
+    levelLabel: "Level I"
   },
   subjects: [
     { id: "cfa-ethics", examId: "cfa-1", name: "Ethics & Professional Standards", slug: "ethics", orderIndex: 0 },

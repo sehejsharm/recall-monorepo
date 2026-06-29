@@ -1487,7 +1487,11 @@ const frmBundles = defineProgram(
         slug: "frm-1",
         name: "FRM Part I",
         tagline: "Foundations · Quant · Markets & Products · Valuation models",
-        orderIndex: 8
+        orderIndex: 8,
+        family: "frm",
+        familyName: "FRM (GARP)",
+        familyTagline: "Financial Risk Manager — pick your part",
+        levelLabel: "Part I"
       },
       subjectIds: [
         "frm-foundations",
@@ -1502,7 +1506,11 @@ const frmBundles = defineProgram(
         slug: "frm-2",
         name: "FRM Part II",
         tagline: "Market · Credit · Operational · Liquidity · Investment risk",
-        orderIndex: 9
+        orderIndex: 9,
+        family: "frm",
+        familyName: "FRM (GARP)",
+        familyTagline: "Financial Risk Manager — pick your part",
+        levelLabel: "Part II"
       },
       subjectIds: [
         "frm-market-risk",

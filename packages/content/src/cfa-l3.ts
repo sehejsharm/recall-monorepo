@@ -11,7 +11,11 @@ const exam = {
   slug: "cfa-3" as const,
   name: "CFA Level III",
   tagline: "Portfolio management & wealth: behavior · allocation · attribution",
-  orderIndex: 7
+  orderIndex: 7,
+  family: "cfa",
+  familyName: "CFA Program",
+  familyTagline: "Chartered Financial Analyst — pick your level",
+  levelLabel: "Level III"
 };
 
 const subjects = [

@@ -10,7 +10,11 @@ const exam = {
   slug: "cfa-2" as const,
   name: "CFA Level II",
   tagline: "Asset valuation: Equity · Fixed Income · Derivatives · FRA",
-  orderIndex: 6
+  orderIndex: 6,
+  family: "cfa",
+  familyName: "CFA Program",
+  familyTagline: "Chartered Financial Analyst — pick your level",
+  levelLabel: "Level II"
 };
 
 const subjects = [

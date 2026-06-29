@@ -1,6 +1,7 @@
 import { Link, useRouter } from "expo-router";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { groupExams } from "@jyotir/core";
 import { repo } from "@/lib/content";
 import { useJyotir } from "@/lib/store-provider";
 import { ProfileStrip } from "@/components/ProfileStrip";
@@ -62,14 +63,32 @@ export default function ExamPickerScreen() {
           Exams
         </Text>
         <View className="gap-2.5">
-          {repo.exams().map((exam) => (
-            <Link key={exam.id} href={`/${exam.slug}`} asChild>
-              <Pressable className="rounded-2xl border border-edge bg-surface px-5 py-4 active:bg-raised">
-                <Text className="text-lg font-semibold text-ink">{exam.name}</Text>
-                <Text className="mt-0.5 text-xs text-muted">{exam.tagline}</Text>
-              </Pressable>
-            </Link>
-          ))}
+          {groupExams(repo.exams()).map((group) =>
+            group.levels.length === 1 ? (
+              <Link key={group.id} href={`/${group.levels[0]!.slug}`} asChild>
+                <Pressable className="rounded-2xl border border-edge bg-surface px-5 py-4 active:bg-raised">
+                  <Text className="text-lg font-semibold text-ink">{group.levels[0]!.name}</Text>
+                  <Text className="mt-0.5 text-xs text-muted">{group.levels[0]!.tagline}</Text>
+                </Pressable>
+              </Link>
+            ) : (
+              <View key={group.id} className="rounded-2xl border border-edge bg-surface px-5 py-4">
+                <Text className="text-lg font-semibold text-ink">{group.name}</Text>
+                <Text className="mt-0.5 text-xs text-muted">{group.tagline}</Text>
+                <View className="mt-3 flex-row flex-wrap gap-2">
+                  {group.levels.map((level) => (
+                    <Link key={level.id} href={`/${level.slug}`} asChild>
+                      <Pressable className="rounded-full border border-edge bg-raised px-3.5 py-1.5 active:border-correct/40">
+                        <Text className="text-xs font-semibold text-muted">
+                          {level.levelLabel ?? level.name}
+                        </Text>
+                      </Pressable>
+                    </Link>
+                  ))}
+                </View>
+              </View>
+            )
+          )}
         </View>
       </ScrollView>
       <BottomNav />
