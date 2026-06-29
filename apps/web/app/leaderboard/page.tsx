@@ -20,6 +20,15 @@ export default function LeaderboardPage() {
   const [error, setError] = useState<string | null>(null);
   const myHandle = typeof window !== "undefined" ? loadSettings().handle : "";
 
+  // Distinct, compact chip label: "CFA I", "FRM II", else first word ("UPSC").
+  const chipLabel = (e: (typeof exams)[number]) => {
+    if (e.levelLabel) {
+      const fam = (e.familyName ?? e.name).split(" ")[0];
+      return `${fam} ${e.levelLabel.replace(/^(Level|Part)\s+/, "")}`;
+    }
+    return e.name.split(" ")[0];
+  };
+
   useEffect(() => {
     if (!supabase) return;
     let on = true;
@@ -75,7 +84,7 @@ export default function LeaderboardPage() {
               scope === e.id ? "border-correct bg-correct-dim/40 text-correct-bright" : "border-edge text-muted"
             }`}
           >
-            {e.name.split(" ")[0]}
+            {chipLabel(e)}
           </button>
         ))}
       </div>
