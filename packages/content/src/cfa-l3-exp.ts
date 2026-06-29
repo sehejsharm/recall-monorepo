@@ -6,7 +6,10 @@ export const expSubjects: Subject[] = [
   { id: "cfa3-equity-pm", examId: "cfa-3", name: "Equity Portfolio Management", slug: "equity-pm", orderIndex: 5 },
   { id: "cfa3-risk-management", examId: "cfa-3", name: "Risk Management", slug: "risk-management", orderIndex: 6 },
   { id: "cfa3-private-wealth", examId: "cfa-3", name: "Private Wealth Management", slug: "private-wealth", orderIndex: 7 },
-  { id: "cfa3-institutional", examId: "cfa-3", name: "Institutional Investors", slug: "institutional", orderIndex: 8 }
+  { id: "cfa3-institutional", examId: "cfa-3", name: "Institutional Investors", slug: "institutional", orderIndex: 8 },
+  { id: "cfa3-ethics", examId: "cfa-3", name: "Ethics & Professional Standards", slug: "ethics", orderIndex: 9 },
+  { id: "cfa3-alternative-investments", examId: "cfa-3", name: "Alternative Investments", slug: "alternative-investments", orderIndex: 10 },
+  { id: "cfa3-manager-selection", examId: "cfa-3", name: "Manager Selection", slug: "manager-selection", orderIndex: 11 }
 ];
 
 export const expTopics: Topic[] = [
@@ -15,7 +18,10 @@ export const expTopics: Topic[] = [
   { id: "cfa3-private-wealth-tax-estate", subjectId: "cfa3-private-wealth", name: "Private Wealth: Tax & Estate Planning", slug: "tax-estate", orderIndex: 0 },
   { id: "cfa3-institutional-pensions-endowments", subjectId: "cfa3-institutional", name: "Pensions & Endowments", slug: "pensions-endowments", orderIndex: 0 },
   { id: "cfa3-asset-allocation-rebalancing-execution", subjectId: "cfa3-asset-allocation", name: "Rebalancing & Trade Execution", slug: "rebalancing-execution", orderIndex: 1 },
-  { id: "cfa3-risk-management-currency", subjectId: "cfa3-risk-management", name: "Currency Management", slug: "currency", orderIndex: 1 }
+  { id: "cfa3-risk-management-currency", subjectId: "cfa3-risk-management", name: "Currency Management", slug: "currency", orderIndex: 1 },
+  { id: "cfa3-ethics-asset-manager-code", subjectId: "cfa3-ethics", name: "Asset Manager Code & GIPS", slug: "asset-manager-code", orderIndex: 0 },
+  { id: "cfa3-alternative-investments-portfolio-role", subjectId: "cfa3-alternative-investments", name: "Alternatives in Portfolio Management", slug: "portfolio-role", orderIndex: 0 },
+  { id: "cfa3-manager-selection-due-diligence", subjectId: "cfa3-manager-selection", name: "Manager Selection & Due Diligence", slug: "due-diligence", orderIndex: 0 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -133,6 +139,66 @@ export const expMaterials: AuthoredMaterial[] = [
 - A **currency overlay** manager seeks alpha from FX separately from the asset managers. Tactics use carry, value (PPP), momentum, and volatility trading. **Roll yield** matters: hedging a forward at a premium/discount adds or subtracts return.`,
     estimatedReadTime: 2,
     orderIndex: 1
+  },
+  {
+    id: "cfa3-ethics-asset-manager-code-m01",
+    topicId: "cfa3-ethics-asset-manager-code",
+    title: "Asset Manager Code & GIPS",
+    content: `## Asset Manager Code (AMC)
+Voluntary, firm-level conduct code (vs. the individual Code & Standards). Firms **claim compliance** for the whole firm; CFA Institute does not verify it. Six pillars of ethical responsibilities:
+1. **Loyalty to clients** (place client interests first; confidentiality)
+2. **Investment process & actions** (reasonable basis, fair dealing, no manipulation)
+3. **Trading** (best execution; client brokerage for client benefit; priority of client trades)
+4. **Risk management, compliance & support** (designated compliance officer, controls, recordkeeping)
+5. **Performance & valuation** (fair, accurate, complete; no cherry-picking)
+6. **Disclosures** (truthful, timely; conflicts, fees, costs)
+
+## GIPS (Global Investment Performance Standards)
+- Voluntary, ethical performance-presentation standards ensuring **fair representation and full disclosure**; compliance is **firm-wide**, not per-composite.
+- **Composites** group all fee-paying discretionary portfolios of similar mandate (prevents survivorship/cherry-picking). Must show ≥ history (building to 10 years).
+- Returns are **time-weighted** (TWR removes the effect of client cash flows); show benchmark and dispersion. **Verification** by a third party is recommended but optional.`,
+    estimatedReadTime: 2,
+    orderIndex: 0
+  },
+  {
+    id: "cfa3-alternative-investments-portfolio-role-m01",
+    topicId: "cfa3-alternative-investments-portfolio-role",
+    title: "Alternatives in Portfolio Management",
+    content: `Alternatives (private equity, hedge funds, real assets, private debt, commodities) are added for **diversification, return enhancement, and inflation protection**.
+
+## Portfolio role & allocation
+- Low (and unstable) correlations with stocks/bonds — but correlations **rise in crises**.
+- Reported returns are **smoothed** (appraisal-based/stale pricing) → **understated volatility and correlation**; "unsmooth" before optimizing or MVO over-allocates to alternatives.
+- Liquidity, long lock-ups, the **J-curve**, high fees (2-and-20), and operational/manager risk constrain sizing.
+
+## Approaches
+- Allocate by **role** (capital growth, income, diversification, inflation hedge) rather than by traditional asset-class labels.
+- Use **liquidity tiers** and commitment pacing for private funds; model **vintage-year** diversification.
+- Risk tools must capture **non-normal** returns (fat tails, negative skew) — VaR/volatility alone understate risk; use scenario analysis and downside measures.
+- Benchmarks are difficult: peer-group/IRR for private; absolute or risk-factor for hedge funds.`,
+    estimatedReadTime: 2,
+    orderIndex: 0
+  },
+  {
+    id: "cfa3-manager-selection-due-diligence-m01",
+    topicId: "cfa3-manager-selection-due-diligence",
+    title: "Manager Selection & Due Diligence",
+    content: `Manager selection has three steps: **universe definition → quantitative analysis → qualitative (operational) due diligence.**
+
+## Type I vs Type II error
+- **Type I**: hiring/keeping a manager with **no real skill** (false positive).
+- **Type II**: rejecting/firing a **genuinely skilled** manager (false negative).
+- Tightening selection criteria reduces Type I but raises Type II (and vice-versa).
+
+## Quantitative
+- Style/returns-based and holdings-based analysis; capture **alpha vs. factor exposures** (don't pay alpha fees for cheap beta). Assess **information ratio**, consistency, drawdowns, and capacity. Beware short, noisy track records and **backfill/survivorship bias**.
+
+## Qualitative & operational due diligence
+- **Investment**: philosophy, process repeatability, team, decision rights.
+- **Operational** (a major source of fund failure): independent **administrator/custodian/auditor**, valuation policy, controls, compliance, key-person and business risk, fee terms, and alignment.
+- Output: a conviction-weighted recommendation, not just past returns.`,
+    estimatedReadTime: 2,
+    orderIndex: 0
   }
 ];
 
@@ -219,5 +285,47 @@ export const expQuestions: Question[] = [
   { id: "cfa3-risk-management-currency-q09", topicId: "cfa3-risk-management-currency", text: "Maintaining a forward hedge requires periodically:", optionA: "Rolling the forward at maturity", optionB: "Paying dividends", optionC: "Exercising an option", optionD: "Issuing equity", correctOption: "A", explanation: "Forwards expire, so a continuing hedge is maintained by rolling into a new forward at each maturity.", orderIndex: 8 },
   { id: "cfa3-risk-management-currency-q10", topicId: "cfa3-risk-management-currency", text: "Active currency strategies commonly exploit which factor?", optionA: "Carry (interest-rate differentials)", optionB: "Bond convexity", optionC: "Equity book value", optionD: "Operating leverage", correctOption: "A", explanation: "Currency alpha tactics include carry, value (PPP), momentum and volatility trading.", orderIndex: 9 },
   { id: "cfa3-risk-management-currency-q11", topicId: "cfa3-risk-management-currency", text: "'Roll yield' on a currency hedge refers to the return from:", optionA: "Dividends on the foreign asset", optionB: "The forward premium/discount as the hedge is rolled", optionC: "Equity price changes", optionD: "Coupon reinvestment", correctOption: "B", explanation: "Hedging a currency trading at a forward premium or discount adds or subtracts return when the forward is rolled.", orderIndex: 10 },
-  { id: "cfa3-risk-management-currency-q12", topicId: "cfa3-risk-management-currency", text: "Leaving foreign-equity currency exposure partially unhedged can be justified because currencies may:", optionA: "Guarantee higher returns", optionB: "Provide diversification to the overall portfolio", optionC: "Eliminate equity risk", optionD: "Remove the need for an IPS", correctOption: "B", explanation: "Currency returns are imperfectly correlated with equities, so some unhedged exposure can add diversification.", orderIndex: 11 }
+  { id: "cfa3-risk-management-currency-q12", topicId: "cfa3-risk-management-currency", text: "Leaving foreign-equity currency exposure partially unhedged can be justified because currencies may:", optionA: "Guarantee higher returns", optionB: "Provide diversification to the overall portfolio", optionC: "Eliminate equity risk", optionD: "Remove the need for an IPS", correctOption: "B", explanation: "Currency returns are imperfectly correlated with equities, so some unhedged exposure can add diversification.", orderIndex: 11 },
+
+  // Ethics: Asset Manager Code & GIPS
+  { id: "cfa3-ethics-asset-manager-code-q01", topicId: "cfa3-ethics-asset-manager-code", text: "The Asset Manager Code applies at the level of the:", optionA: "Individual member", optionB: "Firm", optionC: "Regulator", optionD: "Client", correctOption: "B", explanation: "The AMC is a firm-level voluntary code of conduct, distinct from the individual Code and Standards.", orderIndex: 0 },
+  { id: "cfa3-ethics-asset-manager-code-q02", topicId: "cfa3-ethics-asset-manager-code", text: "Compliance with the Asset Manager Code is:", optionA: "Verified by CFA Institute before a firm may claim it", optionB: "Self-claimed by the firm; CFA Institute does not verify it", optionC: "Mandatory for all firms", optionD: "Granted by regulators", correctOption: "B", explanation: "Firms claim AMC compliance themselves; CFA Institute does not certify or verify those claims.", orderIndex: 1 },
+  { id: "cfa3-ethics-asset-manager-code-q03", topicId: "cfa3-ethics-asset-manager-code", text: "Which is one of the six components of the Asset Manager Code?", optionA: "Maximizing assets under management", optionB: "Trading (best execution, client brokerage)", optionC: "Beating the benchmark every year", optionD: "Avoiding all derivatives", correctOption: "B", explanation: "The AMC's six areas include Loyalty to Clients, Investment Process, Trading, Risk/Compliance, Performance/Valuation, and Disclosures.", orderIndex: 2 },
+  { id: "cfa3-ethics-asset-manager-code-q04", topicId: "cfa3-ethics-asset-manager-code", text: "GIPS compliance must be applied on a ____ basis.", optionA: "Composite-by-composite", optionB: "Firm-wide", optionC: "Per-client", optionD: "Per-portfolio", correctOption: "B", explanation: "A firm either complies with GIPS firm-wide or it does not; partial (composite-only) compliance is not permitted.", orderIndex: 3 },
+  { id: "cfa3-ethics-asset-manager-code-q05", topicId: "cfa3-ethics-asset-manager-code", text: "A GIPS composite must include:", optionA: "Only the firm's best-performing portfolios", optionB: "All fee-paying discretionary portfolios of a similar mandate", optionC: "Hypothetical model portfolios", optionD: "Only terminated accounts", correctOption: "B", explanation: "Composites group all actual fee-paying discretionary portfolios of a strategy, preventing cherry-picking and survivorship bias.", orderIndex: 4 },
+  { id: "cfa3-ethics-asset-manager-code-q06", topicId: "cfa3-ethics-asset-manager-code", text: "GIPS requires returns to be calculated using a ____ return.", optionA: "Money-weighted", optionB: "Time-weighted", optionC: "Simple average", optionD: "Geometric-only nominal", correctOption: "B", explanation: "Time-weighted returns remove the distorting effect of client-driven external cash flows, the GIPS default for composites.", orderIndex: 5 },
+  { id: "cfa3-ethics-asset-manager-code-q07", topicId: "cfa3-ethics-asset-manager-code", text: "Third-party verification under GIPS is:", optionA: "Mandatory", optionB: "Recommended but voluntary, and applies firm-wide", optionC: "Performed by CFA Institute", optionD: "Done per composite only", correctOption: "B", explanation: "Verification is recommended, voluntary, and assesses firm-wide compliance—not individual composites.", orderIndex: 6 },
+  { id: "cfa3-ethics-asset-manager-code-q08", topicId: "cfa3-ethics-asset-manager-code", text: "Under the AMC, client brokerage (soft dollars) must be used:", optionA: "For the manager's overhead", optionB: "For the benefit of the client", optionC: "To reward the largest clients", optionD: "However the firm wishes", correctOption: "B", explanation: "The Trading component requires client brokerage to be used for the client's benefit, consistent with the Standards.", orderIndex: 7 },
+  { id: "cfa3-ethics-asset-manager-code-q09", topicId: "cfa3-ethics-asset-manager-code", text: "The AMC requires firms to designate a:", optionA: "Marketing director", optionB: "Compliance officer responsible for policies and controls", optionC: "Chief investment officer only", optionD: "Board chair", correctOption: "B", explanation: "The Risk Management, Compliance and Support component requires a designated compliance officer and adequate controls.", orderIndex: 8 },
+  { id: "cfa3-ethics-asset-manager-code-q10", topicId: "cfa3-ethics-asset-manager-code", text: "When first claiming GIPS compliance, a firm must present at least ____ of compliant history (building toward 10).", optionA: "1 month", optionB: "5 years (or since inception if shorter)", optionC: "20 years", optionD: "No history", correctOption: "B", explanation: "Firms must show a minimum of five years (or since inception) of GIPS-compliant performance, then build to ten.", orderIndex: 9 },
+  { id: "cfa3-ethics-asset-manager-code-q11", topicId: "cfa3-ethics-asset-manager-code", text: "A primary purpose of the GIPS standards is to ensure:", optionA: "Higher returns", optionB: "Fair representation and full disclosure of performance", optionC: "Lower fees", optionD: "Tax efficiency", correctOption: "B", explanation: "GIPS exists to standardize performance reporting so it fairly represents results and fully discloses methodology.", orderIndex: 10 },
+  { id: "cfa3-ethics-asset-manager-code-q12", topicId: "cfa3-ethics-asset-manager-code", text: "Under the AMC Disclosures component, firms must disclose:", optionA: "Only positive performance", optionB: "Conflicts of interest, fees and costs truthfully and on time", optionC: "Competitors' weaknesses", optionD: "Clients' identities publicly", correctOption: "B", explanation: "Disclosures must be truthful, accurate, complete and timely—covering conflicts, fees, costs and material information.", orderIndex: 11 },
+
+  // Alternatives in portfolio management
+  { id: "cfa3-alternative-investments-portfolio-role-q01", topicId: "cfa3-alternative-investments-portfolio-role", text: "A primary portfolio reason to add alternatives is:", optionA: "Guaranteed returns", optionB: "Diversification and potential return/inflation benefits", optionC: "Daily liquidity", optionD: "Zero fees", correctOption: "B", explanation: "Alternatives are added mainly for diversification, return enhancement, and inflation protection—not liquidity or low cost.", orderIndex: 0 },
+  { id: "cfa3-alternative-investments-portfolio-role-q02", topicId: "cfa3-alternative-investments-portfolio-role", text: "Appraisal-based (stale) pricing of private assets causes reported returns to have:", optionA: "Overstated volatility", optionB: "Understated volatility and correlation (smoothing)", optionC: "No bias", optionD: "Negative returns", correctOption: "B", explanation: "Smoothing from infrequent appraisals understates measured volatility and correlation, flattering risk statistics.", orderIndex: 1 },
+  { id: "cfa3-alternative-investments-portfolio-role-q03", topicId: "cfa3-alternative-investments-portfolio-role", text: "Feeding smoothed alternative returns directly into mean-variance optimization tends to:", optionA: "Under-allocate to alternatives", optionB: "Over-allocate to alternatives", optionC: "Have no effect", optionD: "Eliminate them", correctOption: "B", explanation: "Because risk looks artificially low, naive MVO over-allocates to alternatives; returns should be 'unsmoothed' first.", orderIndex: 2 },
+  { id: "cfa3-alternative-investments-portfolio-role-q04", topicId: "cfa3-alternative-investments-portfolio-role", text: "The correlation of alternatives with public markets typically:", optionA: "Stays constant", optionB: "Rises during market crises, reducing diversification when most needed", optionC: "Falls to zero in crises", optionD: "Is always 1", correctOption: "B", explanation: "Diversification benefits weaken in stress as correlations spike across asset classes.", orderIndex: 3 },
+  { id: "cfa3-alternative-investments-portfolio-role-q05", topicId: "cfa3-alternative-investments-portfolio-role", text: "Allocating alternatives by 'role' means grouping them by:", optionA: "Ticker", optionB: "Function (growth, income, diversification, inflation hedge)", optionC: "Manager surname", optionD: "Country only", correctOption: "B", explanation: "A functional/role-based approach allocates by the economic purpose each alternative serves, rather than rigid asset-class labels.", orderIndex: 4 },
+  { id: "cfa3-alternative-investments-portfolio-role-q06", topicId: "cfa3-alternative-investments-portfolio-role", text: "Risk measurement for alternatives should account for returns that are:", optionA: "Perfectly normal", optionB: "Non-normal (fat-tailed, negatively skewed)", optionC: "Risk-free", optionD: "Symmetric and thin-tailed", correctOption: "B", explanation: "Alternative returns often have fat tails and negative skew, so volatility/VaR alone understate risk—use scenario and downside measures.", orderIndex: 5 },
+  { id: "cfa3-alternative-investments-portfolio-role-q07", topicId: "cfa3-alternative-investments-portfolio-role", text: "The 'J-curve' affects private-fund allocations by producing:", optionA: "Immediate high returns", optionB: "Early negative returns before later gains", optionC: "Constant returns", optionD: "Guaranteed losses", correctOption: "B", explanation: "Fees and early markdowns create initial negative returns (the J-curve) before exits generate gains.", orderIndex: 6 },
+  { id: "cfa3-alternative-investments-portfolio-role-q08", topicId: "cfa3-alternative-investments-portfolio-role", text: "Commitment pacing and vintage-year diversification are used to manage:", optionA: "Currency risk", optionB: "Liquidity and timing risk in private funds", optionC: "Interest-rate risk only", optionD: "Tax filing", correctOption: "B", explanation: "Spreading commitments across vintages manages liquidity, the J-curve, and timing concentration in private programs.", orderIndex: 7 },
+  { id: "cfa3-alternative-investments-portfolio-role-q09", topicId: "cfa3-alternative-investments-portfolio-role", text: "A key constraint on sizing alternatives is:", optionA: "Excessive liquidity", optionB: "Illiquidity, lock-ups and high fees", optionC: "Daily pricing", optionD: "Government guarantees", correctOption: "B", explanation: "Long lock-ups, illiquidity, high fees and operational risk limit how much a portfolio can prudently allocate.", orderIndex: 8 },
+  { id: "cfa3-alternative-investments-portfolio-role-q10", topicId: "cfa3-alternative-investments-portfolio-role", text: "Real assets (e.g., commodities, real estate, infrastructure) are often added for:", optionA: "Inflation protection", optionB: "Guaranteed income", optionC: "Tax exemption", optionD: "Zero volatility", correctOption: "A", explanation: "Real assets tend to provide inflation sensitivity, a key diversifying role in multi-asset portfolios.", orderIndex: 9 },
+  { id: "cfa3-alternative-investments-portfolio-role-q11", topicId: "cfa3-alternative-investments-portfolio-role", text: "Benchmarking hedge funds is difficult, so investors often use:", optionA: "A government bond index", optionB: "Peer-group or absolute/risk-factor benchmarks", optionC: "The risk-free rate exactly", optionD: "No benchmark is ever possible", correctOption: "B", explanation: "Hedge funds are commonly assessed against peer groups, absolute-return targets, or factor-based benchmarks.", orderIndex: 10 },
+  { id: "cfa3-alternative-investments-portfolio-role-q12", topicId: "cfa3-alternative-investments-portfolio-role", text: "'Unsmoothing' a private-asset return series generally:", optionA: "Lowers estimated volatility further", optionB: "Raises estimated volatility and correlation toward true levels", optionC: "Removes all risk", optionD: "Converts it to cash", correctOption: "B", explanation: "Unsmoothing reverses appraisal lag, increasing measured volatility/correlation to more realistic levels for allocation.", orderIndex: 11 },
+
+  // Manager selection & due diligence
+  { id: "cfa3-manager-selection-due-diligence-q01", topicId: "cfa3-manager-selection-due-diligence", text: "A Type I error in manager selection is:", optionA: "Rejecting a skilled manager", optionB: "Hiring/retaining a manager with no real skill", optionC: "A data entry mistake", optionD: "Choosing a benchmark", correctOption: "B", explanation: "Type I (false positive) is keeping or hiring an unskilled manager.", orderIndex: 0 },
+  { id: "cfa3-manager-selection-due-diligence-q02", topicId: "cfa3-manager-selection-due-diligence", text: "A Type II error in manager selection is:", optionA: "Hiring an unskilled manager", optionB: "Rejecting or firing a genuinely skilled manager", optionC: "Overpaying fees", optionD: "Using time-weighted returns", correctOption: "B", explanation: "Type II (false negative) is failing to hire or wrongly firing a skilled manager.", orderIndex: 1 },
+  { id: "cfa3-manager-selection-due-diligence-q03", topicId: "cfa3-manager-selection-due-diligence", text: "Tightening selection criteria to avoid unskilled managers tends to:", optionA: "Reduce Type I but increase Type II errors", optionB: "Reduce both error types", optionC: "Increase Type I errors", optionD: "Have no effect on errors", correctOption: "A", explanation: "Stricter screens cut false positives (Type I) but raise the chance of rejecting skilled managers (Type II).", orderIndex: 2 },
+  { id: "cfa3-manager-selection-due-diligence-q04", topicId: "cfa3-manager-selection-due-diligence", text: "Operational due diligence is important because operational failures are:", optionA: "Never a cause of fund losses", optionB: "A major cause of fund failures", optionC: "Only relevant to equities", optionD: "Irrelevant to selection", correctOption: "B", explanation: "Many fund blow-ups stem from operational issues (controls, valuation, fraud), making ODD essential.", orderIndex: 3 },
+  { id: "cfa3-manager-selection-due-diligence-q05", topicId: "cfa3-manager-selection-due-diligence", text: "An independent administrator, custodian and auditor primarily provide:", optionA: "Higher returns", optionB: "Checks on valuation and safekeeping that reduce operational/fraud risk", optionC: "Tax savings", optionD: "Lower volatility", correctOption: "B", explanation: "Independent service providers verify assets and valuations, a key operational-risk control in due diligence.", orderIndex: 4 },
+  { id: "cfa3-manager-selection-due-diligence-q06", topicId: "cfa3-manager-selection-due-diligence", text: "Decomposing a manager's return into alpha and factor exposures helps avoid:", optionA: "Paying alpha fees for what is really cheap beta", optionB: "Using a benchmark", optionC: "Diversification", optionD: "Time-weighted returns", correctOption: "A", explanation: "Returns-based analysis separates true skill (alpha) from factor (beta) exposure so investors don't overpay for beta.", orderIndex: 5 },
+  { id: "cfa3-manager-selection-due-diligence-q07", topicId: "cfa3-manager-selection-due-diligence", text: "Backfill and survivorship biases in a manager database tend to:", optionA: "Understate historical performance", optionB: "Overstate historical performance", optionC: "Have no effect", optionD: "Only affect fees", correctOption: "B", explanation: "Both biases inflate reported track records, so due diligence must adjust for them.", orderIndex: 6 },
+  { id: "cfa3-manager-selection-due-diligence-q08", topicId: "cfa3-manager-selection-due-diligence", text: "A short, volatile track record makes it hard to:", optionA: "Compute fees", optionB: "Distinguish skill from luck statistically", optionC: "Define a universe", optionD: "Read disclosures", correctOption: "B", explanation: "Limited, noisy data reduces statistical confidence in separating genuine skill from random outcomes.", orderIndex: 7 },
+  { id: "cfa3-manager-selection-due-diligence-q09", topicId: "cfa3-manager-selection-due-diligence", text: "Investment due diligence assesses the manager's:", optionA: "Office location only", optionB: "Philosophy, repeatable process, team and decision-making", optionC: "Auditor's fees", optionD: "Custodian's address", correctOption: "B", explanation: "Investment DD evaluates whether the strategy, process and team can plausibly repeat past success.", orderIndex: 8 },
+  { id: "cfa3-manager-selection-due-diligence-q10", topicId: "cfa3-manager-selection-due-diligence", text: "Key-person risk in manager selection refers to:", optionA: "The custodian failing", optionB: "Over-reliance on one critical individual", optionC: "High portfolio turnover", optionD: "Currency exposure", correctOption: "B", explanation: "Key-person risk is dependence on a single individual whose departure would impair the strategy.", orderIndex: 9 },
+  { id: "cfa3-manager-selection-due-diligence-q11", topicId: "cfa3-manager-selection-due-diligence", text: "Capacity analysis matters because a strategy that grows too large may:", optionA: "Always improve returns", optionB: "Suffer decayed alpha from market impact and crowding", optionC: "Become risk-free", optionD: "Lower its fees automatically", correctOption: "B", explanation: "Excess assets can erode a strategy's edge through higher transaction costs and reduced opportunity per dollar.", orderIndex: 10 },
+  { id: "cfa3-manager-selection-due-diligence-q12", topicId: "cfa3-manager-selection-due-diligence", text: "The final output of a sound manager-selection process should be:", optionA: "A ranking by last year's return only", optionB: "A conviction-weighted recommendation grounded in skill and operations", optionC: "The cheapest manager", optionD: "The largest fund", correctOption: "B", explanation: "Selection should yield a forward-looking, conviction-based decision integrating skill evidence and operational soundness, not just past returns.", orderIndex: 11 }
 ];
