@@ -51,7 +51,22 @@ export const expTopics: Topic[] = [
   { id: "cfa2-alternative-investments-real-estate", subjectId: "cfa2-alternative-investments", name: "Real Estate & REITs", slug: "real-estate", orderIndex: 3 },
   { id: "cfa2-ethics-professionalism-integrity", subjectId: "cfa2-ethics", name: "Professionalism & Market Integrity (Standards I & II)", slug: "professionalism-integrity", orderIndex: 3 },
   { id: "cfa2-corporate-issuers-capital-budgeting", subjectId: "cfa2-corporate-issuers", name: "Capital Budgeting & Investment Decisions", slug: "capital-budgeting", orderIndex: 3 },
-  { id: "cfa2-portfolio-management-economics-markets", subjectId: "cfa2-portfolio-management", name: "Economics & Investment Markets", slug: "economics-markets", orderIndex: 3 }
+  { id: "cfa2-portfolio-management-economics-markets", subjectId: "cfa2-portfolio-management", name: "Economics & Investment Markets", slug: "economics-markets", orderIndex: 3 },
+  { id: "cfa2-financial-reporting-long-lived-assets", subjectId: "cfa2-financial-reporting", name: "Long-Lived Assets & Impairment", slug: "long-lived-assets", orderIndex: 5 },
+  { id: "cfa2-fixed-income-yield-curve-strategies", subjectId: "cfa2-fixed-income", name: "Yield-Curve & Active FI Strategies", slug: "yield-curve-strategies", orderIndex: 5 },
+  { id: "cfa2-derivatives-currency-equity-forwards", subjectId: "cfa2-derivatives", name: "Currency & Equity Forward Pricing", slug: "currency-equity-forwards", orderIndex: 5 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing", subjectId: "cfa2-quantitative-methods", name: "Hypothesis Testing", slug: "hypothesis-testing", orderIndex: 4 },
+  { id: "cfa2-quantitative-methods-probability-bayes", subjectId: "cfa2-quantitative-methods", name: "Probability Concepts & Bayes", slug: "probability-bayes", orderIndex: 5 },
+  { id: "cfa2-economics-business-cycles", subjectId: "cfa2-economics", name: "Aggregate Output & Business Cycles", slug: "business-cycles", orderIndex: 4 },
+  { id: "cfa2-economics-trade-capital-flows", subjectId: "cfa2-economics", name: "International Trade & Capital Flows", slug: "trade-capital-flows", orderIndex: 5 },
+  { id: "cfa2-alternative-investments-infrastructure", subjectId: "cfa2-alternative-investments", name: "Infrastructure & Real Assets", slug: "infrastructure", orderIndex: 4 },
+  { id: "cfa2-alternative-investments-due-diligence", subjectId: "cfa2-alternative-investments", name: "Alternatives: Due Diligence & Appraisal", slug: "due-diligence", orderIndex: 5 },
+  { id: "cfa2-ethics-duties-clients-employers", subjectId: "cfa2-ethics", name: "Duties to Clients & Employers (Standards III & IV)", slug: "duties-clients-employers", orderIndex: 4 },
+  { id: "cfa2-ethics-conflicts-priority", subjectId: "cfa2-ethics", name: "Conflicts of Interest & Priority of Transactions (Standard VI)", slug: "conflicts-priority", orderIndex: 5 },
+  { id: "cfa2-corporate-issuers-working-capital", subjectId: "cfa2-corporate-issuers", name: "Working Capital & Liquidity Management", slug: "working-capital", orderIndex: 4 },
+  { id: "cfa2-corporate-issuers-cost-of-capital", subjectId: "cfa2-corporate-issuers", name: "Cost of Capital (WACC)", slug: "cost-of-capital", orderIndex: 5 },
+  { id: "cfa2-portfolio-management-risk-return-capm", subjectId: "cfa2-portfolio-management", name: "Portfolio Risk, Return & CAPM", slug: "risk-return-capm", orderIndex: 4 },
+  { id: "cfa2-portfolio-management-ips-allocation", subjectId: "cfa2-portfolio-management", name: "IPS & Asset Allocation", slug: "ips-allocation", orderIndex: 5 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -884,6 +899,299 @@ Any asset's value is the PV of expected cash flows. The required return = **real
 - Discount rates rise with growth and risk aversion. **Pro-cyclical** assets (equities, credit) earn premia for poor recession-time payoffs. Inflation expectations shift nominal yields and the relative appeal of real vs. nominal assets.`,
     estimatedReadTime: 2,
     orderIndex: 3
+  },
+  {
+    id: "cfa2-financial-reporting-long-lived-assets-m01",
+    topicId: "cfa2-financial-reporting-long-lived-assets",
+    title: "Long-Lived Assets & Impairment",
+    content: `## Capitalize vs. expense
+- **Capitalize** costs that provide future benefits (PP&E, qualifying development); **expense** routine costs. Capitalizing boosts current income/assets and smooths earnings; expensing front-loads costs.
+- **Borrowing costs** on qualifying assets are capitalized (IFRS/GAAP differ on details).
+
+## Depreciation/amortization
+- Methods: **straight-line**, **accelerated** (DDB), units-of-production. Estimates: useful life, salvage. Longer lives / higher salvage → lower expense, higher income (a quality lever).
+
+## Measurement models
+- **Cost model** (cost − accumulated depreciation − impairment). **IFRS revaluation model** allows upward revaluation (to OCI). **US GAAP** prohibits upward revaluation.
+
+## Impairment
+- **IFRS**: impaired if carrying value > recoverable amount (higher of fair-value-less-costs and value-in-use); **reversals allowed**.
+- **US GAAP**: two-step — if carrying value > undiscounted future cash flows, write down to fair value; **no reversal**.
+- Intangibles: finite-life are amortized & tested on indicators; **indefinite-life and goodwill** are not amortized but tested annually.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-fixed-income-yield-curve-strategies-m01",
+    topicId: "cfa2-fixed-income-yield-curve-strategies",
+    title: "Yield-Curve & Active FI Strategies",
+    content: `## Positioning for a curve view
+- **Stable curve**: **buy-and-hold**, **roll down** (ride the curve), sell convexity, use carry/leverage.
+- **Level change (rates fall)**: **extend duration**; (rates rise) **shorten duration**.
+- **Slope**: expect **flattening** → **barbell**/long the long end; expect **steepening** → **bullet**/short the long end. A **bull steepener** vs **bear flattener** etc. describe level+slope combos.
+- **Curvature**: **butterfly** trades (long the wings vs the belly, or vice-versa).
+
+## Structures
+- **Bullet** (concentrated at one maturity), **barbell** (short + long), **ladder** (even spread). For a given duration, the **barbell** has more **convexity** (helps with large/volatile moves) but usually a lower yield.
+
+## Tools & risks
+- **Key rate durations** target specific maturities; **duration-neutral** trades isolate slope/curvature.
+- Active managers also rotate **sector/credit** and use **leverage** (repo). Watch **rolldown vs. forward-implied** returns: profit only if realized rates beat the curve's forwards.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-derivatives-currency-equity-forwards-m01",
+    topicId: "cfa2-derivatives-currency-equity-forwards",
+    title: "Currency & Equity Forward Pricing",
+    content: `Each forward applies **cost-of-carry**, adjusting for the underlying's income/cost.
+
+## Equity forwards
+- **F₀ = (S₀ − PV(dividends)) × (1 + r)^T**. Dividends are a carry benefit, lowering the forward. For an index, use a continuous **dividend yield q**: F₀ = S₀·e^((r − q)T).
+
+## Fixed-income (bond) forwards
+- Subtract the **PV of coupons**: F₀ = (S₀ − PV(coupons))(1 + r)^T. Quoted relative to the cheapest-to-deliver and a conversion factor for futures.
+
+## Currency forwards (covered interest rate parity)
+- **F (price/base) = S × (1 + r_price)^T / (1 + r_base)^T**. The currency with the **higher** interest rate trades at a forward **discount**.
+
+## Valuation over time
+- A forward's value = PV of (current forward price − contracted forward price). Zero at initiation; drifts with spot, rates, and carry. Arbitrage (cash-and-carry / reverse) enforces these prices.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-quantitative-methods-hypothesis-testing-m01",
+    topicId: "cfa2-quantitative-methods-hypothesis-testing",
+    title: "Hypothesis Testing",
+    content: `## Steps
+State **H₀** (null) and **Hₐ** (alternative) → choose a test statistic and **significance level α** → compute → compare to the critical value / **p-value** → decide.
+
+## Errors
+- **Type I**: reject a true H₀ (probability = **α**). **Type II**: fail to reject a false H₀ (probability β). **Power = 1 − β**.
+- Lowering α reduces Type I but raises Type II.
+
+## Common tests
+| Test | Use |
+| --- | --- |
+| **z-test** | known variance / large sample |
+| **t-test** | unknown variance, normal population |
+| **Chi-square** | a single variance |
+| **F-test** | equality of two variances; overall regression |
+
+- **One-tailed vs two-tailed** depends on the alternative.
+- A **p-value < α** ⇒ reject H₀. **Statistical** significance ≠ **economic** significance (after costs/taxes).
+- **Non-parametric** tests (e.g. Spearman rank) apply when distribution assumptions fail.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-quantitative-methods-probability-bayes-m01",
+    topicId: "cfa2-quantitative-methods-probability-bayes",
+    title: "Probability Concepts & Bayes",
+    content: `## Core rules
+- **Addition**: P(A or B) = P(A) + P(B) − P(A and B).
+- **Multiplication**: P(A and B) = P(A|B)·P(B); independent ⇒ P(A and B) = P(A)P(B).
+- **Total probability**: P(A) = Σ P(A|Sᵢ)P(Sᵢ) over a mutually exclusive, exhaustive set.
+
+## Bayes' formula
+**P(event | info) = [P(info | event) / P(info)] × P(event)** — updates a **prior** into a **posterior** with new evidence.
+
+## Expected value & moments
+- **E[X] = Σ p·x**; **Var = Σ p·(x − E[X])²**.
+- **Covariance/correlation** drive portfolio variance: Var(aX+bY) = a²σ_X² + b²σ_Y² + 2ab·Cov(X,Y).
+
+## Counting
+- **Combinations** nCr (order irrelevant) vs **permutations** nPr (order matters); the **multiplication rule** for sequential choices. Useful for scenario/labeling problems and binomial-tree node counts.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-economics-business-cycles-m01",
+    topicId: "cfa2-economics-business-cycles",
+    title: "Aggregate Output & Business Cycles",
+    content: `## Measuring output
+- **GDP** = C + I + G + (X − M). **Nominal** vs **real** (inflation-adjusted via the GDP deflator). **Potential GDP** is full-employment output; the **output gap** is actual − potential.
+
+## Aggregate demand & supply
+- **AD** slopes down; **SRAS** up; **LRAS** vertical at potential. Shocks shift them, moving price level and output.
+
+## Business cycle phases
+Expansion → **peak** → contraction/recession → **trough** → recovery.
+- **Inventory-sales** ratio rises early in a downturn; unemployment is **lagging**.
+- **Indicators**: leading (new orders, building permits, yield curve), coincident (industrial production, employment), lagging (CPI, average duration of unemployment).
+
+## Inflation & unemployment
+- **Demand-pull** vs **cost-push** inflation; the **Phillips curve** trades off (short-run) inflation and unemployment; **NAIRU** is the non-accelerating-inflation rate.
+- Schools: **Keynesian** (manage AD), **Monetarist** (steady money growth), **New Classical** (rational expectations).`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-economics-trade-capital-flows-m01",
+    topicId: "cfa2-economics-trade-capital-flows",
+    title: "International Trade & Capital Flows",
+    content: `## Gains from trade
+- **Comparative advantage** (Ricardo): trade benefits both parties even if one has an absolute advantage, by specializing where opportunity cost is lowest. **Heckscher-Ohlin**: countries export goods intensive in their abundant factor.
+
+## Trade restrictions
+- **Tariffs, quotas, voluntary export restraints, subsidies**. They protect domestic producers but create a **deadweight loss** and raise consumer prices; a large country may gain via terms-of-trade.
+
+## Balance of payments
+- **Current account** (trade in goods/services, income) + **capital/financial account** ≈ 0. A current-account **deficit** is financed by a financial-account **surplus** (capital inflows).
+- Persistent deficits relate to low **savings vs. investment** and can pressure the currency.
+
+## Institutions
+- **WTO** (trade rules), **IMF** (balance-of-payments support/stability), **World Bank** (development). Trading blocs (FTAs, customs unions, common markets) deepen integration and cause **trade creation** vs **trade diversion**.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-alternative-investments-infrastructure-m01",
+    topicId: "cfa2-alternative-investments-infrastructure",
+    title: "Infrastructure & Real Assets",
+    content: `## Infrastructure
+- Long-lived physical assets — transport (roads, airports), utilities, social (hospitals, schools), and **digital** (towers, data centers).
+- **Brownfield** (existing, lower risk, income now) vs **greenfield** (to-be-built, higher risk, development upside).
+- Characteristics: **stable, often inflation-linked cash flows**, high barriers, long horizons, and **regulatory** sensitivity. Provides income, diversification, and an **inflation hedge**; low correlation to equities.
+
+## Other real assets
+- **Timberland & farmland**: returns from biological growth, commodity prices, and land appreciation; inflation hedges.
+- **Commodities** (covered separately) and natural resources.
+
+## Portfolio role & risks
+- Match the **liability/horizon** profile (e.g., pensions like long, inflation-linked infrastructure cash flows).
+- Risks: **regulatory/political**, leverage, construction (greenfield), illiquidity, and demand/usage risk. Access via **direct, listed (e.g. infra funds/REITs), or private funds**.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-alternative-investments-due-diligence-m01",
+    topicId: "cfa2-alternative-investments-due-diligence",
+    title: "Alternatives: Due Diligence & Appraisal",
+    content: `## Performance appraisal
+- Alternatives have **non-normal** returns, so volatility/Sharpe understate risk. Use **downside** measures (Sortino, max drawdown), **VaR/CVaR**, and scenario analysis.
+- **Smoothed** (appraisal-based) returns understate volatility/correlation — **unsmooth** before optimizing.
+- Private funds: **IRR** (money-weighted) and multiples — **TVPI, DPI (realized), RVPI (unrealized)**; compare to **vintage-year** peers, not a public index alone.
+
+## Fees
+- **2-and-20** with a **hurdle** and **high-water mark**; **clawback** protects LPs; **management fee on committed vs invested** capital matters.
+
+## Due diligence
+- **Investment DD**: strategy, edge, repeatability, team. **Operational DD** (a leading cause of failure): independent **administrator/custodian/auditor**, valuation policy, controls, compliance, key-person and business risk.
+- Assess **liquidity terms** (lockups, gates), leverage, capacity, and alignment of interests.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-ethics-duties-clients-employers-m01",
+    topicId: "cfa2-ethics-duties-clients-employers",
+    title: "Duties to Clients & Employers (Standards III & IV)",
+    content: `## Standard III — Duties to Clients
+- **III(A) Loyalty, Prudence & Care**: act for the client's/beneficiary's benefit; for pensions, the **beneficiaries** come first.
+- **III(B) Fair Dealing**: disseminate recommendations/changes fairly; no favoring select clients.
+- **III(C) Suitability**: match recommendations to each client's IPS (objectives & constraints); for advisory relationships consider the **total portfolio**.
+- **III(D) Performance Presentation**: fair, accurate, complete (don't cherry-pick).
+- **III(E) Confidentiality**: keep current/former/prospective client information confidential (unless illegal activity / legal requirement).
+
+## Standard IV — Duties to Employers
+- **IV(A) Loyalty**: act for the employer; don't deprive it of your skills; **no taking client lists/records**; whistle-blowing protects the market/clients.
+- **IV(B) Additional Compensation Arrangements**: get **written consent** for outside compensation that competes with the employer's interest.
+- **IV(C) Responsibilities of Supervisors**: take reasonable steps to **prevent and detect** violations by those you supervise (adequate compliance procedures).`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-ethics-conflicts-priority-m01",
+    topicId: "cfa2-ethics-conflicts-priority",
+    title: "Conflicts of Interest & Priority of Transactions (Standard VI)",
+    content: `## Standard VI — Conflicts of Interest
+- **VI(A) Disclosure of Conflicts**: **fully and fairly disclose** anything that could impair independence/objectivity (ownership, board seats, compensation structures, broker relationships) — prominently and in plain language.
+- **VI(B) Priority of Transactions**: **client and employer trades take precedence** over a member's own. Personal trading must never disadvantage clients (restricted lists, pre-clearance, blackout/restricted periods for IPOs and private placements).
+- **VI(C) Referral Fees**: disclose to clients and the employer any compensation for referrals so clients can assess potential bias.
+
+## Putting it together
+Many vignettes mix VI with I(B) Independence and III(B) Fair Dealing. Recommended procedures: **disclosure**, **personal-trading policies/pre-clearance**, **restricted lists**, and **compliance review**. The default cure for a conflict is **disclosure + management**, not concealment.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-corporate-issuers-working-capital-m01",
+    topicId: "cfa2-corporate-issuers-working-capital",
+    title: "Working Capital & Liquidity Management",
+    content: `## Cash conversion cycle
+**CCC = DSO + DOH − DPO** (days sales outstanding + days inventory − days payables). A **shorter** CCC frees up cash and improves liquidity; some retailers run a **negative** CCC (suppliers finance them).
+
+## Liquidity ratios
+- **Current** = CA/CL; **quick** = (cash + marketable securities + receivables)/CL (excludes inventory); **cash ratio** = (cash + marketable securities)/CL (strictest).
+
+## Short-term funding & investing
+- Sources: committed > uncommitted lines, **revolvers**, **commercial paper**, factoring.
+- **Cost of trade credit** when forgoing a discount ("2/10 net 30"): (1 + 0.02/0.98)^(365/20) − 1 ≈ **44.6%** — usually worth taking the discount.
+- Invest excess cash safely/liquidly; measure with money-market yields (bond-equivalent yield for comparison).
+
+## Management
+- Optimize receivables (credit terms, collections), inventory (turnover vs. stockouts), and payables (stretch without harming suppliers). Maintain adequate liquidity buffers for operating needs.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-corporate-issuers-cost-of-capital-m01",
+    topicId: "cfa2-corporate-issuers-cost-of-capital",
+    title: "Cost of Capital (WACC)",
+    content: `## WACC
+**WACC = w_d·r_d·(1 − t) + w_p·r_p + w_e·r_e**, using **target (market-value) weights**. The after-tax cost of debt reflects the interest **tax shield**.
+
+## Component costs
+- **Debt**: yield-to-maturity on current debt (or matrix/spread for unrated).
+- **Preferred**: r_p = dividend / price.
+- **Equity**: usually **CAPM** r_e = R_f + β(market risk premium); or bond-yield-plus-risk-premium / dividend-discount.
+
+## Beta estimation
+- Use a comparable's beta: **unlever** (remove its leverage) then **relever** at the subject firm's capital structure (Hamada): β_L = β_U[1 + (1 − t)(D/E)].
+
+## Use & cautions
+- WACC is the discount rate for **average-risk** projects; adjust up/down for project-specific risk. Use a **marginal** (forward) cost of capital. The **MCC schedule** rises with the amount of new capital raised (break points).`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa2-portfolio-management-risk-return-capm-m01",
+    topicId: "cfa2-portfolio-management-risk-return-capm",
+    title: "Portfolio Risk, Return & CAPM",
+    content: `## Diversification
+- Portfolio variance depends on weights, variances, and **covariances/correlations**: combining assets with correlation < 1 reduces risk. **Systematic** (market) risk can't be diversified away; **unsystematic** can.
+
+## The efficient frontier & CAL
+- The **efficient frontier** holds the best return per unit of total risk. Adding a **risk-free asset** creates the **Capital Allocation Line**; the tangency portfolio gives the **CML** (uses total risk σ).
+
+## CAPM & SML
+- **E[R_i] = R_f + β_i(E[R_m] − R_f)**. **Beta** = Cov(i, m)/Var(m) measures systematic risk.
+- The **Security Market Line** plots expected return vs. beta; assets above the SML are **undervalued** (positive alpha).
+- **Assumptions** (frictionless markets, homogeneous expectations, one period) are unrealistic, but CAPM remains the workhorse for the cost of equity. Multifactor models extend it.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-portfolio-management-ips-allocation-m01",
+    topicId: "cfa2-portfolio-management-ips-allocation",
+    title: "IPS & Asset Allocation",
+    content: `## The portfolio management process
+**Planning → Execution → Feedback.** The **Investment Policy Statement (IPS)** governs planning.
+
+## IPS = objectives + constraints
+- **Objectives**: **risk** tolerance (ability + willingness — use the **lower**) and **return** requirement.
+- **Constraints (mnemonic: T-T-L-L-U)**: **Time horizon, Taxes, Liquidity, Legal/regulatory, Unique circumstances**.
+
+## Asset allocation
+- **Strategic (SAA)**: long-run policy weights from the IPS and capital market expectations — the dominant driver of long-run return variability.
+- **Tactical (TAA)**: short-run deviations to exploit views. **Rebalancing** keeps the portfolio near policy.
+- Approaches: **asset-only** (mean-variance optimization), **liability-relative**, **goals-based**.
+
+## Execution & review
+- Implement via security selection/trading; monitor, rebalance, and revise the IPS as circumstances change. Diversify across asset classes per the chosen allocation.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
   }
 ];
 
@@ -1446,5 +1754,215 @@ export const expQuestions: Question[] = [
   { id: "cfa2-portfolio-management-economics-markets-q09", topicId: "cfa2-portfolio-management-economics-markets", text: "Real estate's return profile is best described as:", optionA: "Purely bond-like", optionB: "A blend of bond-like (income) and equity-like (cyclical) features", optionC: "Risk-free", optionD: "Identical to commodities", correctOption: "B", explanation: "Lease income is bond-like while property values are cyclical, giving real estate hybrid characteristics.", orderIndex: 8 },
   { id: "cfa2-portfolio-management-economics-markets-q10", topicId: "cfa2-portfolio-management-economics-markets", text: "Investors' required returns generally rise when risk aversion:", optionA: "Falls", optionB: "Rises", optionC: "Is constant", optionD: "Is zero", correctOption: "B", explanation: "Greater risk aversion increases the risk premium demanded, raising required returns and lowering prices.", orderIndex: 9 },
   { id: "cfa2-portfolio-management-economics-markets-q11", topicId: "cfa2-portfolio-management-economics-markets", text: "The slope of the yield curve embeds market expectations about:", optionA: "Future growth and inflation", optionB: "Dividend policy", optionC: "Share count", optionD: "Audit quality", correctOption: "A", explanation: "The curve's shape reflects expected future short rates, which depend on growth and inflation expectations.", orderIndex: 10 },
-  { id: "cfa2-portfolio-management-economics-markets-q12", topicId: "cfa2-portfolio-management-economics-markets", text: "During an economic expansion, credit spreads typically:", optionA: "Widen", optionB: "Narrow", optionC: "Stay fixed", optionD: "Go negative", correctOption: "B", explanation: "Improving conditions lower default risk, narrowing credit spreads in expansions.", orderIndex: 11 }
+  { id: "cfa2-portfolio-management-economics-markets-q12", topicId: "cfa2-portfolio-management-economics-markets", text: "During an economic expansion, credit spreads typically:", optionA: "Widen", optionB: "Narrow", optionC: "Stay fixed", optionD: "Go negative", correctOption: "B", explanation: "Improving conditions lower default risk, narrowing credit spreads in expansions.", orderIndex: 11 },
+
+  // Long-lived assets & impairment
+  { id: "cfa2-financial-reporting-long-lived-assets-q01", topicId: "cfa2-financial-reporting-long-lived-assets", text: "Capitalizing a cost rather than expensing it will, in the year incurred:", optionA: "Lower net income and assets", optionB: "Raise net income and assets", optionC: "Have no effect", optionD: "Lower assets only", correctOption: "B", explanation: "Capitalizing moves the cost to the balance sheet, raising assets and current income (then depreciating over time).", orderIndex: 0 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q02", topicId: "cfa2-financial-reporting-long-lived-assets", text: "Under IFRS, an impairment loss on PP&E may be:", optionA: "Never reversed", optionB: "Reversed if the recoverable amount recovers", optionC: "Reversed only for goodwill", optionD: "Ignored", correctOption: "B", explanation: "IFRS permits reversal of impairments (except goodwill); US GAAP prohibits reversal.", orderIndex: 1 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q03", topicId: "cfa2-financial-reporting-long-lived-assets", text: "US GAAP tests PP&E for impairment by first comparing carrying value to:", optionA: "Undiscounted expected future cash flows", optionB: "Fair value immediately", optionC: "Replacement cost", optionD: "Book value of equity", correctOption: "A", explanation: "If carrying value exceeds undiscounted future cash flows, the asset is written down to fair value.", orderIndex: 2 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q04", topicId: "cfa2-financial-reporting-long-lived-assets", text: "Using a longer estimated useful life for depreciation will:", optionA: "Increase annual depreciation and lower income", optionB: "Decrease annual depreciation and raise income", optionC: "Have no effect", optionD: "Increase assets' salvage", correctOption: "B", explanation: "A longer life spreads cost over more years, lowering annual expense and boosting income — an earnings-quality lever.", orderIndex: 3 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q05", topicId: "cfa2-financial-reporting-long-lived-assets", text: "The IFRS revaluation model allows long-lived assets to be:", optionA: "Revalued upward, generally to OCI", optionB: "Only written down", optionC: "Held at original cost forever", optionD: "Expensed immediately", correctOption: "A", explanation: "IFRS permits upward revaluation (typically through OCI/revaluation surplus); US GAAP does not.", orderIndex: 4 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q06", topicId: "cfa2-financial-reporting-long-lived-assets", text: "Goodwill and indefinite-life intangibles are:", optionA: "Amortized straight-line", optionB: "Not amortized but tested for impairment", optionC: "Expensed at purchase", optionD: "Depreciated", correctOption: "B", explanation: "These are not amortized; instead they are tested for impairment (annually or on indicators).", orderIndex: 5 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q07", topicId: "cfa2-financial-reporting-long-lived-assets", text: "Accelerated depreciation (vs straight-line) produces, in early years:", optionA: "Lower expense and higher income", optionB: "Higher expense and lower income", optionC: "No difference", optionD: "Higher salvage", correctOption: "B", explanation: "Accelerated methods front-load depreciation, lowering early-year income relative to straight-line.", orderIndex: 6 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q08", topicId: "cfa2-financial-reporting-long-lived-assets", text: "Borrowing costs on a qualifying asset under construction are generally:", optionA: "Expensed immediately", optionB: "Capitalized as part of the asset's cost", optionC: "Ignored", optionD: "Recorded as revenue", correctOption: "B", explanation: "Interest on funds used to construct qualifying assets is capitalized while construction is in progress.", orderIndex: 7 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q09", topicId: "cfa2-financial-reporting-long-lived-assets", text: "Under IFRS, the recoverable amount is the higher of fair value less costs to sell and:", optionA: "Value in use", optionB: "Replacement cost", optionC: "Historical cost", optionD: "Salvage value", correctOption: "A", explanation: "IFRS impairs when carrying value exceeds recoverable amount = max(fair value less costs, value in use).", orderIndex: 8 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q10", topicId: "cfa2-financial-reporting-long-lived-assets", text: "Finite-life intangible assets are:", optionA: "Tested for impairment annually but not amortized", optionB: "Amortized over their useful life and tested on indicators", optionC: "Never amortized", optionD: "Expensed when acquired", correctOption: "B", explanation: "Finite-life intangibles are amortized; impairment is tested when indicators suggest it.", orderIndex: 9 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q11", topicId: "cfa2-financial-reporting-long-lived-assets", text: "A firm that aggressively capitalizes ordinary operating costs will likely show:", optionA: "Lower current profit and cash from operations", optionB: "Higher current profit and higher reported operating cash flow", optionC: "No change to cash flows", optionD: "Lower assets", correctOption: "B", explanation: "Capitalizing operating costs boosts income and shifts the outflow to investing, inflating operating cash flow.", orderIndex: 10 },
+  { id: "cfa2-financial-reporting-long-lived-assets-q12", topicId: "cfa2-financial-reporting-long-lived-assets", text: "An impairment write-down reduces:", optionA: "The asset's carrying value and current income", optionB: "Only cash", optionC: "Revenue", optionD: "The tax rate", correctOption: "A", explanation: "Impairment lowers the asset's carrying amount and recognizes a loss in the income statement.", orderIndex: 11 },
+
+  // Yield-curve & active FI strategies
+  { id: "cfa2-fixed-income-yield-curve-strategies-q01", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "Expecting interest rates to fall, a manager should:", optionA: "Shorten duration", optionB: "Extend duration", optionC: "Hold cash only", optionD: "Buy floating-rate notes", correctOption: "B", explanation: "Longer duration maximizes price gains when rates fall.", orderIndex: 0 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q02", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "'Riding (rolling) down the yield curve' adds return when the curve is:", optionA: "Inverted and volatile", optionB: "Upward-sloping and stable", optionC: "Flat and falling", optionD: "Downward-sloping", correctOption: "B", explanation: "On a stable upward-sloping curve, a bond's yield falls as it ages, producing price gains beyond its coupon.", orderIndex: 1 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q03", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "For a given duration, a barbell portfolio versus a bullet has:", optionA: "Lower convexity", optionB: "Higher convexity", optionC: "Identical convexity", optionD: "No convexity", correctOption: "B", explanation: "Spreading maturities (barbell) increases convexity relative to a concentrated bullet of equal duration.", orderIndex: 2 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q04", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "A manager expecting the curve to flatten (long rates fall relative to short) might:", optionA: "Buy the long end / use a barbell", optionB: "Shorten everything to cash", optionC: "Buy only short bills", optionD: "Sell all bonds", correctOption: "A", explanation: "Anticipating flattening, overweighting the long end benefits as long-end yields fall.", orderIndex: 3 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q05", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "Higher convexity is most valuable when:", optionA: "Rates are constant", optionB: "Rate volatility / large moves are expected", optionC: "The curve is flat forever", optionD: "Coupons are zero", correctOption: "B", explanation: "Convexity improves price response asymmetrically, helping most during large or volatile rate moves.", orderIndex: 4 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q06", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "Key rate durations are used to:", optionA: "Measure only parallel-shift risk", optionB: "Target exposure to specific points on the curve", optionC: "Eliminate credit risk", optionD: "Compute the coupon", correctOption: "B", explanation: "Key rate durations capture sensitivity to changes at individual maturities for non-parallel curve trades.", orderIndex: 5 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q07", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "A bullet structure concentrates maturities, giving it, vs a barbell of equal duration:", optionA: "Higher convexity but lower yield", optionB: "Lower convexity, often a higher yield", optionC: "Identical risk", optionD: "No interest-rate risk", correctOption: "B", explanation: "Bullets have less convexity than barbells but typically offer a higher yield for the same duration.", orderIndex: 6 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q08", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "An active manager profits from a buy-long/roll-short trade only if future spot rates come in:", optionA: "Above the curve's implied forwards", optionB: "Below the curve's implied forwards", optionC: "Exactly at the forwards", optionD: "At zero", correctOption: "B", explanation: "Forwards are the break-even; you profit from extending only if realized rates are below today's forwards.", orderIndex: 7 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q09", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "A butterfly trade is designed to exploit a change in the curve's:", optionA: "Level", optionB: "Curvature", optionC: "Credit spread", optionD: "Coupon", correctOption: "B", explanation: "Butterfly trades (wings vs. belly) target curvature changes while staying roughly duration-neutral.", orderIndex: 8 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q10", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "A laddered portfolio holds bonds:", optionA: "Only at the short end", optionB: "Spread evenly across maturities", optionC: "Only at the long end", optionD: "All at one maturity", correctOption: "B", explanation: "A ladder distributes holdings evenly across maturities, balancing reinvestment and price risk.", orderIndex: 9 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q11", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "Active fixed-income managers commonly use repo (leverage) to:", optionA: "Reduce returns", optionB: "Amplify carry and curve positions", optionC: "Remove all risk", optionD: "Avoid the curve", correctOption: "B", explanation: "Repo financing levers positions to enhance carry/strategy returns — and risk.", orderIndex: 10 },
+  { id: "cfa2-fixed-income-yield-curve-strategies-q12", topicId: "cfa2-fixed-income-yield-curve-strategies", text: "If a manager expects the curve to be stable, a sensible strategy is to:", optionA: "Maximize convexity at any cost", optionB: "Buy-and-hold / roll down and harvest carry", optionC: "Move entirely to cash", optionD: "Short all bonds", correctOption: "B", explanation: "With a stable curve, carry and rolldown strategies capture yield without needing rate forecasts.", orderIndex: 11 },
+
+  // Currency & equity forward pricing
+  { id: "cfa2-derivatives-currency-equity-forwards-q01", topicId: "cfa2-derivatives-currency-equity-forwards", text: "The forward price of a dividend-paying stock equals:", optionA: "(S₀ − PV(dividends)) × (1 + r)^T", optionB: "S₀ × (1 + r)^T + dividends", optionC: "S₀ / (1 + r)^T", optionD: "S₀ × dividends", correctOption: "A", explanation: "Dividends are a carry benefit, subtracted (in PV) before compounding at the risk-free rate.", orderIndex: 0 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q02", topicId: "cfa2-derivatives-currency-equity-forwards", text: "For an equity index with continuous dividend yield q, the forward is:", optionA: "S₀·e^((r + q)T)", optionB: "S₀·e^((r − q)T)", optionC: "S₀·e^(qT)", optionD: "S₀·e^(−rT)", correctOption: "B", explanation: "The dividend yield reduces the cost of carry: F₀ = S₀·e^((r − q)T).", orderIndex: 1 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q03", topicId: "cfa2-derivatives-currency-equity-forwards", text: "Under covered interest rate parity, the currency with the higher interest rate trades at a forward:", optionA: "Premium", optionB: "Discount", optionC: "Rate equal to spot", optionD: "Indeterminate rate", correctOption: "B", explanation: "The higher-yield currency is at a forward discount, offsetting its yield advantage (no arbitrage).", orderIndex: 2 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q04", topicId: "cfa2-derivatives-currency-equity-forwards", text: "The currency forward formula F = S × (1 + r_price)^T / (1 + r_base)^T is enforced by:", optionA: "Covered interest arbitrage", optionB: "The dividend discount model", optionC: "PPP only", optionD: "Random pricing", correctOption: "A", explanation: "Covered interest arbitrage forces the forward to this no-arbitrage level.", orderIndex: 3 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q05", topicId: "cfa2-derivatives-currency-equity-forwards", text: "For a coupon bond forward, one subtracts the:", optionA: "PV of coupons before compounding", optionB: "Dividend yield", optionC: "Convenience yield", optionD: "Beta", correctOption: "A", explanation: "Coupons are carry benefits: F₀ = (S₀ − PV(coupons))(1 + r)^T.", orderIndex: 4 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q06", topicId: "cfa2-derivatives-currency-equity-forwards", text: "The value of an equity forward at initiation is:", optionA: "Equal to the spot", optionB: "Zero", optionC: "The dividend", optionD: "Negative", correctOption: "B", explanation: "The forward price is set so the contract's initial value is zero.", orderIndex: 5 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q07", topicId: "cfa2-derivatives-currency-equity-forwards", text: "Higher dividends, all else equal, will ____ a stock's forward price.", optionA: "Raise", optionB: "Lower", optionC: "Not affect", optionD: "Double", correctOption: "B", explanation: "Dividends reduce the net cost of carry, lowering the forward price.", orderIndex: 6 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q08", topicId: "cfa2-derivatives-currency-equity-forwards", text: "The value of a forward before expiry equals the PV of:", optionA: "(current forward − contracted forward)", optionB: "the spot price", optionC: "the dividend yield", optionD: "the coupon", correctOption: "A", explanation: "A forward's mark-to-market value is the discounted difference between the current and contracted forward prices.", orderIndex: 7 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q09", topicId: "cfa2-derivatives-currency-equity-forwards", text: "If the actual currency forward is above its no-arbitrage value, an arbitrageur would:", optionA: "Sell the forward and execute covered interest arbitrage", optionB: "Buy the forward only", optionC: "Do nothing", optionD: "Short the domestic bill only", correctOption: "A", explanation: "An overpriced forward is sold while replicating the position via spot + money-market trades.", orderIndex: 8 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q10", topicId: "cfa2-derivatives-currency-equity-forwards", text: "A higher domestic (price-currency) interest rate, all else equal, makes the currency forward:", optionA: "Lower (base at discount)", optionB: "Higher (base currency at a forward premium)", optionC: "Unchanged", optionD: "Negative", correctOption: "B", explanation: "A higher price-currency rate raises F (price/base), putting the base currency at a forward premium.", orderIndex: 9 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q11", topicId: "cfa2-derivatives-currency-equity-forwards", text: "Equity forward/futures pricing relies on:", optionA: "Dividend forecasts and the risk-free rate (cost of carry)", optionB: "The equity risk premium", optionC: "Beta only", optionD: "Credit spreads", correctOption: "A", explanation: "Cost-of-carry pricing uses the risk-free rate and expected dividends, not the equity risk premium.", orderIndex: 10 },
+  { id: "cfa2-derivatives-currency-equity-forwards-q12", topicId: "cfa2-derivatives-currency-equity-forwards", text: "The no-arbitrage forward price is enforced through:", optionA: "Cash-and-carry / reverse cash-and-carry arbitrage", optionB: "Dividend reinvestment", optionC: "Random walk", optionD: "Tax arbitrage", correctOption: "A", explanation: "If price deviates, traders execute cash-and-carry (or its reverse), pushing the forward back to fair value.", orderIndex: 11 },
+
+  // Hypothesis testing
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q01", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "The probability of a Type I error equals the:", optionA: "Power of the test", optionB: "Significance level (α)", optionC: "p-value always", optionD: "Confidence level", correctOption: "B", explanation: "α is the probability of rejecting a true null hypothesis (a Type I error).", orderIndex: 0 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q02", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "A Type II error is:", optionA: "Rejecting a true null", optionB: "Failing to reject a false null", optionC: "Using the wrong test", optionD: "A data entry error", correctOption: "B", explanation: "A Type II error fails to reject H₀ when it is actually false; its probability is β.", orderIndex: 1 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q03", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "The power of a test equals:", optionA: "α", optionB: "1 − β", optionC: "1 − α", optionD: "β", correctOption: "B", explanation: "Power = 1 − β, the probability of correctly rejecting a false null.", orderIndex: 2 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q04", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "When the population variance is unknown and the sample is from a normal distribution, the appropriate test uses the:", optionA: "z-distribution", optionB: "t-distribution", optionC: "Chi-square", optionD: "F-distribution", correctOption: "B", explanation: "The t-test is used when the variance is unknown (estimated from the sample).", orderIndex: 3 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q05", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "We reject the null hypothesis when the p-value is:", optionA: "Greater than α", optionB: "Less than α", optionC: "Equal to 1", optionD: "Negative", correctOption: "B", explanation: "A p-value below the significance level α leads to rejecting H₀.", orderIndex: 4 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q06", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "Lowering the significance level (e.g., from 5% to 1%):", optionA: "Reduces Type I error but raises Type II error", optionB: "Reduces both error types", optionC: "Increases Type I error", optionD: "Has no effect on errors", correctOption: "A", explanation: "A stricter α cuts false positives (Type I) but increases the chance of a Type II error.", orderIndex: 5 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q07", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "A test of whether a single population variance equals a value uses the:", optionA: "t-test", optionB: "Chi-square test", optionC: "z-test", optionD: "Durbin-Watson", correctOption: "B", explanation: "The chi-square test assesses hypotheses about a single variance.", orderIndex: 6 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q08", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "An F-test is commonly used to test:", optionA: "The equality of two variances or overall regression significance", optionB: "A single mean", optionC: "Serial correlation only", optionD: "Normality", correctOption: "A", explanation: "The F-test compares two variances and tests joint significance of regression slopes.", orderIndex: 7 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q09", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "A one-tailed test is appropriate when the alternative hypothesis specifies a:", optionA: "Direction (greater than or less than)", optionB: "Two-sided difference", optionC: "Variance only", optionD: "Zero effect", correctOption: "A", explanation: "Directional alternatives (e.g., > 0) call for a one-tailed test.", orderIndex: 8 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q10", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "Statistical significance differs from economic significance because the latter considers:", optionA: "Only the p-value", optionB: "Transaction costs, taxes and risk after implementation", optionC: "The sample size", optionD: "The test statistic", correctOption: "B", explanation: "A statistically significant result may not be economically significant once real-world costs/taxes/risk are included.", orderIndex: 9 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q11", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "Non-parametric tests are used when:", optionA: "Distribution assumptions are not met or data are ranks", optionB: "The variance is known", optionC: "The sample is huge and normal", optionD: "Only for regression", correctOption: "A", explanation: "Non-parametric methods (e.g., Spearman rank) apply when parametric assumptions fail or data are ordinal.", orderIndex: 10 },
+  { id: "cfa2-quantitative-methods-hypothesis-testing-q12", topicId: "cfa2-quantitative-methods-hypothesis-testing", text: "Increasing the sample size, all else equal, generally:", optionA: "Lowers the test's power", optionB: "Increases power (smaller standard error)", optionC: "Raises Type I error", optionD: "Has no effect", correctOption: "B", explanation: "Larger samples reduce the standard error, increasing the ability to detect a true effect (power).", orderIndex: 11 },
+
+  // Probability concepts & Bayes
+  { id: "cfa2-quantitative-methods-probability-bayes-q01", topicId: "cfa2-quantitative-methods-probability-bayes", text: "For two independent events, P(A and B) equals:", optionA: "P(A) + P(B)", optionB: "P(A) × P(B)", optionC: "P(A|B)", optionD: "P(A) − P(B)", correctOption: "B", explanation: "Independence means the joint probability is the product of the individual probabilities.", orderIndex: 0 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q02", topicId: "cfa2-quantitative-methods-probability-bayes", text: "The addition rule states P(A or B) =", optionA: "P(A) + P(B) − P(A and B)", optionB: "P(A) × P(B)", optionC: "P(A|B) × P(B)", optionD: "P(A) − P(B)", correctOption: "A", explanation: "Subtracting the joint probability avoids double-counting the overlap.", orderIndex: 1 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q03", topicId: "cfa2-quantitative-methods-probability-bayes", text: "Bayes' formula is used to:", optionA: "Compute variance", optionB: "Update a prior probability with new information", optionC: "Estimate beta", optionD: "Price a forward", correctOption: "B", explanation: "Bayes' rule revises a prior into a posterior given new evidence.", orderIndex: 2 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q04", topicId: "cfa2-quantitative-methods-probability-bayes", text: "The expected value of a random variable is:", optionA: "Σ probability × outcome", optionB: "The largest outcome", optionC: "The variance", optionD: "The median", correctOption: "A", explanation: "E[X] is the probability-weighted average of the possible outcomes.", orderIndex: 3 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q05", topicId: "cfa2-quantitative-methods-probability-bayes", text: "In a two-asset portfolio, variance depends on the weights, variances and the:", optionA: "Covariance/correlation between assets", optionB: "Dividend yield", optionC: "Coupon", optionD: "Beta of the market", correctOption: "A", explanation: "Var(aX+bY) = a²σ²_X + b²σ²_Y + 2ab·Cov(X,Y); covariance is essential.", orderIndex: 4 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q06", topicId: "cfa2-quantitative-methods-probability-bayes", text: "The total probability rule expresses P(A) as:", optionA: "Σ P(A|Sᵢ)P(Sᵢ) over a mutually exclusive, exhaustive set", optionB: "P(A) × P(B)", optionC: "1 − P(A)", optionD: "P(A and B)", correctOption: "A", explanation: "It weights conditional probabilities by the probabilities of an exhaustive set of scenarios.", orderIndex: 5 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q07", topicId: "cfa2-quantitative-methods-probability-bayes", text: "Combinations (nCr) are used when:", optionA: "Order matters", optionB: "Order does not matter", optionC: "Events are dependent", optionD: "Computing variance", correctOption: "B", explanation: "Combinations count selections where order is irrelevant; permutations count ordered arrangements.", orderIndex: 6 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q08", topicId: "cfa2-quantitative-methods-probability-bayes", text: "A conditional probability P(A|B) is:", optionA: "P(A and B) / P(B)", optionB: "P(A) + P(B)", optionC: "P(A) × P(B)", optionD: "1 − P(A)", correctOption: "A", explanation: "Conditional probability normalizes the joint probability by the conditioning event's probability.", orderIndex: 7 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q09", topicId: "cfa2-quantitative-methods-probability-bayes", text: "Two events are mutually exclusive if:", optionA: "They cannot occur together (P(A and B)=0)", optionB: "They always occur together", optionC: "They are independent", optionD: "Their probabilities sum to 1", correctOption: "A", explanation: "Mutually exclusive events have zero joint probability.", orderIndex: 8 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q10", topicId: "cfa2-quantitative-methods-probability-bayes", text: "If a test is 90% accurate and a condition is rare, Bayes' rule shows the posterior probability of the condition given a positive test is often:", optionA: "Near 100%", optionB: "Lower than intuition suggests, due to the low prior", optionC: "Exactly 90%", optionD: "Zero", correctOption: "B", explanation: "A low base rate (prior) keeps the posterior modest even with an accurate test — the base-rate effect.", orderIndex: 9 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q11", topicId: "cfa2-quantitative-methods-probability-bayes", text: "Variance is computed as:", optionA: "Σ p(x − E[X])²", optionB: "Σ p·x", optionC: "E[X] − 1", optionD: "the square root of E[X]", correctOption: "A", explanation: "Variance is the probability-weighted average of squared deviations from the mean.", orderIndex: 10 },
+  { id: "cfa2-quantitative-methods-probability-bayes-q12", topicId: "cfa2-quantitative-methods-probability-bayes", text: "Adding an asset with low correlation to a portfolio tends to:", optionA: "Increase total risk", optionB: "Reduce total portfolio risk (diversification)", optionC: "Have no effect", optionD: "Guarantee higher return", correctOption: "B", explanation: "Low or negative correlation lowers portfolio variance, the core benefit of diversification.", orderIndex: 11 },
+
+  // Aggregate output & business cycles
+  { id: "cfa2-economics-business-cycles-q01", topicId: "cfa2-economics-business-cycles", text: "GDP using the expenditure approach equals:", optionA: "C + I + G + (X − M)", optionB: "C × I × G", optionC: "Wages + profits only", optionD: "Exports only", correctOption: "A", explanation: "GDP = consumption + investment + government spending + net exports.", orderIndex: 0 },
+  { id: "cfa2-economics-business-cycles-q02", topicId: "cfa2-economics-business-cycles", text: "Real GDP differs from nominal GDP by adjusting for:", optionA: "Taxes", optionB: "Inflation (using the GDP deflator)", optionC: "Population", optionD: "Trade", correctOption: "B", explanation: "Real GDP removes price-level changes via the GDP deflator, measuring true output growth.", orderIndex: 1 },
+  { id: "cfa2-economics-business-cycles-q03", topicId: "cfa2-economics-business-cycles", text: "The output gap is the difference between actual GDP and:", optionA: "Last year's GDP", optionB: "Potential (full-employment) GDP", optionC: "Nominal GDP", optionD: "Trade balance", correctOption: "B", explanation: "The output gap = actual − potential GDP; a negative gap implies slack/recession.", orderIndex: 2 },
+  { id: "cfa2-economics-business-cycles-q04", topicId: "cfa2-economics-business-cycles", text: "The long-run aggregate supply (LRAS) curve is:", optionA: "Upward sloping", optionB: "Vertical at potential output", optionC: "Downward sloping", optionD: "Horizontal", correctOption: "B", explanation: "In the long run, output is determined by productive capacity, so LRAS is vertical at potential GDP.", orderIndex: 3 },
+  { id: "cfa2-economics-business-cycles-q05", topicId: "cfa2-economics-business-cycles", text: "Unemployment is generally a ____ indicator of the business cycle.", optionA: "Leading", optionB: "Lagging", optionC: "Coincident", optionD: "Random", correctOption: "B", explanation: "Unemployment tends to change after the economy turns, making it a lagging indicator.", orderIndex: 4 },
+  { id: "cfa2-economics-business-cycles-q06", topicId: "cfa2-economics-business-cycles", text: "Which is a leading economic indicator?", optionA: "Average duration of unemployment", optionB: "New manufacturing orders / building permits", optionC: "Industrial production", optionD: "CPI", correctOption: "B", explanation: "New orders and permits shift before the broader economy, classic leading indicators.", orderIndex: 5 },
+  { id: "cfa2-economics-business-cycles-q07", topicId: "cfa2-economics-business-cycles", text: "Cost-push inflation arises primarily from:", optionA: "Rising aggregate demand", optionB: "Higher input costs reducing aggregate supply", optionC: "Lower money supply", optionD: "Falling wages", correctOption: "B", explanation: "Cost-push inflation comes from supply-side cost increases (e.g., energy, wages) shifting SRAS left.", orderIndex: 6 },
+  { id: "cfa2-economics-business-cycles-q08", topicId: "cfa2-economics-business-cycles", text: "The Phillips curve depicts a short-run trade-off between inflation and:", optionA: "GDP growth", optionB: "Unemployment", optionC: "Interest rates", optionD: "The trade balance", correctOption: "B", explanation: "The short-run Phillips curve shows an inverse relation between inflation and unemployment.", orderIndex: 7 },
+  { id: "cfa2-economics-business-cycles-q09", topicId: "cfa2-economics-business-cycles", text: "NAIRU is the unemployment rate at which inflation is:", optionA: "Accelerating", optionB: "Non-accelerating (stable)", optionC: "Zero", optionD: "Negative", correctOption: "B", explanation: "NAIRU is the non-accelerating-inflation rate of unemployment — the rate consistent with stable inflation.", orderIndex: 8 },
+  { id: "cfa2-economics-business-cycles-q10", topicId: "cfa2-economics-business-cycles", text: "Monetarist economists emphasize:", optionA: "Active fiscal fine-tuning", optionB: "Steady, predictable money-supply growth", optionC: "Ignoring inflation", optionD: "Price controls", correctOption: "B", explanation: "Monetarists favor stable money growth, viewing inflation as primarily a monetary phenomenon.", orderIndex: 9 },
+  { id: "cfa2-economics-business-cycles-q11", topicId: "cfa2-economics-business-cycles", text: "Early in a recession, the inventory-to-sales ratio typically:", optionA: "Falls sharply", optionB: "Rises (as sales slow faster than production adjusts)", optionC: "Is unchanged", optionD: "Goes to zero", correctOption: "B", explanation: "Unsold goods accumulate as demand drops, raising the inventory-sales ratio early in a downturn.", orderIndex: 10 },
+  { id: "cfa2-economics-business-cycles-q12", topicId: "cfa2-economics-business-cycles", text: "Demand-pull inflation results from:", optionA: "Excess aggregate demand relative to capacity", optionB: "Falling input costs", optionC: "A money-supply contraction", optionD: "Rising unemployment", correctOption: "A", explanation: "Demand-pull inflation occurs when aggregate demand outstrips the economy's productive capacity.", orderIndex: 11 },
+
+  // International trade & capital flows
+  { id: "cfa2-economics-trade-capital-flows-q01", topicId: "cfa2-economics-trade-capital-flows", text: "Comparative advantage means a country should specialize where its:", optionA: "Absolute output is highest", optionB: "Opportunity cost of production is lowest", optionC: "Wages are highest", optionD: "Currency is strongest", correctOption: "B", explanation: "Ricardo's comparative advantage holds that gains arise from specializing where opportunity cost is lowest.", orderIndex: 0 },
+  { id: "cfa2-economics-trade-capital-flows-q02", topicId: "cfa2-economics-trade-capital-flows", text: "Trade benefits both partners even when one country has an absolute advantage in everything, according to:", optionA: "Comparative advantage", optionB: "Mercantilism", optionC: "Autarky", optionD: "The Phillips curve", correctOption: "A", explanation: "Comparative advantage shows mutual gains from trade despite one party's absolute superiority.", orderIndex: 1 },
+  { id: "cfa2-economics-trade-capital-flows-q03", topicId: "cfa2-economics-trade-capital-flows", text: "A tariff on imports generally:", optionA: "Lowers domestic prices", optionB: "Raises domestic prices and creates a deadweight loss", optionC: "Helps all consumers", optionD: "Has no effect", correctOption: "B", explanation: "Tariffs protect domestic producers but raise prices and reduce overall welfare (deadweight loss).", orderIndex: 2 },
+  { id: "cfa2-economics-trade-capital-flows-q04", topicId: "cfa2-economics-trade-capital-flows", text: "The Heckscher-Ohlin model predicts countries export goods that intensively use their:", optionA: "Scarce factor", optionB: "Abundant factor", optionC: "Imported inputs", optionD: "Currency reserves", correctOption: "B", explanation: "Countries export goods intensive in their relatively abundant (cheaper) factor of production.", orderIndex: 3 },
+  { id: "cfa2-economics-trade-capital-flows-q05", topicId: "cfa2-economics-trade-capital-flows", text: "A current-account deficit must be offset by a:", optionA: "Current-account surplus", optionB: "Financial/capital-account surplus (capital inflows)", optionC: "Trade surplus", optionD: "Budget surplus", correctOption: "B", explanation: "By the balance-of-payments identity, a current-account deficit is financed by net capital inflows.", orderIndex: 4 },
+  { id: "cfa2-economics-trade-capital-flows-q06", topicId: "cfa2-economics-trade-capital-flows", text: "A quota differs from a tariff in that a quota:", optionA: "Is a tax on imports", optionB: "Limits the quantity of imports", optionC: "Subsidizes exports", optionD: "Has no price effect", correctOption: "B", explanation: "A quota caps import quantity, whereas a tariff taxes imports; both raise domestic prices.", orderIndex: 5 },
+  { id: "cfa2-economics-trade-capital-flows-q07", topicId: "cfa2-economics-trade-capital-flows", text: "The institution that provides balance-of-payments support and promotes monetary stability is the:", optionA: "WTO", optionB: "IMF", optionC: "World Bank", optionD: "OECD", correctOption: "B", explanation: "The IMF offers balance-of-payments assistance and fosters international monetary stability.", orderIndex: 6 },
+  { id: "cfa2-economics-trade-capital-flows-q08", topicId: "cfa2-economics-trade-capital-flows", text: "A persistent current-account deficit often reflects:", optionA: "Saving exceeding investment", optionB: "Investment exceeding domestic saving", optionC: "A trade surplus", optionD: "Zero capital flows", correctOption: "B", explanation: "When domestic investment exceeds saving, the gap is filled by foreign capital — a current-account deficit.", orderIndex: 7 },
+  { id: "cfa2-economics-trade-capital-flows-q09", topicId: "cfa2-economics-trade-capital-flows", text: "'Trade diversion' from a regional bloc occurs when trade shifts from a:", optionA: "Higher-cost to a lower-cost producer", optionB: "Lower-cost outside producer to a higher-cost member", optionC: "Bloc member to itself", optionD: "Service to a good", correctOption: "B", explanation: "Trade diversion is welfare-reducing: preferential tariffs divert imports to a less efficient member.", orderIndex: 8 },
+  { id: "cfa2-economics-trade-capital-flows-q10", topicId: "cfa2-economics-trade-capital-flows", text: "The WTO's primary role is to:", optionA: "Set exchange rates", optionB: "Administer trade rules and resolve trade disputes", optionC: "Lend to developing nations", optionD: "Control money supply", correctOption: "B", explanation: "The WTO oversees the rules of international trade and provides a dispute-resolution forum.", orderIndex: 9 },
+  { id: "cfa2-economics-trade-capital-flows-q11", topicId: "cfa2-economics-trade-capital-flows", text: "An export subsidy:", optionA: "Reduces exports", optionB: "Lowers the cost of domestic exports, distorting trade", optionC: "Is the same as a quota", optionD: "Has no welfare effect", correctOption: "B", explanation: "Subsidies make domestic exports artificially cheap, distorting competition and imposing costs on taxpayers.", orderIndex: 10 },
+  { id: "cfa2-economics-trade-capital-flows-q12", topicId: "cfa2-economics-trade-capital-flows", text: "A customs union differs from a free-trade area by adding:", optionA: "A common external tariff", optionB: "Free internal trade only", optionC: "A shared currency", optionD: "Free labor movement", correctOption: "A", explanation: "A customs union has free internal trade plus a common external tariff; deeper stages add factor mobility/currency.", orderIndex: 11 },
+
+  // Infrastructure & real assets
+  { id: "cfa2-alternative-investments-infrastructure-q01", topicId: "cfa2-alternative-investments-infrastructure", text: "Brownfield infrastructure investments are:", optionA: "Yet-to-be-built projects", optionB: "Existing assets with current income and lower risk", optionC: "Always the highest risk", optionD: "Equity indices", correctOption: "B", explanation: "Brownfield assets already operate, generating income at lower risk than greenfield (to-be-built) projects.", orderIndex: 0 },
+  { id: "cfa2-alternative-investments-infrastructure-q02", topicId: "cfa2-alternative-investments-infrastructure", text: "Greenfield infrastructure projects, versus brownfield, generally have:", optionA: "Lower risk and income now", optionB: "Higher risk with development/construction upside", optionC: "No risk", optionD: "Guaranteed returns", correctOption: "B", explanation: "Greenfield projects carry construction/ramp-up risk but offer development upside.", orderIndex: 1 },
+  { id: "cfa2-alternative-investments-infrastructure-q03", topicId: "cfa2-alternative-investments-infrastructure", text: "A key attraction of infrastructure cash flows is that they are often:", optionA: "Highly volatile", optionB: "Stable and inflation-linked", optionC: "Tied to equity beta", optionD: "Short-dated", correctOption: "B", explanation: "Regulated/contracted infrastructure produces stable, frequently inflation-indexed cash flows.", orderIndex: 2 },
+  { id: "cfa2-alternative-investments-infrastructure-q04", topicId: "cfa2-alternative-investments-infrastructure", text: "A major risk specific to infrastructure is:", optionA: "Regulatory/political risk", optionB: "Dividend risk", optionC: "No risk", optionD: "Style drift", correctOption: "A", explanation: "Because many assets are regulated or government-linked, regulatory/political changes are a key risk.", orderIndex: 3 },
+  { id: "cfa2-alternative-investments-infrastructure-q05", topicId: "cfa2-alternative-investments-infrastructure", text: "Infrastructure suits pension investors partly because it:", optionA: "Offers daily liquidity", optionB: "Provides long-dated, inflation-linked cash flows matching liabilities", optionC: "Has no income", optionD: "Is risk-free", correctOption: "B", explanation: "Long horizons and inflation linkage help match pension liabilities.", orderIndex: 4 },
+  { id: "cfa2-alternative-investments-infrastructure-q06", topicId: "cfa2-alternative-investments-infrastructure", text: "Timberland and farmland returns come from biological growth, land appreciation and:", optionA: "Commodity prices", optionB: "Coupons", optionC: "Dividends", optionD: "The risk-free rate", correctOption: "A", explanation: "Real-asset returns include crop/timber prices (commodities), biological growth, and land value changes.", orderIndex: 5 },
+  { id: "cfa2-alternative-investments-infrastructure-q07", topicId: "cfa2-alternative-investments-infrastructure", text: "Infrastructure and real assets are commonly used as a(n):", optionA: "Inflation hedge and diversifier", optionB: "Short-term cash substitute", optionC: "Source of guaranteed returns", optionD: "Pure equity bet", correctOption: "A", explanation: "These assets hedge inflation and diversify equity/bond portfolios via low correlations.", orderIndex: 6 },
+  { id: "cfa2-alternative-investments-infrastructure-q08", topicId: "cfa2-alternative-investments-infrastructure", text: "Digital infrastructure includes assets such as:", optionA: "Cell towers and data centers", optionB: "Government bonds", optionC: "Equities", optionD: "Hedge funds", correctOption: "A", explanation: "Towers, fiber, and data centers are increasingly important 'digital' infrastructure assets.", orderIndex: 7 },
+  { id: "cfa2-alternative-investments-infrastructure-q09", topicId: "cfa2-alternative-investments-infrastructure", text: "Investors can access infrastructure via direct ownership, private funds, or:", optionA: "Listed infrastructure funds/REITs", optionB: "Treasury bills only", optionC: "Currency forwards", optionD: "Credit default swaps", correctOption: "A", explanation: "Listed vehicles provide liquid access, while direct/private funds offer purer (less equity-correlated) exposure.", orderIndex: 8 },
+  { id: "cfa2-alternative-investments-infrastructure-q10", topicId: "cfa2-alternative-investments-infrastructure", text: "Compared with equities, infrastructure typically has:", optionA: "Higher correlation", optionB: "Lower correlation and steadier cash flows", optionC: "Identical risk", optionD: "No diversification value", correctOption: "B", explanation: "Lower equity correlation and stable cash flows give infrastructure diversification benefits.", orderIndex: 9 },
+  { id: "cfa2-alternative-investments-infrastructure-q11", topicId: "cfa2-alternative-investments-infrastructure", text: "Leverage in infrastructure deals primarily:", optionA: "Eliminates risk", optionB: "Amplifies returns and risk", optionC: "Lowers the cash yield to zero", optionD: "Is prohibited", correctOption: "B", explanation: "Infrastructure often uses substantial leverage, magnifying both returns and risk.", orderIndex: 10 },
+  { id: "cfa2-alternative-investments-infrastructure-q12", topicId: "cfa2-alternative-investments-infrastructure", text: "Farmland and timberland are generally considered:", optionA: "Inflation hedges", optionB: "Deflation hedges", optionC: "Risk-free", optionD: "Fixed-income substitutes with no growth", correctOption: "A", explanation: "Real assets like farmland/timberland tend to preserve value during inflation.", orderIndex: 11 },
+
+  // Alternatives: due diligence & appraisal
+  { id: "cfa2-alternative-investments-due-diligence-q01", topicId: "cfa2-alternative-investments-due-diligence", text: "Because alternative returns are non-normal, appraisal should rely on:", optionA: "Volatility and Sharpe alone", optionB: "Downside and tail measures (Sortino, drawdown, CVaR)", optionC: "The dividend yield", optionD: "Beta only", correctOption: "B", explanation: "Fat tails/negative skew make volatility-based measures inadequate; downside and tail risk measures are needed.", orderIndex: 0 },
+  { id: "cfa2-alternative-investments-due-diligence-q02", topicId: "cfa2-alternative-investments-due-diligence", text: "Smoothed (appraisal-based) returns should be 'unsmoothed' before optimization because they:", optionA: "Overstate volatility", optionB: "Understate volatility and correlation", optionC: "Have no bias", optionD: "Are risk-free", correctOption: "B", explanation: "Appraisal lag understates risk statistics; unsmoothing restores more realistic volatility/correlation.", orderIndex: 1 },
+  { id: "cfa2-alternative-investments-due-diligence-q03", topicId: "cfa2-alternative-investments-due-diligence", text: "DPI (distributions to paid-in) measures a private fund's:", optionA: "Unrealized value", optionB: "Realized cash returned relative to capital contributed", optionC: "Management fee", optionD: "Leverage", correctOption: "B", explanation: "DPI is realized, cash-on-cash performance relative to paid-in capital.", orderIndex: 2 },
+  { id: "cfa2-alternative-investments-due-diligence-q04", topicId: "cfa2-alternative-investments-due-diligence", text: "Operational due diligence focuses on:", optionA: "Only past returns", optionB: "Independent administration/custody/audit, valuation and controls", optionC: "The benchmark index", optionD: "The risk-free rate", correctOption: "B", explanation: "ODD examines the non-investment infrastructure whose failure is a leading cause of fund losses.", orderIndex: 3 },
+  { id: "cfa2-alternative-investments-due-diligence-q05", topicId: "cfa2-alternative-investments-due-diligence", text: "A high-water mark in a fee structure ensures incentive fees are charged only on:", optionA: "Gross assets", optionB: "Gains above the prior peak value", optionC: "Every gain", optionD: "Management fees", correctOption: "B", explanation: "The high-water mark prevents charging performance fees on the recovery of prior losses.", orderIndex: 4 },
+  { id: "cfa2-alternative-investments-due-diligence-q06", topicId: "cfa2-alternative-investments-due-diligence", text: "A clawback provision protects limited partners by:", optionA: "Raising fees", optionB: "Requiring the GP to return excess carried interest after later losses", optionC: "Guaranteeing returns", optionD: "Removing the hurdle", correctOption: "B", explanation: "Clawbacks recover carried interest taken early if subsequent results mean LPs were overcharged.", orderIndex: 5 },
+  { id: "cfa2-alternative-investments-due-diligence-q07", topicId: "cfa2-alternative-investments-due-diligence", text: "Private fund performance is best benchmarked against:", optionA: "A public equity index only", optionB: "Vintage-year peer groups (plus IRR/multiples)", optionC: "The risk-free rate", optionD: "Nothing", correctOption: "B", explanation: "Comparing to same-vintage peers controls for market timing; IRR and multiples gauge realized/unrealized value.", orderIndex: 6 },
+  { id: "cfa2-alternative-investments-due-diligence-q08", topicId: "cfa2-alternative-investments-due-diligence", text: "A management fee charged on committed (vs invested) capital:", optionA: "Is always lower", optionB: "Can create a larger drag early, before capital is deployed", optionC: "Has no effect", optionD: "Eliminates carried interest", correctOption: "B", explanation: "Fees on committed capital are paid even before investment, increasing the early fee drag.", orderIndex: 7 },
+  { id: "cfa2-alternative-investments-due-diligence-q09", topicId: "cfa2-alternative-investments-due-diligence", text: "Investment due diligence assesses the manager's:", optionA: "Office address", optionB: "Strategy, edge, repeatability and team", optionC: "Auditor's fee", optionD: "Custodian location", correctOption: "B", explanation: "Investment DD evaluates whether the approach and team can plausibly repeat past success.", orderIndex: 8 },
+  { id: "cfa2-alternative-investments-due-diligence-q10", topicId: "cfa2-alternative-investments-due-diligence", text: "Max drawdown measures:", optionA: "Average return", optionB: "The largest peak-to-trough loss", optionC: "Volatility", optionD: "Beta", correctOption: "B", explanation: "Maximum drawdown captures the worst peak-to-trough decline — a key downside risk gauge for alternatives.", orderIndex: 9 },
+  { id: "cfa2-alternative-investments-due-diligence-q11", topicId: "cfa2-alternative-investments-due-diligence", text: "TVPI (total value to paid-in) combines:", optionA: "DPI (realized) and RVPI (unrealized)", optionB: "Beta and alpha", optionC: "Duration and convexity", optionD: "Two benchmarks", correctOption: "A", explanation: "TVPI = DPI + RVPI, summing distributed and residual value relative to paid-in capital.", orderIndex: 10 },
+  { id: "cfa2-alternative-investments-due-diligence-q12", topicId: "cfa2-alternative-investments-due-diligence", text: "Liquidity terms relevant to alternatives due diligence include:", optionA: "Lockups and redemption gates", optionB: "The dividend date", optionC: "The coupon", optionD: "The risk-free rate", correctOption: "A", explanation: "Lockups, gates, and notice periods determine when investors can access capital — a core DD consideration.", orderIndex: 11 },
+
+  // Duties to clients & employers (Standards III & IV)
+  { id: "cfa2-ethics-duties-clients-employers-q01", topicId: "cfa2-ethics-duties-clients-employers", text: "Under Standard III(A), a manager of a pension plan owes primary loyalty to the:", optionA: "Plan sponsor's executives", optionB: "Plan beneficiaries", optionC: "Brokerage firm", optionD: "Regulator", correctOption: "B", explanation: "Loyalty, Prudence and Care requires acting for the ultimate beneficiaries of the plan.", orderIndex: 0 },
+  { id: "cfa2-ethics-duties-clients-employers-q02", topicId: "cfa2-ethics-duties-clients-employers", text: "Disseminating a recommendation change to a favored client before others violates:", optionA: "III(B) Fair Dealing", optionB: "I(B) Independence", optionC: "VI(B) Priority", optionD: "IV(A) Loyalty", correctOption: "A", explanation: "Fair Dealing requires distributing recommendations and changes fairly among all clients.", orderIndex: 1 },
+  { id: "cfa2-ethics-duties-clients-employers-q03", topicId: "cfa2-ethics-duties-clients-employers", text: "Standard III(C) Suitability requires recommendations to match the client's:", optionA: "Objectives and constraints (IPS)", optionB: "Broker's targets", optionC: "Country of residence only", optionD: "Tax bracket only", correctOption: "A", explanation: "Suitability ties recommendations to each client's objectives, constraints, and overall portfolio (IPS).", orderIndex: 2 },
+  { id: "cfa2-ethics-duties-clients-employers-q04", topicId: "cfa2-ethics-duties-clients-employers", text: "Keeping a former client's information confidential is required by:", optionA: "III(E) Preservation of Confidentiality", optionB: "II(A) MNPI", optionC: "VI(C) Referral Fees", optionD: "I(D) Misconduct", correctOption: "A", explanation: "Confidentiality applies to current, former, and prospective clients (subject to legal exceptions).", orderIndex: 3 },
+  { id: "cfa2-ethics-duties-clients-employers-q05", topicId: "cfa2-ethics-duties-clients-employers", text: "Taking client lists or research files to a new employer violates:", optionA: "IV(A) Loyalty to Employer", optionB: "III(D) Performance", optionC: "II(B) Manipulation", optionD: "VI(A) Disclosure", correctOption: "A", explanation: "Such records are the employer's property; taking them breaches the duty of loyalty to employers.", orderIndex: 4 },
+  { id: "cfa2-ethics-duties-clients-employers-q06", topicId: "cfa2-ethics-duties-clients-employers", text: "Accepting outside compensation that could conflict with the employer's interest requires:", optionA: "No action", optionB: "Written consent from all parties (IV(B))", optionC: "Only verbal notice", optionD: "Disclosure to clients only", correctOption: "B", explanation: "Standard IV(B) requires written consent from the employer (and parties) for competing additional compensation.", orderIndex: 5 },
+  { id: "cfa2-ethics-duties-clients-employers-q07", topicId: "cfa2-ethics-duties-clients-employers", text: "A supervisor who fails to establish adequate compliance procedures violates:", optionA: "IV(C) Responsibilities of Supervisors", optionB: "III(B) Fair Dealing", optionC: "I(A) Knowledge of the Law", optionD: "VI(B) Priority", correctOption: "A", explanation: "Supervisors must take reasonable steps to prevent and detect violations by those they oversee.", orderIndex: 6 },
+  { id: "cfa2-ethics-duties-clients-employers-q08", topicId: "cfa2-ethics-duties-clients-employers", text: "Standard III(D) Performance Presentation requires performance data that is:", optionA: "Cherry-picked for the best accounts", optionB: "Fair, accurate and complete", optionC: "Only the most recent quarter", optionD: "Hypothetical", correctOption: "B", explanation: "Performance must be presented fairly, accurately and completely — no selective presentation.", orderIndex: 7 },
+  { id: "cfa2-ethics-duties-clients-employers-q09", topicId: "cfa2-ethics-duties-clients-employers", text: "Confidentiality may be broken when:", optionA: "A friend asks", optionB: "Disclosure is legally required or concerns illegal activities", optionC: "It benefits the manager", optionD: "Never", correctOption: "B", explanation: "Confidential information may be disclosed when required by law or to report illegal client activity.", orderIndex: 8 },
+  { id: "cfa2-ethics-duties-clients-employers-q10", topicId: "cfa2-ethics-duties-clients-employers", text: "Independent practice preparing to compete with one's employer is acceptable if:", optionA: "Done secretly", optionB: "It does not harm the employer and (per policy) is disclosed/approved", optionC: "Client funds are used", optionD: "It uses employer records", correctOption: "B", explanation: "Members may prepare to leave but must not deprive the employer of services or misuse its resources before departure.", orderIndex: 9 },
+  { id: "cfa2-ethics-duties-clients-employers-q11", topicId: "cfa2-ethics-duties-clients-employers", text: "Whistle-blowing that violates the duty of loyalty to an employer is permissible when it:", optionA: "Benefits the member personally", optionB: "Protects clients or market integrity from illegal/unethical acts", optionC: "Is anonymous gossip", optionD: "Is never allowed", correctOption: "B", explanation: "Loyalty yields when reporting is necessary to protect clients or the integrity of the market.", orderIndex: 10 },
+  { id: "cfa2-ethics-duties-clients-employers-q12", topicId: "cfa2-ethics-duties-clients-employers", text: "In an advisory relationship, suitability is judged in the context of the:", optionA: "Single trade in isolation", optionB: "Client's total portfolio", optionC: "Manager's portfolio", optionD: "Benchmark only", correctOption: "B", explanation: "For advisory clients, suitability considers how a recommendation fits the total portfolio, not just the trade alone.", orderIndex: 11 },
+
+  // Conflicts of interest & priority of transactions (Standard VI)
+  { id: "cfa2-ethics-conflicts-priority-q01", topicId: "cfa2-ethics-conflicts-priority", text: "Standard VI(A) requires members to ____ conflicts of interest.", optionA: "Conceal", optionB: "Fully and fairly disclose", optionC: "Ignore if small", optionD: "Disclose only to regulators", correctOption: "B", explanation: "Conflicts must be disclosed prominently, fully and fairly, in plain language.", orderIndex: 0 },
+  { id: "cfa2-ethics-conflicts-priority-q02", topicId: "cfa2-ethics-conflicts-priority", text: "Standard VI(B) Priority of Transactions requires that:", optionA: "The member trades first", optionB: "Client and employer transactions take precedence over the member's own", optionC: "All trades are simultaneous", optionD: "Personal trades are banned entirely", correctOption: "B", explanation: "Clients and the employer come before the member's personal transactions.", orderIndex: 1 },
+  { id: "cfa2-ethics-conflicts-priority-q03", topicId: "cfa2-ethics-conflicts-priority", text: "Standard VI(C) requires disclosure of:", optionA: "Referral fees to clients and the employer", optionB: "Only large fees", optionC: "Nothing", optionD: "Competitor fees", correctOption: "A", explanation: "Referral compensation must be disclosed so clients can assess potential bias.", orderIndex: 2 },
+  { id: "cfa2-ethics-conflicts-priority-q04", topicId: "cfa2-ethics-conflicts-priority", text: "A board seat at a covered company is a conflict that should be:", optionA: "Disclosed under VI(A)", optionB: "Hidden", optionC: "Disclosed only to the board", optionD: "Ignored if unpaid", correctOption: "A", explanation: "Board membership can impair objectivity and must be disclosed as a conflict.", orderIndex: 3 },
+  { id: "cfa2-ethics-conflicts-priority-q05", topicId: "cfa2-ethics-conflicts-priority", text: "Recommended procedures for personal trading include:", optionA: "No rules", optionB: "Restricted lists, pre-clearance and blackout periods", optionC: "Trading ahead of clients", optionD: "Front-running", correctOption: "B", explanation: "Pre-clearance, restricted lists and blackout/restricted periods help comply with VI(B).", orderIndex: 4 },
+  { id: "cfa2-ethics-conflicts-priority-q06", topicId: "cfa2-ethics-conflicts-priority", text: "Participating in an IPO ahead of clients most likely violates:", optionA: "VI(B) Priority of Transactions", optionB: "III(D) Performance", optionC: "I(A) Knowledge of the Law", optionD: "IV(C) Supervisors", correctOption: "A", explanation: "Members must not take desirable IPO/private-placement allocations ahead of clients.", orderIndex: 5 },
+  { id: "cfa2-ethics-conflicts-priority-q07", topicId: "cfa2-ethics-conflicts-priority", text: "Disclosure of a conflict should be:", optionA: "Buried in fine print", optionB: "Prominent and in plain language", optionC: "Verbal only", optionD: "Made after trading", correctOption: "B", explanation: "Disclosures must be clear, prominent and understandable so recipients can evaluate the conflict.", orderIndex: 6 },
+  { id: "cfa2-ethics-conflicts-priority-q08", topicId: "cfa2-ethics-conflicts-priority", text: "The default remedy for a conflict of interest is:", optionA: "Concealment", optionB: "Full disclosure and proper management", optionC: "Resignation always", optionD: "Ignoring it", correctOption: "B", explanation: "Conflicts are addressed by disclosing and managing them, not hiding them.", orderIndex: 7 },
+  { id: "cfa2-ethics-conflicts-priority-q09", topicId: "cfa2-ethics-conflicts-priority", text: "A compensation structure that could bias a recommendation should be:", optionA: "Disclosed to clients", optionB: "Kept secret", optionC: "Disclosed only to the SEC", optionD: "Ignored", correctOption: "A", explanation: "Compensation arrangements that may affect objectivity are disclosable conflicts under VI(A).", orderIndex: 8 },
+  { id: "cfa2-ethics-conflicts-priority-q10", topicId: "cfa2-ethics-conflicts-priority", text: "Personal-trading rules ensure that members do not:", optionA: "Benefit clients", optionB: "Disadvantage clients through their own trades", optionC: "Disclose conflicts", optionD: "Keep records", correctOption: "B", explanation: "VI(B) protects clients from being disadvantaged by the member's personal transactions.", orderIndex: 9 },
+  { id: "cfa2-ethics-conflicts-priority-q11", topicId: "cfa2-ethics-conflicts-priority", text: "Referral fee disclosure allows clients to:", optionA: "Avoid taxes", optionB: "Evaluate the cost and any partiality in the recommendation", optionC: "Get free advice", optionD: "Trade ahead", correctOption: "B", explanation: "Knowing about referral compensation lets clients judge potential bias and the true cost of services.", orderIndex: 10 },
+  { id: "cfa2-ethics-conflicts-priority-q12", topicId: "cfa2-ethics-conflicts-priority", text: "Cross-department flow of MNPI is best prevented by:", optionA: "Firewalls (information barriers)", optionB: "Higher fees", optionC: "More trading", optionD: "Public disclosure of the MNPI", correctOption: "A", explanation: "Firewalls manage conflicts and prevent improper use/flow of material nonpublic information.", orderIndex: 11 },
+
+  // Working capital & liquidity management
+  { id: "cfa2-corporate-issuers-working-capital-q01", topicId: "cfa2-corporate-issuers-working-capital", text: "The cash conversion cycle equals:", optionA: "DSO + DOH − DPO", optionB: "DSO − DOH + DPO", optionC: "DPO − DSO", optionD: "DOH + DPO", correctOption: "A", explanation: "CCC = days sales outstanding + days inventory on hand − days payables outstanding.", orderIndex: 0 },
+  { id: "cfa2-corporate-issuers-working-capital-q02", topicId: "cfa2-corporate-issuers-working-capital", text: "A shorter cash conversion cycle generally indicates:", optionA: "Weaker liquidity", optionB: "Stronger liquidity and less financing needed", optionC: "Higher inventory", optionD: "Slower collections", correctOption: "B", explanation: "A shorter CCC frees up cash, improving liquidity and reducing working-capital financing.", orderIndex: 1 },
+  { id: "cfa2-corporate-issuers-working-capital-q03", topicId: "cfa2-corporate-issuers-working-capital", text: "The quick ratio excludes which current asset?", optionA: "Cash", optionB: "Inventory", optionC: "Receivables", optionD: "Marketable securities", correctOption: "B", explanation: "The quick (acid-test) ratio excludes inventory, the least liquid current asset.", orderIndex: 2 },
+  { id: "cfa2-corporate-issuers-working-capital-q04", topicId: "cfa2-corporate-issuers-working-capital", text: "Forgoing a '2/10 net 30' discount implies an annualized cost closest to:", optionA: "2%", optionB: "24%", optionC: "45%", optionD: "73%", correctOption: "C", explanation: "(1 + 0.02/0.98)^(365/20) − 1 ≈ 44.6%, so taking the discount is usually worthwhile.", orderIndex: 3 },
+  { id: "cfa2-corporate-issuers-working-capital-q05", topicId: "cfa2-corporate-issuers-working-capital", text: "A negative cash conversion cycle implies that:", optionA: "The firm is insolvent", optionB: "Suppliers effectively finance operations", optionC: "Inventory is excessive", optionD: "Collections are slow", correctOption: "B", explanation: "Collecting from customers before paying suppliers means suppliers fund operations (e.g., some retailers).", orderIndex: 4 },
+  { id: "cfa2-corporate-issuers-working-capital-q06", topicId: "cfa2-corporate-issuers-working-capital", text: "The most reliable committed short-term funding source is a:", optionA: "Uncommitted line", optionB: "Committed (revolving) line of credit", optionC: "One-off supplier credit", optionD: "Commercial paper for a low-rated issuer", correctOption: "B", explanation: "A committed/revolving line obligates the lender to provide funds, unlike an uncommitted line.", orderIndex: 5 },
+  { id: "cfa2-corporate-issuers-working-capital-q07", topicId: "cfa2-corporate-issuers-working-capital", text: "The cash ratio is the strictest liquidity measure because it counts only:", optionA: "Cash and marketable securities vs current liabilities", optionB: "All current assets", optionC: "Receivables and inventory", optionD: "Working capital", correctOption: "A", explanation: "The cash ratio uses only the most liquid assets against current liabilities.", orderIndex: 6 },
+  { id: "cfa2-corporate-issuers-working-capital-q08", topicId: "cfa2-corporate-issuers-working-capital", text: "Factoring receivables involves:", optionA: "Borrowing against inventory", optionB: "Selling receivables for immediate cash", optionC: "Extending customer terms", optionD: "Issuing equity", correctOption: "B", explanation: "Factoring sells receivables (at a discount) to obtain immediate liquidity.", orderIndex: 7 },
+  { id: "cfa2-corporate-issuers-working-capital-q09", topicId: "cfa2-corporate-issuers-working-capital", text: "Days of inventory on hand equals:", optionA: "365 × inventory turnover", optionB: "365 / inventory turnover", optionC: "Inventory / sales", optionD: "COGS / inventory", correctOption: "B", explanation: "DOH = 365 / inventory turnover (turnover = COGS / average inventory).", orderIndex: 8 },
+  { id: "cfa2-corporate-issuers-working-capital-q10", topicId: "cfa2-corporate-issuers-working-capital", text: "Rising days payables outstanding (stretching suppliers) primarily:", optionA: "Uses cash", optionB: "Conserves cash", optionC: "Lowers sales", optionD: "Raises inventory", correctOption: "B", explanation: "Paying suppliers more slowly retains cash longer — though excessive stretching can harm relationships.", orderIndex: 9 },
+  { id: "cfa2-corporate-issuers-working-capital-q11", topicId: "cfa2-corporate-issuers-working-capital", text: "Excess cash should be invested in instruments that are:", optionA: "Long-dated and illiquid", optionB: "Safe and liquid", optionC: "Equity-only", optionD: "Speculative", correctOption: "B", explanation: "Short-term cash management prioritizes safety and liquidity over yield.", orderIndex: 10 },
+  { id: "cfa2-corporate-issuers-working-capital-q12", topicId: "cfa2-corporate-issuers-working-capital", text: "Reducing DSO from 50 to 35 days, with DOH and DPO unchanged, lowers the CCC by:", optionA: "5 days", optionB: "15 days", optionC: "35 days", optionD: "0 days", correctOption: "B", explanation: "Since CCC = DSO + DOH − DPO, a 15-day fall in DSO cuts the CCC by 15 days.", orderIndex: 11 },
+
+  // Cost of capital (WACC)
+  { id: "cfa2-corporate-issuers-cost-of-capital-q01", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "WACC weights should be based on:", optionA: "Book values", optionB: "Target market-value weights", optionC: "Par values", optionD: "Historical cost", correctOption: "B", explanation: "WACC uses target (market-value) capital-structure weights, reflecting how the firm intends to finance.", orderIndex: 0 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q02", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "The after-tax cost of debt equals r_d ×:", optionA: "(1 − tax rate)", optionB: "(1 + tax rate)", optionC: "beta", optionD: "the payout ratio", correctOption: "A", explanation: "Interest is tax-deductible, so the relevant cost is r_d(1 − t).", orderIndex: 1 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q03", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "The cost of equity is most commonly estimated using the:", optionA: "CAPM", optionB: "Current ratio", optionC: "Payback rule", optionD: "Cash conversion cycle", correctOption: "A", explanation: "CAPM (R_f + β × market risk premium) is the standard cost-of-equity estimate.", orderIndex: 2 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q04", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "The cost of preferred stock equals:", optionA: "Dividend / price", optionB: "Price / dividend", optionC: "YTM × (1 − t)", optionD: "Beta × premium", correctOption: "A", explanation: "Preferred cost = preferred dividend divided by the preferred share price.", orderIndex: 3 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q05", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "To estimate beta for a private firm, an analyst would unlever a comparable's beta and then:", optionA: "Ignore leverage", optionB: "Relever it at the subject firm's capital structure", optionC: "Use the risk-free rate", optionD: "Use the dividend yield", correctOption: "B", explanation: "Hamada: unlever the comparable beta, then relever using the subject firm's D/E to reflect its leverage.", orderIndex: 4 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q06", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "WACC is the appropriate discount rate for a project that is:", optionA: "Riskier than the firm", optionB: "Of average risk relative to the firm", optionC: "Risk-free", optionD: "Always, regardless of risk", correctOption: "B", explanation: "WACC applies to average-risk projects; project-specific risk warrants an adjusted rate.", orderIndex: 5 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q07", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "The relevant cost of capital for decision-making is the ____ cost.", optionA: "Historical", optionB: "Marginal (forward-looking)", optionC: "Average past", optionD: "Book", correctOption: "B", explanation: "Capital-budgeting uses the marginal cost of new capital, not historical/embedded costs.", orderIndex: 6 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q08", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "The tax shield in WACC reflects that:", optionA: "Dividends are deductible", optionB: "Interest is tax-deductible", optionC: "Equity is cheaper than debt", optionD: "Preferred is deductible", correctOption: "B", explanation: "Deductible interest lowers the effective cost of debt via the (1 − t) factor.", orderIndex: 7 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q09", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "All else equal, a higher beta raises the:", optionA: "Cost of equity", optionB: "Cost of debt", optionC: "Tax rate", optionD: "Dividend", correctOption: "A", explanation: "A higher beta increases the CAPM cost of equity (more systematic risk).", orderIndex: 8 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q10", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "The marginal cost of capital schedule typically ____ as more capital is raised.", optionA: "Falls", optionB: "Rises (at break points)", optionC: "Stays flat", optionD: "Goes to zero", correctOption: "B", explanation: "Raising larger amounts of new capital tends to increase its marginal cost, creating break points.", orderIndex: 9 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q11", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "The bond-yield-plus-risk-premium method estimates the cost of:", optionA: "Debt", optionB: "Equity", optionC: "Preferred", optionD: "Working capital", correctOption: "B", explanation: "Adding an equity risk premium to the firm's bond yield estimates the cost of equity.", orderIndex: 10 },
+  { id: "cfa2-corporate-issuers-cost-of-capital-q12", topicId: "cfa2-corporate-issuers-cost-of-capital", text: "Relevering a beta increases it because more debt:", optionA: "Lowers equity risk", optionB: "Raises the financial risk borne by equity holders", optionC: "Has no effect", optionD: "Reduces the tax shield", correctOption: "B", explanation: "Higher leverage amplifies equity's exposure, raising the levered beta.", orderIndex: 11 },
+
+  // Portfolio risk, return & CAPM
+  { id: "cfa2-portfolio-management-risk-return-capm-q01", topicId: "cfa2-portfolio-management-risk-return-capm", text: "Diversification reduces a portfolio's:", optionA: "Systematic risk", optionB: "Unsystematic (idiosyncratic) risk", optionC: "Expected return", optionD: "Beta to zero", correctOption: "B", explanation: "Diversification eliminates firm-specific (unsystematic) risk; systematic/market risk remains.", orderIndex: 0 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q02", topicId: "cfa2-portfolio-management-risk-return-capm", text: "Portfolio variance is most reduced when combined assets have:", optionA: "Correlation of +1", optionB: "Correlation below +1 (ideally negative)", optionC: "Zero variance", optionD: "Identical returns", correctOption: "B", explanation: "Lower (especially negative) correlation between assets produces greater risk reduction.", orderIndex: 1 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q03", topicId: "cfa2-portfolio-management-risk-return-capm", text: "In the CAPM, beta measures:", optionA: "Total risk", optionB: "Systematic risk (Cov(i,m)/Var(m))", optionC: "Unsystematic risk", optionD: "Downside risk", correctOption: "B", explanation: "Beta is the asset's sensitivity to market movements — its systematic risk.", orderIndex: 2 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q04", topicId: "cfa2-portfolio-management-risk-return-capm", text: "The CAPM expected return equals:", optionA: "R_f + β(E[R_m] − R_f)", optionB: "R_f × β", optionC: "E[R_m] − R_f", optionD: "β / R_f", correctOption: "A", explanation: "CAPM: expected return = risk-free rate + beta times the market risk premium.", orderIndex: 3 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q05", topicId: "cfa2-portfolio-management-risk-return-capm", text: "The Security Market Line plots expected return against:", optionA: "Total volatility", optionB: "Beta", optionC: "Tracking error", optionD: "Duration", correctOption: "B", explanation: "The SML relates expected return to systematic risk (beta).", orderIndex: 4 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q06", topicId: "cfa2-portfolio-management-risk-return-capm", text: "An asset plotting above the SML is:", optionA: "Overvalued", optionB: "Undervalued (positive alpha)", optionC: "Fairly valued", optionD: "Risk-free", correctOption: "B", explanation: "Above the SML, the asset offers more return than required for its beta — undervalued (positive alpha).", orderIndex: 5 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q07", topicId: "cfa2-portfolio-management-risk-return-capm", text: "The Capital Market Line uses which risk measure?", optionA: "Beta", optionB: "Total risk (standard deviation)", optionC: "Tracking error", optionD: "VaR", correctOption: "B", explanation: "The CML relates the expected return of efficient portfolios to total risk (σ).", orderIndex: 6 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q08", topicId: "cfa2-portfolio-management-risk-return-capm", text: "Adding a risk-free asset to risky portfolios creates the:", optionA: "Efficient frontier", optionB: "Capital Allocation Line", optionC: "Security Market Line", optionD: "Yield curve", correctOption: "B", explanation: "Combining the risk-free asset with a risky portfolio forms the CAL (the CML for the market portfolio).", orderIndex: 7 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q09", topicId: "cfa2-portfolio-management-risk-return-capm", text: "The efficient frontier represents portfolios with the:", optionA: "Lowest return for given risk", optionB: "Highest expected return for each level of risk", optionC: "Zero risk", optionD: "Highest beta", correctOption: "B", explanation: "Efficient portfolios maximize expected return for a given level of total risk.", orderIndex: 8 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q10", topicId: "cfa2-portfolio-management-risk-return-capm", text: "A limitation of CAPM is its assumption of:", optionA: "Multiple priced factors", optionB: "Homogeneous expectations and a single period", optionC: "Transaction costs", optionD: "Taxes", correctOption: "B", explanation: "CAPM assumes frictionless markets, homogeneous expectations and a single holding period — unrealistic simplifications.", orderIndex: 9 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q11", topicId: "cfa2-portfolio-management-risk-return-capm", text: "A stock with beta 1.2, R_f 3% and market premium 5% has a CAPM required return of:", optionA: "6%", optionB: "9%", optionC: "8.4%", optionD: "12%", correctOption: "B", explanation: "3% + 1.2 × 5% = 3% + 6% = 9%.", orderIndex: 10 },
+  { id: "cfa2-portfolio-management-risk-return-capm-q12", topicId: "cfa2-portfolio-management-risk-return-capm", text: "Total risk equals systematic risk plus:", optionA: "Beta", optionB: "Unsystematic (diversifiable) risk", optionC: "The risk-free rate", optionD: "Alpha", correctOption: "B", explanation: "Total variance = systematic (market) risk + unsystematic (firm-specific) risk.", orderIndex: 11 },
+
+  // IPS & asset allocation
+  { id: "cfa2-portfolio-management-ips-allocation-q01", topicId: "cfa2-portfolio-management-ips-allocation", text: "The document governing the planning stage of portfolio management is the:", optionA: "Prospectus", optionB: "Investment Policy Statement (IPS)", optionC: "Annual report", optionD: "Tax return", correctOption: "B", explanation: "The IPS sets out objectives and constraints that guide the entire process.", orderIndex: 0 },
+  { id: "cfa2-portfolio-management-ips-allocation-q02", topicId: "cfa2-portfolio-management-ips-allocation", text: "An investor's risk tolerance is the lower of their willingness and:", optionA: "Ability to take risk", optionB: "Return objective", optionC: "Time horizon", optionD: "Tax rate", correctOption: "A", explanation: "When willingness and ability differ, the more conservative (lower) of the two governs.", orderIndex: 1 },
+  { id: "cfa2-portfolio-management-ips-allocation-q03", topicId: "cfa2-portfolio-management-ips-allocation", text: "Which is an IPS constraint?", optionA: "Return objective", optionB: "Liquidity needs", optionC: "Risk tolerance", optionD: "Target alpha", correctOption: "B", explanation: "Constraints include time horizon, taxes, liquidity, legal/regulatory, and unique circumstances.", orderIndex: 2 },
+  { id: "cfa2-portfolio-management-ips-allocation-q04", topicId: "cfa2-portfolio-management-ips-allocation", text: "Strategic asset allocation is derived from the IPS and:", optionA: "Last week's returns", optionB: "Capital market expectations", optionC: "Broker tips", optionD: "Social media", correctOption: "B", explanation: "SAA combines the investor's objectives/constraints with long-run capital market expectations.", orderIndex: 3 },
+  { id: "cfa2-portfolio-management-ips-allocation-q05", topicId: "cfa2-portfolio-management-ips-allocation", text: "Tactical asset allocation involves:", optionA: "Permanent policy weights", optionB: "Short-run deviations from policy to exploit views", optionC: "Never trading", optionD: "Ignoring the IPS", correctOption: "B", explanation: "TAA makes temporary shifts around the strategic weights to capture short-term opportunities.", orderIndex: 4 },
+  { id: "cfa2-portfolio-management-ips-allocation-q06", topicId: "cfa2-portfolio-management-ips-allocation", text: "Empirically, the largest driver of long-run return variability is:", optionA: "Security selection", optionB: "Strategic asset allocation", optionC: "Market timing", optionD: "Trading costs", correctOption: "B", explanation: "Policy (strategic) asset allocation explains most of the variation in long-run portfolio returns.", orderIndex: 5 },
+  { id: "cfa2-portfolio-management-ips-allocation-q07", topicId: "cfa2-portfolio-management-ips-allocation", text: "The three steps of the portfolio management process are planning, execution and:", optionA: "Feedback (monitoring/rebalancing)", optionB: "Taxation", optionC: "Marketing", optionD: "Custody", correctOption: "A", explanation: "Planning → execution → feedback (monitor, rebalance, and revise the IPS).", orderIndex: 6 },
+  { id: "cfa2-portfolio-management-ips-allocation-q08", topicId: "cfa2-portfolio-management-ips-allocation", text: "A young investor with stable income and a long horizon typically has:", optionA: "Low ability to take risk", optionB: "High ability to take risk", optionC: "No need for an IPS", optionD: "Only liquidity constraints", correctOption: "B", explanation: "Long horizons and steady income increase the ability to bear risk.", orderIndex: 7 },
+  { id: "cfa2-portfolio-management-ips-allocation-q09", topicId: "cfa2-portfolio-management-ips-allocation", text: "A liability-relative asset allocation is most appropriate for a:", optionA: "Young individual with no liabilities", optionB: "Defined-benefit pension fund", optionC: "Day trader", optionD: "Cash-only saver", correctOption: "B", explanation: "Managing assets against defined liabilities fits pensions and insurers.", orderIndex: 8 },
+  { id: "cfa2-portfolio-management-ips-allocation-q10", topicId: "cfa2-portfolio-management-ips-allocation", text: "Goals-based asset allocation constructs:", optionA: "One portfolio for everything", optionB: "Sub-portfolios matched to specific goals", optionC: "A cash-only portfolio", optionD: "Equal weights", correctOption: "B", explanation: "Goals-based investing builds distinct sub-portfolios for each goal's horizon and required success.", orderIndex: 9 },
+  { id: "cfa2-portfolio-management-ips-allocation-q11", topicId: "cfa2-portfolio-management-ips-allocation", text: "Rebalancing serves primarily to:", optionA: "Maximize turnover", optionB: "Keep the portfolio aligned with policy weights / control risk", optionC: "Chase momentum", optionD: "Avoid taxes", correctOption: "B", explanation: "Rebalancing returns drifted weights to the strategic target, controlling risk.", orderIndex: 10 },
+  { id: "cfa2-portfolio-management-ips-allocation-q12", topicId: "cfa2-portfolio-management-ips-allocation", text: "An IPS should be revised when:", optionA: "Markets move daily", optionB: "The investor's circumstances or objectives change materially", optionC: "Never", optionD: "Returns are positive", correctOption: "B", explanation: "The IPS is reviewed and updated as the investor's situation, goals, or constraints change materially.", orderIndex: 11 }
 ];
