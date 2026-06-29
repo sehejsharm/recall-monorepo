@@ -4,6 +4,7 @@ import { SyncProvider } from "@/lib/sync-provider";
 import { Splash } from "@/components/Splash";
 import { Onboarding } from "@/components/Onboarding";
 import { BottomNav } from "@/components/BottomNav";
+import { Analytics } from "@/components/Analytics";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -94,6 +95,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <Analytics />
         <StoreProvider>
           <SyncProvider>
             <Splash />
