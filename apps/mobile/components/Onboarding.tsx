@@ -3,6 +3,7 @@ import { Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSettings } from "@/lib/settings";
+import { scheduleDailyReminder } from "@/lib/notifications";
 
 interface Slide {
   icon: keyof typeof Ionicons.glyphMap;
@@ -18,15 +19,40 @@ const SLIDES: Slide[] = [
   { icon: "podium", title: "Compete on the ranks", body: "Sign in to climb the anonymized global and per-exam leaderboards. Your real name stays private." }
 ];
 
-/** First-run tour, shown once after the splash. */
+/**
+ * First-run tour, shown once after the splash. The final step is a soft
+ * notification opt-in: we only fire the OS permission prompt after the user
+ * taps "Enable daily reminder", which is App-Store-friendly (no surprise
+ * system dialog on launch) and keeps a clear decline path.
+ */
 export function Onboarding() {
   const { settings, update } = useSettings();
   const [i, setI] = useState(0);
+  const [busy, setBusy] = useState(false);
   if (settings.onboarded) return null;
 
-  const slide = SLIDES[i]!;
-  const last = i === SLIDES.length - 1;
+  // Steps: the slide tour, then one notification-permission step at the end.
+  const PERMISSION_STEP = SLIDES.length;
+  const onPermissionStep = i === PERMISSION_STEP;
+  const stepCount = SLIDES.length + 1;
+
   const finish = () => update({ onboarded: true });
+
+  const enableReminders = async () => {
+    if (busy) return;
+    setBusy(true);
+    try {
+      const granted = await scheduleDailyReminder(settings.reminderMinutes);
+      // Reflect the real outcome: only turn the setting on if the OS granted it.
+      update({ reminderOn: granted, onboarded: true });
+    } catch {
+      finish();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const slide = onPermissionStep ? null : SLIDES[i]!;
 
   return (
     <View className="absolute inset-0 z-[60] bg-oled">
@@ -37,28 +63,54 @@ export function Onboarding() {
 
         <View className="flex-1 items-center justify-center">
           <View className="h-20 w-20 items-center justify-center rounded-3xl bg-raised">
-            <Ionicons name={slide.icon} size={40} color="#10B981" />
+            <Ionicons
+              name={onPermissionStep ? "notifications" : slide!.icon}
+              size={40}
+              color="#10B981"
+            />
           </View>
-          <Text className="mt-7 text-2xl font-bold tracking-tight text-ink">{slide.title}</Text>
+          <Text className="mt-7 text-2xl font-bold tracking-tight text-ink">
+            {onPermissionStep ? "Never miss a day" : slide!.title}
+          </Text>
           <Text className="mt-3 max-w-sm text-center text-[15px] leading-relaxed text-muted">
-            {slide.body}
+            {onPermissionStep
+              ? "Allow notifications and we'll send one gentle daily nudge when your cards are due. No spam — just your streak. Change it anytime in Settings."
+              : slide!.body}
           </Text>
         </View>
 
         <View className="mb-6 flex-row justify-center gap-1.5">
-          {SLIDES.map((_, idx) => (
+          {Array.from({ length: stepCount }).map((_, idx) => (
             <View
               key={idx}
               className={`h-1.5 rounded-full ${idx === i ? "w-5 bg-correct" : "w-1.5 bg-edge"}`}
             />
           ))}
         </View>
-        <Pressable
-          onPress={() => (last ? finish() : setI((n) => n + 1))}
-          className="mb-4 items-center rounded-2xl bg-correct py-4 active:scale-[0.98]"
-        >
-          <Text className="text-base font-bold text-black">{last ? "Start drilling" : "Next"}</Text>
-        </Pressable>
+
+        {onPermissionStep ? (
+          <>
+            <Pressable
+              onPress={enableReminders}
+              disabled={busy}
+              className="mb-3 items-center rounded-2xl bg-correct py-4 active:scale-[0.98]"
+            >
+              <Text className="text-base font-bold text-black">
+                {busy ? "Enabling…" : "Enable daily reminder"}
+              </Text>
+            </Pressable>
+            <Pressable onPress={finish} disabled={busy} className="mb-4 items-center py-2">
+              <Text className="text-sm font-semibold text-muted">Maybe later</Text>
+            </Pressable>
+          </>
+        ) : (
+          <Pressable
+            onPress={() => setI((n) => n + 1)}
+            className="mb-4 items-center rounded-2xl bg-correct py-4 active:scale-[0.98]"
+          >
+            <Text className="text-base font-bold text-black">Next</Text>
+          </Pressable>
+        )}
       </SafeAreaView>
     </View>
   );

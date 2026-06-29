@@ -5,6 +5,7 @@ import { expansionTopics as cfaExp2Topics, expansionMaterials as cfaExp2Material
 import { expansionTopics as cfaExp3Topics, expansionMaterials as cfaExp3Materials, expansionQuestions as cfaExp3Questions } from "./cfa-exp-3";
 import { expansionTopics as cfaExp4Topics, expansionMaterials as cfaExp4Materials, expansionQuestions as cfaExp4Questions } from "./cfa-exp-4";
 import { expansionTopics as cfaExp5Topics, expansionMaterials as cfaExp5Materials, expansionQuestions as cfaExp5Questions } from "./cfa-exp-5";
+import { expansionTopics as cfaExp6Topics, expansionMaterials as cfaExp6Materials, expansionQuestions as cfaExp6Questions } from "./cfa-exp-6";
 
 export const cfa = defineBundle({
   exam: {
@@ -101,7 +102,8 @@ export const cfa = defineBundle({
     ...cfaExp2Topics,
     ...cfaExp3Topics,
     ...cfaExp4Topics,
-    ...cfaExp5Topics
+    ...cfaExp5Topics,
+    ...cfaExp6Topics
   ],
   materials: [
     {
@@ -498,7 +500,8 @@ E(R) = Rf + beta * (Rm - Rf)
     ...cfaExp2Materials,
     ...cfaExp3Materials,
     ...cfaExp4Materials,
-    ...cfaExp5Materials
+    ...cfaExp5Materials,
+    ...cfaExp6Materials
   ],
   questions: [
     {
@@ -1465,6 +1468,7 @@ E(R) = Rf + beta * (Rm - Rf)
     ...(cfaExp2Questions as Question[]),
     ...(cfaExp3Questions as Question[]),
     ...(cfaExp4Questions as Question[]),
-    ...(cfaExp5Questions as Question[])
+    ...(cfaExp5Questions as Question[]),
+    ...(cfaExp6Questions as Question[])
   ]
 });

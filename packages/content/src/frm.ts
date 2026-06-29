@@ -5,6 +5,7 @@ import { expansionTopics as frmExp2Topics, expansionMaterials as frmExp2Material
 import { expansionTopics as frmExp3Topics, expansionMaterials as frmExp3Materials, expansionQuestions as frmExp3Questions } from "./frm-exp-3";
 import { expansionTopics as frmExp4Topics, expansionMaterials as frmExp4Materials, expansionQuestions as frmExp4Questions } from "./frm-exp-4";
 import { expansionTopics as frmExp5Topics, expansionMaterials as frmExp5Materials, expansionQuestions as frmExp5Questions } from "./frm-exp-5";
+import { expansionTopics as frmExp6Topics, expansionMaterials as frmExp6Materials, expansionQuestions as frmExp6Questions } from "./frm-exp-6";
 
 export const frm = defineBundle({
   exam: {
@@ -101,7 +102,8 @@ export const frm = defineBundle({
     ...frmExp2Topics,
     ...frmExp3Topics,
     ...frmExp4Topics,
-    ...frmExp5Topics
+    ...frmExp5Topics,
+    ...frmExp6Topics
   ],
   materials: [
     {
@@ -509,7 +511,8 @@ Leverage ratio = Tier 1 capital / Total exposure >= 3%
     ...frmExp2Materials,
     ...frmExp3Materials,
     ...frmExp4Materials,
-    ...frmExp5Materials
+    ...frmExp5Materials,
+    ...frmExp6Materials
   ],
   questions: [
     {
@@ -1476,6 +1479,7 @@ Leverage ratio = Tier 1 capital / Total exposure >= 3%
     ...(frmExp2Questions as Question[]),
     ...(frmExp3Questions as Question[]),
     ...(frmExp4Questions as Question[]),
-    ...(frmExp5Questions as Question[])
+    ...(frmExp5Questions as Question[]),
+    ...(frmExp6Questions as Question[])
   ]
 });
