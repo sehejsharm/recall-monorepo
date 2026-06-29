@@ -23,7 +23,13 @@ export const expTopics: Topic[] = [
   { id: "cfa2-financial-reporting-pensions", subjectId: "cfa2-financial-reporting", name: "Pensions & Post-Employment Benefits", slug: "pensions", orderIndex: 1 },
   { id: "cfa2-financial-reporting-multinational", subjectId: "cfa2-financial-reporting", name: "Multinational Operations & Currency Translation", slug: "multinational", orderIndex: 2 },
   { id: "cfa2-derivatives-swaps-fra", subjectId: "cfa2-derivatives", name: "Swaps & FRA Valuation", slug: "swaps-fra", orderIndex: 1 },
-  { id: "cfa2-quantitative-methods-time-series", subjectId: "cfa2-quantitative-methods", name: "Time-Series Analysis", slug: "time-series", orderIndex: 1 }
+  { id: "cfa2-quantitative-methods-time-series", subjectId: "cfa2-quantitative-methods", name: "Time-Series Analysis", slug: "time-series", orderIndex: 1 },
+  { id: "cfa2-economics-growth", subjectId: "cfa2-economics", name: "Economic Growth & the Investment Setting", slug: "growth", orderIndex: 1 },
+  { id: "cfa2-alternative-investments-hedge-funds", subjectId: "cfa2-alternative-investments", name: "Hedge Fund Strategies", slug: "hedge-funds", orderIndex: 1 },
+  { id: "cfa2-ethics-analysis-recommendations", subjectId: "cfa2-ethics", name: "Investment Analysis, Recommendations & Record Retention", slug: "analysis-recommendations", orderIndex: 1 },
+  { id: "cfa2-corporate-issuers-governance-esg", subjectId: "cfa2-corporate-issuers", name: "Corporate Governance, ESG & Stakeholders", slug: "governance-esg", orderIndex: 1 },
+  { id: "cfa2-portfolio-management-market-risk-var", subjectId: "cfa2-portfolio-management", name: "Measuring & Managing Market Risk (VaR)", slug: "market-risk-var", orderIndex: 1 },
+  { id: "cfa2-quantitative-methods-machine-learning", subjectId: "cfa2-quantitative-methods", name: "Machine Learning & Big Data", slug: "machine-learning", orderIndex: 2 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -278,6 +284,129 @@ E[R] = R_f + Σ βₖ·(factor risk premiumₖ). Built on **no-arbitrage**, mult
 - **Cointegration**: two unit-root series can be regressed if cointegrated (long-run relationship); otherwise the regression is **spurious**.`,
     estimatedReadTime: 2,
     orderIndex: 1
+  },
+  {
+    id: "cfa2-economics-growth-m01",
+    topicId: "cfa2-economics-growth",
+    title: "Economic Growth & the Investment Setting",
+    content: `## Sources of growth
+- **Labor** (size, participation, hours, human capital) + **capital** (physical + human + technology) + **total factor productivity (TFP)**.
+- **Production function**: Y = A·F(K, L). Growth in output = TFP growth + α·ΔK + (1−α)·ΔL (growth accounting).
+
+## Theories
+- **Neoclassical (Solow)**: diminishing returns to capital → economies reach a **steady state**; long-run per-capita growth comes only from **exogenous technology**. Poorer economies grow faster (**convergence**).
+- **Endogenous growth**: R&D and human capital generate **constant/increasing** returns; policy can raise the long-run growth rate (no forced convergence).
+- **Club convergence**: only economies with similar institutions converge.
+
+## Investment implications
+- **Sustainable growth** raises equity returns over the long run via earnings growth.
+- Drivers analysts watch: **savings/investment rates, demographics, productivity, property rights, openness to trade, and infrastructure**.
+- Government policy (taxes, education, rule of law) and **capital deepening** vs. genuine TFP gains matter for durability.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa2-alternative-investments-hedge-funds-m01",
+    topicId: "cfa2-alternative-investments-hedge-funds",
+    title: "Hedge Fund Strategies",
+    content: `## Strategy buckets
+- **Equity**: long/short equity, equity market-neutral (beta ≈ 0), dedicated short.
+- **Event-driven**: merger (risk) arbitrage, distressed, special situations.
+- **Relative value**: fixed-income arbitrage, convertible arbitrage, volatility.
+- **Macro / managed futures**: discretionary global macro, **CTA/trend-following**.
+- **Multi-strategy** and **fund-of-funds** (added diversification but **double fees**).
+
+## Characteristics
+- Often use **leverage, shorting, and derivatives**; seek **absolute return** / alpha.
+- Fees **2-and-20** with **hurdle** and **high-water mark**; lock-ups, gates, and notice periods limit liquidity.
+- Returns are often **non-normal** (negative skew, fat tails) — many strategies are "short volatility," paying steady returns then large losses in stress.
+
+## In a portfolio
+- Low average correlation to equities but **correlations rise in crises**; report-smoothing understates risk.
+- **Operational due diligence** is critical; conditional/strategy-specific risk (e.g., liquidity in distressed) must be modeled, not just volatility.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa2-ethics-analysis-recommendations-m01",
+    topicId: "cfa2-ethics-analysis-recommendations",
+    title: "Investment Analysis, Recommendations & Record Retention",
+    content: `**Standard V — Investment Analysis, Recommendations, and Actions.**
+
+## V(A) Diligence & reasonable basis
+- Have a **reasonable, adequate basis** supported by research before making a recommendation.
+- When using **third-party/secondary research or quant models**, make reasonable efforts to verify their soundness; you remain responsible.
+- Group research: you may disagree with a team's consensus and need not dissent publicly as long as the basis is sound.
+
+## V(B) Communication with clients
+- Distinguish **fact from opinion**; disclose the **basic process and risks**; promptly disclose **material changes** in process.
+- Identify **limitations** and key assumptions.
+
+## V(C) Record retention
+- Keep records supporting analysis, recommendations, and actions. Absent a regulator's rule, CFA Institute recommends **≥ 7 years**. Records are the **firm's property**; you cannot take files to a new employer.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa2-corporate-issuers-governance-esg-m01",
+    topicId: "cfa2-corporate-issuers-governance-esg",
+    title: "Corporate Governance, ESG & Stakeholders",
+    content: `## Stakeholder management
+Balancing the interests of **shareholders, board, management, employees, creditors, suppliers, customers, and regulators**. Key conflicts: **principal-agent** (managers vs. shareholders) and **shareholder vs. creditor** (e.g., risk-shifting).
+
+## Governance mechanisms
+- **Board**: independent, diverse directors; separate chair/CEO; committees (audit, remuneration, nomination).
+- **Shareholder rights**: voting (one-share-one-vote vs. dual-class), proxy access, say-on-pay, takeover defenses (poison pills reduce accountability).
+- Strong governance lowers risk and the cost of capital; weak governance is a red flag.
+
+## ESG integration
+- **E** (climate, emissions, resource use), **S** (labor, safety, data privacy), **G** (board, ethics, controls).
+- Approaches: **negative/exclusionary screening, positive/best-in-class, thematic, impact investing, ESG integration** into valuation, and **active ownership/engagement**.
+- **Materiality** matters — focus on ESG factors that affect cash flows/risk; watch for **greenwashing**. ESG risks feed into discount rates and cash-flow forecasts.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa2-portfolio-management-market-risk-var-m01",
+    topicId: "cfa2-portfolio-management-market-risk-var",
+    title: "Measuring & Managing Market Risk (VaR)",
+    content: `**Value at Risk (VaR)**: the **minimum** loss expected over a period at a given confidence (e.g. "5% 1-day VaR = $1m" → ≥ $1m loss on the worst 5% of days).
+
+## Three methods
+| Method | Idea | Pros / cons |
+| --- | --- | --- |
+| **Parametric (variance-covariance)** | Assumes normal returns; uses σ | Simple; poor for options/fat tails |
+| **Historical simulation** | Reuses actual past returns | No distribution assumption; backward-looking |
+| **Monte Carlo** | Simulate many scenarios | Flexible for non-linear payoffs; compute-heavy |
+
+## Extensions & limits
+- **Conditional VaR (expected shortfall)** = average loss **beyond** VaR — captures tail severity that VaR ignores.
+- VaR says nothing about the **size** of losses past the threshold, can be gamed, and depends on assumptions.
+- Complements: **scenario analysis, stress tests, and sensitivity measures** (beta, duration, delta/gamma).
+- Other constraints: **risk budgeting, position limits, stop-losses**.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa2-quantitative-methods-machine-learning-m01",
+    topicId: "cfa2-quantitative-methods-machine-learning",
+    title: "Machine Learning & Big Data",
+    content: `## Learning types
+- **Supervised** (labeled data): regression & classification — penalized regression/**LASSO**, **SVM**, KNN, CART, random forests, neural nets.
+- **Unsupervised** (no labels): **clustering** (k-means, hierarchical) and **dimension reduction** (**PCA**).
+- **Deep learning / reinforcement learning** for complex, non-linear problems.
+
+## Overfitting — the central risk
+- A model that fits noise has **low bias, high variance** and fails out of sample.
+- Control with **train/validation/test splits, cross-validation, regularization (LASSO/ridge), and pruning**.
+- **Bias-variance tradeoff**: too simple → underfit; too complex → overfit.
+
+## Big data & the data project
+Steps: **conceptualization → data collection → preparation/wrangling (cleaning, handling outliers/missing) → exploration → model training → tuning**.
+- Text/NLP: **tokenization, stemming, bag-of-words, TF-IDF**.
+- Big data traits: **volume, velocity, variety** (and veracity). ML finds patterns but needs sound economic reasoning and care with data quality and look-ahead bias.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
   }
 ];
 
@@ -448,5 +577,89 @@ export const expQuestions: Question[] = [
   { id: "cfa2-quantitative-methods-time-series-q09", topicId: "cfa2-quantitative-methods-time-series", text: "Seasonality in a quarterly AR model is often handled by adding:", optionA: "A lag at the seasonal interval (e.g., the fourth lag)", optionB: "More observations only", optionC: "A higher intercept", optionD: "A unit root", correctOption: "A", explanation: "A seasonal lag (e.g., x_{t-4} for quarterly data) captures recurring seasonal patterns.", orderIndex: 8 },
   { id: "cfa2-quantitative-methods-time-series-q10", topicId: "cfa2-quantitative-methods-time-series", text: "Regressing two unrelated unit-root (non-stationary) series tends to produce a:", optionA: "Spurious regression", optionB: "Perfectly valid result", optionC: "Zero R-squared", optionD: "Stationary residual always", correctOption: "A", explanation: "Two trending non-stationary series can show a high but meaningless (spurious) relationship.", orderIndex: 9 },
   { id: "cfa2-quantitative-methods-time-series-q11", topicId: "cfa2-quantitative-methods-time-series", text: "Two non-stationary series can be validly regressed together if they are:", optionA: "Cointegrated", optionB: "Heteroskedastic", optionC: "Seasonal", optionD: "Uncorrelated", correctOption: "A", explanation: "Cointegration means a long-run equilibrium relationship exists, making the regression meaningful.", orderIndex: 10 },
-  { id: "cfa2-quantitative-methods-time-series-q12", topicId: "cfa2-quantitative-methods-time-series", text: "A random walk is best described as an AR(1) with:", optionA: "b₁ = 0", optionB: "b₁ = 1 (a unit root)", optionC: "A negative intercept", optionD: "Constant variance", correctOption: "B", explanation: "A random walk has slope 1 (unit root); its variance grows over time, so it is non-stationary.", orderIndex: 11 }
+  { id: "cfa2-quantitative-methods-time-series-q12", topicId: "cfa2-quantitative-methods-time-series", text: "A random walk is best described as an AR(1) with:", optionA: "b₁ = 0", optionB: "b₁ = 1 (a unit root)", optionC: "A negative intercept", optionD: "Constant variance", correctOption: "B", explanation: "A random walk has slope 1 (unit root); its variance grows over time, so it is non-stationary.", orderIndex: 11 },
+
+  // Economic growth
+  { id: "cfa2-economics-growth-q01", topicId: "cfa2-economics-growth", text: "In growth accounting, output growth not explained by capital and labor growth is attributed to:", optionA: "Inflation", optionB: "Total factor productivity (TFP)", optionC: "Population only", optionD: "The exchange rate", correctOption: "B", explanation: "TFP is the residual capturing technology/efficiency gains beyond measured factor inputs.", orderIndex: 0 },
+  { id: "cfa2-economics-growth-q02", topicId: "cfa2-economics-growth", text: "The neoclassical (Solow) model predicts that long-run per-capita growth comes from:", optionA: "Capital accumulation alone", optionB: "Exogenous technological progress", optionC: "Higher savings forever", optionD: "Population growth", correctOption: "B", explanation: "Due to diminishing returns to capital, sustained per-capita growth requires exogenous technological progress.", orderIndex: 1 },
+  { id: "cfa2-economics-growth-q03", topicId: "cfa2-economics-growth", text: "Endogenous growth theory differs from the Solow model in that it holds:", optionA: "Capital has diminishing returns always", optionB: "R&D and human capital can yield constant/increasing returns and raise long-run growth", optionC: "Growth is impossible", optionD: "Technology is fixed", correctOption: "B", explanation: "Endogenous models let investment in knowledge generate non-diminishing returns, so policy can lift the long-run growth rate.", orderIndex: 2 },
+  { id: "cfa2-economics-growth-q04", topicId: "cfa2-economics-growth", text: "The convergence hypothesis predicts that, all else equal, poorer economies will:", optionA: "Grow more slowly", optionB: "Grow faster and catch up to richer economies", optionC: "Never grow", optionD: "Have higher inflation", correctOption: "B", explanation: "Neoclassical convergence implies lower-income economies grow faster due to higher marginal returns to capital.", orderIndex: 3 },
+  { id: "cfa2-economics-growth-q05", topicId: "cfa2-economics-growth", text: "'Capital deepening' refers to:", optionA: "An increase in capital per worker", optionB: "More workers", optionC: "Higher TFP", optionD: "Lower savings", correctOption: "A", explanation: "Capital deepening raises the capital-to-labor ratio; its growth contribution diminishes as the ratio rises.", orderIndex: 4 },
+  { id: "cfa2-economics-growth-q06", topicId: "cfa2-economics-growth", text: "Sustainable economic growth tends to support long-run equity returns through:", optionA: "Higher inflation", optionB: "Higher corporate earnings growth", optionC: "Lower productivity", optionD: "Currency depreciation", correctOption: "B", explanation: "Durable growth feeds aggregate earnings, a key driver of long-horizon equity returns.", orderIndex: 5 },
+  { id: "cfa2-economics-growth-q07", topicId: "cfa2-economics-growth", text: "Which institutional factor most supports long-run growth?", optionA: "Weak property rights", optionB: "Strong property rights and rule of law", optionC: "Closed trade", optionD: "High corruption", correctOption: "B", explanation: "Secure property rights and rule of law encourage investment and innovation, supporting growth.", orderIndex: 6 },
+  { id: "cfa2-economics-growth-q08", topicId: "cfa2-economics-growth", text: "In the production function Y = A·F(K, L), 'A' represents:", optionA: "Labor hours", optionB: "Total factor productivity / technology", optionC: "The capital stock", optionD: "The savings rate", correctOption: "B", explanation: "A scales output for given inputs and represents technology/total factor productivity.", orderIndex: 7 },
+  { id: "cfa2-economics-growth-q09", topicId: "cfa2-economics-growth", text: "Growth driven mainly by capital deepening (rather than TFP) is generally:", optionA: "More sustainable indefinitely", optionB: "Subject to diminishing returns and less durable", optionC: "Impossible", optionD: "Independent of the steady state", correctOption: "B", explanation: "Because capital faces diminishing returns, growth relying on capital deepening fades without TFP gains.", orderIndex: 8 },
+  { id: "cfa2-economics-growth-q10", topicId: "cfa2-economics-growth", text: "Favorable demographics raise growth potential primarily by increasing:", optionA: "The labor input", optionB: "Inflation", optionC: "The discount rate", optionD: "Currency value", correctOption: "A", explanation: "A growing working-age population expands the labor input component of potential output.", orderIndex: 9 },
+  { id: "cfa2-economics-growth-q11", topicId: "cfa2-economics-growth", text: "'Club convergence' holds that convergence occurs only among economies that:", optionA: "Speak the same language", optionB: "Share similar institutions and characteristics", optionC: "Have identical GDP", optionD: "Use the same currency", correctOption: "B", explanation: "Club convergence says only economies with comparable institutions/structures converge to similar income levels.", orderIndex: 10 },
+  { id: "cfa2-economics-growth-q12", topicId: "cfa2-economics-growth", text: "Openness to trade is generally associated with:", optionA: "Lower productivity", optionB: "Higher growth via technology diffusion and competition", optionC: "No growth effect", optionD: "Guaranteed deflation", correctOption: "B", explanation: "Trade openness spreads technology and intensifies competition, supporting productivity and growth.", orderIndex: 11 },
+
+  // Hedge fund strategies
+  { id: "cfa2-alternative-investments-hedge-funds-q01", topicId: "cfa2-alternative-investments-hedge-funds", text: "An equity market-neutral strategy aims for a portfolio beta of approximately:", optionA: "1.0", optionB: "0", optionC: "2.0", optionD: "−1.0", correctOption: "B", explanation: "Market-neutral funds balance longs and shorts to target near-zero net market (beta) exposure, isolating alpha.", orderIndex: 0 },
+  { id: "cfa2-alternative-investments-hedge-funds-q02", topicId: "cfa2-alternative-investments-hedge-funds", text: "Merger (risk) arbitrage is an example of which strategy category?", optionA: "Macro", optionB: "Event-driven", optionC: "Relative value", optionD: "Dedicated short", correctOption: "B", explanation: "Merger arbitrage trades around announced corporate events, a classic event-driven approach.", orderIndex: 1 },
+  { id: "cfa2-alternative-investments-hedge-funds-q03", topicId: "cfa2-alternative-investments-hedge-funds", text: "Global macro and managed futures (CTA) strategies primarily trade on:", optionA: "Single-stock fundamentals only", optionB: "Macroeconomic trends across asset classes", optionC: "Merger spreads", optionD: "Convertible bonds", correctOption: "B", explanation: "Macro/CTA strategies take directional positions based on macro views and price trends across markets.", orderIndex: 2 },
+  { id: "cfa2-alternative-investments-hedge-funds-q04", topicId: "cfa2-alternative-investments-hedge-funds", text: "A 'high-water mark' ensures that incentive fees are charged only on:", optionA: "Gross assets", optionB: "New profits above the prior peak value", optionC: "Every gain regardless of past losses", optionD: "Management fees", correctOption: "B", explanation: "The high-water mark prevents charging performance fees on gains that merely recover earlier losses.", orderIndex: 3 },
+  { id: "cfa2-alternative-investments-hedge-funds-q05", topicId: "cfa2-alternative-investments-hedge-funds", text: "Fund-of-funds add diversification but suffer from:", optionA: "No fees", optionB: "An extra layer of fees (double fees)", optionC: "Guaranteed returns", optionD: "Daily liquidity always", correctOption: "B", explanation: "Fund-of-funds charge their own fee on top of the underlying managers' fees, reducing net returns.", orderIndex: 4 },
+  { id: "cfa2-alternative-investments-hedge-funds-q06", topicId: "cfa2-alternative-investments-hedge-funds", text: "Many hedge-fund return streams are described as 'short volatility' because they:", optionA: "Always profit in crises", optionB: "Earn steady gains then suffer large losses in stress (negative skew)", optionC: "Have no risk", optionD: "Are perfectly normal", correctOption: "B", explanation: "Such strategies resemble selling insurance: small consistent gains punctuated by occasional large drawdowns.", orderIndex: 5 },
+  { id: "cfa2-alternative-investments-hedge-funds-q07", topicId: "cfa2-alternative-investments-hedge-funds", text: "Lock-ups, gates, and notice periods are features that limit a hedge fund's:", optionA: "Leverage", optionB: "Investor liquidity / redemptions", optionC: "Fees", optionD: "Returns", correctOption: "B", explanation: "These provisions restrict how and when investors can withdraw capital, managing liquidity for the manager.", orderIndex: 6 },
+  { id: "cfa2-alternative-investments-hedge-funds-q08", topicId: "cfa2-alternative-investments-hedge-funds", text: "Convertible arbitrage is best classified as a ____ strategy.", optionA: "Relative value", optionB: "Macro", optionC: "Event-driven", optionD: "Long-only", correctOption: "A", explanation: "Convertible arbitrage exploits pricing differences between a convertible bond and its components — a relative-value trade.", orderIndex: 7 },
+  { id: "cfa2-alternative-investments-hedge-funds-q09", topicId: "cfa2-alternative-investments-hedge-funds", text: "Because hedge-fund returns are often non-normal, risk should be assessed with:", optionA: "Standard deviation alone", optionB: "Measures capturing skew, kurtosis and tail/drawdown risk", optionC: "The dividend yield", optionD: "Beta only", correctOption: "B", explanation: "Fat tails and negative skew mean volatility understates risk; downside/tail measures are needed.", orderIndex: 8 },
+  { id: "cfa2-alternative-investments-hedge-funds-q10", topicId: "cfa2-alternative-investments-hedge-funds", text: "A dedicated short-bias fund profits when:", optionA: "Targeted stocks decline", optionB: "The market rises", optionC: "Rates fall only", optionD: "Volatility is zero", correctOption: "A", explanation: "Dedicated short managers are net short and gain when their shorted securities fall in price.", orderIndex: 9 },
+  { id: "cfa2-alternative-investments-hedge-funds-q11", topicId: "cfa2-alternative-investments-hedge-funds", text: "Operational due diligence on a hedge fund focuses on:", optionA: "Only past returns", optionB: "Independent administration/custody, valuation, controls and key-person risk", optionC: "The benchmark index", optionD: "The risk-free rate", correctOption: "B", explanation: "ODD assesses the non-investment infrastructure whose failure is a leading cause of fund losses.", orderIndex: 10 },
+  { id: "cfa2-alternative-investments-hedge-funds-q12", topicId: "cfa2-alternative-investments-hedge-funds", text: "Reported hedge-fund correlations to equities tend to:", optionA: "Stay constant", optionB: "Rise during market crises, reducing diversification when needed", optionC: "Fall to −1 in crises", optionD: "Be exactly 1 always", correctOption: "B", explanation: "Like other alternatives, hedge-fund correlations often spike in stress, eroding diversification benefits.", orderIndex: 11 },
+
+  // Ethics: investment analysis, recommendations & records
+  { id: "cfa2-ethics-analysis-recommendations-q01", topicId: "cfa2-ethics-analysis-recommendations", text: "Standard V(A) requires that recommendations have a:", optionA: "Guaranteed return", optionB: "Reasonable and adequate basis supported by research", optionC: "Majority vote", optionD: "Regulatory pre-approval", correctOption: "B", explanation: "Diligence and Reasonable Basis [V(A)] requires sufficient research/analysis behind any recommendation or action.", orderIndex: 0 },
+  { id: "cfa2-ethics-analysis-recommendations-q02", topicId: "cfa2-ethics-analysis-recommendations", text: "When relying on third-party research, a member must:", optionA: "Assume it is always correct", optionB: "Make reasonable efforts to verify its soundness", optionC: "Never use it", optionD: "Disclose nothing", correctOption: "B", explanation: "Members remain responsible and should take reasonable steps to confirm secondary/third-party research is sound.", orderIndex: 1 },
+  { id: "cfa2-ethics-analysis-recommendations-q03", topicId: "cfa2-ethics-analysis-recommendations", text: "Standard V(B) requires members to communicate by:", optionA: "Mixing fact and opinion freely", optionB: "Distinguishing fact from opinion and disclosing the basic process and risks", optionC: "Hiding assumptions", optionD: "Omitting limitations", correctOption: "B", explanation: "V(B) Communication requires separating fact from opinion and disclosing the process, risks, and limitations.", orderIndex: 2 },
+  { id: "cfa2-ethics-analysis-recommendations-q04", topicId: "cfa2-ethics-analysis-recommendations", text: "Absent a regulatory requirement, CFA Institute recommends retaining records for at least:", optionA: "1 year", optionB: "7 years", optionC: "20 years", optionD: "No minimum", correctOption: "B", explanation: "The recommended minimum record-retention period is seven years when no stricter law applies.", orderIndex: 3 },
+  { id: "cfa2-ethics-analysis-recommendations-q05", topicId: "cfa2-ethics-analysis-recommendations", text: "Research files and records created for the employer are generally:", optionA: "The member's personal property to take when leaving", optionB: "The firm's property", optionC: "Public domain", optionD: "Owned by clients", correctOption: "B", explanation: "Supporting records belong to the firm; a departing member cannot take them to a new employer.", orderIndex: 4 },
+  { id: "cfa2-ethics-analysis-recommendations-q06", topicId: "cfa2-ethics-analysis-recommendations", text: "A member who disagrees with a team's consensus research may:", optionA: "Never be associated with the report", optionB: "Remain associated if the report has a reasonable basis they can support", optionC: "Be forced to sign it", optionD: "Publicly denounce it always", correctOption: "B", explanation: "A member need not dissent publicly if the report rests on a reasonable basis they can accept.", orderIndex: 5 },
+  { id: "cfa2-ethics-analysis-recommendations-q07", topicId: "cfa2-ethics-analysis-recommendations", text: "Using a quantitative model without understanding its assumptions most likely violates:", optionA: "V(A) Diligence and Reasonable Basis", optionB: "Fair Dealing", optionC: "Priority of Transactions", optionD: "Record Retention", correctOption: "A", explanation: "Relying on a model without grasping its inputs/limitations breaches the diligence/reasonable-basis requirement.", orderIndex: 6 },
+  { id: "cfa2-ethics-analysis-recommendations-q08", topicId: "cfa2-ethics-analysis-recommendations", text: "Material changes to the investment process should be disclosed to clients:", optionA: "Only at year-end", optionB: "Promptly", optionC: "Never", optionD: "Only if asked", correctOption: "B", explanation: "V(B) requires prompt disclosure of material changes that could affect the investment process.", orderIndex: 7 },
+  { id: "cfa2-ethics-analysis-recommendations-q09", topicId: "cfa2-ethics-analysis-recommendations", text: "When communicating a recommendation, a member should identify:", optionA: "Only the upside", optionB: "Key assumptions, limitations and risks", optionC: "Competitors' fees", optionD: "Other clients' positions", correctOption: "B", explanation: "Clients need the important assumptions, limitations, and risk factors to evaluate a recommendation.", orderIndex: 8 },
+  { id: "cfa2-ethics-analysis-recommendations-q10", topicId: "cfa2-ethics-analysis-recommendations", text: "Maintaining records of the rationale for investment actions primarily supports:", optionA: "Marketing", optionB: "Demonstrating a reasonable basis and compliance", optionC: "Tax evasion", optionD: "Higher fees", correctOption: "B", explanation: "Records substantiate that analysis and actions had a reasonable basis, supporting V(A) and V(C).", orderIndex: 9 },
+  { id: "cfa2-ethics-analysis-recommendations-q11", topicId: "cfa2-ethics-analysis-recommendations", text: "Presenting an opinion as if it were established fact violates:", optionA: "V(B) Communication with Clients", optionB: "Priority of Transactions", optionC: "Loyalty to Employer", optionD: "Knowledge of the Law", correctOption: "A", explanation: "V(B) requires clearly distinguishing fact from opinion in communications.", orderIndex: 10 },
+  { id: "cfa2-ethics-analysis-recommendations-q12", topicId: "cfa2-ethics-analysis-recommendations", text: "The level of diligence required for a recommendation:", optionA: "Is the same for all decisions", optionB: "Varies with the nature and complexity of the analysis", optionC: "Is set by clients", optionD: "Is unnecessary for buys", correctOption: "B", explanation: "What constitutes a 'reasonable basis' depends on the complexity and significance of the decision.", orderIndex: 11 },
+
+  // Corporate governance, ESG & stakeholders
+  { id: "cfa2-corporate-issuers-governance-esg-q01", topicId: "cfa2-corporate-issuers-governance-esg", text: "The principal-agent problem in corporate governance arises between:", optionA: "Customers and suppliers", optionB: "Shareholders (principals) and managers (agents)", optionC: "Regulators and auditors", optionD: "Employees and customers", correctOption: "B", explanation: "Managers (agents) may pursue their own interests over those of shareholders (principals), the core agency conflict.", orderIndex: 0 },
+  { id: "cfa2-corporate-issuers-governance-esg-q02", topicId: "cfa2-corporate-issuers-governance-esg", text: "A strong board is characterized by:", optionA: "A combined chair/CEO with no committees", optionB: "Independent, diverse directors and key committees", optionC: "Directors appointed by management only", optionD: "No audit committee", correctOption: "B", explanation: "Independence, diversity, and functioning audit/remuneration/nomination committees signal strong governance.", orderIndex: 1 },
+  { id: "cfa2-corporate-issuers-governance-esg-q03", topicId: "cfa2-corporate-issuers-governance-esg", text: "A poison pill (takeover defense) generally:", optionA: "Increases management accountability", optionB: "Entrenches management and can reduce accountability", optionC: "Has no governance effect", optionD: "Guarantees a higher takeover price", correctOption: "B", explanation: "Takeover defenses can insulate management from the market for corporate control, weakening accountability.", orderIndex: 2 },
+  { id: "cfa2-corporate-issuers-governance-esg-q04", topicId: "cfa2-corporate-issuers-governance-esg", text: "Negative (exclusionary) screening in ESG investing means:", optionA: "Selecting the best ESG performers", optionB: "Excluding certain sectors or companies on ESG grounds", optionC: "Ignoring ESG", optionD: "Buying only bonds", correctOption: "B", explanation: "Negative screening removes objectionable industries/companies (e.g., tobacco, weapons) from the universe.", orderIndex: 3 },
+  { id: "cfa2-corporate-issuers-governance-esg-q05", topicId: "cfa2-corporate-issuers-governance-esg", text: "ESG 'materiality' refers to focusing on factors that:", optionA: "Are always environmental", optionB: "Affect a company's cash flows or risk", optionC: "Are immaterial to value", optionD: "Only matter to regulators", correctOption: "B", explanation: "Material ESG factors are those with a plausible impact on financial performance and risk.", orderIndex: 4 },
+  { id: "cfa2-corporate-issuers-governance-esg-q06", topicId: "cfa2-corporate-issuers-governance-esg", text: "A shareholder-vs-creditor conflict can arise when a firm:", optionA: "Pays down all debt", optionB: "Takes on riskier projects that benefit shareholders at creditors' expense (risk-shifting)", optionC: "Issues equity", optionD: "Holds cash", correctOption: "B", explanation: "Risk-shifting transfers value from creditors to shareholders by increasing asset risk after debt is issued.", orderIndex: 5 },
+  { id: "cfa2-corporate-issuers-governance-esg-q07", topicId: "cfa2-corporate-issuers-governance-esg", text: "Active ownership (engagement) as an ESG approach involves:", optionA: "Selling all holdings", optionB: "Using voting and dialogue to influence company practices", optionC: "Ignoring management", optionD: "Avoiding equities", correctOption: "B", explanation: "Engagement uses proxy voting and direct dialogue to push companies toward better ESG practices.", orderIndex: 6 },
+  { id: "cfa2-corporate-issuers-governance-esg-q08", topicId: "cfa2-corporate-issuers-governance-esg", text: "Strong corporate governance tends to:", optionA: "Raise the cost of capital", optionB: "Lower risk and the cost of capital", optionC: "Have no effect on value", optionD: "Guarantee higher earnings", correctOption: "B", explanation: "Better governance reduces agency and operational risk, which can lower the firm's cost of capital.", orderIndex: 7 },
+  { id: "cfa2-corporate-issuers-governance-esg-q09", topicId: "cfa2-corporate-issuers-governance-esg", text: "'Greenwashing' refers to:", optionA: "Genuine emissions cuts", optionB: "Overstating or misrepresenting ESG credentials", optionC: "A type of bond", optionD: "An accounting method", correctOption: "B", explanation: "Greenwashing is misleading promotion of a company/product as more sustainable than it is.", orderIndex: 8 },
+  { id: "cfa2-corporate-issuers-governance-esg-q10", topicId: "cfa2-corporate-issuers-governance-esg", text: "A dual-class share structure typically:", optionA: "Gives all shareholders equal votes", optionB: "Concentrates voting control with insiders despite less economic ownership", optionC: "Eliminates voting", optionD: "Is required by law", correctOption: "B", explanation: "Dual-class shares grant insiders disproportionate voting power relative to their cash-flow stake, a governance concern.", orderIndex: 9 },
+  { id: "cfa2-corporate-issuers-governance-esg-q11", topicId: "cfa2-corporate-issuers-governance-esg", text: "ESG integration into valuation most directly affects:", optionA: "Only marketing", optionB: "Cash-flow forecasts and/or the discount rate", optionC: "Share count", optionD: "The dividend payment date", correctOption: "B", explanation: "Integrating material ESG factors adjusts projected cash flows and the required return used in valuation.", orderIndex: 10 },
+  { id: "cfa2-corporate-issuers-governance-esg-q12", topicId: "cfa2-corporate-issuers-governance-esg", text: "Stakeholder management seeks to balance the interests of:", optionA: "Shareholders only", optionB: "Shareholders, board, management, employees, creditors, customers, suppliers and regulators", optionC: "Regulators only", optionD: "Competitors", correctOption: "B", explanation: "Governance addresses the full set of stakeholders whose interests intersect with the firm.", orderIndex: 11 },
+
+  // Market risk & VaR
+  { id: "cfa2-portfolio-management-market-risk-var-q01", topicId: "cfa2-portfolio-management-market-risk-var", text: "A '5% one-day VaR of $1 million' means there is a 5% probability the portfolio will lose:", optionA: "Exactly $1 million in a day", optionB: "At least $1 million in a day", optionC: "At most $1 million ever", optionD: "Nothing", correctOption: "B", explanation: "VaR is the minimum loss at the given tail probability: a 5% chance of losing $1m or more in a day.", orderIndex: 0 },
+  { id: "cfa2-portfolio-management-market-risk-var-q02", topicId: "cfa2-portfolio-management-market-risk-var", text: "The parametric (variance-covariance) VaR method assumes returns are:", optionA: "Lognormal with fat tails", optionB: "Normally distributed", optionC: "Uniform", optionD: "Non-stationary", correctOption: "B", explanation: "Parametric VaR assumes (multivariate) normal returns, which understates risk for options and fat-tailed assets.", orderIndex: 1 },
+  { id: "cfa2-portfolio-management-market-risk-var-q03", topicId: "cfa2-portfolio-management-market-risk-var", text: "Historical simulation VaR is computed by:", optionA: "Assuming a normal distribution", optionB: "Applying the distribution of actual past returns", optionC: "Running random simulations", optionD: "Using duration only", correctOption: "B", explanation: "Historical simulation reuses the empirical distribution of past returns, requiring no distributional assumption.", orderIndex: 2 },
+  { id: "cfa2-portfolio-management-market-risk-var-q04", topicId: "cfa2-portfolio-management-market-risk-var", text: "Monte Carlo VaR is particularly useful for portfolios with:", optionA: "Only linear instruments", optionB: "Non-linear payoffs such as options", optionC: "No risk", optionD: "Constant returns", correctOption: "B", explanation: "Monte Carlo can model complex, non-linear payoffs by simulating many scenarios, at higher computational cost.", orderIndex: 3 },
+  { id: "cfa2-portfolio-management-market-risk-var-q05", topicId: "cfa2-portfolio-management-market-risk-var", text: "Conditional VaR (expected shortfall) measures the:", optionA: "Most likely gain", optionB: "Average loss given that the loss exceeds the VaR threshold", optionC: "Minimum loss", optionD: "Standard deviation", correctOption: "B", explanation: "Expected shortfall captures the average severity of losses beyond VaR, addressing VaR's tail blind spot.", orderIndex: 4 },
+  { id: "cfa2-portfolio-management-market-risk-var-q06", topicId: "cfa2-portfolio-management-market-risk-var", text: "A key limitation of VaR is that it:", optionA: "Describes losses beyond the threshold", optionB: "Says nothing about the magnitude of losses beyond the VaR level", optionC: "Cannot be computed", optionD: "Requires no assumptions", correctOption: "B", explanation: "VaR ignores how bad losses get past the cutoff — a major reason expected shortfall is used alongside it.", orderIndex: 5 },
+  { id: "cfa2-portfolio-management-market-risk-var-q07", topicId: "cfa2-portfolio-management-market-risk-var", text: "Stress testing and scenario analysis complement VaR by:", optionA: "Assuming normal markets", optionB: "Examining extreme or hypothetical adverse conditions", optionC: "Lowering risk estimates", optionD: "Ignoring tail events", correctOption: "B", explanation: "Stress tests probe severe scenarios that statistical VaR, based on normal periods, may miss.", orderIndex: 6 },
+  { id: "cfa2-portfolio-management-market-risk-var-q08", topicId: "cfa2-portfolio-management-market-risk-var", text: "Increasing the confidence level from 95% to 99% will, all else equal, make VaR:", optionA: "Smaller", optionB: "Larger", optionC: "Unchanged", optionD: "Negative", correctOption: "B", explanation: "A higher confidence level moves further into the tail, increasing the reported VaR loss.", orderIndex: 7 },
+  { id: "cfa2-portfolio-management-market-risk-var-q09", topicId: "cfa2-portfolio-management-market-risk-var", text: "A drawback of historical simulation is that it:", optionA: "Requires a normality assumption", optionB: "Assumes the past distribution will repeat (backward-looking)", optionC: "Cannot use real data", optionD: "Ignores history", correctOption: "B", explanation: "Historical simulation depends entirely on the chosen sample and may miss risks absent from that history.", orderIndex: 8 },
+  { id: "cfa2-portfolio-management-market-risk-var-q10", topicId: "cfa2-portfolio-management-market-risk-var", text: "Position limits, risk budgets and stop-loss rules are examples of:", optionA: "Return objectives", optionB: "Market-risk management constraints", optionC: "VaR methods", optionD: "Performance benchmarks", correctOption: "B", explanation: "These are governance tools that constrain and manage market-risk exposures.", orderIndex: 9 },
+  { id: "cfa2-portfolio-management-market-risk-var-q11", topicId: "cfa2-portfolio-management-market-risk-var", text: "For an options portfolio, parametric VaR is least reliable because options have:", optionA: "Linear payoffs", optionB: "Non-linear (convex) payoffs not captured by a normal/linear approach", optionC: "No risk", optionD: "Constant delta", correctOption: "B", explanation: "Option convexity (gamma) violates the linear/normal assumptions of parametric VaR, distorting the estimate.", orderIndex: 10 },
+  { id: "cfa2-portfolio-management-market-risk-var-q12", topicId: "cfa2-portfolio-management-market-risk-var", text: "A criticism that VaR can be 'gamed' refers to managers:", optionA: "Reducing genuine risk", optionB: "Structuring positions to lower reported VaR while keeping tail risk", optionC: "Disclosing all risks", optionD: "Using expected shortfall", correctOption: "B", explanation: "Because VaR ignores the tail, exposures can be arranged to report a low VaR while retaining large tail risk.", orderIndex: 11 },
+
+  // Machine learning & big data
+  { id: "cfa2-quantitative-methods-machine-learning-q01", topicId: "cfa2-quantitative-methods-machine-learning", text: "Supervised learning differs from unsupervised learning in that it uses:", optionA: "No data", optionB: "Labeled data (known target outputs)", optionC: "Only text", optionD: "Random outputs", correctOption: "B", explanation: "Supervised learning trains on labeled examples to predict a target; unsupervised learning finds structure without labels.", orderIndex: 0 },
+  { id: "cfa2-quantitative-methods-machine-learning-q02", topicId: "cfa2-quantitative-methods-machine-learning", text: "K-means clustering is an example of:", optionA: "Supervised regression", optionB: "Unsupervised learning", optionC: "Reinforcement learning", optionD: "A trend model", correctOption: "B", explanation: "Clustering groups unlabeled observations by similarity — an unsupervised technique.", orderIndex: 1 },
+  { id: "cfa2-quantitative-methods-machine-learning-q03", topicId: "cfa2-quantitative-methods-machine-learning", text: "Overfitting is characterized by a model that has:", optionA: "High bias, low variance", optionB: "Low bias but high variance (fits noise, fails out of sample)", optionC: "No errors ever", optionD: "Constant accuracy", correctOption: "B", explanation: "Overfit models capture noise, performing well in-sample but poorly on new data (high variance).", orderIndex: 2 },
+  { id: "cfa2-quantitative-methods-machine-learning-q04", topicId: "cfa2-quantitative-methods-machine-learning", text: "LASSO and ridge regression help prevent overfitting through:", optionA: "Adding more features", optionB: "Regularization (penalizing coefficient size)", optionC: "Removing the target", optionD: "Increasing variance", correctOption: "B", explanation: "Penalized regressions shrink coefficients, reducing model complexity and overfitting.", orderIndex: 3 },
+  { id: "cfa2-quantitative-methods-machine-learning-q05", topicId: "cfa2-quantitative-methods-machine-learning", text: "Principal components analysis (PCA) is primarily used for:", optionA: "Labeling data", optionB: "Dimension reduction", optionC: "Reinforcement learning", optionD: "Forecasting interest rates", correctOption: "B", explanation: "PCA reduces many correlated features into a few uncorrelated components capturing most variance.", orderIndex: 4 },
+  { id: "cfa2-quantitative-methods-machine-learning-q06", topicId: "cfa2-quantitative-methods-machine-learning", text: "Cross-validation is used to:", optionA: "Increase overfitting", optionB: "Assess out-of-sample performance and tune the model", optionC: "Clean data only", optionD: "Label data", correctOption: "B", explanation: "Cross-validation partitions data to estimate generalization error and guide hyperparameter tuning.", orderIndex: 5 },
+  { id: "cfa2-quantitative-methods-machine-learning-q07", topicId: "cfa2-quantitative-methods-machine-learning", text: "In the bias-variance tradeoff, an overly simple model tends to:", optionA: "Overfit", optionB: "Underfit (high bias)", optionC: "Have zero error", optionD: "Generalize perfectly", correctOption: "B", explanation: "Too-simple models underfit, exhibiting high bias and missing real patterns.", orderIndex: 6 },
+  { id: "cfa2-quantitative-methods-machine-learning-q08", topicId: "cfa2-quantitative-methods-machine-learning", text: "The first step of a typical data-analytics project is:", optionA: "Model tuning", optionB: "Conceptualization of the problem", optionC: "Reporting results", optionD: "Deployment", correctOption: "B", explanation: "Projects start by conceptualizing the task before collecting, preparing, exploring, and modeling the data.", orderIndex: 7 },
+  { id: "cfa2-quantitative-methods-machine-learning-q09", topicId: "cfa2-quantitative-methods-machine-learning", text: "In text analytics, converting words to a normalized base form is called:", optionA: "Tokenization", optionB: "Stemming/lemmatization", optionC: "Clustering", optionD: "Regularization", correctOption: "B", explanation: "Stemming/lemmatization reduces words to a root form; tokenization splits text into tokens.", orderIndex: 8 },
+  { id: "cfa2-quantitative-methods-machine-learning-q10", topicId: "cfa2-quantitative-methods-machine-learning", text: "The 'three Vs' commonly used to describe big data are volume, velocity and:", optionA: "Value", optionB: "Variety", optionC: "Volatility", optionD: "Validity", correctOption: "B", explanation: "Big data is classically described by volume, velocity, and variety (with veracity often added).", orderIndex: 9 },
+  { id: "cfa2-quantitative-methods-machine-learning-q11", topicId: "cfa2-quantitative-methods-machine-learning", text: "A random forest is an ensemble of:", optionA: "Linear regressions", optionB: "Decision trees", optionC: "Clusters", optionD: "Principal components", correctOption: "B", explanation: "Random forests aggregate many decision trees to improve accuracy and reduce overfitting.", orderIndex: 10 },
+  { id: "cfa2-quantitative-methods-machine-learning-q12", topicId: "cfa2-quantitative-methods-machine-learning", text: "Data wrangling (preparation) in a project mainly involves:", optionA: "Cleaning and organizing raw data (handling outliers/missing values)", optionB: "Writing the final report", optionC: "Choosing the confidence level", optionD: "Deploying the model", correctOption: "A", explanation: "Wrangling cleans, transforms and structures raw data so it is usable for exploration and modeling.", orderIndex: 11 }
 ];
