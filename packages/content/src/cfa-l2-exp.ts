@@ -19,7 +19,11 @@ export const expTopics: Topic[] = [
   { id: "cfa2-ethics-application-soft-dollar", subjectId: "cfa2-ethics", name: "Application of the Code & Soft-Dollar Standards", slug: "application-soft-dollar", orderIndex: 0 },
   { id: "cfa2-corporate-issuers-capital-structure-payout", subjectId: "cfa2-corporate-issuers", name: "Capital Structure & Payout Policy", slug: "capital-structure-payout", orderIndex: 0 },
   { id: "cfa2-portfolio-management-multifactor-models", subjectId: "cfa2-portfolio-management", name: "Multifactor Models & Risk Attribution", slug: "multifactor-models", orderIndex: 0 },
-  { id: "cfa2-fixed-income-credit-analysis", subjectId: "cfa2-fixed-income", name: "Credit Analysis & Credit Strategies", slug: "credit-analysis", orderIndex: 1 }
+  { id: "cfa2-fixed-income-credit-analysis", subjectId: "cfa2-fixed-income", name: "Credit Analysis & Credit Strategies", slug: "credit-analysis", orderIndex: 1 },
+  { id: "cfa2-financial-reporting-pensions", subjectId: "cfa2-financial-reporting", name: "Pensions & Post-Employment Benefits", slug: "pensions", orderIndex: 1 },
+  { id: "cfa2-financial-reporting-multinational", subjectId: "cfa2-financial-reporting", name: "Multinational Operations & Currency Translation", slug: "multinational", orderIndex: 2 },
+  { id: "cfa2-derivatives-swaps-fra", subjectId: "cfa2-derivatives", name: "Swaps & FRA Valuation", slug: "swaps-fra", orderIndex: 1 },
+  { id: "cfa2-quantitative-methods-time-series", subjectId: "cfa2-quantitative-methods", name: "Time-Series Analysis", slug: "time-series", orderIndex: 1 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -190,6 +194,90 @@ E[R] = R_f + Σ βₖ·(factor risk premiumₖ). Built on **no-arbitrage**, mult
 - Watch **liquidity** and **spread curve** roll-down; diversify idiosyncratic default risk.`,
     estimatedReadTime: 2,
     orderIndex: 1
+  },
+  {
+    id: "cfa2-financial-reporting-pensions-m01",
+    topicId: "cfa2-financial-reporting-pensions",
+    title: "Pensions & Post-Employment Benefits",
+    content: `## Plan types
+- **Defined contribution (DC)**: employer pays a fixed contribution; the **employee bears investment risk**. Expense = the contribution; no balance-sheet liability beyond unpaid amounts.
+- **Defined benefit (DB)**: employer promises a future benefit; the **employer bears the risk**. Requires actuarial estimates.
+
+## Funded status (DB)
+**Funded status = fair value of plan assets − PBO** (projected benefit obligation). A deficit is a net pension **liability** on the balance sheet; a surplus is an asset.
+
+## Periodic pension cost (DB)
+- Components: **service cost**, **net interest** (discount rate × net liability), **remeasurements/actuarial gains-losses**, and past service cost.
+- **IFRS**: service cost + net interest go to **P&L**; remeasurements to **OCI** (not recycled).
+- **US GAAP**: service cost in operating income; interest & expected return can sit in non-operating; actuarial gains/losses often in OCI with **corridor/amortization**.
+
+## Key assumptions
+- A **higher discount rate** lowers the PBO and usually service cost; a higher assumed **compensation growth** raises the PBO. Analysts adjust for aggressive assumptions and reclassify components for comparability.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa2-financial-reporting-multinational-m01",
+    topicId: "cfa2-financial-reporting-multinational",
+    title: "Multinational Operations & Currency Translation",
+    content: `When a parent consolidates a foreign subsidiary, the sub's statements must be translated into the presentation currency.
+
+## Two methods
+| | Current-rate method | Temporal method |
+| --- | --- | --- |
+| When | Functional currency = local currency | Functional currency = parent's |
+| Assets/liabs | **Current** rate | Monetary at current; **non-monetary at historical** |
+| Revenue/exp | Average rate | Average; COGS & depreciation at **historical** |
+| Gain/loss to | **OCI** (CTA) | **Net income** (remeasurement gain/loss) |
+
+## Choosing the functional currency
+- Determined by the **primary economic environment** (where cash flows, prices, financing are denominated).
+- In a **hyperinflationary** economy: US GAAP uses the **temporal** method (functional = parent's); IFRS **restates** for inflation then translates at the current rate.
+
+## Effects
+- Current-rate method preserves financial **ratios** of the sub (all at current rate); the temporal method distorts them.
+- A depreciating local currency with a net asset exposure produces a **negative CTA** (current-rate) or remeasurement loss (temporal).`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa2-derivatives-swaps-fra-m01",
+    topicId: "cfa2-derivatives-swaps-fra",
+    title: "Swaps & FRA Valuation",
+    content: `## Forward rate agreements (FRA)
+- An FRA locks a future interest rate. The **long** gains if the reference rate **rises** above the contract rate.
+- Payoff is settled at the FRA expiry on a **discounted** basis: (reference − FRA rate) × notional × period, divided by (1 + reference × period).
+
+## Interest-rate swaps
+- A plain-vanilla swap = exchange **fixed for floating**; it is economically a **portfolio of FRAs** (or a long/short bond pair).
+- The **swap fixed rate** is set so the swap's initial value is **zero** — it's the rate that equates the PV of fixed and floating legs (a par-rate calculation from discount factors).
+- **Value over time**: as rates move, the swap gains/loses. Value to the fixed-rate payer ≈ (PV of floating leg) − (PV of fixed leg). The floating leg resets to par at each payment date.
+
+## Other swaps
+- **Currency swap**: exchange principal + interest in two currencies. **Equity swap**: exchange equity return for fixed/floating. Used to convert exposures (e.g., fixed↔floating debt) cheaply without re-issuing.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa2-quantitative-methods-time-series-m01",
+    topicId: "cfa2-quantitative-methods-time-series",
+    title: "Time-Series Analysis",
+    content: `## Models
+- **Trend models**: linear (constant change) or **log-linear** (constant growth rate). Check residuals for serial correlation (Durbin-Watson).
+- **Autoregressive AR(p)**: x_t depends on its own lags. **Covariance-stationary** is required (constant mean/variance; autocovariances depend only on lag).
+
+## Diagnostics
+- **AR(1) stationarity**: |slope| < 1. A **unit root** (slope = 1, random walk) ⇒ non-stationary; test with **Dickey-Fuller**. Fix by **first-differencing**.
+- Check residual autocorrelations (t-tests / Ljung-Box); add lags or seasonal terms if significant.
+- **Mean reversion** level = b₀ / (1 − b₁) for an AR(1).
+
+## Other tools
+- **RMSE** compares out-of-sample forecast accuracy (lower is better).
+- **Seasonality**: add a seasonal lag (e.g., x_{t-4} for quarterly).
+- **ARCH**: if error variance depends on prior squared errors, variance is not constant — use generalized least squares / model the variance (ARCH/GARCH).
+- **Cointegration**: two unit-root series can be regressed if cointegrated (long-run relationship); otherwise the regression is **spurious**.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
   }
 ];
 
@@ -304,5 +392,61 @@ export const expQuestions: Question[] = [
   { id: "cfa2-fixed-income-credit-analysis-q09", topicId: "cfa2-fixed-income-credit-analysis", text: "A bottom-up credit strategy focuses on:", optionA: "Sector rotation over the cycle", optionB: "Selecting individual mispriced issuers", optionC: "Government policy", optionD: "Currency forecasting", correctOption: "B", explanation: "Bottom-up credit picks specific issuers/bonds believed to be mispriced, versus top-down sector/quality rotation.", orderIndex: 8 },
   { id: "cfa2-fixed-income-credit-analysis-q10", topicId: "cfa2-fixed-income-credit-analysis", text: "The credit spread compensates investors mainly for expected loss plus:", optionA: "A risk premium and liquidity", optionB: "Dividends", optionC: "The coupon", optionD: "Inflation only", correctOption: "A", explanation: "Spreads cover expected credit loss, a risk/uncertainty premium, and a liquidity premium.", orderIndex: 9 },
   { id: "cfa2-fixed-income-credit-analysis-q11", topicId: "cfa2-fixed-income-credit-analysis", text: "Holding many uncorrelated issuers reduces which component of credit risk?", optionA: "Idiosyncratic (issuer-specific) default risk", optionB: "Systematic spread risk", optionC: "Interest-rate risk", optionD: "Inflation risk", correctOption: "A", explanation: "Diversification across issuers reduces idiosyncratic default risk, though systematic spread risk remains.", orderIndex: 10 },
-  { id: "cfa2-fixed-income-credit-analysis-q12", topicId: "cfa2-fixed-income-credit-analysis", text: "In a recovery phase, a credit manager seeking higher returns would most likely:", optionA: "Add lower-rated, higher-spread credit", optionB: "Move entirely to Treasuries", optionC: "Shorten spread duration sharply", optionD: "Sell all credit", correctOption: "A", explanation: "As conditions improve and spreads tighten, adding lower-rated, higher-spread bonds increases return potential.", orderIndex: 11 }
+  { id: "cfa2-fixed-income-credit-analysis-q12", topicId: "cfa2-fixed-income-credit-analysis", text: "In a recovery phase, a credit manager seeking higher returns would most likely:", optionA: "Add lower-rated, higher-spread credit", optionB: "Move entirely to Treasuries", optionC: "Shorten spread duration sharply", optionD: "Sell all credit", correctOption: "A", explanation: "As conditions improve and spreads tighten, adding lower-rated, higher-spread bonds increases return potential.", orderIndex: 11 },
+
+  // Pensions & post-employment benefits
+  { id: "cfa2-financial-reporting-pensions-q01", topicId: "cfa2-financial-reporting-pensions", text: "In a defined contribution plan, investment risk is borne by the:", optionA: "Employer", optionB: "Employee", optionC: "Government", optionD: "Plan auditor", correctOption: "B", explanation: "In DC plans the employer's obligation is just the contribution; the employee bears the investment outcome.", orderIndex: 0 },
+  { id: "cfa2-financial-reporting-pensions-q02", topicId: "cfa2-financial-reporting-pensions", text: "A defined benefit plan's funded status equals plan assets minus the:", optionA: "Projected benefit obligation (PBO)", optionB: "Service cost", optionC: "Discount rate", optionD: "Contribution", correctOption: "A", explanation: "Funded status = fair value of plan assets − PBO; a deficit is reported as a net pension liability.", orderIndex: 1 },
+  { id: "cfa2-financial-reporting-pensions-q03", topicId: "cfa2-financial-reporting-pensions", text: "All else equal, increasing the discount rate used for a DB obligation will:", optionA: "Increase the PBO", optionB: "Decrease the PBO", optionC: "Not affect the PBO", optionD: "Increase plan assets", correctOption: "B", explanation: "A higher discount rate lowers the present value of future benefits, reducing the PBO.", orderIndex: 2 },
+  { id: "cfa2-financial-reporting-pensions-q04", topicId: "cfa2-financial-reporting-pensions", text: "Under IFRS, remeasurements (actuarial gains/losses) of a DB plan are reported in:", optionA: "Profit or loss", optionB: "Other comprehensive income (not recycled)", optionC: "Retained earnings directly", optionD: "The cash flow statement", correctOption: "B", explanation: "IFRS records remeasurements in OCI and does not subsequently recycle them to P&L.", orderIndex: 3 },
+  { id: "cfa2-financial-reporting-pensions-q05", topicId: "cfa2-financial-reporting-pensions", text: "Service cost in a DB plan represents:", optionA: "Interest on the obligation", optionB: "The present value of benefits earned by employees in the period", optionC: "The return on plan assets", optionD: "Employer contributions", correctOption: "B", explanation: "Service cost is the additional benefit obligation from employees' service during the period.", orderIndex: 4 },
+  { id: "cfa2-financial-reporting-pensions-q06", topicId: "cfa2-financial-reporting-pensions", text: "A higher assumed rate of compensation growth will, all else equal:", optionA: "Decrease the PBO", optionB: "Increase the PBO", optionC: "Not affect the PBO", optionD: "Reduce service cost", correctOption: "B", explanation: "Higher expected salary growth raises the projected benefits, increasing the PBO and service cost.", orderIndex: 5 },
+  { id: "cfa2-financial-reporting-pensions-q07", topicId: "cfa2-financial-reporting-pensions", text: "For a DC plan, the periodic pension expense is generally equal to:", optionA: "The change in the PBO", optionB: "The employer's contribution for the period", optionC: "Net interest cost", optionD: "Actuarial losses", correctOption: "B", explanation: "DC expense is simply the contribution owed; there is no actuarial obligation to measure.", orderIndex: 6 },
+  { id: "cfa2-financial-reporting-pensions-q08", topicId: "cfa2-financial-reporting-pensions", text: "Net interest expense on a DB net liability is calculated using the:", optionA: "Expected return on assets", optionB: "Discount rate applied to the net pension liability", optionC: "Risk-free rate on contributions", optionD: "Compensation growth rate", correctOption: "B", explanation: "Under IFRS, net interest = discount rate × the opening net pension liability (or asset).", orderIndex: 7 },
+  { id: "cfa2-financial-reporting-pensions-q09", topicId: "cfa2-financial-reporting-pensions", text: "A plan whose assets exceed its PBO reports a:", optionA: "Net pension asset (capped by the asset ceiling)", optionB: "Net pension liability", optionC: "Deferred tax liability only", optionD: "No balance-sheet item", correctOption: "A", explanation: "A surplus is recognized as a net pension asset, subject to the asset-ceiling test under IFRS.", orderIndex: 8 },
+  { id: "cfa2-financial-reporting-pensions-q10", topicId: "cfa2-financial-reporting-pensions", text: "Analysts adjust pension disclosures mainly to:", optionA: "Inflate earnings", optionB: "Improve comparability and detect aggressive assumptions", optionC: "Hide the obligation", optionD: "Avoid taxes", correctOption: "B", explanation: "Reclassifying components and testing assumptions makes cross-company comparisons meaningful and reveals bias.", orderIndex: 9 },
+  { id: "cfa2-financial-reporting-pensions-q11", topicId: "cfa2-financial-reporting-pensions", text: "Total periodic pension cost (economic) is best approximated by:", optionA: "Contributions only", optionB: "Ending net liability − beginning net liability + employer contributions", optionC: "Service cost only", optionD: "The discount rate", correctOption: "B", explanation: "Economic pension cost = change in funded status adjusted for employer contributions during the period.", orderIndex: 10 },
+  { id: "cfa2-financial-reporting-pensions-q12", topicId: "cfa2-financial-reporting-pensions", text: "Moving actuarial losses from the corridor into P&L over time (US GAAP) is called:", optionA: "Amortization of actuarial gains/losses", optionB: "Capitalization", optionC: "Remeasurement to OCI", optionD: "Settlement", correctOption: "A", explanation: "US GAAP allows deferral with corridor amortization of actuarial gains/losses into pension expense over time.", orderIndex: 11 },
+
+  // Multinational operations & translation
+  { id: "cfa2-financial-reporting-multinational-q01", topicId: "cfa2-financial-reporting-multinational", text: "The current-rate translation method is used when the subsidiary's functional currency is the:", optionA: "Parent's presentation currency", optionB: "Local (subsidiary's own) currency", optionC: "US dollar always", optionD: "Currency of hyperinflation", correctOption: "B", explanation: "When the functional currency is the local currency, the current-rate method applies and the gain/loss goes to OCI (CTA).", orderIndex: 0 },
+  { id: "cfa2-financial-reporting-multinational-q02", topicId: "cfa2-financial-reporting-multinational", text: "Under the temporal method, non-monetary assets are translated at the:", optionA: "Current rate", optionB: "Historical rate", optionC: "Average rate", optionD: "Forward rate", correctOption: "B", explanation: "The temporal method translates non-monetary items (inventory, PP&E) at historical rates; monetary items at the current rate.", orderIndex: 1 },
+  { id: "cfa2-financial-reporting-multinational-q03", topicId: "cfa2-financial-reporting-multinational", text: "Translation gains or losses under the current-rate method are reported in:", optionA: "Net income", optionB: "Other comprehensive income (cumulative translation adjustment)", optionC: "Retained earnings directly", optionD: "The cash flow statement", correctOption: "B", explanation: "Current-rate translation adjustments accumulate in OCI as the CTA, not in net income.", orderIndex: 2 },
+  { id: "cfa2-financial-reporting-multinational-q04", topicId: "cfa2-financial-reporting-multinational", text: "Remeasurement gains/losses under the temporal method are reported in:", optionA: "OCI", optionB: "Net income", optionC: "A separate equity reserve only", optionD: "The notes only", correctOption: "B", explanation: "The temporal method runs the remeasurement gain/loss through the income statement.", orderIndex: 3 },
+  { id: "cfa2-financial-reporting-multinational-q05", topicId: "cfa2-financial-reporting-multinational", text: "The functional currency is determined by the:", optionA: "Parent's home country always", optionB: "Primary economic environment in which the entity operates", optionC: "Auditor's preference", optionD: "Tax authority", correctOption: "B", explanation: "Functional currency reflects where the entity primarily generates and spends cash, prices, and obtains financing.", orderIndex: 4 },
+  { id: "cfa2-financial-reporting-multinational-q06", topicId: "cfa2-financial-reporting-multinational", text: "Under the current-rate method, revenues and expenses are translated at the:", optionA: "Historical rate", optionB: "Average rate for the period", optionC: "Closing rate", optionD: "Forward rate", correctOption: "B", explanation: "Income-statement items use the period's average rate under the current-rate method.", orderIndex: 5 },
+  { id: "cfa2-financial-reporting-multinational-q07", topicId: "cfa2-financial-reporting-multinational", text: "Under the temporal method, COGS and depreciation are translated at:", optionA: "The current rate", optionB: "Historical rates tied to the related assets", optionC: "The average rate", optionD: "The forward rate", correctOption: "B", explanation: "Because they relate to non-monetary assets carried at historical cost, COGS and depreciation use historical rates.", orderIndex: 6 },
+  { id: "cfa2-financial-reporting-multinational-q08", topicId: "cfa2-financial-reporting-multinational", text: "Financial ratios of the subsidiary are best preserved under the:", optionA: "Temporal method", optionB: "Current-rate method", optionC: "Neither method", optionD: "Both equally", correctOption: "B", explanation: "Because all balance-sheet items use one (current) rate, the current-rate method largely preserves the sub's ratios.", orderIndex: 7 },
+  { id: "cfa2-financial-reporting-multinational-q09", topicId: "cfa2-financial-reporting-multinational", text: "In a hyperinflationary economy, US GAAP requires the foreign entity to use the:", optionA: "Current-rate method", optionB: "Temporal method (functional currency = parent's)", optionC: "Average-rate method", optionD: "No translation", correctOption: "B", explanation: "US GAAP treats the parent's currency as functional in hyperinflation, applying the temporal method.", orderIndex: 8 },
+  { id: "cfa2-financial-reporting-multinational-q10", topicId: "cfa2-financial-reporting-multinational", text: "Under IFRS, a subsidiary in a hyperinflationary economy first:", optionA: "Restates for inflation, then translates at the current rate", optionB: "Uses historical rates only", optionC: "Ignores inflation", optionD: "Converts to gold", correctOption: "A", explanation: "IFRS restates the statements for inflation and then translates everything at the current rate.", orderIndex: 9 },
+  { id: "cfa2-financial-reporting-multinational-q11", topicId: "cfa2-financial-reporting-multinational", text: "A depreciating local currency with a net asset exposure produces, under the current-rate method, a:", optionA: "Positive CTA", optionB: "Negative CTA in OCI", optionC: "Gain in net income", optionD: "No effect", correctOption: "B", explanation: "Translating a net asset position at a weakening rate yields a negative cumulative translation adjustment.", orderIndex: 10 },
+  { id: "cfa2-financial-reporting-multinational-q12", topicId: "cfa2-financial-reporting-multinational", text: "Monetary assets and liabilities under the temporal method are translated at the:", optionA: "Historical rate", optionB: "Current (closing) rate", optionC: "Average rate", optionD: "Forward rate", correctOption: "B", explanation: "The temporal method translates monetary items (cash, receivables, debt) at the current rate.", orderIndex: 11 },
+
+  // Swaps & FRA valuation
+  { id: "cfa2-derivatives-swaps-fra-q01", topicId: "cfa2-derivatives-swaps-fra", text: "The long position in a forward rate agreement benefits when the reference rate at expiry is:", optionA: "Below the FRA rate", optionB: "Above the FRA rate", optionC: "Equal to the FRA rate", optionD: "Zero", correctOption: "B", explanation: "The long FRA gains when the realized reference rate exceeds the contracted FRA rate.", orderIndex: 0 },
+  { id: "cfa2-derivatives-swaps-fra-q02", topicId: "cfa2-derivatives-swaps-fra", text: "A plain-vanilla interest-rate swap is economically equivalent to a:", optionA: "Single forward", optionB: "Series (portfolio) of forward rate agreements", optionC: "Equity option", optionD: "Currency forward", correctOption: "B", explanation: "Exchanging fixed for floating across multiple dates is equivalent to a strip of FRAs (or a long/short bond pair).", orderIndex: 1 },
+  { id: "cfa2-derivatives-swaps-fra-q03", topicId: "cfa2-derivatives-swaps-fra", text: "The fixed rate on a newly initiated swap is set so that the swap's initial value is:", optionA: "Positive to the payer", optionB: "Zero", optionC: "Equal to the notional", optionD: "Negative to the receiver", correctOption: "B", explanation: "The swap fixed rate equates the PV of the fixed and floating legs, giving an initial value of zero.", orderIndex: 2 },
+  { id: "cfa2-derivatives-swaps-fra-q04", topicId: "cfa2-derivatives-swaps-fra", text: "The floating leg of a swap resets to par value on each:", optionA: "Trade date only", optionB: "Reset/payment date", optionC: "Maturity date only", optionD: "Calendar year-end", correctOption: "B", explanation: "Immediately after each reset, the floating leg is worth par, which simplifies swap valuation.", orderIndex: 3 },
+  { id: "cfa2-derivatives-swaps-fra-q05", topicId: "cfa2-derivatives-swaps-fra", text: "After rates rise, the value of a pay-fixed/receive-floating swap to the fixed-rate payer:", optionA: "Increases", optionB: "Decreases", optionC: "Is unchanged", optionD: "Becomes the notional", correctOption: "A", explanation: "Rising rates make the floating leg the payer receives more valuable, increasing the pay-fixed position's value.", orderIndex: 4 },
+  { id: "cfa2-derivatives-swaps-fra-q06", topicId: "cfa2-derivatives-swaps-fra", text: "A currency swap involves exchanging:", optionA: "Only floating interest", optionB: "Principal and interest payments in two different currencies", optionC: "Equity returns", optionD: "Commodities", correctOption: "B", explanation: "Currency swaps exchange principal and interest streams denominated in two currencies.", orderIndex: 5 },
+  { id: "cfa2-derivatives-swaps-fra-q07", topicId: "cfa2-derivatives-swaps-fra", text: "A firm with floating-rate debt that wants fixed payments can enter a swap to:", optionA: "Receive fixed, pay floating", optionB: "Pay fixed, receive floating", optionC: "Pay floating, receive floating", optionD: "Buy a call option", correctOption: "B", explanation: "Paying fixed and receiving floating offsets the floating debt, synthetically converting it to fixed-rate.", orderIndex: 6 },
+  { id: "cfa2-derivatives-swaps-fra-q08", topicId: "cfa2-derivatives-swaps-fra", text: "The FRA settlement amount is paid on a discounted basis because:", optionA: "It is settled at expiry but covers a future period's interest", optionB: "Interest rates are negative", optionC: "The notional is exchanged", optionD: "It is an equity product", correctOption: "A", explanation: "Settlement occurs at the FRA's expiry, so the interest differential for the upcoming period is discounted back.", orderIndex: 7 },
+  { id: "cfa2-derivatives-swaps-fra-q09", topicId: "cfa2-derivatives-swaps-fra", text: "An equity swap most commonly exchanges:", optionA: "An equity return for a fixed or floating rate", optionB: "Two fixed rates", optionC: "Two currencies' principal", optionD: "Commodities for bonds", correctOption: "A", explanation: "Equity swaps exchange the total return on a stock/index for a fixed or floating interest stream.", orderIndex: 8 },
+  { id: "cfa2-derivatives-swaps-fra-q10", topicId: "cfa2-derivatives-swaps-fra", text: "The swap fixed rate is computed from the:", optionA: "Set of discount factors implied by the spot/forward curve", optionB: "Dividend yield", optionC: "Equity beta", optionD: "Recovery rate", correctOption: "A", explanation: "The fixed rate is a par-rate calculation using discount factors derived from the current term structure.", orderIndex: 9 },
+  { id: "cfa2-derivatives-swaps-fra-q11", topicId: "cfa2-derivatives-swaps-fra", text: "The value of an existing swap to the fixed payer can be found as:", optionA: "PV(floating leg) − PV(fixed leg)", optionB: "PV(fixed leg) − PV(floating leg)", optionC: "Notional × coupon", optionD: "Zero at all times", correctOption: "A", explanation: "For the fixed-rate payer, swap value = PV of the floating leg received minus PV of the fixed leg paid.", orderIndex: 10 },
+  { id: "cfa2-derivatives-swaps-fra-q12", topicId: "cfa2-derivatives-swaps-fra", text: "A key advantage of using swaps to change exposure is that they:", optionA: "Require reissuing debt", optionB: "Adjust exposure cheaply without altering the underlying assets/liabilities", optionC: "Eliminate all risk", optionD: "Guarantee profits", correctOption: "B", explanation: "Swaps efficiently convert fixed↔floating or currency exposures without buying/selling the underlying instruments.", orderIndex: 11 },
+
+  // Time-series analysis
+  { id: "cfa2-quantitative-methods-time-series-q01", topicId: "cfa2-quantitative-methods-time-series", text: "A log-linear trend model is appropriate when a series grows at a constant:", optionA: "Absolute amount per period", optionB: "Growth rate (percentage) per period", optionC: "Variance", optionD: "Mean only", correctOption: "B", explanation: "Log-linear (exponential) trends fit series with a constant percentage growth rate; linear trends fit constant absolute change.", orderIndex: 0 },
+  { id: "cfa2-quantitative-methods-time-series-q02", topicId: "cfa2-quantitative-methods-time-series", text: "An AR(1) model is covariance-stationary only if the slope coefficient is:", optionA: "Exactly 1", optionB: "Less than 1 in absolute value", optionC: "Greater than 1", optionD: "Negative only", correctOption: "B", explanation: "|b₁| < 1 is required for stationarity; b₁ = 1 is a non-stationary random walk (unit root).", orderIndex: 1 },
+  { id: "cfa2-quantitative-methods-time-series-q03", topicId: "cfa2-quantitative-methods-time-series", text: "A series with a unit root can usually be made stationary by:", optionA: "Squaring it", optionB: "First-differencing", optionC: "Adding a trend", optionD: "Multiplying by its lag", correctOption: "B", explanation: "Differencing removes a unit root, producing a stationary series for AR modeling.", orderIndex: 2 },
+  { id: "cfa2-quantitative-methods-time-series-q04", topicId: "cfa2-quantitative-methods-time-series", text: "The Dickey-Fuller test is used to test for:", optionA: "Heteroskedasticity", optionB: "A unit root (non-stationarity)", optionC: "Multicollinearity", optionD: "Normality", correctOption: "B", explanation: "Dickey-Fuller tests the null that the series has a unit root and is therefore non-stationary.", orderIndex: 3 },
+  { id: "cfa2-quantitative-methods-time-series-q05", topicId: "cfa2-quantitative-methods-time-series", text: "The mean-reverting level of an AR(1) model is:", optionA: "b₀ × b₁", optionB: "b₀ / (1 − b₁)", optionC: "b₁ / b₀", optionD: "1 − b₁", correctOption: "B", explanation: "The long-run mean of a stationary AR(1) is the intercept divided by (1 − slope).", orderIndex: 4 },
+  { id: "cfa2-quantitative-methods-time-series-q06", topicId: "cfa2-quantitative-methods-time-series", text: "Significant autocorrelation in a model's residuals indicates the model is:", optionA: "Correctly specified", optionB: "Misspecified (e.g., needs more lags)", optionC: "Stationary by definition", optionD: "Free of a unit root", correctOption: "B", explanation: "Residual autocorrelation signals misspecification; adding lags or seasonal terms may be needed.", orderIndex: 5 },
+  { id: "cfa2-quantitative-methods-time-series-q07", topicId: "cfa2-quantitative-methods-time-series", text: "Out-of-sample forecast accuracy is best compared using the:", optionA: "Root mean squared error (RMSE)", optionB: "R-squared", optionC: "Durbin-Watson statistic", optionD: "Intercept", correctOption: "A", explanation: "Lower RMSE indicates better out-of-sample forecasting performance.", orderIndex: 6 },
+  { id: "cfa2-quantitative-methods-time-series-q08", topicId: "cfa2-quantitative-methods-time-series", text: "ARCH is present when the variance of the error term:", optionA: "Is constant", optionB: "Depends on prior periods' squared errors", optionC: "Is always zero", optionD: "Equals the mean", correctOption: "B", explanation: "Autoregressive conditional heteroskedasticity means error variance depends on past squared errors.", orderIndex: 7 },
+  { id: "cfa2-quantitative-methods-time-series-q09", topicId: "cfa2-quantitative-methods-time-series", text: "Seasonality in a quarterly AR model is often handled by adding:", optionA: "A lag at the seasonal interval (e.g., the fourth lag)", optionB: "More observations only", optionC: "A higher intercept", optionD: "A unit root", correctOption: "A", explanation: "A seasonal lag (e.g., x_{t-4} for quarterly data) captures recurring seasonal patterns.", orderIndex: 8 },
+  { id: "cfa2-quantitative-methods-time-series-q10", topicId: "cfa2-quantitative-methods-time-series", text: "Regressing two unrelated unit-root (non-stationary) series tends to produce a:", optionA: "Spurious regression", optionB: "Perfectly valid result", optionC: "Zero R-squared", optionD: "Stationary residual always", correctOption: "A", explanation: "Two trending non-stationary series can show a high but meaningless (spurious) relationship.", orderIndex: 9 },
+  { id: "cfa2-quantitative-methods-time-series-q11", topicId: "cfa2-quantitative-methods-time-series", text: "Two non-stationary series can be validly regressed together if they are:", optionA: "Cointegrated", optionB: "Heteroskedastic", optionC: "Seasonal", optionD: "Uncorrelated", correctOption: "A", explanation: "Cointegration means a long-run equilibrium relationship exists, making the regression meaningful.", orderIndex: 10 },
+  { id: "cfa2-quantitative-methods-time-series-q12", topicId: "cfa2-quantitative-methods-time-series", text: "A random walk is best described as an AR(1) with:", optionA: "b₁ = 0", optionB: "b₁ = 1 (a unit root)", optionC: "A negative intercept", optionD: "Constant variance", correctOption: "B", explanation: "A random walk has slope 1 (unit root); its variance grows over time, so it is non-stationary.", orderIndex: 11 }
 ];
