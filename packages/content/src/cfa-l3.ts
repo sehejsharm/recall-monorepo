@@ -4,6 +4,7 @@
 import { defineBundle } from "./builder";
 import type { Question } from "@jyotir/core";
 import type { AuthoredMaterial } from "./builder";
+import { expSubjects, expTopics, expMaterials, expQuestions } from "./cfa-l3-exp";
 
 const exam = {
   id: "cfa-3",
@@ -205,4 +206,10 @@ const questions: Question[] = [
   { id: "cfa3-performance-attribution-q12", topicId: "cfa3-performance-attribution", text: "Distinguishing manager skill from luck (appraisal) is harder when:", optionA: "The track record is very long", optionB: "The track record is short and returns are volatile", optionC: "Tracking error is zero", optionD: "The benchmark is investable", correctOption: "B", explanation: "Short, noisy track records make it statistically difficult to separate genuine skill from random luck.", orderIndex: 11 }
 ];
 
-export const cfaLevel3 = defineBundle({ exam, subjects, topics, materials, questions });
+export const cfaLevel3 = defineBundle({
+  exam,
+  subjects: [...subjects, ...expSubjects],
+  topics: [...topics, ...expTopics],
+  materials: [...materials, ...expMaterials],
+  questions: [...questions, ...expQuestions]
+});

@@ -3,6 +3,7 @@
 import { defineBundle } from "./builder";
 import type { Question } from "@jyotir/core";
 import type { AuthoredMaterial } from "./builder";
+import { expSubjects, expTopics, expMaterials, expQuestions } from "./cfa-l2-exp";
 
 const exam = {
   id: "cfa-2",
@@ -206,4 +207,10 @@ const questions: Question[] = [
   { id: "cfa2-derivatives-option-valuation-q12", topicId: "cfa2-derivatives-option-valuation", text: "As the number of steps in a binomial tree increases toward infinity, its option value converges to the:", optionA: "Intrinsic value", optionB: "Black-Scholes-Merton value", optionC: "Forward price", optionD: "Strike price", correctOption: "B", explanation: "A finely subdivided binomial tree converges to the continuous-time BSM value.", orderIndex: 11 }
 ];
 
-export const cfaLevel2 = defineBundle({ exam, subjects, topics, materials, questions });
+export const cfaLevel2 = defineBundle({
+  exam,
+  subjects: [...subjects, ...expSubjects],
+  topics: [...topics, ...expTopics],
+  materials: [...materials, ...expMaterials],
+  questions: [...questions, ...expQuestions]
+});
