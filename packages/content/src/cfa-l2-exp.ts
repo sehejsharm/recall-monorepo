@@ -43,7 +43,15 @@ export const expTopics: Topic[] = [
   { id: "cfa2-alternative-investments-commodities", subjectId: "cfa2-alternative-investments", name: "Commodities & Commodity Derivatives", slug: "commodities", orderIndex: 2 },
   { id: "cfa2-ethics-gips", subjectId: "cfa2-ethics", name: "GIPS Standards", slug: "gips", orderIndex: 2 },
   { id: "cfa2-corporate-issuers-mergers-acquisitions", subjectId: "cfa2-corporate-issuers", name: "Mergers, Acquisitions & Restructuring", slug: "mergers-acquisitions", orderIndex: 2 },
-  { id: "cfa2-portfolio-management-trading-execution", subjectId: "cfa2-portfolio-management", name: "Trading, Execution & Rebalancing", slug: "trading-execution", orderIndex: 2 }
+  { id: "cfa2-portfolio-management-trading-execution", subjectId: "cfa2-portfolio-management", name: "Trading, Execution & Rebalancing", slug: "trading-execution", orderIndex: 2 },
+  { id: "cfa2-financial-reporting-analysis-techniques", subjectId: "cfa2-financial-reporting", name: "Financial Analysis Techniques & Earnings Quality", slug: "analysis-techniques", orderIndex: 4 },
+  { id: "cfa2-fixed-income-mbs-abs", subjectId: "cfa2-fixed-income", name: "Mortgage- & Asset-Backed Securities", slug: "mbs-abs", orderIndex: 4 },
+  { id: "cfa2-derivatives-interest-rate", subjectId: "cfa2-derivatives", name: "Interest-Rate Derivatives & Swaptions", slug: "interest-rate", orderIndex: 4 },
+  { id: "cfa2-economics-currency-determination", subjectId: "cfa2-economics", name: "Currency Exchange Rate Determination", slug: "currency-determination", orderIndex: 3 },
+  { id: "cfa2-alternative-investments-real-estate", subjectId: "cfa2-alternative-investments", name: "Real Estate & REITs", slug: "real-estate", orderIndex: 3 },
+  { id: "cfa2-ethics-professionalism-integrity", subjectId: "cfa2-ethics", name: "Professionalism & Market Integrity (Standards I & II)", slug: "professionalism-integrity", orderIndex: 3 },
+  { id: "cfa2-corporate-issuers-capital-budgeting", subjectId: "cfa2-corporate-issuers", name: "Capital Budgeting & Investment Decisions", slug: "capital-budgeting", orderIndex: 3 },
+  { id: "cfa2-portfolio-management-economics-markets", subjectId: "cfa2-portfolio-management", name: "Economics & Investment Markets", slug: "economics-markets", orderIndex: 3 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -717,6 +725,165 @@ Generates thousands of random scenarios from assumed input distributions to buil
 - Trade **urgency**: aggressive trades pay impact but cut timing risk; patient trades risk adverse price moves.`,
     estimatedReadTime: 2,
     orderIndex: 2
+  },
+  {
+    id: "cfa2-financial-reporting-analysis-techniques-m01",
+    topicId: "cfa2-financial-reporting-analysis-techniques",
+    title: "Financial Analysis Techniques & Earnings Quality",
+    content: `## Tools
+- **Common-size** statements (% of revenue / total assets), **ratio analysis**, and **trend/horizontal** analysis.
+- **DuPont decomposition** of ROE:
+  - 3-way: ROE = **net margin × asset turnover × leverage**.
+  - 5-way: tax burden × interest burden × EBIT margin × asset turnover × leverage — isolates operating vs. financing vs. tax effects.
+
+## Ratio categories
+- **Activity** (turnover), **liquidity** (current, quick), **solvency** (debt/equity, interest coverage), **profitability** (margins, ROE/ROA), **valuation** (P/E, P/B).
+
+## Earnings quality
+- **High-quality earnings** are sustainable and backed by cash. Red flags: **earnings >> operating cash flow** (high accruals), rising DSO/inventory, frequent "one-offs", aggressive revenue recognition, capitalizing costs.
+- **Accruals ratio** and the **cash-flow-to-net-income** ratio gauge quality.
+- Compare against **peers and the firm's own history**; adjust statements for off-balance-sheet items and non-recurring effects before forecasting.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-fixed-income-mbs-abs-m01",
+    topicId: "cfa2-fixed-income-mbs-abs",
+    title: "Mortgage- & Asset-Backed Securities",
+    content: `**Securitization** pools loans (mortgages, auto, cards) into tradable securities, moving them off the originator's balance sheet via a bankruptcy-remote **SPV**.
+
+## Mortgage-backed securities (MBS)
+- **Agency** (gov-backed, minimal credit risk) vs. **non-agency**.
+- **Prepayment risk** is the key feature: borrowers refinance when rates fall (**contraction risk**) and prepay slowly when rates rise (**extension risk**) → **negative convexity** for pass-throughs.
+- **CMOs** carve cash flows into **tranches** to redistribute prepayment risk (e.g., sequential-pay, PAC vs. support tranches).
+
+## Asset-backed securities (ABS)
+- Backed by auto loans, credit cards, etc.; use **credit tranching** (senior/subordinated **waterfall**) and credit enhancement (overcollateralization, reserve accounts).
+- **Amortizing** (autos) vs. **non-amortizing/revolving** (cards, with a lockout/revolving period).
+
+## Analysis
+- Value with prepayment models (**SMM/CPR**, PSA benchmark) on an interest-rate tree; use **OAS** to compare.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-derivatives-interest-rate-m01",
+    topicId: "cfa2-derivatives-interest-rate",
+    title: "Interest-Rate Derivatives & Swaptions",
+    content: `## Building blocks
+- **FRA**: locks a single future rate. **Interest-rate swap**: a strip of FRAs (fixed ↔ floating).
+- **Caps & floors**: a **cap** = a series of **caplets** (calls on a reference rate) — protects a floating-rate **borrower** when rates rise. A **floor** = a series of **floorlets** (puts) — protects a floating-rate **lender/investor** when rates fall.
+- A **collar** = long cap + short floor (cheaper protection).
+
+## Swaptions
+- A **payer swaption**: the right to **pay fixed / receive floating** — gains value as rates **rise** (like a call on rates). Used to hedge against rising rates or to enter a swap later.
+- A **receiver swaption**: right to **receive fixed** — gains as rates **fall**.
+- Swaptions are used to hedge **callable/putable debt** and to monetize rate views.
+
+## Uses
+- Convert fixed↔floating exposure, hedge a future borrowing, or cap funding costs. Valuation uses an arbitrage-free model calibrated to the current curve and rate **volatility**.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-economics-currency-determination-m01",
+    topicId: "cfa2-economics-currency-determination",
+    title: "Currency Exchange Rate Determination",
+    content: `## Quote conventions
+**Price/base** (P/B): units of price currency per 1 base. A **cross rate** is derived from two pairs sharing a currency.
+
+## Spot vs forward
+Forward points come from the **interest-rate differential** (covered interest rate parity). The higher-yield currency trades at a forward **discount**.
+
+## Determination frameworks
+- **Mundell-Fleming**: links monetary/fiscal policy to exchange rates via interest rates and trade. Expansionary **monetary** policy → lower rates → currency **depreciates** (with high capital mobility).
+- **Monetary models**: relative money supply and inflation drive long-run value.
+- **Portfolio-balance**: sustained fiscal deficits eventually pressure the currency lower.
+
+## Other
+- **Real exchange rate** adjusts the nominal rate for relative price levels.
+- Capital flows often dominate trade flows short-term; **central-bank intervention** and **capital controls** can influence rates temporarily.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa2-alternative-investments-real-estate-m01",
+    topicId: "cfa2-alternative-investments-real-estate",
+    title: "Real Estate & REITs",
+    content: `## Four quadrants
+Private/public × equity/debt: **direct property, REITs, mortgages, MBS**.
+
+## Valuing direct property
+| Approach | Idea |
+| --- | --- |
+| **Income (direct capitalization)** | Value = **NOI / cap rate** |
+| **DCF** | PV of forecast NOI + reversion (terminal) value |
+| **Cost** | Replacement cost − depreciation + land |
+| **Comparable sales** | Adjust recent transactions |
+
+- **Cap rate ≈ discount rate − NOI growth**; a lower cap rate ⇒ higher value/lower yield.
+- **NOI** = rental income − operating expenses (before financing and taxes).
+
+## REITs
+- Pass-through vehicles that must distribute most income (tax-advantaged); valued by **NAV**, **price-to-FFO/AFFO**, and **dividend discount**.
+- **FFO** = net income + real-estate depreciation − gains on sales; **AFFO** subtracts maintenance capex (a cleaner cash measure).
+- Provide income, diversification, and inflation sensitivity; public REITs are more **liquid** but more **equity-correlated** than direct property.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa2-ethics-professionalism-integrity-m01",
+    topicId: "cfa2-ethics-professionalism-integrity",
+    title: "Professionalism & Market Integrity (Standards I & II)",
+    content: `## Standard I — Professionalism
+- **I(A) Knowledge of the Law**: follow the **stricter** of law or the Code; dissociate from violations.
+- **I(B) Independence & Objectivity**: avoid gifts/pressure that could bias you; modest items only.
+- **I(C) Misrepresentation**: no untrue statements; **plagiarism** is misrepresentation.
+- **I(D) Misconduct**: no dishonesty, fraud, or conduct reflecting on professional integrity.
+
+## Standard II — Integrity of Capital Markets
+- **II(A) Material Nonpublic Information (MNPI)**: do not act or cause others to act on MNPI. Use the **mosaic theory** (combining public + non-material non-public is fine) and **firewalls**.
+- **II(B) Market Manipulation**: no transaction-based (e.g. **wash trades, spoofing, pump-and-dump**) or information-based manipulation.
+
+> Exam approach: read the vignette, match the action to the precise sub-standard, and choose the least-compliant option. Recommended procedures (firewalls, restricted lists, compliance review) often resolve cases.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa2-corporate-issuers-capital-budgeting-m01",
+    topicId: "cfa2-corporate-issuers-capital-budgeting",
+    title: "Capital Budgeting & Investment Decisions",
+    content: `## Decision rules
+- **NPV** = PV(inflows) − initial outlay. **Accept if NPV > 0** — the theoretically correct rule (adds shareholder value).
+- **IRR**: the discount rate making NPV = 0. Accept if IRR > cost of capital. Beware **multiple/no IRRs** with non-conventional cash flows and **ranking conflicts** with NPV for mutually exclusive or different-scale projects — **follow NPV**.
+- Others: **payback** (ignores time value and post-payback flows), **discounted payback**, **profitability index** = PV(inflows)/outlay.
+
+## Cash-flow principles
+- Use **incremental, after-tax** cash flows; include **opportunity costs** and **externalities**; **exclude sunk costs** and ignore **financing costs** (captured in the discount rate).
+- Account for **depreciation tax shields**, **net working-capital** changes, and **terminal/salvage** value.
+
+## Analytical tools
+- **Sensitivity, scenario, and Monte Carlo** analysis; **real options** (timing, expansion, abandonment) add value not captured by static NPV.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa2-portfolio-management-economics-markets-m01",
+    topicId: "cfa2-portfolio-management-economics-markets",
+    title: "Economics & Investment Markets",
+    content: `## Discount-rate building blocks
+Any asset's value is the PV of expected cash flows. The required return = **real risk-free rate + expected inflation + risk premium**. The **real risk-free rate** tracks expected real GDP growth and the inter-temporal rate of substitution.
+
+## Business cycle & asset classes
+- **Default-free bond** yields ≈ expected future short rates + a **term premium**; the yield curve embeds growth/inflation expectations.
+- **Credit spreads** widen in recessions (rising default risk) and narrow in expansions — credit is **pro-cyclical**.
+- **Equities** carry a higher risk premium and are most sensitive to the cycle; expected return ≈ risk-free + equity risk premium.
+- **Real estate** blends bond-like (lease income) and equity-like (cyclical) features.
+
+## Implications
+- Discount rates rise with growth and risk aversion. **Pro-cyclical** assets (equities, credit) earn premia for poor recession-time payoffs. Inflation expectations shift nominal yields and the relative appeal of real vs. nominal assets.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
   }
 ];
 
@@ -1167,5 +1334,117 @@ export const expQuestions: Question[] = [
   { id: "cfa2-portfolio-management-trading-execution-q09", topicId: "cfa2-portfolio-management-trading-execution", text: "Rebalancing corridors should be wider for assets with:", optionA: "Higher transaction costs", optionB: "Higher volatility", optionC: "Higher correlation only", optionD: "Lower risk tolerance", correctOption: "A", explanation: "Higher trading costs justify wider bands; higher volatility argues for narrower bands.", orderIndex: 8 },
   { id: "cfa2-portfolio-management-trading-execution-q10", topicId: "cfa2-portfolio-management-trading-execution", text: "Disciplined rebalancing is inherently a ____ strategy.", optionA: "Momentum", optionB: "Contrarian", optionC: "Buy-and-hold", optionD: "Risk-free", correctOption: "B", explanation: "Rebalancing sells winners and buys losers — a contrarian action that can earn a diversification return.", orderIndex: 9 },
   { id: "cfa2-portfolio-management-trading-execution-q11", topicId: "cfa2-portfolio-management-trading-execution", text: "The opportunity-cost component of implementation shortfall arises from:", optionA: "Commissions", optionB: "Unfilled portions of an order as the price moves away", optionC: "Taxes", optionD: "The spread only", correctOption: "B", explanation: "Shares left unexecuted whose price moves adversely create a missed-trade (opportunity) cost.", orderIndex: 10 },
-  { id: "cfa2-portfolio-management-trading-execution-q12", topicId: "cfa2-portfolio-management-trading-execution", text: "A more aggressive (liquidity-demanding) execution generally has:", optionA: "Higher market impact but lower timing risk", optionB: "Lower impact and lower timing risk", optionC: "No cost", optionD: "Higher opportunity cost", correctOption: "A", explanation: "Trading quickly raises impact cost but reduces exposure to adverse price drift.", orderIndex: 11 }
+  { id: "cfa2-portfolio-management-trading-execution-q12", topicId: "cfa2-portfolio-management-trading-execution", text: "A more aggressive (liquidity-demanding) execution generally has:", optionA: "Higher market impact but lower timing risk", optionB: "Lower impact and lower timing risk", optionC: "No cost", optionD: "Higher opportunity cost", correctOption: "A", explanation: "Trading quickly raises impact cost but reduces exposure to adverse price drift.", orderIndex: 11 },
+
+  // Financial analysis techniques & earnings quality
+  { id: "cfa2-financial-reporting-analysis-techniques-q01", topicId: "cfa2-financial-reporting-analysis-techniques", text: "The 3-way DuPont decomposition expresses ROE as net margin × asset turnover ×:", optionA: "Financial leverage", optionB: "The tax rate", optionC: "Interest coverage", optionD: "The current ratio", correctOption: "A", explanation: "ROE = net profit margin × total asset turnover × financial leverage (assets/equity).", orderIndex: 0 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q02", topicId: "cfa2-financial-reporting-analysis-techniques", text: "Common-size income statements express each line item as a percentage of:", optionA: "Total assets", optionB: "Revenue (sales)", optionC: "Equity", optionD: "Net income", correctOption: "B", explanation: "Common-size income statements scale items by revenue; common-size balance sheets scale by total assets.", orderIndex: 1 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q03", topicId: "cfa2-financial-reporting-analysis-techniques", text: "A large and growing gap between net income and operating cash flow suggests:", optionA: "High earnings quality", optionB: "Lower earnings quality (high accruals)", optionC: "No information", optionD: "A tax benefit", correctOption: "B", explanation: "Earnings well above operating cash flow indicate accrual-heavy, less sustainable results.", orderIndex: 2 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q04", topicId: "cfa2-financial-reporting-analysis-techniques", text: "The interest coverage ratio is a measure of:", optionA: "Liquidity", optionB: "Solvency", optionC: "Profitability", optionD: "Activity", correctOption: "B", explanation: "Interest coverage (EBIT/interest) gauges the ability to service debt — a solvency metric.", orderIndex: 3 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q05", topicId: "cfa2-financial-reporting-analysis-techniques", text: "Rising days sales outstanding (DSO) with flat sales may indicate:", optionA: "Faster collections", optionB: "Aggressive revenue recognition or collection problems", optionC: "Lower inventory", optionD: "Higher cash", correctOption: "B", explanation: "Receivables growing faster than sales can signal channel stuffing or deteriorating collections — an earnings-quality concern.", orderIndex: 4 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q06", topicId: "cfa2-financial-reporting-analysis-techniques", text: "The 5-way DuPont model adds which effects to the analysis?", optionA: "Tax burden and interest burden", optionB: "Dividend and buyback", optionC: "Beta and alpha", optionD: "Duration and convexity", correctOption: "A", explanation: "The 5-way decomposition isolates tax burden × interest burden × EBIT margin × asset turnover × leverage.", orderIndex: 5 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q07", topicId: "cfa2-financial-reporting-analysis-techniques", text: "Total asset turnover measures:", optionA: "Profit per share", optionB: "Revenue generated per unit of assets", optionC: "Debt per equity", optionD: "Cash per liability", correctOption: "B", explanation: "Asset turnover = revenue / average total assets — an efficiency (activity) ratio.", orderIndex: 6 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q08", topicId: "cfa2-financial-reporting-analysis-techniques", text: "Capitalizing costs that should be expensed will, in the current year, tend to:", optionA: "Lower earnings", optionB: "Inflate earnings and assets (an earnings-quality red flag)", optionC: "Have no effect", optionD: "Reduce assets", correctOption: "B", explanation: "Improper capitalization shifts an expense to the balance sheet, boosting current income — a quality warning sign.", orderIndex: 7 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q09", topicId: "cfa2-financial-reporting-analysis-techniques", text: "High-quality earnings are best described as:", optionA: "Large one-time gains", optionB: "Sustainable and backed by cash flow", optionC: "Maximized by accruals", optionD: "Volatile", correctOption: "B", explanation: "Quality earnings are repeatable and supported by operating cash, not one-offs or aggressive accruals.", orderIndex: 8 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q10", topicId: "cfa2-financial-reporting-analysis-techniques", text: "Ratios are most meaningful when compared against:", optionA: "Nothing", optionB: "Peers and the firm's own historical trend", optionC: "The risk-free rate", optionD: "Random benchmarks", correctOption: "B", explanation: "Context from peer and historical comparisons turns a raw ratio into a useful signal.", orderIndex: 9 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q11", topicId: "cfa2-financial-reporting-analysis-techniques", text: "The accruals ratio is used to assess:", optionA: "Liquidity", optionB: "Earnings quality", optionC: "Currency risk", optionD: "Duration", correctOption: "B", explanation: "A high accruals ratio (accruals relative to earnings/assets) signals lower earnings quality.", orderIndex: 10 },
+  { id: "cfa2-financial-reporting-analysis-techniques-q12", topicId: "cfa2-financial-reporting-analysis-techniques", text: "Before forecasting, analysts should adjust statements for:", optionA: "Off-balance-sheet items and non-recurring effects", optionB: "Only the share price", optionC: "The dividend date", optionD: "Nothing", correctOption: "A", explanation: "Normalizing for off-balance-sheet exposures and one-offs improves comparability and forecast reliability.", orderIndex: 11 },
+
+  // MBS & ABS
+  { id: "cfa2-fixed-income-mbs-abs-q01", topicId: "cfa2-fixed-income-mbs-abs", text: "Securitization typically moves the pooled loans into a:", optionA: "The originator's balance sheet", optionB: "Bankruptcy-remote special purpose vehicle (SPV)", optionC: "A government agency", optionD: "An equity fund", correctOption: "B", explanation: "Loans are sold to a bankruptcy-remote SPV that issues the securities, isolating them from the originator.", orderIndex: 0 },
+  { id: "cfa2-fixed-income-mbs-abs-q02", topicId: "cfa2-fixed-income-mbs-abs", text: "The defining risk of mortgage-backed pass-throughs is:", optionA: "Prepayment risk", optionB: "Currency risk", optionC: "Equity risk", optionD: "Liquidity-only risk", correctOption: "A", explanation: "Borrowers' ability to prepay creates contraction/extension (prepayment) risk and negative convexity.", orderIndex: 1 },
+  { id: "cfa2-fixed-income-mbs-abs-q03", topicId: "cfa2-fixed-income-mbs-abs", text: "When interest rates fall, MBS investors face:", optionA: "Extension risk", optionB: "Contraction risk (faster prepayments)", optionC: "No prepayment effect", optionD: "Higher coupons", correctOption: "B", explanation: "Falling rates spur refinancing, returning principal early (contraction risk) to be reinvested at lower rates.", orderIndex: 2 },
+  { id: "cfa2-fixed-income-mbs-abs-q04", topicId: "cfa2-fixed-income-mbs-abs", text: "When interest rates rise, MBS face:", optionA: "Contraction risk", optionB: "Extension risk (slower prepayments)", optionC: "No risk", optionD: "Negative coupons", correctOption: "B", explanation: "Rising rates slow prepayments, extending the security's life just as rates become less favorable.", orderIndex: 3 },
+  { id: "cfa2-fixed-income-mbs-abs-q05", topicId: "cfa2-fixed-income-mbs-abs", text: "CMOs are created primarily to:", optionA: "Eliminate credit risk", optionB: "Redistribute prepayment risk across tranches", optionC: "Increase the coupon", optionD: "Remove all risk", correctOption: "B", explanation: "Collateralized mortgage obligations carve cash flows into tranches with different prepayment exposures.", orderIndex: 4 },
+  { id: "cfa2-fixed-income-mbs-abs-q06", topicId: "cfa2-fixed-income-mbs-abs", text: "In an ABS waterfall, the senior tranche:", optionA: "Absorbs losses first", optionB: "Is paid first and protected by subordinated tranches", optionC: "Has the highest yield", optionD: "Has no rating", correctOption: "B", explanation: "Credit tranching pays senior holders first; subordinated tranches absorb losses, enhancing senior credit quality.", orderIndex: 5 },
+  { id: "cfa2-fixed-income-mbs-abs-q07", topicId: "cfa2-fixed-income-mbs-abs", text: "Agency MBS, versus non-agency, generally have:", optionA: "Higher credit risk", optionB: "Minimal credit risk (government backing)", optionC: "No prepayment risk", optionD: "Equity exposure", correctOption: "B", explanation: "Agency MBS carry government/agency guarantees, so credit risk is minimal; prepayment risk remains.", orderIndex: 6 },
+  { id: "cfa2-fixed-income-mbs-abs-q08", topicId: "cfa2-fixed-income-mbs-abs", text: "A PAC tranche's prepayment risk is reduced by shifting it to the:", optionA: "Senior tranche", optionB: "Support (companion) tranche", optionC: "Equity tranche", optionD: "Government", correctOption: "B", explanation: "Support tranches absorb prepayment variability so PAC tranches enjoy a more stable schedule.", orderIndex: 7 },
+  { id: "cfa2-fixed-income-mbs-abs-q09", topicId: "cfa2-fixed-income-mbs-abs", text: "Auto-loan ABS are ____ , while credit-card ABS are typically ____ .", optionA: "amortizing; non-amortizing (revolving)", optionB: "revolving; amortizing", optionC: "both amortizing", optionD: "both revolving", correctOption: "A", explanation: "Auto loans amortize; credit-card receivables are revolving/non-amortizing with a lockout period.", orderIndex: 8 },
+  { id: "cfa2-fixed-income-mbs-abs-q10", topicId: "cfa2-fixed-income-mbs-abs", text: "Overcollateralization and reserve accounts are forms of:", optionA: "Credit enhancement", optionB: "Prepayment", optionC: "Duration", optionD: "Leverage only", correctOption: "A", explanation: "These internal credit enhancements provide a loss buffer that protects senior ABS investors.", orderIndex: 9 },
+  { id: "cfa2-fixed-income-mbs-abs-q11", topicId: "cfa2-fixed-income-mbs-abs", text: "Prepayment speeds are commonly measured using:", optionA: "CPR/SMM (and the PSA benchmark)", optionB: "Beta", optionC: "Duration only", optionD: "The dividend yield", correctOption: "A", explanation: "Conditional prepayment rate (CPR), single monthly mortality (SMM), and the PSA model quantify prepayments.", orderIndex: 10 },
+  { id: "cfa2-fixed-income-mbs-abs-q12", topicId: "cfa2-fixed-income-mbs-abs", text: "Negative convexity in MBS means that as rates fall, price appreciation is:", optionA: "Greater than a comparable option-free bond", optionB: "Limited because prepayments rise", optionC: "Unaffected", optionD: "Infinite", correctOption: "B", explanation: "Faster prepayments cap upside as rates fall, producing the negative convexity of MBS.", orderIndex: 11 },
+
+  // Interest-rate derivatives & swaptions
+  { id: "cfa2-derivatives-interest-rate-q01", topicId: "cfa2-derivatives-interest-rate", text: "An interest-rate cap protects a floating-rate:", optionA: "Lender against falling rates", optionB: "Borrower against rising rates", optionC: "Equity investor", optionD: "Bondholder against default", correctOption: "B", explanation: "A cap pays off when the reference rate exceeds the strike, limiting a borrower's interest cost.", orderIndex: 0 },
+  { id: "cfa2-derivatives-interest-rate-q02", topicId: "cfa2-derivatives-interest-rate", text: "An interest-rate cap is economically a series of:", optionA: "Caplets (calls on the reference rate)", optionB: "Floorlets (puts)", optionC: "Forwards only", optionD: "Equity options", correctOption: "A", explanation: "A cap is a portfolio of caplets, each a call option on the reference interest rate.", orderIndex: 1 },
+  { id: "cfa2-derivatives-interest-rate-q03", topicId: "cfa2-derivatives-interest-rate", text: "An interest-rate floor protects a floating-rate:", optionA: "Borrower against rising rates", optionB: "Lender/investor against falling rates", optionC: "Equity short seller", optionD: "Issuer of fixed debt", correctOption: "B", explanation: "A floor pays when the reference rate falls below the strike, protecting an investor's income.", orderIndex: 2 },
+  { id: "cfa2-derivatives-interest-rate-q04", topicId: "cfa2-derivatives-interest-rate", text: "An interest-rate collar is created by:", optionA: "Buying a cap and selling a floor", optionB: "Buying two caps", optionC: "Selling two floors", optionD: "Buying a swap", correctOption: "A", explanation: "A borrower's collar buys a cap and sells a floor, lowering net premium while bounding the rate.", orderIndex: 3 },
+  { id: "cfa2-derivatives-interest-rate-q05", topicId: "cfa2-derivatives-interest-rate", text: "A payer swaption gives the holder the right to:", optionA: "Receive fixed / pay floating", optionB: "Pay fixed / receive floating", optionC: "Buy a stock", optionD: "Sell a bond at par", correctOption: "B", explanation: "A payer swaption is the right to enter a swap paying fixed and receiving floating.", orderIndex: 4 },
+  { id: "cfa2-derivatives-interest-rate-q06", topicId: "cfa2-derivatives-interest-rate", text: "A payer swaption gains value when interest rates:", optionA: "Fall", optionB: "Rise", optionC: "Stay flat", optionD: "Are negative", correctOption: "B", explanation: "Paying a now-below-market fixed rate becomes valuable as rates rise — a payer swaption is like a call on rates.", orderIndex: 5 },
+  { id: "cfa2-derivatives-interest-rate-q07", topicId: "cfa2-derivatives-interest-rate", text: "A receiver swaption gains value when rates:", optionA: "Rise", optionB: "Fall", optionC: "Are unchanged", optionD: "Double", correctOption: "B", explanation: "The right to receive a now-above-market fixed rate is worth more as rates fall.", orderIndex: 6 },
+  { id: "cfa2-derivatives-interest-rate-q08", topicId: "cfa2-derivatives-interest-rate", text: "An interest-rate swap can be viewed as a portfolio of:", optionA: "Equity options", optionB: "Forward rate agreements", optionC: "Currency spots", optionD: "Dividends", correctOption: "B", explanation: "Each swap payment is equivalent to an FRA, so a swap is a strip of FRAs.", orderIndex: 7 },
+  { id: "cfa2-derivatives-interest-rate-q09", topicId: "cfa2-derivatives-interest-rate", text: "A company expecting to borrow in 6 months and worried about rising rates could hedge with a:", optionA: "Receiver swaption", optionB: "Payer swaption (or buying a cap/FRA)", optionC: "Long equity call", optionD: "Short floor only", correctOption: "B", explanation: "A payer swaption (or cap/long FRA) locks in protection against higher future borrowing rates.", orderIndex: 8 },
+  { id: "cfa2-derivatives-interest-rate-q10", topicId: "cfa2-derivatives-interest-rate", text: "Issuers of callable debt can monetize or hedge the embedded option using:", optionA: "Receiver swaptions", optionB: "Equity futures", optionC: "Commodity forwards", optionD: "Currency swaps only", correctOption: "A", explanation: "A callable bond embeds a receiver-swaption-like option; issuers use swaptions to hedge/monetize call risk.", orderIndex: 9 },
+  { id: "cfa2-derivatives-interest-rate-q11", topicId: "cfa2-derivatives-interest-rate", text: "Valuing caps, floors and swaptions requires an input for interest-rate:", optionA: "Dividends", optionB: "Volatility", optionC: "Beta", optionD: "Recovery rate", correctOption: "B", explanation: "Like all options, these are valued using a rate-volatility input within an arbitrage-free model.", orderIndex: 10 },
+  { id: "cfa2-derivatives-interest-rate-q12", topicId: "cfa2-derivatives-interest-rate", text: "A floating-rate lender wanting a minimum income could buy a(n):", optionA: "Cap", optionB: "Floor", optionC: "Payer swaption", optionD: "Equity put", correctOption: "B", explanation: "Buying a floor guarantees a minimum interest rate on the lender's floating-rate asset.", orderIndex: 11 },
+
+  // Currency exchange rate determination
+  { id: "cfa2-economics-currency-determination-q01", topicId: "cfa2-economics-currency-determination", text: "In a P/B (price/base) quote, the rate gives:", optionA: "Units of base per 1 price currency", optionB: "Units of price currency per 1 base currency", optionC: "The interest differential", optionD: "The inflation rate", correctOption: "B", explanation: "A price/base quote states how many units of the price currency buy one unit of the base currency.", orderIndex: 0 },
+  { id: "cfa2-economics-currency-determination-q02", topicId: "cfa2-economics-currency-determination", text: "Forward exchange points are determined by the:", optionA: "Dividend differential", optionB: "Interest-rate differential between the two currencies", optionC: "Equity risk premium", optionD: "Recovery rate", correctOption: "B", explanation: "Covered interest rate parity ties the forward premium/discount to the interest-rate differential.", orderIndex: 1 },
+  { id: "cfa2-economics-currency-determination-q03", topicId: "cfa2-economics-currency-determination", text: "Under covered interest rate parity, the higher-yielding currency trades at a forward:", optionA: "Premium", optionB: "Discount", optionC: "Rate equal to spot", optionD: "Indeterminate rate", correctOption: "B", explanation: "The higher-yield currency is at a forward discount, offsetting its interest advantage.", orderIndex: 2 },
+  { id: "cfa2-economics-currency-determination-q04", topicId: "cfa2-economics-currency-determination", text: "A cross rate is computed from:", optionA: "A single currency pair", optionB: "Two pairs that share a common currency", optionC: "The risk-free rate", optionD: "Inflation only", correctOption: "B", explanation: "Cross rates are derived by combining two quotes that share a common currency.", orderIndex: 3 },
+  { id: "cfa2-economics-currency-determination-q05", topicId: "cfa2-economics-currency-determination", text: "In the Mundell-Fleming model with high capital mobility, expansionary monetary policy tends to:", optionA: "Appreciate the currency", optionB: "Depreciate the currency (via lower rates)", optionC: "Leave it unchanged", optionD: "Raise interest rates", correctOption: "B", explanation: "Lower domestic rates from easy money spur capital outflows, depreciating the currency.", orderIndex: 4 },
+  { id: "cfa2-economics-currency-determination-q06", topicId: "cfa2-economics-currency-determination", text: "Monetary models link long-run exchange rates to relative money supply and:", optionA: "Inflation", optionB: "Dividends", optionC: "Beta", optionD: "Duration", correctOption: "A", explanation: "Monetary approaches emphasize relative money growth and inflation as long-run currency drivers.", orderIndex: 5 },
+  { id: "cfa2-economics-currency-determination-q07", topicId: "cfa2-economics-currency-determination", text: "The portfolio-balance approach suggests persistent fiscal deficits eventually:", optionA: "Strengthen the currency", optionB: "Pressure the currency lower", optionC: "Have no effect", optionD: "Eliminate inflation", correctOption: "B", explanation: "Mounting government debt can erode confidence and weigh on the currency over time.", orderIndex: 6 },
+  { id: "cfa2-economics-currency-determination-q08", topicId: "cfa2-economics-currency-determination", text: "The real exchange rate adjusts the nominal rate for:", optionA: "Relative price levels (inflation)", optionB: "Dividend yields", optionC: "Beta", optionD: "Coupon rates", correctOption: "A", explanation: "The real exchange rate reflects relative purchasing power by accounting for relative price levels.", orderIndex: 7 },
+  { id: "cfa2-economics-currency-determination-q09", topicId: "cfa2-economics-currency-determination", text: "Short-term exchange-rate movements are often dominated by:", optionA: "Trade flows", optionB: "Capital flows", optionC: "Dividend payments", optionD: "Coupon resets", correctOption: "B", explanation: "Capital flows responding to relative returns typically dominate trade flows in the short run.", orderIndex: 8 },
+  { id: "cfa2-economics-currency-determination-q10", topicId: "cfa2-economics-currency-determination", text: "Central-bank intervention is generally most effective when backed by:", optionA: "No reserves", optionB: "Ample reserves and credibility", optionC: "Higher dividends", optionD: "A stock buyback", correctOption: "B", explanation: "Intervention works best when the central bank has the reserves and credibility to sustain it.", orderIndex: 9 },
+  { id: "cfa2-economics-currency-determination-q11", topicId: "cfa2-economics-currency-determination", text: "Capital controls primarily aim to:", optionA: "Permanently fix the real rate", optionB: "Influence capital flows and the currency, usually temporarily", optionC: "Eliminate inflation", optionD: "Raise dividends", correctOption: "B", explanation: "Controls can affect flows and exchange rates in the short run but rarely override fundamentals long-term.", orderIndex: 10 },
+  { id: "cfa2-economics-currency-determination-q12", topicId: "cfa2-economics-currency-determination", text: "Expansionary fiscal policy with high capital mobility tends to ____ the currency in the Mundell-Fleming model.", optionA: "Depreciate", optionB: "Appreciate (higher rates attract capital)", optionC: "Not affect", optionD: "Eliminate", correctOption: "B", explanation: "Looser fiscal policy can raise interest rates, attracting capital inflows that appreciate the currency.", orderIndex: 11 },
+
+  // Real estate & REITs
+  { id: "cfa2-alternative-investments-real-estate-q01", topicId: "cfa2-alternative-investments-real-estate", text: "Net operating income (NOI) is:", optionA: "Rental income minus operating expenses (before financing and taxes)", optionB: "Net income after taxes", optionC: "Gross rent only", optionD: "Cash flow after debt service", correctOption: "A", explanation: "NOI = property rental income less operating expenses, excluding financing and income taxes.", orderIndex: 0 },
+  { id: "cfa2-alternative-investments-real-estate-q02", topicId: "cfa2-alternative-investments-real-estate", text: "Direct capitalization values a property as:", optionA: "NOI × cap rate", optionB: "NOI / cap rate", optionC: "Cap rate / NOI", optionD: "NOI − cap rate", correctOption: "B", explanation: "The income approach divides stabilized NOI by the capitalization rate.", orderIndex: 1 },
+  { id: "cfa2-alternative-investments-real-estate-q03", topicId: "cfa2-alternative-investments-real-estate", text: "A lower capitalization rate implies a property value that is:", optionA: "Lower", optionB: "Higher", optionC: "Unchanged", optionD: "Negative", correctOption: "B", explanation: "Since value = NOI / cap rate, a lower cap rate yields a higher value (lower income yield).", orderIndex: 2 },
+  { id: "cfa2-alternative-investments-real-estate-q04", topicId: "cfa2-alternative-investments-real-estate", text: "The cap rate is approximately the discount rate minus the:", optionA: "Growth rate of NOI", optionB: "Inflation rate", optionC: "Risk-free rate", optionD: "Vacancy rate", correctOption: "A", explanation: "Analogous to Gordon growth, cap rate ≈ required return − expected NOI growth.", orderIndex: 3 },
+  { id: "cfa2-alternative-investments-real-estate-q05", topicId: "cfa2-alternative-investments-real-estate", text: "The four quadrants of real estate are private/public crossed with:", optionA: "Equity and debt", optionB: "Large and small cap", optionC: "Domestic and foreign", optionD: "Growth and value", correctOption: "A", explanation: "Real estate spans private/public equity (property, REITs) and private/public debt (mortgages, MBS).", orderIndex: 4 },
+  { id: "cfa2-alternative-investments-real-estate-q06", topicId: "cfa2-alternative-investments-real-estate", text: "Funds from operations (FFO) adjusts net income by adding back:", optionA: "Interest expense", optionB: "Real-estate depreciation (and removing property sale gains)", optionC: "Dividends", optionD: "Taxes", correctOption: "B", explanation: "FFO adds back non-cash depreciation and excludes one-off property sale gains to reflect recurring cash earnings.", orderIndex: 5 },
+  { id: "cfa2-alternative-investments-real-estate-q07", topicId: "cfa2-alternative-investments-real-estate", text: "AFFO improves on FFO by subtracting:", optionA: "Dividends", optionB: "Maintenance (recurring) capital expenditures", optionC: "Interest", optionD: "Taxes", correctOption: "B", explanation: "Adjusted FFO deducts recurring maintenance capex, giving a cleaner measure of distributable cash.", orderIndex: 6 },
+  { id: "cfa2-alternative-investments-real-estate-q08", topicId: "cfa2-alternative-investments-real-estate", text: "Public REITs, versus direct property, are generally:", optionA: "Less liquid", optionB: "More liquid but more correlated with equities", optionC: "Risk-free", optionD: "Free of management fees", correctOption: "B", explanation: "Listed REITs trade like stocks (more liquid) but show higher short-run correlation with equity markets.", orderIndex: 7 },
+  { id: "cfa2-alternative-investments-real-estate-q09", topicId: "cfa2-alternative-investments-real-estate", text: "The cost approach values property as:", optionA: "NOI / cap rate", optionB: "Replacement cost − depreciation + land value", optionC: "PV of dividends", optionD: "Comparable P/E", correctOption: "B", explanation: "The cost approach estimates the cost to rebuild less depreciation, plus land.", orderIndex: 8 },
+  { id: "cfa2-alternative-investments-real-estate-q10", topicId: "cfa2-alternative-investments-real-estate", text: "REITs are tax-advantaged because they must:", optionA: "Retain all earnings", optionB: "Distribute most of their income to shareholders", optionC: "Avoid real estate", optionD: "Hold only cash", correctOption: "B", explanation: "REITs largely escape entity-level tax by distributing the bulk of taxable income to investors.", orderIndex: 9 },
+  { id: "cfa2-alternative-investments-real-estate-q11", topicId: "cfa2-alternative-investments-real-estate", text: "Real estate in a portfolio is valued for income, diversification and:", optionA: "Inflation sensitivity", optionB: "Guaranteed returns", optionC: "Zero risk", optionD: "Daily liquidity", correctOption: "A", explanation: "Property income tends to rise with inflation, adding an inflation-hedging, diversifying role.", orderIndex: 10 },
+  { id: "cfa2-alternative-investments-real-estate-q12", topicId: "cfa2-alternative-investments-real-estate", text: "The DCF approach to property value sums the PV of forecast NOI and the:", optionA: "Reversion (terminal) value", optionB: "Coupon", optionC: "Dividend", optionD: "Risk-free rate", correctOption: "A", explanation: "Property DCF discounts interim NOI plus a terminal (reversion) sale value at the end of the holding period.", orderIndex: 11 },
+
+  // Professionalism & market integrity
+  { id: "cfa2-ethics-professionalism-integrity-q01", topicId: "cfa2-ethics-professionalism-integrity", text: "When applicable law is less strict than the Code and Standards, a member must follow:", optionA: "The local law", optionB: "The Code and Standards (the stricter)", optionC: "Neither", optionD: "Client preference", correctOption: "B", explanation: "Standard I(A) requires adhering to the stricter of law or the Code and Standards.", orderIndex: 0 },
+  { id: "cfa2-ethics-professionalism-integrity-q02", topicId: "cfa2-ethics-professionalism-integrity", text: "Acting on material nonpublic information violates Standard:", optionA: "II(A) Material Nonpublic Information", optionB: "I(B) Independence", optionC: "III(A) Loyalty", optionD: "VI(B) Priority", correctOption: "A", explanation: "Trading or causing trades on MNPI breaches Standard II(A) Integrity of Capital Markets.", orderIndex: 1 },
+  { id: "cfa2-ethics-professionalism-integrity-q03", topicId: "cfa2-ethics-professionalism-integrity", text: "The mosaic theory permits an analyst to:", optionA: "Trade on insider tips", optionB: "Combine public and non-material non-public information to reach a conclusion", optionC: "Spread rumors", optionD: "Front-run clients", correctOption: "B", explanation: "Under the mosaic theory, conclusions from public plus non-material non-public information are permissible.", orderIndex: 2 },
+  { id: "cfa2-ethics-professionalism-integrity-q04", topicId: "cfa2-ethics-professionalism-integrity", text: "Wash trades and spoofing are forms of:", optionA: "Market manipulation [II(B)]", optionB: "Fair dealing", optionC: "Diligence", optionD: "Record retention", correctOption: "A", explanation: "Transaction-based manipulation like wash trades/spoofing violates Standard II(B).", orderIndex: 3 },
+  { id: "cfa2-ethics-professionalism-integrity-q05", topicId: "cfa2-ethics-professionalism-integrity", text: "Plagiarizing another analyst's report violates Standard:", optionA: "I(C) Misrepresentation", optionB: "II(B) Market Manipulation", optionC: "IV(A) Loyalty", optionD: "VII Conduct", correctOption: "A", explanation: "Plagiarism — using others' work without attribution — is a misrepresentation under I(C).", orderIndex: 4 },
+  { id: "cfa2-ethics-professionalism-integrity-q06", topicId: "cfa2-ethics-professionalism-integrity", text: "Firewalls (information barriers) are a recommended procedure for complying with:", optionA: "II(A) Material Nonpublic Information", optionB: "VI(B) Priority of Transactions", optionC: "III(C) Suitability", optionD: "V(C) Record Retention", correctOption: "A", explanation: "Firewalls prevent the flow of MNPI between departments, supporting II(A) compliance.", orderIndex: 5 },
+  { id: "cfa2-ethics-professionalism-integrity-q07", topicId: "cfa2-ethics-professionalism-integrity", text: "Dishonesty, fraud, or deceit reflecting on professional integrity violates:", optionA: "I(D) Misconduct", optionB: "II(A) MNPI", optionC: "III(B) Fair Dealing", optionD: "VI(A) Disclosure", correctOption: "A", explanation: "Standard I(D) Misconduct addresses behavior reflecting adversely on professional integrity.", orderIndex: 6 },
+  { id: "cfa2-ethics-professionalism-integrity-q08", topicId: "cfa2-ethics-professionalism-integrity", text: "A 'pump-and-dump' scheme is an example of:", optionA: "Information-based market manipulation", optionB: "Fair dealing", optionC: "Suitability analysis", optionD: "Independence", correctOption: "A", explanation: "Spreading false positive information to inflate a price then selling is information-based manipulation under II(B).", orderIndex: 7 },
+  { id: "cfa2-ethics-professionalism-integrity-q09", topicId: "cfa2-ethics-professionalism-integrity", text: "Accepting a lavish, influence-seeking gift from a company you cover risks violating:", optionA: "I(B) Independence and Objectivity", optionB: "II(B) Manipulation", optionC: "V(C) Records", optionD: "VII Conduct", correctOption: "A", explanation: "Lavish benefits that could bias judgement threaten independence and objectivity under I(B).", orderIndex: 8 },
+  { id: "cfa2-ethics-professionalism-integrity-q10", topicId: "cfa2-ethics-professionalism-integrity", text: "If a member discovers a colleague is violating the law, the member should:", optionA: "Participate", optionB: "Dissociate from the activity (and report as appropriate)", optionC: "Ignore it", optionD: "Profit from it", correctOption: "B", explanation: "Standard I(A) requires members to dissociate from any known violation of law or the Code.", orderIndex: 9 },
+  { id: "cfa2-ethics-professionalism-integrity-q11", topicId: "cfa2-ethics-professionalism-integrity", text: "Standard II(A) prohibits a member from MNPI use that would:", optionA: "Benefit clients fairly", optionB: "Harm the integrity of capital markets and disadvantage other investors", optionC: "Improve disclosure", optionD: "Support diligence", correctOption: "B", explanation: "Acting on MNPI undermines market integrity and unfairly disadvantages those without the information.", orderIndex: 10 },
+  { id: "cfa2-ethics-professionalism-integrity-q12", topicId: "cfa2-ethics-professionalism-integrity", text: "Guaranteeing a specific return on a volatile fund violates:", optionA: "I(C) Misrepresentation", optionB: "II(A) MNPI", optionC: "III(D) Performance", optionD: "VI(C) Referral Fees", correctOption: "A", explanation: "Promising a return on a risky investment is a misrepresentation under Standard I(C).", orderIndex: 11 },
+
+  // Capital budgeting
+  { id: "cfa2-corporate-issuers-capital-budgeting-q01", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "The theoretically preferred capital-budgeting rule is to accept projects with:", optionA: "Positive NPV", optionB: "The shortest payback", optionC: "The highest IRR regardless of NPV", optionD: "Any positive accounting profit", correctOption: "A", explanation: "NPV directly measures the value added to shareholders; accept when NPV > 0.", orderIndex: 0 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q02", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "The IRR is the discount rate at which a project's NPV equals:", optionA: "The initial outlay", optionB: "Zero", optionC: "The terminal value", optionD: "The cost of capital", correctOption: "B", explanation: "IRR is the rate that makes the project's NPV zero; accept if IRR exceeds the cost of capital.", orderIndex: 1 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q03", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "When NPV and IRR rankings conflict for mutually exclusive projects, an analyst should follow:", optionA: "IRR", optionB: "NPV", optionC: "Payback", optionD: "Accounting return", correctOption: "B", explanation: "NPV is the more reliable rule; IRR can mislead due to scale and reinvestment-rate assumptions.", orderIndex: 2 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q04", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "Sunk costs should be:", optionA: "Included in the analysis", optionB: "Excluded from the incremental cash flows", optionC: "Added to NPV", optionD: "Treated as opportunity costs", correctOption: "B", explanation: "Sunk costs are already incurred and irrelevant to the incremental decision.", orderIndex: 3 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q05", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "Financing costs (interest) are excluded from project cash flows because they are:", optionA: "Captured in the discount rate (WACC)", optionB: "Sunk costs", optionC: "Opportunity costs", optionD: "Non-cash", correctOption: "A", explanation: "The required return/WACC reflects financing costs, so including interest in cash flows would double-count.", orderIndex: 4 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q06", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "A drawback of the payback period is that it:", optionA: "Uses NPV", optionB: "Ignores the time value of money and cash flows after payback", optionC: "Overstates risk", optionD: "Requires a discount rate", correctOption: "B", explanation: "Plain payback ignores discounting and any cash flows beyond the payback point.", orderIndex: 5 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q07", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "The profitability index equals:", optionA: "PV of future cash flows / initial investment", optionB: "NPV − outlay", optionC: "IRR / WACC", optionD: "Payback / life", correctOption: "A", explanation: "PI = PV(inflows)/initial outlay; PI > 1 corresponds to a positive NPV.", orderIndex: 6 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q08", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "Non-conventional cash flows (sign changes) can cause IRR to:", optionA: "Always be unique", optionB: "Produce multiple or no IRRs", optionC: "Equal the WACC", optionD: "Be negative only", correctOption: "B", explanation: "Multiple sign changes can yield multiple or no real IRRs, a key IRR weakness.", orderIndex: 7 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q09", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "Changes in net working capital should be:", optionA: "Ignored", optionB: "Included as part of the project's cash flows", optionC: "Treated as sunk", optionD: "Added to the discount rate", correctOption: "B", explanation: "Investment in (and recovery of) working capital is an incremental project cash flow.", orderIndex: 8 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q10", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "The depreciation tax shield in a project equals depreciation times the:", optionA: "Tax rate", optionB: "WACC", optionC: "Growth rate", optionD: "Beta", correctOption: "A", explanation: "Depreciation reduces taxable income, saving cash equal to depreciation × tax rate.", orderIndex: 9 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q11", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "A foregone alternative use of an existing resource is a(n):", optionA: "Sunk cost", optionB: "Opportunity cost (include it)", optionC: "Financing cost", optionD: "Permanent difference", correctOption: "B", explanation: "Opportunity costs of using resources elsewhere are relevant incremental costs.", orderIndex: 10 },
+  { id: "cfa2-corporate-issuers-capital-budgeting-q12", topicId: "cfa2-corporate-issuers-capital-budgeting", text: "Real options (e.g., to expand or abandon) add value because they:", optionA: "Are ignored by NPV's flexibility", optionB: "Give management flexibility that static NPV omits", optionC: "Reduce all risk to zero", optionD: "Lower the discount rate", correctOption: "B", explanation: "Real options capture managerial flexibility to adapt, value that a static NPV calculation misses.", orderIndex: 11 },
+
+  // Economics & investment markets
+  { id: "cfa2-portfolio-management-economics-markets-q01", topicId: "cfa2-portfolio-management-economics-markets", text: "An asset's value is fundamentally the present value of its:", optionA: "Book value", optionB: "Expected future cash flows", optionC: "Dividend yield", optionD: "Beta", correctOption: "B", explanation: "All valuation reduces to discounting expected future cash flows at a required return.", orderIndex: 0 },
+  { id: "cfa2-portfolio-management-economics-markets-q02", topicId: "cfa2-portfolio-management-economics-markets", text: "The required return on an asset can be decomposed into the real risk-free rate, expected inflation and a:", optionA: "Risk premium", optionB: "Dividend", optionC: "Coupon", optionD: "Tax shield", correctOption: "A", explanation: "Required return = real risk-free rate + expected inflation + a risk premium for the asset's risk.", orderIndex: 1 },
+  { id: "cfa2-portfolio-management-economics-markets-q03", topicId: "cfa2-portfolio-management-economics-markets", text: "The real risk-free rate is most closely tied to expected:", optionA: "Real GDP growth", optionB: "The dividend yield", optionC: "Credit spreads", optionD: "The VIX", correctOption: "A", explanation: "The real risk-free rate reflects the economy's real growth and the inter-temporal rate of substitution.", orderIndex: 2 },
+  { id: "cfa2-portfolio-management-economics-markets-q04", topicId: "cfa2-portfolio-management-economics-markets", text: "Credit spreads typically ____ during recessions.", optionA: "Narrow", optionB: "Widen", optionC: "Stay constant", optionD: "Disappear", correctOption: "B", explanation: "Rising default risk in downturns widens credit spreads (credit is pro-cyclical).", orderIndex: 3 },
+  { id: "cfa2-portfolio-management-economics-markets-q05", topicId: "cfa2-portfolio-management-economics-markets", text: "The term premium in default-free bond yields compensates investors for:", optionA: "Default risk", optionB: "Uncertainty about future short rates over a longer horizon", optionC: "Currency risk", optionD: "Equity risk", correctOption: "B", explanation: "Longer maturities carry a term premium for bearing interest-rate (reinvestment/price) uncertainty.", orderIndex: 4 },
+  { id: "cfa2-portfolio-management-economics-markets-q06", topicId: "cfa2-portfolio-management-economics-markets", text: "Equities, relative to government bonds, are most sensitive to:", optionA: "The business cycle", optionB: "Coupon payments", optionC: "Storage costs", optionD: "Prepayment", correctOption: "A", explanation: "Equity cash flows are pro-cyclical, so stocks bear a higher, cycle-sensitive risk premium.", orderIndex: 5 },
+  { id: "cfa2-portfolio-management-economics-markets-q07", topicId: "cfa2-portfolio-management-economics-markets", text: "A 'pro-cyclical' asset earns a risk premium because it tends to perform poorly:", optionA: "In expansions", optionB: "During recessions (bad times)", optionC: "Never", optionD: "Only in inflation", correctOption: "B", explanation: "Assets that pay off poorly in bad times must offer a premium to compensate investors.", orderIndex: 6 },
+  { id: "cfa2-portfolio-management-economics-markets-q08", topicId: "cfa2-portfolio-management-economics-markets", text: "Higher expected inflation generally raises:", optionA: "Nominal bond yields", optionB: "Real GDP", optionC: "The dividend payout", optionD: "Recovery rates", correctOption: "A", explanation: "Nominal yields rise with expected inflation (the inflation component of required return).", orderIndex: 7 },
+  { id: "cfa2-portfolio-management-economics-markets-q09", topicId: "cfa2-portfolio-management-economics-markets", text: "Real estate's return profile is best described as:", optionA: "Purely bond-like", optionB: "A blend of bond-like (income) and equity-like (cyclical) features", optionC: "Risk-free", optionD: "Identical to commodities", correctOption: "B", explanation: "Lease income is bond-like while property values are cyclical, giving real estate hybrid characteristics.", orderIndex: 8 },
+  { id: "cfa2-portfolio-management-economics-markets-q10", topicId: "cfa2-portfolio-management-economics-markets", text: "Investors' required returns generally rise when risk aversion:", optionA: "Falls", optionB: "Rises", optionC: "Is constant", optionD: "Is zero", correctOption: "B", explanation: "Greater risk aversion increases the risk premium demanded, raising required returns and lowering prices.", orderIndex: 9 },
+  { id: "cfa2-portfolio-management-economics-markets-q11", topicId: "cfa2-portfolio-management-economics-markets", text: "The slope of the yield curve embeds market expectations about:", optionA: "Future growth and inflation", optionB: "Dividend policy", optionC: "Share count", optionD: "Audit quality", correctOption: "A", explanation: "The curve's shape reflects expected future short rates, which depend on growth and inflation expectations.", orderIndex: 10 },
+  { id: "cfa2-portfolio-management-economics-markets-q12", topicId: "cfa2-portfolio-management-economics-markets", text: "During an economic expansion, credit spreads typically:", optionA: "Widen", optionB: "Narrow", optionC: "Stay fixed", optionD: "Go negative", correctOption: "B", explanation: "Improving conditions lower default risk, narrowing credit spreads in expansions.", orderIndex: 11 }
 ];
