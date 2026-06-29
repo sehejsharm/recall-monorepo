@@ -29,7 +29,13 @@ export const expTopics: Topic[] = [
   { id: "cfa2-ethics-analysis-recommendations", subjectId: "cfa2-ethics", name: "Investment Analysis, Recommendations & Record Retention", slug: "analysis-recommendations", orderIndex: 1 },
   { id: "cfa2-corporate-issuers-governance-esg", subjectId: "cfa2-corporate-issuers", name: "Corporate Governance, ESG & Stakeholders", slug: "governance-esg", orderIndex: 1 },
   { id: "cfa2-portfolio-management-market-risk-var", subjectId: "cfa2-portfolio-management", name: "Measuring & Managing Market Risk (VaR)", slug: "market-risk-var", orderIndex: 1 },
-  { id: "cfa2-quantitative-methods-machine-learning", subjectId: "cfa2-quantitative-methods", name: "Machine Learning & Big Data", slug: "machine-learning", orderIndex: 2 }
+  { id: "cfa2-quantitative-methods-machine-learning", subjectId: "cfa2-quantitative-methods", name: "Machine Learning & Big Data", slug: "machine-learning", orderIndex: 2 },
+  { id: "cfa2-equity-multistage-ddm", subjectId: "cfa2-equity", name: "Multistage Dividend Discount Models", slug: "multistage-ddm", orderIndex: 3 },
+  { id: "cfa2-equity-private-company", subjectId: "cfa2-equity", name: "Private Company Valuation", slug: "private-company", orderIndex: 4 },
+  { id: "cfa2-fixed-income-term-structure", subjectId: "cfa2-fixed-income", name: "Term Structure & Interest Rate Models", slug: "term-structure", orderIndex: 2 },
+  { id: "cfa2-fixed-income-cds", subjectId: "cfa2-fixed-income", name: "Credit Default Swaps", slug: "cds", orderIndex: 3 },
+  { id: "cfa2-derivatives-forwards-futures", subjectId: "cfa2-derivatives", name: "Forward & Futures Pricing", slug: "forwards-futures", orderIndex: 2 },
+  { id: "cfa2-financial-reporting-income-taxes", subjectId: "cfa2-financial-reporting", name: "Income Taxes (Deferred Tax)", slug: "income-taxes", orderIndex: 3 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -407,6 +413,137 @@ Steps: **conceptualization → data collection → preparation/wrangling (cleani
 - Big data traits: **volume, velocity, variety** (and veracity). ML finds patterns but needs sound economic reasoning and care with data quality and look-ahead bias.`,
     estimatedReadTime: 2,
     orderIndex: 2
+  },
+  {
+    id: "cfa2-equity-multistage-ddm-m01",
+    topicId: "cfa2-equity-multistage-ddm",
+    title: "Multistage Dividend Discount Models",
+    content: `When growth isn't constant, use a **multistage DDM**: forecast dividends explicitly, then a terminal value.
+
+## Gordon (single-stage)
+**V₀ = D₁ / (r − g)** — only for stable, mature firms where g < r.
+
+## Two-stage
+High growth for n years, then a stable terminal growth. Terminal value at year n: **TV_n = D_{n+1}/(r − g_L)**; discount each dividend + TV back to today.
+
+## H-model
+Growth **declines linearly** from g_S to g_L over 2H years:
+**V₀ = [D₀(1+g_L) + D₀·H·(g_S − g_L)] / (r − g_L)** — a shortcut for a fading high-growth phase.
+
+## Three-stage
+Growth, transition, and maturity phases — for young firms.
+
+## Notes
+- Terminal value usually dominates; check sensitivity to **r and g_L**.
+- **Sustainable growth g = b × ROE** (retention ratio × ROE).
+- Use DDM for dividend-paying firms; for non-payers prefer FCFE/residual income.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa2-equity-private-company-m01",
+    topicId: "cfa2-equity-private-company",
+    title: "Private Company Valuation",
+    content: `## Three approaches
+1. **Income** — free-cash-flow / capitalized-cash-flow / **excess-earnings**; discount at a build-up or expanded-CAPM rate (add size + company-specific premia).
+2. **Market** — guideline public companies, guideline transactions, prior-transaction multiples.
+3. **Asset-based** — net asset value (less common for going concerns).
+
+## Normalizing earnings
+Adjust for **owner compensation, related-party transactions, and one-offs** to reflect true economic earnings.
+
+## Discounts & premiums
+- **DLOM** (discount for lack of marketability) — private interests can't be sold quickly.
+- **DLOC** (discount for lack of control) for minority stakes; a **control premium** for controlling stakes.
+- Private discount rates exceed comparable public rates (illiquidity, size, specific risk).
+
+## Definitions (standard) of value
+Fair market value, fair value, market value, investment value, intrinsic value — the **purpose** (tax, litigation, M&A, financial reporting) drives which applies.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa2-fixed-income-term-structure-m01",
+    topicId: "cfa2-fixed-income-term-structure",
+    title: "Term Structure & Interest Rate Models",
+    content: `## Theories of the yield-curve shape
+- **Pure expectations**: forwards = expected future spot rates (no risk premium).
+- **Liquidity preference**: investors demand a premium for longer maturities → upward bias.
+- **Market segmentation / preferred habitat**: supply-demand in maturity buckets; investors shift only for a premium.
+
+## Spot, forward, swap, par rates
+Linked by no-arbitrage: (1+z₂)² = (1+z₁)(1+f₁,₁). The **swap-rate curve** is a common benchmark; the **swap spread** over governments reflects credit/liquidity.
+
+## Risk drivers
+- The curve moves via **level, slope (steepness), and curvature** — the first principal component (level) explains most variance.
+- **Key rate (partial) durations** capture exposure to specific maturities (non-parallel shifts) better than a single effective duration.
+
+## Models
+- **Equilibrium** (e.g. CIR, Vasicek) start from economic assumptions; **arbitrage-free** (e.g. Ho-Lee) are calibrated to fit the current curve exactly — used to value bonds with embedded options on a tree.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa2-fixed-income-cds-m01",
+    topicId: "cfa2-fixed-income-cds",
+    title: "Credit Default Swaps",
+    content: `A **CDS** is insurance against a borrower's default: the **protection buyer** pays a periodic **premium (spread)**; the **seller** pays out on a **credit event** (bankruptcy, failure to pay, restructuring).
+
+## Mechanics
+- **Single-name** (one issuer) or **index** (e.g. CDX, iTraxx, a basket).
+- **Standard coupon** (e.g. 1% or 5%); the difference vs. the fair spread is settled via an **upfront payment**: upfront ≈ (CDS spread − coupon) × **duration**.
+- Payout ≈ notional × **(1 − recovery rate)** = notional × LGD.
+
+## Pricing intuition
+- CDS spread ≈ **hazard rate × (1 − recovery)** — compensation for expected loss.
+- Value to the protection buyer rises as **credit quality deteriorates** (spread widens).
+
+## Uses
+- **Hedge** credit exposure, **express a view** (buy protection = short credit), or exploit the **basis** (CDS spread vs. cash-bond spread). Enables **synthetic** long/short credit without trading the bond.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa2-derivatives-forwards-futures-m01",
+    topicId: "cfa2-derivatives-forwards-futures",
+    title: "Forward & Futures Pricing",
+    content: `## No-arbitrage forward price
+**F₀ = S₀ × (1 + r)^T** (cost-of-carry). With income/costs:
+**F₀ = (S₀ − PV(income) + PV(costs)) × (1 + r)^T**.
+- **Carry benefits** (dividends, coupons, convenience yield) **lower** the forward; **carry costs** (storage) **raise** it.
+
+## Value over time
+A forward's value at t: **V_t = (F_t − F₀) × discount factor** (zero at initiation). The price is fixed; the *value* drifts as spot/rates move.
+
+## Forwards vs futures
+- **Futures** are exchange-traded, standardized, daily **marked-to-market** with margin (minimal counterparty risk); **forwards** are OTC, customized, settled at maturity (counterparty risk).
+- When rates correlate with the asset, futures and forward prices differ slightly (mark-to-market timing).
+
+## Backwardation vs contango
+- **Contango**: futures > spot (carry costs dominate). **Backwardation**: futures < spot (high convenience yield/benefits).`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa2-financial-reporting-income-taxes-m01",
+    topicId: "cfa2-financial-reporting-income-taxes",
+    title: "Income Taxes (Deferred Tax)",
+    content: `Differences between **accounting** profit and **taxable** profit create deferred taxes.
+
+## Temporary vs permanent
+- **Temporary differences** reverse over time → create **deferred tax assets/liabilities**. Example: accelerated tax depreciation > book depreciation → a **deferred tax liability (DTL)**.
+- **Permanent differences** (e.g. tax-exempt interest, non-deductible fines) never reverse → affect the **effective tax rate**, not deferred taxes.
+
+## DTA vs DTL
+- **DTL**: tax payable now is *less* than book expense (e.g. faster tax depreciation, installment sales).
+- **DTA**: tax payable now is *more* than book (e.g. **loss carryforwards**, warranty/bad-debt provisions). A **valuation allowance** (US GAAP) reduces a DTA if realization is unlikely.
+
+## Analyst points
+- A change in the **tax rate** remeasures DTAs/DTLs (hits the period's tax expense).
+- DTLs expected to **reverse** are treated as debt-like; those that keep growing/never reverse may be treated as **equity** in analysis.
+- **Income tax expense = taxes payable + ΔDTL − ΔDTA**.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
   }
 ];
 
@@ -661,5 +798,89 @@ export const expQuestions: Question[] = [
   { id: "cfa2-quantitative-methods-machine-learning-q09", topicId: "cfa2-quantitative-methods-machine-learning", text: "In text analytics, converting words to a normalized base form is called:", optionA: "Tokenization", optionB: "Stemming/lemmatization", optionC: "Clustering", optionD: "Regularization", correctOption: "B", explanation: "Stemming/lemmatization reduces words to a root form; tokenization splits text into tokens.", orderIndex: 8 },
   { id: "cfa2-quantitative-methods-machine-learning-q10", topicId: "cfa2-quantitative-methods-machine-learning", text: "The 'three Vs' commonly used to describe big data are volume, velocity and:", optionA: "Value", optionB: "Variety", optionC: "Volatility", optionD: "Validity", correctOption: "B", explanation: "Big data is classically described by volume, velocity, and variety (with veracity often added).", orderIndex: 9 },
   { id: "cfa2-quantitative-methods-machine-learning-q11", topicId: "cfa2-quantitative-methods-machine-learning", text: "A random forest is an ensemble of:", optionA: "Linear regressions", optionB: "Decision trees", optionC: "Clusters", optionD: "Principal components", correctOption: "B", explanation: "Random forests aggregate many decision trees to improve accuracy and reduce overfitting.", orderIndex: 10 },
-  { id: "cfa2-quantitative-methods-machine-learning-q12", topicId: "cfa2-quantitative-methods-machine-learning", text: "Data wrangling (preparation) in a project mainly involves:", optionA: "Cleaning and organizing raw data (handling outliers/missing values)", optionB: "Writing the final report", optionC: "Choosing the confidence level", optionD: "Deploying the model", correctOption: "A", explanation: "Wrangling cleans, transforms and structures raw data so it is usable for exploration and modeling.", orderIndex: 11 }
+  { id: "cfa2-quantitative-methods-machine-learning-q12", topicId: "cfa2-quantitative-methods-machine-learning", text: "Data wrangling (preparation) in a project mainly involves:", optionA: "Cleaning and organizing raw data (handling outliers/missing values)", optionB: "Writing the final report", optionC: "Choosing the confidence level", optionD: "Deploying the model", correctOption: "A", explanation: "Wrangling cleans, transforms and structures raw data so it is usable for exploration and modeling.", orderIndex: 11 },
+
+  // Multistage DDM
+  { id: "cfa2-equity-multistage-ddm-q01", topicId: "cfa2-equity-multistage-ddm", text: "The Gordon growth model is appropriate only for firms with:", optionA: "Volatile, unpredictable growth", optionB: "Stable growth below the required return", optionC: "No dividends", optionD: "Negative earnings", correctOption: "B", explanation: "Gordon assumes a single constant growth rate g < r indefinitely — suitable for mature, stable dividend payers.", orderIndex: 0 },
+  { id: "cfa2-equity-multistage-ddm-q02", topicId: "cfa2-equity-multistage-ddm", text: "In a two-stage DDM, the terminal value is usually computed using:", optionA: "The high-growth rate", optionB: "The Gordon model with the long-run (stable) growth rate", optionC: "Book value", optionD: "The risk-free rate", correctOption: "B", explanation: "After the explicit high-growth phase, the terminal value applies Gordon growth at the sustainable long-run rate.", orderIndex: 1 },
+  { id: "cfa2-equity-multistage-ddm-q03", topicId: "cfa2-equity-multistage-ddm", text: "The H-model approximates a growth rate that:", optionA: "Jumps suddenly", optionB: "Declines linearly from a high to a long-run rate", optionC: "Is constant", optionD: "Rises over time", correctOption: "B", explanation: "The H-model assumes growth fades linearly over 2H years from the initial high rate to the stable rate.", orderIndex: 2 },
+  { id: "cfa2-equity-multistage-ddm-q04", topicId: "cfa2-equity-multistage-ddm", text: "Sustainable growth rate equals:", optionA: "ROE × retention ratio", optionB: "Dividend yield × payout", optionC: "r − g", optionD: "ROE × payout ratio", correctOption: "A", explanation: "g = b × ROE, where b is the earnings retention ratio (1 − payout).", orderIndex: 3 },
+  { id: "cfa2-equity-multistage-ddm-q05", topicId: "cfa2-equity-multistage-ddm", text: "In most multistage models, the largest component of value is typically the:", optionA: "First dividend", optionB: "Terminal value", optionC: "Risk-free rate", optionD: "Book value", correctOption: "B", explanation: "The terminal (continuing) value usually dominates, so models are highly sensitive to its r and g inputs.", orderIndex: 4 },
+  { id: "cfa2-equity-multistage-ddm-q06", topicId: "cfa2-equity-multistage-ddm", text: "A three-stage DDM is most suitable for a:", optionA: "Mature utility", optionB: "Young firm moving through growth, transition and maturity", optionC: "Firm in liquidation", optionD: "Risk-free bond", correctOption: "B", explanation: "Three-stage models capture an initial high-growth phase, a transition, and a stable maturity phase.", orderIndex: 5 },
+  { id: "cfa2-equity-multistage-ddm-q07", topicId: "cfa2-equity-multistage-ddm", text: "If the long-run growth rate assumption rises (toward r), the estimated value will:", optionA: "Fall sharply", optionB: "Rise sharply", optionC: "Stay constant", optionD: "Become zero", correctOption: "B", explanation: "As g_L approaches r, the terminal value (and thus the estimate) increases sharply — a key sensitivity.", orderIndex: 6 },
+  { id: "cfa2-equity-multistage-ddm-q08", topicId: "cfa2-equity-multistage-ddm", text: "DDMs are least appropriate for firms that:", optionA: "Pay stable dividends", optionB: "Pay no dividends and have no clear dividend policy", optionC: "Are mature", optionD: "Have positive ROE", correctOption: "B", explanation: "Without dividends, FCFE or residual-income models are preferable to a DDM.", orderIndex: 7 },
+  { id: "cfa2-equity-multistage-ddm-q09", topicId: "cfa2-equity-multistage-ddm", text: "A long-run growth rate used in a terminal value should generally not exceed the:", optionA: "Dividend yield", optionB: "Long-run growth rate of the overall economy", optionC: "Risk-free rate", optionD: "Inflation rate only", correctOption: "B", explanation: "A perpetual growth rate above economy-wide growth is implausible, so g_L is capped near nominal GDP growth.", orderIndex: 8 },
+  { id: "cfa2-equity-multistage-ddm-q10", topicId: "cfa2-equity-multistage-ddm", text: "In the H-model, a larger H (longer fade period) will, all else equal:", optionA: "Lower the value", optionB: "Raise the value (more years of above-normal growth)", optionC: "Not affect value", optionD: "Equal the Gordon model", correctOption: "B", explanation: "A longer high-growth fade adds more excess growth, increasing the estimated value.", orderIndex: 9 },
+  { id: "cfa2-equity-multistage-ddm-q11", topicId: "cfa2-equity-multistage-ddm", text: "The required return r in a DDM is most commonly estimated using:", optionA: "The CAPM", optionB: "The dividend yield", optionC: "The payout ratio", optionD: "Book value", correctOption: "A", explanation: "CAPM (or a build-up/multifactor model) provides the cost of equity used to discount dividends.", orderIndex: 10 },
+  { id: "cfa2-equity-multistage-ddm-q12", topicId: "cfa2-equity-multistage-ddm", text: "A two-stage model discounts the terminal value back to the present using:", optionA: "The terminal growth rate", optionB: "The required return over the number of explicit-forecast years", optionC: "The risk-free rate", optionD: "No discounting", correctOption: "B", explanation: "The TV computed at year n is discounted to today at (1+r)^n, like any future cash flow.", orderIndex: 11 },
+
+  // Private company valuation
+  { id: "cfa2-equity-private-company-q01", topicId: "cfa2-equity-private-company", text: "The three broad approaches to private company valuation are income, market, and:", optionA: "Arbitrage", optionB: "Asset-based", optionC: "Parity", optionD: "Duration", correctOption: "B", explanation: "Private valuation uses income, market (guideline), and asset-based approaches.", orderIndex: 0 },
+  { id: "cfa2-equity-private-company-q02", topicId: "cfa2-equity-private-company", text: "A discount for lack of marketability (DLOM) reflects that private interests:", optionA: "Pay higher dividends", optionB: "Cannot be sold quickly without a price concession", optionC: "Have no risk", optionD: "Are tax-free", correctOption: "B", explanation: "Illiquidity of private equity warrants a DLOM relative to freely traded shares.", orderIndex: 1 },
+  { id: "cfa2-equity-private-company-q03", topicId: "cfa2-equity-private-company", text: "Valuing a controlling stake using guideline public (minority) prices usually requires adding a:", optionA: "Control premium", optionB: "Liquidity discount", optionC: "Size discount", optionD: "Tax penalty", correctOption: "A", explanation: "Public minority prices lack control, so a control premium is added for a controlling interest.", orderIndex: 2 },
+  { id: "cfa2-equity-private-company-q04", topicId: "cfa2-equity-private-company", text: "Normalizing a private firm's earnings involves adjusting for:", optionA: "Market beta", optionB: "Owner compensation, related-party transactions and one-offs", optionC: "The risk-free rate", optionD: "Index weights", correctOption: "B", explanation: "Normalization removes non-market owner pay, related-party items and non-recurring effects to show true earnings power.", orderIndex: 3 },
+  { id: "cfa2-equity-private-company-q05", topicId: "cfa2-equity-private-company", text: "The excess earnings method is a form of which approach?", optionA: "Market", optionB: "Income", optionC: "Asset-based", optionD: "Option-pricing", correctOption: "B", explanation: "Excess earnings values intangible value from earnings above a fair return on tangible assets — an income method.", orderIndex: 4 },
+  { id: "cfa2-equity-private-company-q06", topicId: "cfa2-equity-private-company", text: "Discount rates for private companies are generally ____ than for comparable public firms.", optionA: "Lower", optionB: "Higher", optionC: "Identical", optionD: "Zero", correctOption: "B", explanation: "Illiquidity, smaller size and company-specific risk raise the required return for private firms.", orderIndex: 5 },
+  { id: "cfa2-equity-private-company-q07", topicId: "cfa2-equity-private-company", text: "The guideline transactions method derives multiples from:", optionA: "The firm's own dividends", optionB: "Prices paid in acquisitions of comparable companies", optionC: "The risk-free rate", optionD: "Replacement cost", correctOption: "B", explanation: "It uses valuation multiples observed in M&A transactions of similar businesses.", orderIndex: 6 },
+  { id: "cfa2-equity-private-company-q08", topicId: "cfa2-equity-private-company", text: "The appropriate standard (definition) of value depends mainly on the:", optionA: "Purpose of the valuation", optionB: "Risk-free rate", optionC: "Auditor", optionD: "Share price", correctOption: "A", explanation: "Tax, litigation, M&A or financial-reporting purposes dictate which value standard (e.g., fair market value) applies.", orderIndex: 7 },
+  { id: "cfa2-equity-private-company-q09", topicId: "cfa2-equity-private-company", text: "A build-up or expanded-CAPM discount rate for a small private firm typically adds:", optionA: "A size premium and company-specific premium", optionB: "A liquidity discount to returns", optionC: "Nothing extra", optionD: "A negative premium", correctOption: "A", explanation: "Private/small-firm discount rates layer size and specific-risk premia onto the base CAPM return.", orderIndex: 8 },
+  { id: "cfa2-equity-private-company-q10", topicId: "cfa2-equity-private-company", text: "The asset-based approach is generally least appropriate for:", optionA: "A holding company of liquid assets", optionB: "A going concern with significant intangible value", optionC: "A firm in liquidation", optionD: "A real-estate holding entity", correctOption: "B", explanation: "Asset-based NAV misses going-concern/intangible value, so it suits asset-holding or liquidation cases, not operating firms.", orderIndex: 9 },
+  { id: "cfa2-equity-private-company-q11", topicId: "cfa2-equity-private-company", text: "A discount for lack of control (DLOC) applies to:", optionA: "Controlling stakes", optionB: "Minority interests", optionC: "Public indices", optionD: "Risk-free bonds", correctOption: "B", explanation: "Minority holders can't direct the firm, so a DLOC reduces the per-share value of non-controlling interests.", orderIndex: 10 },
+  { id: "cfa2-equity-private-company-q12", topicId: "cfa2-equity-private-company", text: "Capitalized cash flow valuation is most appropriate when a private firm has:", optionA: "Highly erratic cash flows", optionB: "Stable, predictable growth", optionC: "No cash flows", optionD: "Only intangible assets", correctOption: "B", explanation: "The capitalized-cash-flow (single-period) method fits firms with steady, predictable growth, akin to Gordon.", orderIndex: 11 },
+
+  // Term structure & interest-rate models
+  { id: "cfa2-fixed-income-term-structure-q01", topicId: "cfa2-fixed-income-term-structure", text: "The pure (unbiased) expectations theory holds that forward rates equal:", optionA: "Expected future spot rates", optionB: "The risk-free rate plus a fixed premium", optionC: "Current spot rates", optionD: "Zero", correctOption: "A", explanation: "Under pure expectations, forwards are unbiased forecasts of future spot rates with no risk premium.", orderIndex: 0 },
+  { id: "cfa2-fixed-income-term-structure-q02", topicId: "cfa2-fixed-income-term-structure", text: "The liquidity preference theory adds to expectations a:", optionA: "Negative term premium", optionB: "Positive premium for longer maturities", optionC: "Tax adjustment", optionD: "Currency premium", correctOption: "B", explanation: "Investors require a liquidity/term premium to hold longer maturities, biasing forwards above expected spots.", orderIndex: 1 },
+  { id: "cfa2-fixed-income-term-structure-q03", topicId: "cfa2-fixed-income-term-structure", text: "Market segmentation theory explains the curve by:", optionA: "A single global rate", optionB: "Supply and demand within distinct maturity segments", optionC: "Only inflation", optionD: "Equity returns", correctOption: "B", explanation: "Segmentation holds that distinct investor clienteles dominate maturity buckets, shaping the curve.", orderIndex: 2 },
+  { id: "cfa2-fixed-income-term-structure-q04", topicId: "cfa2-fixed-income-term-structure", text: "Empirically, most of the variation in yield-curve movements is explained by changes in the:", optionA: "Level (parallel shifts)", optionB: "Curvature", optionC: "Convexity", optionD: "Coupon", correctOption: "A", explanation: "The first principal component — the level (parallel) shift — accounts for the bulk of curve variance.", orderIndex: 3 },
+  { id: "cfa2-fixed-income-term-structure-q05", topicId: "cfa2-fixed-income-term-structure", text: "Key rate durations are useful because they capture exposure to:", optionA: "Only parallel shifts", optionB: "Shifts at specific maturities (non-parallel moves)", optionC: "Credit spreads", optionD: "Currency moves", correctOption: "B", explanation: "Key rate (partial) durations measure sensitivity to changes at individual points on the curve, unlike a single effective duration.", orderIndex: 4 },
+  { id: "cfa2-fixed-income-term-structure-q06", topicId: "cfa2-fixed-income-term-structure", text: "An arbitrage-free interest-rate model (e.g., Ho-Lee) is calibrated to:", optionA: "Economic equilibrium assumptions only", optionB: "Fit the current observed yield curve exactly", optionC: "Historical averages", optionD: "Equity volatility", correctOption: "B", explanation: "Arbitrage-free models are fit to today's curve so they price on-the-run bonds without arbitrage.", orderIndex: 5 },
+  { id: "cfa2-fixed-income-term-structure-q07", topicId: "cfa2-fixed-income-term-structure", text: "Equilibrium term-structure models (e.g., CIR, Vasicek) start from:", optionA: "The current curve", optionB: "Assumptions about economic factors and the short rate", optionC: "Option prices", optionD: "Credit ratings", correctOption: "B", explanation: "Equilibrium models derive the curve from assumptions about the short-rate process and economic drivers.", orderIndex: 6 },
+  { id: "cfa2-fixed-income-term-structure-q08", topicId: "cfa2-fixed-income-term-structure", text: "The swap spread is the difference between the swap rate and the:", optionA: "Coupon rate", optionB: "Government bond yield of the same maturity", optionC: "Dividend yield", optionD: "Risk-free real rate", correctOption: "B", explanation: "The swap spread (swap rate minus matched-maturity government yield) reflects bank credit/liquidity conditions.", orderIndex: 7 },
+  { id: "cfa2-fixed-income-term-structure-q09", topicId: "cfa2-fixed-income-term-structure", text: "Under the preferred-habitat theory, investors leave their preferred maturity only if:", optionA: "Forced by regulators", optionB: "Compensated by a sufficient premium", optionC: "Rates are zero", optionD: "Never", correctOption: "B", explanation: "Preferred-habitat extends segmentation: investors will shift maturities for adequate extra yield.", orderIndex: 8 },
+  { id: "cfa2-fixed-income-term-structure-q10", topicId: "cfa2-fixed-income-term-structure", text: "A 'steepening' of the yield curve is a change primarily in its:", optionA: "Level", optionB: "Slope", optionC: "Curvature", optionD: "Credit spread", correctOption: "B", explanation: "Steepening/flattening describes changes in the slope (the gap between long and short rates).", orderIndex: 9 },
+  { id: "cfa2-fixed-income-term-structure-q11", topicId: "cfa2-fixed-income-term-structure", text: "Arbitrage-free models are particularly used to value:", optionA: "Risk-free zero-coupon bonds only", optionB: "Bonds with embedded options (on an interest-rate tree)", optionC: "Equities", optionD: "Commodities", correctOption: "B", explanation: "Calibrated arbitrage-free trees value callable/putable bonds via backward induction.", orderIndex: 10 },
+  { id: "cfa2-fixed-income-term-structure-q12", topicId: "cfa2-fixed-income-term-structure", text: "If the pure expectations theory holds and the curve is upward sloping, the market expects future short rates to:", optionA: "Fall", optionB: "Rise", optionC: "Stay flat", optionD: "Be negative", correctOption: "B", explanation: "An upward-sloping curve under pure expectations implies expected increases in future short rates.", orderIndex: 11 },
+
+  // Credit default swaps
+  { id: "cfa2-fixed-income-cds-q01", topicId: "cfa2-fixed-income-cds", text: "In a CDS, the protection buyer:", optionA: "Receives a premium and pays on default", optionB: "Pays a periodic premium and is compensated on a credit event", optionC: "Owns the reference bond always", optionD: "Sets the recovery rate", correctOption: "B", explanation: "The buyer pays the CDS spread and receives a payout if the reference entity has a credit event.", orderIndex: 0 },
+  { id: "cfa2-fixed-income-cds-q02", topicId: "cfa2-fixed-income-cds", text: "A CDS payout on default is approximately notional times:", optionA: "The recovery rate", optionB: "(1 − recovery rate)", optionC: "The coupon", optionD: "Duration", correctOption: "B", explanation: "The protection payment compensates for loss given default = notional × (1 − recovery).", orderIndex: 1 },
+  { id: "cfa2-fixed-income-cds-q03", topicId: "cfa2-fixed-income-cds", text: "Buying CDS protection is economically similar to:", optionA: "Going long the credit", optionB: "Going short the credit (shorting the bond)", optionC: "Buying equity", optionD: "Lending risk-free", correctOption: "B", explanation: "Protection buyers profit when credit deteriorates, equivalent to a short credit position.", orderIndex: 2 },
+  { id: "cfa2-fixed-income-cds-q04", topicId: "cfa2-fixed-income-cds", text: "Which is a standard CDS credit event?", optionA: "A dividend increase", optionB: "Bankruptcy, failure to pay, or restructuring", optionC: "A stock split", optionD: "A rating upgrade", correctOption: "B", explanation: "Defined credit events typically include bankruptcy, failure to pay, and (sometimes) restructuring.", orderIndex: 3 },
+  { id: "cfa2-fixed-income-cds-q05", topicId: "cfa2-fixed-income-cds", text: "The CDS upfront payment is approximately:", optionA: "(CDS spread − coupon) × duration", optionB: "Notional × coupon", optionC: "Recovery × notional", optionD: "Zero always", correctOption: "A", explanation: "Because CDS trade with standard coupons, the spread/coupon difference is settled upfront, scaled by duration.", orderIndex: 4 },
+  { id: "cfa2-fixed-income-cds-q06", topicId: "cfa2-fixed-income-cds", text: "A single-name CDS references:", optionA: "A basket of issuers", optionB: "One specific issuer", optionC: "An equity index", optionD: "A currency", correctOption: "B", explanation: "Single-name CDS cover one reference entity; index CDS (CDX/iTraxx) cover a basket.", orderIndex: 5 },
+  { id: "cfa2-fixed-income-cds-q07", topicId: "cfa2-fixed-income-cds", text: "The CDS spread is approximately equal to:", optionA: "Hazard rate × (1 − recovery)", optionB: "The risk-free rate", optionC: "Duration × convexity", optionD: "The coupon rate", correctOption: "A", explanation: "Intuitively the spread compensates for expected loss ≈ default intensity × loss given default.", orderIndex: 6 },
+  { id: "cfa2-fixed-income-cds-q08", topicId: "cfa2-fixed-income-cds", text: "As a reference entity's credit quality worsens, the value of a long-protection CDS position:", optionA: "Falls", optionB: "Rises", optionC: "Is unchanged", optionD: "Goes to zero", correctOption: "B", explanation: "Widening spreads increase the mark-to-market value to the protection buyer.", orderIndex: 7 },
+  { id: "cfa2-fixed-income-cds-q09", topicId: "cfa2-fixed-income-cds", text: "Index CDS products such as CDX and iTraxx allow investors to:", optionA: "Trade a single bond", optionB: "Take diversified credit exposure across many names", optionC: "Buy equities", optionD: "Hedge currency only", correctOption: "B", explanation: "Index CDS give efficient long/short exposure to a basket of credits.", orderIndex: 8 },
+  { id: "cfa2-fixed-income-cds-q10", topicId: "cfa2-fixed-income-cds", text: "The CDS-cash basis is the difference between the CDS spread and the:", optionA: "Coupon", optionB: "Cash bond's credit spread", optionC: "Risk-free rate", optionD: "Dividend yield", correctOption: "B", explanation: "The basis compares the CDS spread to the same issuer's cash-bond spread; deviations create relative-value trades.", orderIndex: 9 },
+  { id: "cfa2-fixed-income-cds-q11", topicId: "cfa2-fixed-income-cds", text: "A bond investor worried about default can hedge by:", optionA: "Selling CDS protection", optionB: "Buying CDS protection on the issuer", optionC: "Buying more of the bond", optionD: "Shorting Treasuries", correctOption: "B", explanation: "Buying protection offsets the credit risk of the held bond.", orderIndex: 10 },
+  { id: "cfa2-fixed-income-cds-q12", topicId: "cfa2-fixed-income-cds", text: "CDS enable 'synthetic' credit exposure because they let investors take a view:", optionA: "Only by owning the bond", optionB: "Without buying or shorting the underlying bond", optionC: "On equities only", optionD: "Risk-free", correctOption: "B", explanation: "Selling or buying protection creates long/short credit exposure without trading the cash bond.", orderIndex: 11 },
+
+  // Forwards & futures pricing
+  { id: "cfa2-derivatives-forwards-futures-q01", topicId: "cfa2-derivatives-forwards-futures", text: "Ignoring income and costs, the no-arbitrage forward price is:", optionA: "S₀ / (1 + r)^T", optionB: "S₀ × (1 + r)^T", optionC: "S₀ − r", optionD: "S₀ × r × T", correctOption: "B", explanation: "Cost-of-carry: F₀ = S₀(1 + r)^T compounds the spot at the risk-free rate to delivery.", orderIndex: 0 },
+  { id: "cfa2-derivatives-forwards-futures-q02", topicId: "cfa2-derivatives-forwards-futures", text: "Carry benefits such as dividends or coupons ____ the forward price.", optionA: "Raise", optionB: "Lower", optionC: "Do not affect", optionD: "Double", correctOption: "B", explanation: "Income accruing to the asset reduces the cost of carry, lowering the forward price.", orderIndex: 1 },
+  { id: "cfa2-derivatives-forwards-futures-q03", topicId: "cfa2-derivatives-forwards-futures", text: "Carry costs such as storage ____ the forward price.", optionA: "Lower", optionB: "Raise", optionC: "Do not affect", optionD: "Eliminate", correctOption: "B", explanation: "Storage and similar costs add to carry, increasing the forward price.", orderIndex: 2 },
+  { id: "cfa2-derivatives-forwards-futures-q04", topicId: "cfa2-derivatives-forwards-futures", text: "At initiation, the value of a forward contract is:", optionA: "Equal to the spot", optionB: "Zero", optionC: "Equal to the forward price", optionD: "Negative", correctOption: "B", explanation: "The forward price is set so neither party pays at inception; the contract's value starts at zero.", orderIndex: 3 },
+  { id: "cfa2-derivatives-forwards-futures-q05", topicId: "cfa2-derivatives-forwards-futures", text: "The main difference between futures and forwards is that futures are:", optionA: "Customized and OTC", optionB: "Standardized, exchange-traded and marked-to-market daily", optionC: "Free of margin", optionD: "Settled only at maturity", correctOption: "B", explanation: "Futures are standardized, cleared, and margined with daily settlement, reducing counterparty risk.", orderIndex: 4 },
+  { id: "cfa2-derivatives-forwards-futures-q06", topicId: "cfa2-derivatives-forwards-futures", text: "'Contango' describes a market where futures prices are:", optionA: "Below spot", optionB: "Above spot", optionC: "Equal to spot", optionD: "Negative", correctOption: "B", explanation: "Contango: futures > spot, typical when carry costs dominate convenience yield.", orderIndex: 5 },
+  { id: "cfa2-derivatives-forwards-futures-q07", topicId: "cfa2-derivatives-forwards-futures", text: "'Backwardation' occurs when futures prices are:", optionA: "Above spot", optionB: "Below spot", optionC: "Equal to spot", optionD: "Zero", correctOption: "B", explanation: "Backwardation: futures < spot, often due to a high convenience yield/benefits.", orderIndex: 6 },
+  { id: "cfa2-derivatives-forwards-futures-q08", topicId: "cfa2-derivatives-forwards-futures", text: "The value of a forward before expiry is approximately:", optionA: "(F_t − F₀) discounted to today", optionB: "S₀ × r", optionC: "The coupon", optionD: "Always zero", correctOption: "A", explanation: "The forward's mark-to-market value is the PV of the difference between the current and contracted forward prices.", orderIndex: 7 },
+  { id: "cfa2-derivatives-forwards-futures-q09", topicId: "cfa2-derivatives-forwards-futures", text: "A convenience yield on a commodity behaves like a:", optionA: "Carry cost (raises the forward)", optionB: "Carry benefit (lowers the forward)", optionC: "Tax", optionD: "Margin call", correctOption: "B", explanation: "The convenience yield is a benefit of holding the physical asset, reducing the forward price.", orderIndex: 8 },
+  { id: "cfa2-derivatives-forwards-futures-q10", topicId: "cfa2-derivatives-forwards-futures", text: "Daily mark-to-market on futures introduces, relative to forwards:", optionA: "Counterparty risk", optionB: "Interim cash flows (margin variation) that can cause a small price difference", optionC: "No difference at all", optionD: "Higher credit risk", correctOption: "B", explanation: "When rates correlate with the asset, the timing of margin cash flows makes futures and forward prices differ slightly.", orderIndex: 9 },
+  { id: "cfa2-derivatives-forwards-futures-q11", topicId: "cfa2-derivatives-forwards-futures", text: "If the observed forward price exceeds the no-arbitrage price, an arbitrageur would:", optionA: "Buy the forward and the asset", optionB: "Sell the forward and buy the underlying (cash-and-carry)", optionC: "Do nothing", optionD: "Short the underlying only", correctOption: "B", explanation: "An overpriced forward is sold while buying/holding the underlying — a cash-and-carry arbitrage.", orderIndex: 10 },
+  { id: "cfa2-derivatives-forwards-futures-q12", topicId: "cfa2-derivatives-forwards-futures", text: "With continuous compounding, the forward price is:", optionA: "S₀ × e^(rT) adjusted for carry", optionB: "S₀ − rT", optionC: "S₀ / r", optionD: "S₀ × r", correctOption: "A", explanation: "Under continuous compounding, F₀ = S₀·e^((r − income + cost)T).", orderIndex: 11 },
+
+  // Income taxes (deferred tax)
+  { id: "cfa2-financial-reporting-income-taxes-q01", topicId: "cfa2-financial-reporting-income-taxes", text: "A deferred tax liability arises when taxable income is currently ____ accounting income.", optionA: "Greater than", optionB: "Less than", optionC: "Equal to", optionD: "Unrelated to", correctOption: "B", explanation: "When tax paid now is lower than book tax expense (e.g., accelerated tax depreciation), a DTL builds up.", orderIndex: 0 },
+  { id: "cfa2-financial-reporting-income-taxes-q02", topicId: "cfa2-financial-reporting-income-taxes", text: "A temporary difference is one that:", optionA: "Never reverses", optionB: "Reverses in future periods, creating a DTA or DTL", optionC: "Affects only the effective tax rate", optionD: "Is a permanent exemption", correctOption: "B", explanation: "Temporary differences reverse over time and give rise to deferred tax assets/liabilities.", orderIndex: 1 },
+  { id: "cfa2-financial-reporting-income-taxes-q03", topicId: "cfa2-financial-reporting-income-taxes", text: "Tax-exempt interest income is an example of a:", optionA: "Temporary difference", optionB: "Permanent difference", optionC: "Deferred tax asset", optionD: "Deferred tax liability", correctOption: "B", explanation: "Permanent differences (like tax-exempt income) never reverse and alter the effective tax rate, not deferred taxes.", orderIndex: 2 },
+  { id: "cfa2-financial-reporting-income-taxes-q04", topicId: "cfa2-financial-reporting-income-taxes", text: "A net operating loss carryforward typically creates a:", optionA: "Deferred tax liability", optionB: "Deferred tax asset", optionC: "Permanent difference", optionD: "Goodwill", correctOption: "B", explanation: "Loss carryforwards can offset future taxable income, so they are recognized as deferred tax assets.", orderIndex: 3 },
+  { id: "cfa2-financial-reporting-income-taxes-q05", topicId: "cfa2-financial-reporting-income-taxes", text: "Under US GAAP, a valuation allowance is recorded against a DTA when:", optionA: "Realization is more likely than not to fail", optionB: "The DTA will certainly be used", optionC: "There is a DTL", optionD: "Tax rates rise", correctOption: "A", explanation: "A valuation allowance reduces a DTA to the amount expected to be realized when realization is doubtful.", orderIndex: 4 },
+  { id: "cfa2-financial-reporting-income-taxes-q06", topicId: "cfa2-financial-reporting-income-taxes", text: "Accelerated depreciation for tax versus straight-line for books initially produces a:", optionA: "Deferred tax asset", optionB: "Deferred tax liability", optionC: "Permanent difference", optionD: "No difference", correctOption: "B", explanation: "Higher early tax depreciation lowers current taxable income relative to book, creating a DTL that reverses later.", orderIndex: 5 },
+  { id: "cfa2-financial-reporting-income-taxes-q07", topicId: "cfa2-financial-reporting-income-taxes", text: "A reduction in the statutory tax rate will, for a company with a net DTL:", optionA: "Increase the DTL", optionB: "Decrease the DTL (a one-time gain to tax expense)", optionC: "Have no effect", optionD: "Create a DTA", correctOption: "B", explanation: "Remeasuring a DTL at a lower rate reduces it, lowering income tax expense in the period of change.", orderIndex: 6 },
+  { id: "cfa2-financial-reporting-income-taxes-q08", topicId: "cfa2-financial-reporting-income-taxes", text: "Income tax expense equals taxes payable plus:", optionA: "ΔDTL − ΔDTA", optionB: "ΔDTA − ΔDTL", optionC: "Dividends", optionD: "Depreciation", correctOption: "A", explanation: "Tax expense = current taxes payable + the change in deferred tax liabilities − the change in deferred tax assets.", orderIndex: 7 },
+  { id: "cfa2-financial-reporting-income-taxes-q09", topicId: "cfa2-financial-reporting-income-taxes", text: "For analysis, a DTL expected to keep growing and never reverse is often treated as:", optionA: "Debt", optionB: "Equity", optionC: "A current asset", optionD: "Revenue", correctOption: "B", explanation: "If a DTL is not expected to reverse, analysts may reclassify it toward equity rather than a liability.", orderIndex: 8 },
+  { id: "cfa2-financial-reporting-income-taxes-q10", topicId: "cfa2-financial-reporting-income-taxes", text: "Permanent differences affect a company's:", optionA: "Deferred tax balances", optionB: "Effective tax rate", optionC: "Revenue recognition", optionD: "Inventory method", correctOption: "B", explanation: "Because they never reverse, permanent differences change the effective tax rate, not deferred taxes.", orderIndex: 9 },
+  { id: "cfa2-financial-reporting-income-taxes-q11", topicId: "cfa2-financial-reporting-income-taxes", text: "A warranty expense accrued for books but deductible only when paid creates a:", optionA: "Deferred tax liability", optionB: "Deferred tax asset", optionC: "Permanent difference", optionD: "Goodwill", correctOption: "B", explanation: "Book expense recognized before the tax deduction means more tax is paid now, creating a DTA that reverses when paid.", orderIndex: 10 },
+  { id: "cfa2-financial-reporting-income-taxes-q12", topicId: "cfa2-financial-reporting-income-taxes", text: "Deferred tax assets and liabilities are measured using the:", optionA: "Historical tax rate", optionB: "Tax rate expected to apply when the difference reverses", optionC: "Risk-free rate", optionD: "Average industry rate", correctOption: "B", explanation: "Deferred taxes use the enacted/expected future tax rate applicable when the temporary difference reverses.", orderIndex: 11 }
 ];
