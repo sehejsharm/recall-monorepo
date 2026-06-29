@@ -2,7 +2,8 @@
   "expo": {
     "name": "Recall",
     "slug": "jyotir",
-    "version": "0.1.0",
+    "version": "1.0.0",
+    "description": "Active-recall exam drilling with spaced repetition for UPSC, JEE, NEET, SSC CGL, GATE, CFA and FRM.",
     "scheme": "recall",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
@@ -31,6 +32,7 @@
       [
         "expo-notifications",
         {
+          "icon": "./assets/notification-icon.png",
           "color": "#10B981"
         }
       ]

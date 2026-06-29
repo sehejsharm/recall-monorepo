@@ -1,14 +1,25 @@
 # Store submission runbook — Recall
 
 This is everything needed to ship the Expo app (`apps/mobile`) to the Google
-Play Store and Apple App Store. Code, icons, splash and EAS profiles are ready;
-the steps below are the account-gated actions only you can perform.
+Play Store and Apple App Store. Code, icons, splash and EAS profiles are ready
+(app version **1.0.0**); the steps below are the account-gated actions only you
+can perform.
 
 ## 0. One-time prerequisites
 - **Expo account** (free): https://expo.dev — run `npx expo login`.
 - **Apple Developer Program** ($99/yr): https://developer.apple.com/programs/
 - **Google Play Developer** ($25 one-time): https://play.google.com/console/signup
 - Install the CLI: `npm i -g eas-cli` then `eas login`.
+
+## 0.5 Preflight (run anytime)
+From the repo root:
+```
+pnpm preflight:store
+```
+Checks app config, asset sizes/alpha rules, and which `eas submit` placeholders
+still need your accounts. All code/config checks pass today; the only warnings
+are the account-gated items below (EAS projectId, Apple IDs, Play service
+account). It exits non-zero only on hard failures, so it's safe to gate CI on.
 
 ## 1. Link the EAS project
 From `apps/mobile`:
@@ -73,3 +84,12 @@ screenshot.)
   sign-in, you must also add Sign in with Apple.
 - Account deletion: in-app instructions point to the support email (see PRIVACY.md).
 - Encryption: `ITSAppUsesNonExemptEncryption=false` is already set.
+- **Notifications:** the app does not fire the system permission prompt on
+  launch. The first-run onboarding has a dedicated "Never miss a day" screen
+  with an explicit "Enable daily reminder" button (and a "Maybe later" decline);
+  permission is only requested on that tap. Notifications are a single optional
+  local daily reminder — no push server, no marketing. This satisfies the
+  App Store guideline against unprompted permission requests.
+- **Content:** fully bundled and offline — ~3,000 questions across 7 exams
+  (CFA and FRM each cover 10 topic areas / 60 readings / 520 questions). No
+  user-generated content and no moderation surface.

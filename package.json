@@ -9,7 +9,8 @@
     "build": "turbo build",
     "test": "turbo test",
     "typecheck": "turbo typecheck",
-    "seed:generate": "tsx scripts/generate-seed.ts"
+    "seed:generate": "tsx scripts/generate-seed.ts",
+    "preflight:store": "node scripts/preflight-store.mjs"
   },
   "devDependencies": {
     "@jyotir/content": "workspace:*",
