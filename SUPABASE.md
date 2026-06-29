@@ -13,13 +13,29 @@ Takes ~10 minutes on the free tier.
 
 ## 2. Create the schema + seed the content
 
-**One paste (recommended):** open **SQL Editor → New query**, paste the entire
-contents of [`supabase/setup.sql`](supabase/setup.sql) and click **Run**. That
-single file runs every migration (content schema + the social/leaderboard
-schema) and inserts all exams, micro-notes and questions. It is fully
-idempotent — **re-run it after any content or schema update** (you'll see
-harmless `NOTICE … skipping` lines). It also creates the leaderboard,
-exam-requests and contact tables used by the in-app social features.
+> ⚠️ **`setup.sql` is too large for the SQL Editor** (it embeds ~3,200
+> questions, ~14k lines → "Query is too large to be run via the SQL Editor").
+> Use one of the two paths below instead.
+
+**Path A — schema only, paste-able (fastest; enables sign-in + leaderboards):**
+open **SQL Editor → New query**, paste [`supabase/schema.sql`](supabase/schema.sql)
+(~350 lines) and **Run**. This creates every table, RLS policy, view and
+leaderboard RPC. Sign-in, global and per-exam leaderboards work immediately.
+*(Cross-device progress sync also needs the content seeded — Path B — because
+`user_progress.question_id` has a foreign key to `questions`.)*
+
+**Path B — full schema + content seed via `psql` (no size limit):** the content
+is bundled in the app already, so Path A is enough to launch; do this when you
+want server-side content + progress sync. From the repo root, using your
+**direct** connection string (Settings → Database):
+
+```bash
+psql "postgresql://postgres:[YOUR-PASSWORD]@db.uhssdbbgyrdmhljzneyv.supabase.co:5432/postgres" \
+  -f supabase/setup.sql
+```
+
+(or `supabase link --project-ref uhssdbbgyrdmhljzneyv && supabase db push`).
+`setup.sql` is fully idempotent — **re-run after any content/schema update**.
 
 <details>
 <summary>Or run the two files separately</summary>
