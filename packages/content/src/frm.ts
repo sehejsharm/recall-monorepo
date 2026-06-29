@@ -1,5 +1,6 @@
-import { defineBundle } from "./builder";
-import type { Question } from "@jyotir/core";
+import { defineProgram } from "./builder";
+import type { AuthoredMaterial } from "./builder";
+import type { Question, Subject, Topic } from "@jyotir/core";
 import { expansionTopics as frmExp1Topics, expansionMaterials as frmExp1Materials, expansionQuestions as frmExp1Questions } from "./frm-exp-1";
 import { expansionTopics as frmExp2Topics, expansionMaterials as frmExp2Materials, expansionQuestions as frmExp2Questions } from "./frm-exp-2";
 import { expansionTopics as frmExp3Topics, expansionMaterials as frmExp3Materials, expansionQuestions as frmExp3Questions } from "./frm-exp-3";
@@ -7,15 +8,7 @@ import { expansionTopics as frmExp4Topics, expansionMaterials as frmExp4Material
 import { expansionTopics as frmExp5Topics, expansionMaterials as frmExp5Materials, expansionQuestions as frmExp5Questions } from "./frm-exp-5";
 import { expansionTopics as frmExp6Topics, expansionMaterials as frmExp6Materials, expansionQuestions as frmExp6Questions } from "./frm-exp-6";
 
-export const frm = defineBundle({
-  exam: {
-    id: "frm",
-    slug: "frm",
-    name: "FRM (GARP)",
-    tagline: "Risk Management · Market · Credit · Operational · Quant",
-    orderIndex: 6
-  },
-  subjects: [
+const allSubjects: Subject[] = [
     { id: "frm-foundations", examId: "frm", name: "Foundations of Risk Management", slug: "foundations", orderIndex: 0 },
     { id: "frm-quantitative-analysis", examId: "frm", name: "Quantitative Analysis", slug: "quantitative-analysis", orderIndex: 1 },
     { id: "frm-financial-markets", examId: "frm", name: "Financial Markets & Products", slug: "financial-markets", orderIndex: 2 },
@@ -26,8 +19,9 @@ export const frm = defineBundle({
     { id: "frm-liquidity-risk", examId: "frm", name: "Liquidity & Treasury Risk", slug: "liquidity-risk", orderIndex: 7 },
     { id: "frm-investment-risk", examId: "frm", name: "Risk Management in Investment", slug: "investment-risk", orderIndex: 8 },
     { id: "frm-current-issues", examId: "frm", name: "Current Issues in Risk", slug: "current-issues", orderIndex: 9 }
-  ],
-  topics: [
+];
+
+const allTopics: Topic[] = [
     {
       id: "frm-foundations-risk-management-capm",
       subjectId: "frm-foundations",
@@ -104,8 +98,9 @@ export const frm = defineBundle({
     ...frmExp4Topics,
     ...frmExp5Topics,
     ...frmExp6Topics
-  ],
-  materials: [
+];
+
+const allMaterials: AuthoredMaterial[] = [
     {
       id: "frm-foundations-risk-management-capm-m01",
       topicId: "frm-foundations-risk-management-capm",
@@ -513,8 +508,9 @@ Leverage ratio = Tier 1 capital / Total exposure >= 3%
     ...frmExp4Materials,
     ...frmExp5Materials,
     ...frmExp6Materials
-  ],
-  questions: [
+];
+
+const allQuestions: Question[] = [
     {
       id: "frm-foundations-risk-management-capm-q01",
       topicId: "frm-foundations-risk-management-capm",
@@ -1481,5 +1477,45 @@ Leverage ratio = Tier 1 capital / Total exposure >= 3%
     ...(frmExp4Questions as Question[]),
     ...(frmExp5Questions as Question[]),
     ...(frmExp6Questions as Question[])
-  ]
-});
+];
+
+const frmBundles = defineProgram(
+  [
+    {
+      exam: {
+        id: "frm-1",
+        slug: "frm-1",
+        name: "FRM Part I",
+        tagline: "Foundations · Quant · Markets & Products · Valuation models",
+        orderIndex: 8
+      },
+      subjectIds: [
+        "frm-foundations",
+        "frm-quantitative-analysis",
+        "frm-financial-markets",
+        "frm-valuation-risk-models"
+      ]
+    },
+    {
+      exam: {
+        id: "frm-2",
+        slug: "frm-2",
+        name: "FRM Part II",
+        tagline: "Market · Credit · Operational · Liquidity · Investment risk",
+        orderIndex: 9
+      },
+      subjectIds: [
+        "frm-market-risk",
+        "frm-credit-risk",
+        "frm-operational-risk",
+        "frm-liquidity-risk",
+        "frm-investment-risk",
+        "frm-current-issues"
+      ]
+    }
+  ],
+  { subjects: allSubjects, topics: allTopics, materials: allMaterials, questions: allQuestions }
+);
+
+export const frmPart1 = frmBundles[0]!;
+export const frmPart2 = frmBundles[1]!;

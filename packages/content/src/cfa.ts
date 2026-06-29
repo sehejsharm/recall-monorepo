@@ -7,25 +7,25 @@ import { expansionTopics as cfaExp4Topics, expansionMaterials as cfaExp4Material
 import { expansionTopics as cfaExp5Topics, expansionMaterials as cfaExp5Materials, expansionQuestions as cfaExp5Questions } from "./cfa-exp-5";
 import { expansionTopics as cfaExp6Topics, expansionMaterials as cfaExp6Materials, expansionQuestions as cfaExp6Questions } from "./cfa-exp-6";
 
-export const cfa = defineBundle({
+export const cfaLevel1 = defineBundle({
   exam: {
-    id: "cfa",
-    slug: "cfa",
-    name: "CFA Program",
-    tagline: "Ethics · Equity · Fixed Income · Derivatives · Portfolio Management",
+    id: "cfa-1",
+    slug: "cfa-1",
+    name: "CFA Level I",
+    tagline: "Foundations: Ethics · FRA · Equity · Fixed Income · Derivatives",
     orderIndex: 5
   },
   subjects: [
-    { id: "cfa-ethics", examId: "cfa", name: "Ethics & Professional Standards", slug: "ethics", orderIndex: 0 },
-    { id: "cfa-quantitative-methods", examId: "cfa", name: "Quantitative Methods", slug: "quantitative-methods", orderIndex: 1 },
-    { id: "cfa-economics", examId: "cfa", name: "Economics", slug: "economics", orderIndex: 2 },
-    { id: "cfa-financial-reporting", examId: "cfa", name: "Financial Statement Analysis", slug: "financial-reporting", orderIndex: 3 },
-    { id: "cfa-corporate-issuers", examId: "cfa", name: "Corporate Issuers", slug: "corporate-issuers", orderIndex: 4 },
-    { id: "cfa-equity", examId: "cfa", name: "Equity Investments", slug: "equity", orderIndex: 5 },
-    { id: "cfa-fixed-income", examId: "cfa", name: "Fixed Income", slug: "fixed-income", orderIndex: 6 },
-    { id: "cfa-derivatives", examId: "cfa", name: "Derivatives", slug: "derivatives", orderIndex: 7 },
-    { id: "cfa-alternative-investments", examId: "cfa", name: "Alternative Investments", slug: "alternative-investments", orderIndex: 8 },
-    { id: "cfa-portfolio-management", examId: "cfa", name: "Portfolio Management", slug: "portfolio-management", orderIndex: 9 }
+    { id: "cfa-ethics", examId: "cfa-1", name: "Ethics & Professional Standards", slug: "ethics", orderIndex: 0 },
+    { id: "cfa-quantitative-methods", examId: "cfa-1", name: "Quantitative Methods", slug: "quantitative-methods", orderIndex: 1 },
+    { id: "cfa-economics", examId: "cfa-1", name: "Economics", slug: "economics", orderIndex: 2 },
+    { id: "cfa-financial-reporting", examId: "cfa-1", name: "Financial Statement Analysis", slug: "financial-reporting", orderIndex: 3 },
+    { id: "cfa-corporate-issuers", examId: "cfa-1", name: "Corporate Issuers", slug: "corporate-issuers", orderIndex: 4 },
+    { id: "cfa-equity", examId: "cfa-1", name: "Equity Investments", slug: "equity", orderIndex: 5 },
+    { id: "cfa-fixed-income", examId: "cfa-1", name: "Fixed Income", slug: "fixed-income", orderIndex: 6 },
+    { id: "cfa-derivatives", examId: "cfa-1", name: "Derivatives", slug: "derivatives", orderIndex: 7 },
+    { id: "cfa-alternative-investments", examId: "cfa-1", name: "Alternative Investments", slug: "alternative-investments", orderIndex: 8 },
+    { id: "cfa-portfolio-management", examId: "cfa-1", name: "Portfolio Management", slug: "portfolio-management", orderIndex: 9 }
   ],
   topics: [
     {

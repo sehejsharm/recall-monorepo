@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ACHIEVEMENTS, isStreakActive, levelProgress, RANKS } from "@jyotir/core";
 import { useJyotir } from "@/lib/store-provider";
+import { repo } from "@/lib/content";
 import { BottomNav } from "@/components/BottomNav";
 
 function Stat({ label, value, accent }: { label: string; value: string | number; accent?: boolean }) {
@@ -23,6 +24,14 @@ export default function StatsScreen() {
   const lp = levelProgress(stats.xp);
   const unlocked = new Set(stats.achievements);
   const nextRank = RANKS[Math.min(lp.level, RANKS.length - 1)];
+
+  // Per-exam gamification: rank + level for each exam the user has drilled,
+  // derived from the locally-tracked per-exam XP. Highest XP first.
+  const examName = new Map(repo.exams().map((e) => [e.id, e.name]));
+  const perExam = Object.entries(stats.examXp ?? {})
+    .filter(([, xp]) => xp > 0)
+    .map(([id, xp]) => ({ id, name: examName.get(id) ?? id, xp, lp: levelProgress(xp) }))
+    .sort((a, b) => b.xp - a.xp);
 
   return (
     <SafeAreaView className="flex-1 bg-oled">
@@ -68,6 +77,41 @@ export default function StatsScreen() {
               <Stat label="Longest" value={stats.longestStreak} />
               <Stat label="Status" value={isStreakActive(stats) ? "Alive" : "Resting"} />
             </View>
+
+            {perExam.length > 0 && (
+              <>
+                <Text className="mb-3 text-sm font-semibold text-ink">By exam</Text>
+                <View className="mb-6 gap-2">
+                  {perExam.map((e) => (
+                    <View
+                      key={e.id}
+                      className="rounded-xl border border-edge bg-surface px-4 py-3"
+                    >
+                      <View className="flex-row items-center justify-between">
+                        <Text className="flex-1 pr-2 text-sm font-semibold text-ink" numberOfLines={1}>
+                          {e.name}
+                        </Text>
+                        <Text className="text-xs font-semibold text-faint">
+                          Lv {e.lp.level} · {e.lp.rank}
+                        </Text>
+                      </View>
+                      <View className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-raised">
+                        <View
+                          className="h-full rounded-full bg-correct"
+                          style={{ width: `${e.lp.pct}%` }}
+                        />
+                      </View>
+                      <View className="mt-1 flex-row justify-between">
+                        <Text className="text-[10px] text-faint">{e.xp} XP</Text>
+                        <Text className="text-[10px] text-faint">
+                          {e.lp.toNext} XP to Lv {e.lp.level + 1}
+                        </Text>
+                      </View>
+                    </View>
+                  ))}
+                </View>
+              </>
+            )}
 
             <Text className="mb-3 text-sm font-semibold text-ink">
               Achievements{" "}

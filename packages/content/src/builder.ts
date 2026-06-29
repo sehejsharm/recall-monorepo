@@ -72,3 +72,51 @@ export function defineBundle(raw: RawExamBundle): ExamBundle {
 
   return { ...raw, materials };
 }
+
+/** A single track within a multi-level program (e.g. CFA Level I). */
+export interface ProgramTrack {
+  exam: Exam;
+  /** Subject ids (from the combined pool) that belong to this track. */
+  subjectIds: string[];
+}
+
+export interface ProgramPool {
+  subjects: Subject[];
+  topics: Topic[];
+  materials: AuthoredMaterial[];
+  questions: Question[];
+}
+
+/**
+ * Splits one combined content pool into several per-track bundles (one exam
+ * each), partitioning subjects/topics/materials/questions by subject
+ * membership and re-stamping each subject's examId to its track. Each track
+ * is run through defineBundle, so referential integrity is still enforced and
+ * every subject must be claimed by exactly one track.
+ */
+export function defineProgram(tracks: ProgramTrack[], pool: ProgramPool): ExamBundle[] {
+  const claimed = new Map<string, string>(); // subjectId -> examId
+  for (const { exam, subjectIds } of tracks) {
+    for (const id of subjectIds) {
+      if (claimed.has(id)) {
+        throw new Error(`[content] subject ${id} claimed by both ${claimed.get(id)} and ${exam.id}`);
+      }
+      claimed.set(id, exam.id);
+    }
+  }
+  for (const s of pool.subjects) {
+    if (!claimed.has(s.id)) throw new Error(`[content] subject ${s.id} not assigned to any track`);
+  }
+
+  return tracks.map(({ exam, subjectIds }) => {
+    const ids = new Set(subjectIds);
+    const subjects = pool.subjects
+      .filter((s) => ids.has(s.id))
+      .map((s) => ({ ...s, examId: exam.id }));
+    const topics = pool.topics.filter((t) => ids.has(t.subjectId));
+    const topicIds = new Set(topics.map((t) => t.id));
+    const materials = pool.materials.filter((m) => topicIds.has(m.topicId));
+    const questions = pool.questions.filter((q) => topicIds.has(q.topicId));
+    return defineBundle({ exam, subjects, topics, materials, questions });
+  });
+}
