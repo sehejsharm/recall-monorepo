@@ -50,7 +50,22 @@ export const expTopics: Topic[] = [
   { id: "cfa3-performance-attribution-approaches", subjectId: "cfa3-performance", name: "Return Attribution Approaches", slug: "attribution-approaches", orderIndex: 2 },
   { id: "cfa3-performance-risk-attribution", subjectId: "cfa3-performance", name: "Risk Attribution", slug: "risk-attribution", orderIndex: 3 },
   { id: "cfa3-performance-benchmarks", subjectId: "cfa3-performance", name: "Benchmarks & Benchmark Quality", slug: "benchmarks", orderIndex: 4 },
-  { id: "cfa3-performance-appraisal", subjectId: "cfa3-performance", name: "Manager Continuation & Appraisal", slug: "appraisal", orderIndex: 5 }
+  { id: "cfa3-performance-appraisal", subjectId: "cfa3-performance", name: "Manager Continuation & Appraisal", slug: "appraisal", orderIndex: 5 },
+  { id: "cfa3-private-wealth-ips", subjectId: "cfa3-private-wealth", name: "Individual IPS & Goals", slug: "ips", orderIndex: 1 },
+  { id: "cfa3-private-wealth-human-capital", subjectId: "cfa3-private-wealth", name: "Human Capital & Life-Cycle Investing", slug: "human-capital", orderIndex: 2 },
+  { id: "cfa3-private-wealth-tax-efficiency", subjectId: "cfa3-private-wealth", name: "Tax-Efficient Investing & Asset Location", slug: "tax-efficiency", orderIndex: 3 },
+  { id: "cfa3-private-wealth-estate-planning", subjectId: "cfa3-private-wealth", name: "Estate Planning & Wealth Transfer", slug: "estate-planning", orderIndex: 4 },
+  { id: "cfa3-private-wealth-risk-insurance", subjectId: "cfa3-private-wealth", name: "Risk Management for Individuals", slug: "risk-insurance", orderIndex: 5 },
+  { id: "cfa3-institutional-db-pension", subjectId: "cfa3-institutional", name: "Defined-Benefit Pension Management", slug: "db-pension", orderIndex: 1 },
+  { id: "cfa3-institutional-foundations", subjectId: "cfa3-institutional", name: "Foundations & Endowments IPS", slug: "foundations", orderIndex: 2 },
+  { id: "cfa3-institutional-insurance", subjectId: "cfa3-institutional", name: "Insurance Companies", slug: "insurance", orderIndex: 3 },
+  { id: "cfa3-institutional-banks", subjectId: "cfa3-institutional", name: "Banks & Asset-Liability Management", slug: "banks", orderIndex: 4 },
+  { id: "cfa3-institutional-sovereign", subjectId: "cfa3-institutional", name: "Sovereign Wealth Funds", slug: "sovereign", orderIndex: 5 },
+  { id: "cfa3-ethics-code-standards", subjectId: "cfa3-ethics", name: "Code of Ethics & the Seven Standards", slug: "code-standards", orderIndex: 1 },
+  { id: "cfa3-ethics-professionalism", subjectId: "cfa3-ethics", name: "Professionalism & Market Integrity (I & II)", slug: "professionalism", orderIndex: 2 },
+  { id: "cfa3-ethics-duties-clients", subjectId: "cfa3-ethics", name: "Duties to Clients (Standard III)", slug: "duties-clients", orderIndex: 3 },
+  { id: "cfa3-ethics-conflicts", subjectId: "cfa3-ethics", name: "Conflicts & Priority of Transactions (VI)", slug: "conflicts", orderIndex: 4 },
+  { id: "cfa3-ethics-application-cases", subjectId: "cfa3-ethics", name: "Application of the Code & Standards", slug: "application-cases", orderIndex: 5 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -802,6 +817,297 @@ Active return comes from **factor (rewarded) exposures** + **idiosyncratic (secu
 - Short, volatile records make skill hard to confirm statistically; weight **process and operational** quality, not just past returns.`,
     estimatedReadTime: 2,
     orderIndex: 5
+  },
+  {
+    id: "cfa3-private-wealth-ips-m01",
+    topicId: "cfa3-private-wealth-ips",
+    title: "Individual IPS & Goals",
+    content: `An individual IPS = **objectives + constraints**, like institutions, but with personal nuances.
+
+## Objectives
+- **Return**: derived from goals (retirement, education, bequest) — solve for the required return given spending and horizon.
+- **Risk**: combine **ability** (wealth vs. needs, horizon, flexibility) and **willingness** (psychological) — use the **lower**, then educate.
+
+## Constraints (T-T-L-L-U)
+- **Time horizon** (often multi-stage: pre- and post-retirement), **Taxes** (a major individual factor), **Liquidity** (spending, emergencies, large purchases), **Legal/regulatory** (trusts, jurisdiction), **Unique** (ESG, concentrated stock, illiquid business).
+
+## Distinctive features
+- **Goals-based** framing; **human capital** and **mortality/longevity** risk shape allocation and insurance.
+- Multi-stage horizons and changing circumstances mean the IPS is **reviewed regularly**.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa3-private-wealth-human-capital-m01",
+    topicId: "cfa3-private-wealth-human-capital",
+    title: "Human Capital & Life-Cycle Investing",
+    content: `**Total wealth = financial capital + human capital** (the present value of future labor income).
+
+## Implications
+- **Bond-like human capital** (stable salary, e.g. tenured professor) → tilt financial assets **toward equities**.
+- **Equity-like human capital** (volatile, correlated with markets, e.g. a trader) → tilt **toward bonds**.
+- Human capital **declines** with age while financial capital grows → the equity share of *financial* assets typically **falls over the life cycle** (a glide path), even though total-wealth risk may stay similar.
+
+## Risks to human capital
+- **Mortality risk** (death cuts future income) → **life insurance**.
+- **Longevity risk** (outliving assets) → **annuities**.
+- **Earnings/disability risk** → disability insurance and an emergency reserve.
+
+## Integration
+- Optimal asset allocation considers human capital's size and its **correlation** with risky assets, plus insurance to hedge its risks.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa3-private-wealth-tax-efficiency-m01",
+    topicId: "cfa3-private-wealth-tax-efficiency",
+    title: "Tax-Efficient Investing & Asset Location",
+    content: `## Tax drag compounds
+After-tax return r(1 − t) over many years sharply reduces terminal wealth. Minimizing the tax drag is a major source of value for individuals.
+
+## Levers
+- **Asset location**: hold **tax-inefficient** assets (taxable bonds, high-turnover, REITs) in **tax-deferred/exempt** accounts; **tax-efficient** assets (low-turnover equity, municipals) in taxable accounts.
+- **Tax-loss harvesting**: realize losses to offset gains/income.
+- **Defer gains** (lower turnover) and use the **step-up in basis** at death.
+- **Account types**: tax-deferred (pre-tax in, taxed out) vs tax-exempt (after-tax in, tax-free out) — choose by current vs expected future rates.
+- Hold appreciated assets to be **gifted/bequeathed** rather than sold.
+
+## Taxes & risk
+- Taxes reduce both **return and risk** (the government shares gains/losses), so optimize on an **after-tax** basis. Wider rebalancing corridors for taxable accounts limit taxable trades.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa3-private-wealth-estate-planning-m01",
+    topicId: "cfa3-private-wealth-estate-planning",
+    title: "Estate Planning & Wealth Transfer",
+    content: `Transfer wealth efficiently across generations and to charity.
+
+## Lifetime gifts vs bequests
+- **Gifting during life** removes future **appreciation** from the estate and may use a lower gift-tax rate/annual exclusion; **bequests** transfer at death (often with a **step-up in basis**).
+- The relative benefit depends on gift vs estate tax rates, the donor's vs recipient's tax rates, and expected growth.
+
+## Tools
+- **Trusts** (revocable — flexible, in the estate; **irrevocable** — removes assets/control from the estate), **life insurance** (liquidity to pay estate taxes; often held in an irrevocable trust), and **charitable** vehicles (donor-advised funds, charitable trusts).
+- **Generation-skipping** transfers and **forced heirship** rules vary by jurisdiction.
+
+## Core ideas
+- **Relative after-tax value** of gifting vs bequest drives the decision.
+- Coordinate with the IPS: liquidity for taxes, concentrated-position management, and the client's **legacy goals**.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa3-private-wealth-risk-insurance-m01",
+    topicId: "cfa3-private-wealth-risk-insurance",
+    title: "Risk Management for Individuals",
+    content: `Individuals face risks beyond market risk; insurance transfers those that are **low-probability, high-severity**.
+
+## Major personal risks & tools
+- **Mortality** (premature death cuts human capital) → **life insurance** (term vs whole/permanent).
+- **Longevity** (outliving assets) → **annuities** (immediate/deferred; longevity annuities).
+- **Health/disability** → health and disability insurance.
+- **Property/liability** → P&C and umbrella liability coverage.
+
+## Risk management framework
+- **Retain** (small, frequent), **reduce/avoid**, **transfer** (insure low-frequency/high-severity), and **self-insure** where wealth allows.
+- The **economic (holistic) balance sheet** includes human capital and the PV of pensions/liabilities, not just financial assets.
+
+## Insurance vs investing
+- Life insurance hedges **early death**; annuities hedge **long life** — they are complementary. Need analysis sizes coverage from the gap between resources and obligations.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa3-institutional-db-pension-m01",
+    topicId: "cfa3-institutional-db-pension",
+    title: "Defined-Benefit Pension Management",
+    content: `## Risk tolerance drivers
+A DB plan's ability to take risk **rises** with: a **younger** workforce (longer horizon), a **higher funded ratio**, a **smaller** plan relative to the sponsor, a **financially strong** sponsor, and **low correlation** between plan assets and the sponsor's business.
+
+## Objectives & constraints
+- **Return**: at minimum, fund the liabilities (the discount/actuarial rate is a benchmark).
+- **Risk**: surplus risk; balance funding cost vs contribution volatility.
+- **Liquidity**: driven by the **retired-lives proportion** (benefit payments) and contributions; **time horizon** long but tied to workforce age.
+- **Legal**: ERISA-type fiduciary rules; **Taxes**: usually tax-exempt.
+
+## LDI
+- Liabilities are **bond-like** → **liability-driven investing** (duration/BPV match) plus a return-seeking sleeve. Inflation-linked benefits → linkers. Better-funded plans **de-risk** along a glide path.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa3-institutional-foundations-m01",
+    topicId: "cfa3-institutional-foundations",
+    title: "Foundations & Endowments IPS",
+    content: `Both support a mission **in perpetuity**, implying long horizons, high risk tolerance, and a real-return focus.
+
+## Return objective
+≈ **spending rate + inflation + investment fees**. **US private foundations** must distribute ~**5%** annually; endowments set their own spending rule.
+
+## Spending rules (endowments)
+- **Simple** (% of beginning assets — volatile), **rolling 3-year average** (smooths), **geometric/Yale** (weights prior spending + a % of market value — most stable).
+
+## Constraints
+- **Time horizon**: very long/perpetual. **Liquidity**: modest near-term (spending) but constrained by large **illiquid alternatives** allocations. **Taxes**: largely tax-exempt. **Legal/regulatory**: UPMIFA-type prudence; donor restrictions. **Unique**: mission/ESG constraints.
+
+## Allocation
+- The **endowment model**: heavy equities and **alternatives** (PE, real assets, hedge funds) for real returns over long horizons, accepting illiquidity.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa3-institutional-insurance-m01",
+    topicId: "cfa3-institutional-insurance",
+    title: "Insurance Companies",
+    content: `Insurers invest premiums (the "**float**") to fund future claims; they are **liability-driven** and heavily regulated.
+
+## Life vs P&C
+| | Life insurers | Property-casualty (P&C) |
+| --- | --- | --- |
+| Liabilities | Long-duration, predictable | Shorter, **lumpy/uncertain** (catastrophes) |
+| Investing | Long bonds, ALM/duration match, some equities | Shorter bonds + **more liquidity**; equities for surplus |
+| Key risk | Interest-rate/disintermediation | Underwriting/cat risk, liquidity |
+
+## Constraints
+- **Risk**: low — protect policyholders/solvency. **Liquidity**: high for P&C (claims), lower for life. **Time horizon**: long (life), shorter (P&C). **Taxes**: taxable, complex. **Legal/regulatory**: solvency capital (e.g., RBC, Solvency II) drives asset choices.
+
+## Themes
+- **Asset-liability management** and **duration matching** dominate; credit quality is emphasized; a **surplus** portfolio can take more risk than reserves backing liabilities.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa3-institutional-banks-m01",
+    topicId: "cfa3-institutional-banks",
+    title: "Banks & Asset-Liability Management",
+    content: `A bank's **securities portfolio** is a residual/liquidity buffer managed within an **asset-liability management (ALM)** framework.
+
+## Goals
+- Manage the **net interest margin** and the **duration gap** between assets (loans, securities) and liabilities (deposits, borrowings).
+- Maintain **liquidity** (e.g., LCR/NSFR), meet **regulatory capital** (Basel risk-weights favor high-quality, liquid assets), and provide **collateral**.
+
+## Constraints
+- **Risk**: low for the securities book (it backs deposits/regulatory needs). **Liquidity**: high. **Time horizon**: tied to the liability structure. **Taxes**: taxable. **Legal/regulatory**: capital and liquidity rules dominate.
+
+## Tools
+- Use **duration/key-rate** measures and derivatives (swaps, futures) to manage the duration gap and interest-rate risk; tilt to **high-quality, liquid** securities (governments, agencies) for regulatory and liquidity reasons.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa3-institutional-sovereign-m01",
+    topicId: "cfa3-institutional-sovereign",
+    title: "Sovereign Wealth Funds",
+    content: `State-owned funds investing national reserves/resource revenues. Objectives vary by **type**:
+
+| Type | Purpose | Horizon/risk |
+| --- | --- | --- |
+| **Budget stabilization** | smooth commodity/revenue swings | short horizon, low risk, liquid |
+| **Savings/future generations** | preserve wealth across generations | very long, high risk tolerance |
+| **Development** | fund domestic projects | long, project-linked |
+| **Reserve investment** | earn more on FX reserves | varies, often liquid/high-grade |
+| **Pension reserve** | pre-fund future pension liabilities | long, liability-aware |
+
+## Constraints
+- **Time horizon/risk** depend on type (stabilization = conservative; savings = aggressive). **Liquidity**: high for stabilization, low for savings/development. **Legal/regulatory & political**: governance, transparency (Santiago Principles), and political scrutiny.
+
+## Themes
+- Long-horizon savings funds resemble **endowments** (equity/alternatives heavy); stabilization funds resemble **liquidity reserves** (short bonds).`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa3-ethics-code-standards-m01",
+    topicId: "cfa3-ethics-code-standards",
+    title: "Code of Ethics & the Seven Standards",
+    content: `The **Code of Ethics** sets the ethical principles; the **Standards of Professional Conduct** make them actionable. The most heavily tested area at **every** level.
+
+## The seven Standards
+| # | Standard | Core idea |
+| --- | --- | --- |
+| **I** | Professionalism | Knowledge of law, independence, no misrepresentation, no misconduct |
+| **II** | Integrity of Capital Markets | No MNPI use, no manipulation |
+| **III** | Duties to Clients | Loyalty/care, fair dealing, suitability, performance, confidentiality |
+| **IV** | Duties to Employers | Loyalty, additional compensation, supervision |
+| **V** | Investment Analysis & Actions | Diligence/reasonable basis, communication, record retention |
+| **VI** | Conflicts of Interest | Disclose conflicts, priority of transactions, referral fees |
+| **VII** | Responsibilities as a Member/Candidate | Don't compromise CFA/CFA Institute integrity; conduct in the program |
+
+## Approach
+- Follow the **stricter** of law or the Code. Read each case, map the action to the precise sub-standard, and pick the **least-compliant** choice.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa3-ethics-professionalism-m01",
+    topicId: "cfa3-ethics-professionalism",
+    title: "Professionalism & Market Integrity (I & II)",
+    content: `## Standard I — Professionalism
+- **I(A) Knowledge of the Law**: follow the **stricter** of law/Code; **dissociate** from violations.
+- **I(B) Independence & Objectivity**: avoid gifts/pressure that bias you; modest items only; firewalls.
+- **I(C) Misrepresentation**: no untrue statements, no guaranteed returns on risky assets; **plagiarism** is misrepresentation.
+- **I(D) Misconduct**: no dishonesty/fraud reflecting on professional integrity.
+
+## Standard II — Integrity of Capital Markets
+- **II(A) Material Nonpublic Information**: don't act/cause others to act on **MNPI**. **Mosaic theory** (public + non-material nonpublic) is allowed; use **firewalls**.
+- **II(B) Market Manipulation**: no **transaction-based** (wash trades, spoofing, pump-and-dump) or **information-based** manipulation.
+
+> Recommended procedures — restricted lists, firewalls, compliance review — frequently resolve I- and II-type vignettes.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa3-ethics-duties-clients-m01",
+    topicId: "cfa3-ethics-duties-clients",
+    title: "Duties to Clients (Standard III)",
+    content: `## Standard III — Duties to Clients
+- **III(A) Loyalty, Prudence & Care**: place clients' interests first; for pensions, loyalty runs to the **beneficiaries**. Use **client brokerage (soft dollars)** for the client's benefit; seek **best execution**.
+- **III(B) Fair Dealing**: disseminate recommendations and changes **fairly** to all clients — don't favor select clients.
+- **III(C) Suitability**: match recommendations to each client's **IPS** (objectives/constraints); in advisory relationships consider the **total portfolio**.
+- **III(D) Performance Presentation**: **fair, accurate, and complete** — no cherry-picking.
+- **III(E) Preservation of Confidentiality**: keep current/former/prospective client information confidential (unless legally required or to report illegal activity).
+
+> Watch vignettes mixing III with **VI(B)** Priority of Transactions and **I(B)** Independence.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa3-ethics-conflicts-m01",
+    topicId: "cfa3-ethics-conflicts",
+    title: "Conflicts & Priority of Transactions (VI)",
+    content: `## Standard VI — Conflicts of Interest
+- **VI(A) Disclosure of Conflicts**: **fully and fairly** disclose anything that could impair independence/objectivity — ownership, board seats, compensation arrangements, broker relationships — **prominently** and in plain language.
+- **VI(B) Priority of Transactions**: **client and employer trades take precedence** over a member's own. Personal trading must never disadvantage clients; use **restricted lists, pre-clearance, and blackout/restricted periods** (especially for IPOs and private placements).
+- **VI(C) Referral Fees**: disclose to clients and the employer any compensation for referrals so clients can assess bias.
+
+## Standard IV (Duties to Employers) — overlap
+- **IV(A) Loyalty** (no taking records/clients), **IV(B) Additional Compensation** (written consent), **IV(C) Supervisors** (prevent/detect violations).
+
+> The default cure for a conflict is **disclosure + management**, never concealment.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa3-ethics-application-cases-m01",
+    topicId: "cfa3-ethics-application-cases",
+    title: "Application of the Code & Standards",
+    content: `Level III tests ethics through **cases/vignettes**. A reliable method:
+
+## Method
+1. **Identify the actors and actions** in the scenario.
+2. **Map each action to the precise sub-standard** (e.g., taking a client list → IV(A) Loyalty; trading on a tip → II(A) MNPI).
+3. Pick the **least compliant** action / the response that **best** remedies it.
+4. When law and the Code differ, follow the **stricter**.
+
+## Common case themes
+- **Soft dollars** must benefit the client; **best execution** cannot be sacrificed.
+- **Mosaic theory** is permissible; trading on MNPI is not.
+- **Gifts**: from clients (disclose), from third parties seeking influence (decline).
+- **GIPS/AMC** claims must be accurate and firm-wide.
+- **Recommended procedures** (firewalls, restricted lists, disclosure, supervision, record retention) usually resolve the case.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
   }
 ];
 
@@ -1336,5 +1642,215 @@ export const expQuestions: Question[] = [
   { id: "cfa3-performance-appraisal-q09", topicId: "cfa3-performance-appraisal", text: "Short, volatile track records make appraisal hard because:", optionA: "Skill is easy to confirm", optionB: "It is statistically difficult to separate skill from luck", optionC: "Returns are guaranteed", optionD: "Benchmarks are perfect", correctOption: "B", explanation: "Limited noisy data lowers statistical confidence in distinguishing skill from random results.", orderIndex: 8 },
   { id: "cfa3-performance-appraisal-q10", topicId: "cfa3-performance-appraisal", text: "Treynor ratio is most appropriate for:", optionA: "An investor's entire portfolio", optionB: "A well-diversified sub-portfolio (uses beta)", optionC: "A single risk-free asset", optionD: "A cash account", correctOption: "B", explanation: "Treynor uses beta, fitting a diversified sub-portfolio whose idiosyncratic risk is diversified away.", orderIndex: 9 },
   { id: "cfa3-performance-appraisal-q11", topicId: "cfa3-performance-appraisal", text: "When appraising managers, process and operational quality should be weighted because:", optionA: "Past returns alone confirm skill", optionB: "Returns are noisy; process/operations are more persistent indicators", optionC: "They are irrelevant", optionD: "They lower the IR", correctOption: "B", explanation: "Because returns are noisy, durable process and operational quality help confirm genuine skill.", orderIndex: 10 },
-  { id: "cfa3-performance-appraisal-q12", topicId: "cfa3-performance-appraisal", text: "A 'zone of acceptable performance' in an MCP is designed to:", optionA: "Trigger immediate firing on any underperformance", optionB: "Tolerate normal performance variation before action", optionC: "Ignore all performance", optionD: "Maximize turnover", correctOption: "B", explanation: "The zone allows for expected noise so managers aren't churned over random short-term variation.", orderIndex: 11 }
+  { id: "cfa3-performance-appraisal-q12", topicId: "cfa3-performance-appraisal", text: "A 'zone of acceptable performance' in an MCP is designed to:", optionA: "Trigger immediate firing on any underperformance", optionB: "Tolerate normal performance variation before action", optionC: "Ignore all performance", optionD: "Maximize turnover", correctOption: "B", explanation: "The zone allows for expected noise so managers aren't churned over random short-term variation.", orderIndex: 11 },
+
+  // Individual IPS & goals
+  { id: "cfa3-private-wealth-ips-q01", topicId: "cfa3-private-wealth-ips", text: "An individual's risk tolerance combines ability and willingness; when they differ, use the:", optionA: "Higher of the two", optionB: "Lower (more conservative) of the two, then educate", optionC: "Average", optionD: "Neither", correctOption: "B", explanation: "The more conservative measure governs; the adviser then seeks to reconcile via education.", orderIndex: 0 },
+  { id: "cfa3-private-wealth-ips-q02", topicId: "cfa3-private-wealth-ips", text: "Which is the most distinctive constraint for individuals versus institutions?", optionA: "Time horizon", optionB: "Taxes", optionC: "Liquidity", optionD: "Legal", correctOption: "B", explanation: "Taxes are a defining, complex constraint in individual portfolio management.", orderIndex: 1 },
+  { id: "cfa3-private-wealth-ips-q03", topicId: "cfa3-private-wealth-ips", text: "An individual's required return is best derived from their:", optionA: "Benchmark index", optionB: "Goals, spending, and time horizon", optionC: "Beta", optionD: "The risk-free rate only", correctOption: "B", explanation: "Solve for the return needed to fund the client's goals given spending and horizon.", orderIndex: 2 },
+  { id: "cfa3-private-wealth-ips-q04", topicId: "cfa3-private-wealth-ips", text: "Individual time horizons are often:", optionA: "Single-stage and short", optionB: "Multi-stage (e.g., pre- and post-retirement)", optionC: "Always infinite", optionD: "Irrelevant", correctOption: "B", explanation: "Individuals commonly have multi-stage horizons that change the allocation over time.", orderIndex: 3 },
+  { id: "cfa3-private-wealth-ips-q05", topicId: "cfa3-private-wealth-ips", text: "A concentrated single-stock position is typically captured under which IPS constraint?", optionA: "Unique circumstances", optionB: "Taxes only", optionC: "Time horizon", optionD: "Liquidity only", correctOption: "A", explanation: "Special situations like concentrated holdings or ESG preferences fall under unique circumstances.", orderIndex: 4 },
+  { id: "cfa3-private-wealth-ips-q06", topicId: "cfa3-private-wealth-ips", text: "Ability to take risk is higher when the client has:", optionA: "Large needs relative to wealth and a short horizon", optionB: "Ample wealth relative to needs, a long horizon, and flexibility", optionC: "No income", optionD: "High debt", correctOption: "B", explanation: "Greater financial capacity, longer horizon, and spending flexibility raise the ability to bear risk.", orderIndex: 5 },
+  { id: "cfa3-private-wealth-ips-q07", topicId: "cfa3-private-wealth-ips", text: "Liquidity needs in an individual IPS include:", optionA: "Spending, emergencies, and large planned purchases", optionB: "The benchmark", optionC: "Beta", optionD: "The coupon", correctOption: "A", explanation: "Individual liquidity covers ongoing spending, reserves, and known upcoming outlays.", orderIndex: 6 },
+  { id: "cfa3-private-wealth-ips-q08", topicId: "cfa3-private-wealth-ips", text: "Goals-based framing helps individual clients by:", optionA: "Eliminating taxes", optionB: "Improving discipline via mental accounting per goal", optionC: "Removing the IPS", optionD: "Guaranteeing returns", correctOption: "B", explanation: "Tying portfolios to specific goals leverages mental accounting to improve adherence.", orderIndex: 7 },
+  { id: "cfa3-private-wealth-ips-q09", topicId: "cfa3-private-wealth-ips", text: "Willingness to take risk is primarily a function of the client's:", optionA: "Psychological attitude toward risk", optionB: "Net worth only", optionC: "Tax bracket", optionD: "Beta", correctOption: "A", explanation: "Willingness reflects the client's psychological comfort with risk, distinct from financial ability.", orderIndex: 8 },
+  { id: "cfa3-private-wealth-ips-q10", topicId: "cfa3-private-wealth-ips", text: "An individual IPS should be reviewed:", optionA: "Never", optionB: "Regularly and when circumstances change materially", optionC: "Only at death", optionD: "Daily", correctOption: "B", explanation: "Changing life stages and goals require periodic IPS review and updates.", orderIndex: 9 },
+  { id: "cfa3-private-wealth-ips-q11", topicId: "cfa3-private-wealth-ips", text: "Legal/regulatory constraints for individuals include:", optionA: "Trust structures and jurisdictional rules", optionB: "Index reconstitution", optionC: "Beta limits", optionD: "Coupon schedules", correctOption: "A", explanation: "Trusts, estate law, and jurisdiction shape the individual's legal constraints.", orderIndex: 10 },
+  { id: "cfa3-private-wealth-ips-q12", topicId: "cfa3-private-wealth-ips", text: "Mortality and longevity risks affect the IPS mainly through:", optionA: "Allocation and insurance needs", optionB: "The benchmark", optionC: "Trading costs", optionD: "Currency", correctOption: "A", explanation: "These human-capital risks shape asset allocation and the need for life insurance/annuities.", orderIndex: 11 },
+
+  // Human capital & life-cycle investing
+  { id: "cfa3-private-wealth-human-capital-q01", topicId: "cfa3-private-wealth-human-capital", text: "Total wealth equals financial capital plus:", optionA: "Human capital (PV of future labor income)", optionB: "The benchmark", optionC: "Beta", optionD: "The coupon", correctOption: "A", explanation: "Human capital — the present value of future earnings — is part of total wealth.", orderIndex: 0 },
+  { id: "cfa3-private-wealth-human-capital-q02", topicId: "cfa3-private-wealth-human-capital", text: "An investor with bond-like (stable) human capital should tilt financial assets toward:", optionA: "Bonds", optionB: "Equities", optionC: "Cash", optionD: "Commodities", correctOption: "B", explanation: "Stable, bond-like human capital offsets risk, allowing more equities in financial assets.", orderIndex: 1 },
+  { id: "cfa3-private-wealth-human-capital-q03", topicId: "cfa3-private-wealth-human-capital", text: "An investor with equity-like (volatile, market-correlated) human capital should tilt financial assets toward:", optionA: "Equities", optionB: "Bonds", optionC: "More of the same risky assets", optionD: "Leverage", correctOption: "B", explanation: "Risky, market-correlated human capital argues for more bonds to balance total-wealth risk.", orderIndex: 2 },
+  { id: "cfa3-private-wealth-human-capital-q04", topicId: "cfa3-private-wealth-human-capital", text: "Over the life cycle, human capital generally:", optionA: "Rises with age", optionB: "Declines with age as financial capital grows", optionC: "Stays constant", optionD: "Is zero", correctOption: "B", explanation: "As people age, remaining earning years fall, so human capital declines while savings accumulate.", orderIndex: 3 },
+  { id: "cfa3-private-wealth-human-capital-q05", topicId: "cfa3-private-wealth-human-capital", text: "Consequently, the equity share of financial assets typically:", optionA: "Rises with age", optionB: "Falls over the life cycle (a glide path)", optionC: "Stays at 100%", optionD: "Is irrelevant", correctOption: "B", explanation: "As bond-like human capital shrinks, financial assets are de-risked toward bonds over time.", orderIndex: 4 },
+  { id: "cfa3-private-wealth-human-capital-q06", topicId: "cfa3-private-wealth-human-capital", text: "Life insurance primarily hedges:", optionA: "Longevity risk", optionB: "Mortality risk (loss of human capital from early death)", optionC: "Market risk", optionD: "Inflation", correctOption: "B", explanation: "Life insurance replaces lost future income if the earner dies prematurely.", orderIndex: 5 },
+  { id: "cfa3-private-wealth-human-capital-q07", topicId: "cfa3-private-wealth-human-capital", text: "Annuities primarily hedge:", optionA: "Mortality risk", optionB: "Longevity risk (outliving assets)", optionC: "Currency risk", optionD: "Credit risk", correctOption: "B", explanation: "Annuities provide lifetime income, hedging the risk of living longer than planned.", orderIndex: 6 },
+  { id: "cfa3-private-wealth-human-capital-q08", topicId: "cfa3-private-wealth-human-capital", text: "Optimal allocation considers human capital's size and its ____ with risky assets.", optionA: "Correlation", optionB: "Coupon", optionC: "Duration", optionD: "Beta to bonds only", correctOption: "A", explanation: "The correlation between human capital and markets affects how much financial risk is appropriate.", orderIndex: 7 },
+  { id: "cfa3-private-wealth-human-capital-q09", topicId: "cfa3-private-wealth-human-capital", text: "A tenured professor's human capital is best described as:", optionA: "Equity-like", optionB: "Bond-like", optionC: "Cash-like only", optionD: "Worthless", correctOption: "B", explanation: "Stable, secure salary makes the professor's human capital bond-like.", orderIndex: 8 },
+  { id: "cfa3-private-wealth-human-capital-q10", topicId: "cfa3-private-wealth-human-capital", text: "Disability insurance addresses the risk of:", optionA: "Outliving assets", optionB: "Loss of earning ability during working years", optionC: "Market crashes", optionD: "Inflation", correctOption: "B", explanation: "Disability cover protects human capital if illness/injury prevents earning income.", orderIndex: 9 },
+  { id: "cfa3-private-wealth-human-capital-q11", topicId: "cfa3-private-wealth-human-capital", text: "A commodities trader's human capital is most likely:", optionA: "Bond-like", optionB: "Equity-like (volatile, market-correlated)", optionC: "Risk-free", optionD: "Zero", correctOption: "B", explanation: "Income tied to markets is volatile and correlated — equity-like human capital.", orderIndex: 10 },
+  { id: "cfa3-private-wealth-human-capital-q12", topicId: "cfa3-private-wealth-human-capital", text: "Young investors typically hold more equities because their:", optionA: "Human capital is large and bond-like", optionB: "Financial capital is large", optionC: "Horizon is short", optionD: "Taxes are higher", correctOption: "A", explanation: "Large, bond-like human capital early in life supports a higher equity allocation in financial assets.", orderIndex: 11 },
+
+  // Tax-efficient investing & asset location
+  { id: "cfa3-private-wealth-tax-efficiency-q01", topicId: "cfa3-private-wealth-tax-efficiency", text: "Asset location places tax-inefficient assets in:", optionA: "Taxable accounts", optionB: "Tax-advantaged (sheltered) accounts", optionC: "Foreign accounts", optionD: "Cash", correctOption: "B", explanation: "Tax-inefficient assets belong in tax-deferred/exempt accounts to reduce tax drag.", orderIndex: 0 },
+  { id: "cfa3-private-wealth-tax-efficiency-q02", topicId: "cfa3-private-wealth-tax-efficiency", text: "Tax-loss harvesting improves after-tax returns by:", optionA: "Realizing losses to offset gains/income", optionB: "Increasing turnover for its own sake", optionC: "Avoiding equities", optionD: "Deferring dividends", correctOption: "A", explanation: "Harvesting losses offsets taxable gains, lowering the current tax bill.", orderIndex: 1 },
+  { id: "cfa3-private-wealth-tax-efficiency-q03", topicId: "cfa3-private-wealth-tax-efficiency", text: "Tax drag is most damaging when returns are taxed:", optionA: "Once at the end", optionB: "Annually over long horizons", optionC: "Never", optionD: "Only on cash", correctOption: "B", explanation: "Annual taxation reduces the compounding base each year, compounding the drag over time.", orderIndex: 2 },
+  { id: "cfa3-private-wealth-tax-efficiency-q04", topicId: "cfa3-private-wealth-tax-efficiency", text: "A tax-deferred account is most advantageous when future tax rates are expected to be:", optionA: "Higher than today", optionB: "Lower than today", optionC: "The same", optionD: "Zero", correctOption: "B", explanation: "Deferring tax helps most when withdrawals are taxed at a lower future rate.", orderIndex: 3 },
+  { id: "cfa3-private-wealth-tax-efficiency-q05", topicId: "cfa3-private-wealth-tax-efficiency", text: "A tax-exempt account (after-tax in, tax-free out) is best when future rates are expected to be:", optionA: "Lower than today", optionB: "Higher than today", optionC: "Zero", optionD: "Irrelevant", correctOption: "B", explanation: "Paying tax now is favorable when withdrawals would otherwise face a higher future rate.", orderIndex: 4 },
+  { id: "cfa3-private-wealth-tax-efficiency-q06", topicId: "cfa3-private-wealth-tax-efficiency", text: "The step-up in basis at death can benefit heirs by:", optionA: "Eliminating embedded capital gains", optionB: "Increasing estate taxes", optionC: "Forcing a sale", optionD: "Removing dividends", correctOption: "A", explanation: "Resetting basis to fair value at death can erase unrealized gains for heirs.", orderIndex: 5 },
+  { id: "cfa3-private-wealth-tax-efficiency-q07", topicId: "cfa3-private-wealth-tax-efficiency", text: "Holding low-turnover equities in a taxable account reflects:", optionA: "Poor asset location", optionB: "Sound asset location", optionC: "Tax-loss harvesting", optionD: "Estate planning", correctOption: "B", explanation: "Tax-efficient assets belong in taxable accounts, preserving sheltered space for inefficient ones.", orderIndex: 6 },
+  { id: "cfa3-private-wealth-tax-efficiency-q08", topicId: "cfa3-private-wealth-tax-efficiency", text: "Taxes reduce both an asset's return and its:", optionA: "Risk (the government shares gains/losses)", optionB: "Liquidity", optionC: "Duration", optionD: "Coupon", correctOption: "A", explanation: "Because the tax authority shares gains and losses, after-tax volatility is lower — optimize after-tax.", orderIndex: 7 },
+  { id: "cfa3-private-wealth-tax-efficiency-q09", topicId: "cfa3-private-wealth-tax-efficiency", text: "Municipal bonds are typically held in:", optionA: "Tax-deferred accounts", optionB: "Taxable accounts (their tax-exempt income is wasted in shelters)", optionC: "Foreign accounts", optionD: "Trusts only", correctOption: "B", explanation: "Tax-exempt munis belong in taxable accounts; placing them in shelters wastes their tax advantage.", orderIndex: 8 },
+  { id: "cfa3-private-wealth-tax-efficiency-q10", topicId: "cfa3-private-wealth-tax-efficiency", text: "Lower portfolio turnover improves tax efficiency by:", optionA: "Realizing more gains", optionB: "Deferring capital gains taxes", optionC: "Increasing dividends", optionD: "Raising the tax rate", correctOption: "B", explanation: "Holding positions longer defers capital-gains realization, improving after-tax compounding.", orderIndex: 9 },
+  { id: "cfa3-private-wealth-tax-efficiency-q11", topicId: "cfa3-private-wealth-tax-efficiency", text: "Rebalancing corridors in taxable accounts should generally be:", optionA: "Narrower", optionB: "Wider (to limit taxable trades)", optionC: "Zero", optionD: "Irrelevant", correctOption: "B", explanation: "Tax costs of trading justify wider bands in taxable accounts.", orderIndex: 10 },
+  { id: "cfa3-private-wealth-tax-efficiency-q12", topicId: "cfa3-private-wealth-tax-efficiency", text: "High-turnover or REIT holdings are best located in:", optionA: "Taxable accounts", optionB: "Tax-advantaged accounts", optionC: "Cash", optionD: "Foreign accounts", correctOption: "B", explanation: "These tax-inefficient assets belong in sheltered accounts to minimize tax drag.", orderIndex: 11 },
+
+  // Estate planning & wealth transfer
+  { id: "cfa3-private-wealth-estate-planning-q01", topicId: "cfa3-private-wealth-estate-planning", text: "Lifetime gifting can reduce estate taxes primarily by:", optionA: "Removing future appreciation from the estate", optionB: "Increasing the taxable estate", optionC: "Raising the donor's income", optionD: "Eliminating the gift's value", correctOption: "A", explanation: "Gifting transfers an asset and its future growth out of the estate, often at lower transfer-tax cost.", orderIndex: 0 },
+  { id: "cfa3-private-wealth-estate-planning-q02", topicId: "cfa3-private-wealth-estate-planning", text: "An irrevocable trust differs from a revocable trust in that the grantor:", optionA: "Can freely revoke it", optionB: "Generally gives up control, often removing assets from the estate", optionC: "Pays no setup cost", optionD: "Retains full ownership", correctOption: "B", explanation: "Irrevocable trusts remove assets from the grantor's control and usually the taxable estate.", orderIndex: 1 },
+  { id: "cfa3-private-wealth-estate-planning-q03", topicId: "cfa3-private-wealth-estate-planning", text: "Life insurance in estate planning is often used to:", optionA: "Avoid all taxes", optionB: "Provide liquidity to pay estate taxes", optionC: "Increase the estate's size only", optionD: "Replace the IPS", correctOption: "B", explanation: "Insurance proceeds (often in an irrevocable trust) supply liquidity for estate taxes/expenses.", orderIndex: 2 },
+  { id: "cfa3-private-wealth-estate-planning-q04", topicId: "cfa3-private-wealth-estate-planning", text: "The choice between gifting and bequeathing depends on relative:", optionA: "After-tax values (gift vs estate tax, growth, rates)", optionB: "Tickers", optionC: "Auditors", optionD: "Coupons", correctOption: "A", explanation: "Compare the after-tax value of gifting now versus bequeathing later, given tax rates and growth.", orderIndex: 3 },
+  { id: "cfa3-private-wealth-estate-planning-q05", topicId: "cfa3-private-wealth-estate-planning", text: "A bequest at death may carry a:", optionA: "Step-up in basis", optionB: "Gift-tax credit only", optionC: "Negative basis", optionD: "Mandatory sale", correctOption: "A", explanation: "Assets passed at death often receive a basis step-up, potentially eliminating embedded gains.", orderIndex: 4 },
+  { id: "cfa3-private-wealth-estate-planning-q06", topicId: "cfa3-private-wealth-estate-planning", text: "Charitable trusts and donor-advised funds are tools for:", optionA: "Reducing diversification", optionB: "Tax-efficient charitable giving", optionC: "Increasing turnover", optionD: "Avoiding the IPS", correctOption: "B", explanation: "These vehicles facilitate philanthropic goals with favorable tax treatment.", orderIndex: 5 },
+  { id: "cfa3-private-wealth-estate-planning-q07", topicId: "cfa3-private-wealth-estate-planning", text: "Forced heirship rules:", optionA: "Are identical worldwide", optionB: "Vary by jurisdiction and can constrain bequests", optionC: "Apply only to trusts", optionD: "Eliminate estate tax", correctOption: "B", explanation: "Some jurisdictions mandate minimum inheritances to certain heirs, constraining estate plans.", orderIndex: 6 },
+  { id: "cfa3-private-wealth-estate-planning-q08", topicId: "cfa3-private-wealth-estate-planning", text: "Gifting is more attractive when the asset is expected to:", optionA: "Decline in value", optionB: "Appreciate significantly", optionC: "Stay flat", optionD: "Pay no return", correctOption: "B", explanation: "Removing a high-growth asset early shifts more future appreciation out of the estate.", orderIndex: 7 },
+  { id: "cfa3-private-wealth-estate-planning-q09", topicId: "cfa3-private-wealth-estate-planning", text: "Holding an appreciated asset until death rather than selling can be favorable because of:", optionA: "Higher turnover", optionB: "The step-up in basis eliminating the gain", optionC: "Larger dividends", optionD: "Lower returns", correctOption: "B", explanation: "The basis step-up at death can erase the unrealized gain, avoiding capital-gains tax.", orderIndex: 8 },
+  { id: "cfa3-private-wealth-estate-planning-q10", topicId: "cfa3-private-wealth-estate-planning", text: "A revocable trust's assets are generally:", optionA: "Outside the taxable estate", optionB: "Inside the estate (grantor retains control)", optionC: "Tax-free", optionD: "Owned by charity", correctOption: "B", explanation: "Because the grantor can revoke it, a revocable trust's assets remain in the taxable estate.", orderIndex: 9 },
+  { id: "cfa3-private-wealth-estate-planning-q11", topicId: "cfa3-private-wealth-estate-planning", text: "Estate planning should be coordinated with the IPS to ensure:", optionA: "Liquidity for taxes and alignment with legacy goals", optionB: "Maximum turnover", optionC: "The highest beta", optionD: "No diversification", correctOption: "A", explanation: "Plans must provide liquidity for transfer taxes and reflect the client's legacy objectives.", orderIndex: 10 },
+  { id: "cfa3-private-wealth-estate-planning-q12", topicId: "cfa3-private-wealth-estate-planning", text: "Generation-skipping transfers are designed to:", optionA: "Pass wealth to grandchildren, potentially avoiding a layer of estate tax", optionB: "Increase current income", optionC: "Eliminate trusts", optionD: "Raise turnover", correctOption: "A", explanation: "Skipping a generation can avoid taxing the estate twice, subject to GST tax rules.", orderIndex: 11 },
+
+  // Risk management for individuals
+  { id: "cfa3-private-wealth-risk-insurance-q01", topicId: "cfa3-private-wealth-risk-insurance", text: "Insurance is most appropriate for risks that are:", optionA: "High-frequency, low-severity", optionB: "Low-frequency, high-severity", optionC: "Certain", optionD: "Trivial", correctOption: "B", explanation: "Transfer (insure) low-probability, high-severity risks; retain small, frequent ones.", orderIndex: 0 },
+  { id: "cfa3-private-wealth-risk-insurance-q02", topicId: "cfa3-private-wealth-risk-insurance", text: "Term life insurance differs from whole life in that term:", optionA: "Builds cash value", optionB: "Provides pure death-benefit cover for a period, no cash value", optionC: "Is permanent", optionD: "Hedges longevity", correctOption: "B", explanation: "Term life is temporary protection without a savings/cash-value component.", orderIndex: 1 },
+  { id: "cfa3-private-wealth-risk-insurance-q03", topicId: "cfa3-private-wealth-risk-insurance", text: "An immediate annuity primarily provides:", optionA: "Lump-sum death benefit", optionB: "Guaranteed lifetime income (hedging longevity)", optionC: "Disability cover", optionD: "Property protection", correctOption: "B", explanation: "Annuities convert wealth into lifetime income, hedging the risk of outliving assets.", orderIndex: 2 },
+  { id: "cfa3-private-wealth-risk-insurance-q04", topicId: "cfa3-private-wealth-risk-insurance", text: "The four basic risk-management responses are retain, reduce/avoid, transfer and:", optionA: "Ignore", optionB: "Self-insure (where wealth allows)", optionC: "Leverage", optionD: "Speculate", correctOption: "B", explanation: "Risks are retained, reduced/avoided, transferred (insured), or self-insured.", orderIndex: 3 },
+  { id: "cfa3-private-wealth-risk-insurance-q05", topicId: "cfa3-private-wealth-risk-insurance", text: "The economic (holistic) balance sheet includes, beyond financial assets:", optionA: "Human capital and the PV of pensions/liabilities", optionB: "Only cash", optionC: "Only equities", optionD: "The benchmark", correctOption: "A", explanation: "It adds human capital and the present value of pensions and future liabilities.", orderIndex: 4 },
+  { id: "cfa3-private-wealth-risk-insurance-q06", topicId: "cfa3-private-wealth-risk-insurance", text: "Life insurance and annuities are complementary because they hedge:", optionA: "The same risk", optionB: "Opposite risks (early death vs long life)", optionC: "Only market risk", optionD: "Currency risk", correctOption: "B", explanation: "Life insurance hedges premature death; annuities hedge longevity — opposite human-capital risks.", orderIndex: 5 },
+  { id: "cfa3-private-wealth-risk-insurance-q07", topicId: "cfa3-private-wealth-risk-insurance", text: "Umbrella liability insurance protects against:", optionA: "Market losses", optionB: "Large personal liability claims beyond standard policy limits", optionC: "Longevity", optionD: "Inflation", correctOption: "B", explanation: "Umbrella coverage adds liability protection above home/auto policy limits.", orderIndex: 6 },
+  { id: "cfa3-private-wealth-risk-insurance-q08", topicId: "cfa3-private-wealth-risk-insurance", text: "Small, frequent, affordable losses are best:", optionA: "Insured fully", optionB: "Retained (self-funded)", optionC: "Avoided entirely", optionD: "Transferred", correctOption: "B", explanation: "It is inefficient to insure small, frequent losses; retain them.", orderIndex: 7 },
+  { id: "cfa3-private-wealth-risk-insurance-q09", topicId: "cfa3-private-wealth-risk-insurance", text: "A young breadwinner with dependents most needs:", optionA: "An annuity", optionB: "Life and disability insurance", optionC: "No insurance", optionD: "Only property cover", correctOption: "B", explanation: "Large human capital and dependents make life/disability cover a priority.", orderIndex: 8 },
+  { id: "cfa3-private-wealth-risk-insurance-q10", topicId: "cfa3-private-wealth-risk-insurance", text: "A retiree's chief financial risk is often:", optionA: "Longevity risk", optionB: "Mortality risk", optionC: "Disability risk", optionD: "Earnings risk", correctOption: "A", explanation: "Retirees worry most about outliving their assets (longevity), which annuities address.", orderIndex: 9 },
+  { id: "cfa3-private-wealth-risk-insurance-q11", topicId: "cfa3-private-wealth-risk-insurance", text: "A needs analysis sizes life insurance from the:", optionA: "Gap between resources and obligations", optionB: "Stock price", optionC: "Benchmark", optionD: "Coupon", correctOption: "A", explanation: "Coverage equals the shortfall between available resources and the family's financial obligations.", orderIndex: 10 },
+  { id: "cfa3-private-wealth-risk-insurance-q12", topicId: "cfa3-private-wealth-risk-insurance", text: "Whole/permanent life insurance, unlike term, includes a:", optionA: "Cash-value (savings) component", optionB: "Disability rider only", optionC: "Property cover", optionD: "Longevity hedge", correctOption: "A", explanation: "Permanent policies build cash value alongside the death benefit.", orderIndex: 11 },
+
+  // Defined-benefit pension management
+  { id: "cfa3-institutional-db-pension-q01", topicId: "cfa3-institutional-db-pension", text: "A DB plan has higher risk tolerance when the workforce is:", optionA: "Older and the plan underfunded", optionB: "Younger and the plan well funded", optionC: "Near retirement", optionD: "Shrinking with a weak sponsor", correctOption: "B", explanation: "A younger workforce and strong funded status lengthen the horizon and raise risk capacity.", orderIndex: 0 },
+  { id: "cfa3-institutional-db-pension-q02", topicId: "cfa3-institutional-db-pension", text: "Because pension liabilities are bond-like, plans commonly use:", optionA: "Pure equity indexing", optionB: "Liability-driven investing (duration matching)", optionC: "Currency speculation", optionD: "Commodities only", correctOption: "B", explanation: "LDI hedges the interest-rate sensitivity of the bond-like liabilities.", orderIndex: 1 },
+  { id: "cfa3-institutional-db-pension-q03", topicId: "cfa3-institutional-db-pension", text: "A higher proportion of retired lives tends to:", optionA: "Lower liquidity needs", optionB: "Raise liquidity needs and lower risk tolerance", optionC: "Extend the horizon", optionD: "Raise equity allocation", correctOption: "B", explanation: "More retirees means larger, nearer-term benefit payments, increasing liquidity needs.", orderIndex: 2 },
+  { id: "cfa3-institutional-db-pension-q04", topicId: "cfa3-institutional-db-pension", text: "High correlation between plan assets and the sponsor's business argues for:", optionA: "More investment risk", optionB: "Less investment risk", optionC: "No effect", optionD: "Only currency risk", correctOption: "B", explanation: "Correlated risks concentrate exposure, so the plan should be more conservative.", orderIndex: 3 },
+  { id: "cfa3-institutional-db-pension-q05", topicId: "cfa3-institutional-db-pension", text: "A DB plan's minimum return objective is to:", optionA: "Beat equities", optionB: "Fund the liabilities (meet the actuarial/discount rate)", optionC: "Maximize turnover", optionD: "Match cash", correctOption: "B", explanation: "At minimum, the plan must earn enough to fund its promised benefits.", orderIndex: 4 },
+  { id: "cfa3-institutional-db-pension-q06", topicId: "cfa3-institutional-db-pension", text: "DB plans are generally:", optionA: "Heavily taxed", optionB: "Tax-exempt", optionC: "Subject to capital-gains tax only", optionD: "Taxed like individuals", correctOption: "B", explanation: "Qualified pension plans are typically tax-exempt.", orderIndex: 5 },
+  { id: "cfa3-institutional-db-pension-q07", topicId: "cfa3-institutional-db-pension", text: "As a plan's funded ratio improves, a common strategy is to:", optionA: "Take more equity risk", optionB: "De-risk (glide path) toward liability-hedging assets", optionC: "Stop investing", optionD: "Ignore liabilities", correctOption: "B", explanation: "Better-funded plans lock in gains by shifting toward hedging assets along a glide path.", orderIndex: 6 },
+  { id: "cfa3-institutional-db-pension-q08", topicId: "cfa3-institutional-db-pension", text: "Inflation-indexed pension benefits are best hedged with:", optionA: "Nominal bonds", optionB: "Inflation-linked bonds", optionC: "Equities only", optionD: "Cash", correctOption: "B", explanation: "Linkers hedge inflation-sensitive liabilities better than nominal bonds.", orderIndex: 7 },
+  { id: "cfa3-institutional-db-pension-q09", topicId: "cfa3-institutional-db-pension", text: "A financially weak plan sponsor reduces the plan's:", optionA: "Risk tolerance", optionB: "Liquidity needs", optionC: "Time horizon", optionD: "Tax rate", correctOption: "A", explanation: "A weak sponsor that may not fund shortfalls lowers the plan's ability to take risk.", orderIndex: 8 },
+  { id: "cfa3-institutional-db-pension-q10", topicId: "cfa3-institutional-db-pension", text: "Surplus risk refers to volatility in:", optionA: "Assets minus liabilities", optionB: "Coupons", optionC: "Dividends", optionD: "The benchmark", correctOption: "A", explanation: "Surplus risk is the volatility of the funded surplus (assets − liabilities).", orderIndex: 9 },
+  { id: "cfa3-institutional-db-pension-q11", topicId: "cfa3-institutional-db-pension", text: "A smaller plan relative to the sponsor's size implies:", optionA: "Lower risk tolerance", optionB: "Higher risk tolerance (the sponsor can absorb shortfalls)", optionC: "No effect", optionD: "Mandatory de-risking", correctOption: "B", explanation: "When the plan is small relative to the sponsor, the sponsor can more easily fund shortfalls, raising risk capacity.", orderIndex: 10 },
+  { id: "cfa3-institutional-db-pension-q12", topicId: "cfa3-institutional-db-pension", text: "The return-seeking portfolio in an LDI structure is meant to:", optionA: "Hedge the liabilities", optionB: "Generate growth to improve the funded ratio", optionC: "Hold only cash", optionD: "Match duration", correctOption: "B", explanation: "Alongside the hedging sleeve, the return-seeking portfolio pursues growth to close/maintain funding.", orderIndex: 11 },
+
+  // Foundations & endowments
+  { id: "cfa3-institutional-foundations-q01", topicId: "cfa3-institutional-foundations", text: "Endowments and foundations generally have a ____ time horizon.", optionA: "Short", optionB: "Very long/perpetual", optionC: "One-year", optionD: "Zero", correctOption: "B", explanation: "Supporting a mission in perpetuity gives these institutions very long horizons.", orderIndex: 0 },
+  { id: "cfa3-institutional-foundations-q02", topicId: "cfa3-institutional-foundations", text: "A typical endowment return objective is approximately:", optionA: "The risk-free rate", optionB: "Spending rate + inflation + fees", optionC: "Zero", optionD: "The dividend yield", correctOption: "B", explanation: "To preserve real value and fund spending, required return ≈ spending + inflation + costs.", orderIndex: 1 },
+  { id: "cfa3-institutional-foundations-q03", topicId: "cfa3-institutional-foundations", text: "US private foundations must generally distribute about:", optionA: "1% annually", optionB: "5% of assets annually", optionC: "20% annually", optionD: "Nothing", correctOption: "B", explanation: "US private foundations typically must pay out ~5% of assets per year.", orderIndex: 2 },
+  { id: "cfa3-institutional-foundations-q04", topicId: "cfa3-institutional-foundations", text: "A rolling 3-year average spending rule is used to:", optionA: "Increase spending volatility", optionB: "Smooth distributions vs a simple percentage rule", optionC: "Eliminate spending", optionD: "Track one year", correctOption: "B", explanation: "Averaging asset values over years reduces year-to-year spending volatility.", orderIndex: 3 },
+  { id: "cfa3-institutional-foundations-q05", topicId: "cfa3-institutional-foundations", text: "The endowment model emphasizes:", optionA: "Cash and T-bills", optionB: "Equities and alternative investments", optionC: "Short-term deposits", optionD: "A single bond", correctOption: "B", explanation: "Long horizons and high risk tolerance support heavy equity/alternatives allocations.", orderIndex: 4 },
+  { id: "cfa3-institutional-foundations-q06", topicId: "cfa3-institutional-foundations", text: "Endowments and foundations are generally:", optionA: "Heavily taxed", optionB: "Largely tax-exempt", optionC: "Taxed like individuals", optionD: "Subject to VAT", correctOption: "B", explanation: "These institutions are typically tax-exempt.", orderIndex: 5 },
+  { id: "cfa3-institutional-foundations-q07", topicId: "cfa3-institutional-foundations", text: "A constraint created by large illiquid alternatives allocations is:", optionA: "No liquidity issues", optionB: "Reduced liquidity to meet spending in stress", optionC: "Higher taxes", optionD: "Shorter horizon", correctOption: "B", explanation: "Heavy private/illiquid holdings can strain liquidity when distributions are due in downturns.", orderIndex: 6 },
+  { id: "cfa3-institutional-foundations-q08", topicId: "cfa3-institutional-foundations", text: "The geometric (Yale) spending rule weights:", optionA: "Only current market value", optionB: "Prior spending (inflation-adjusted) and a % of current market value", optionC: "The risk-free rate", optionD: "Coupons", correctOption: "B", explanation: "The Yale rule blends last year's spending and a percentage of market value to stabilize payouts.", orderIndex: 7 },
+  { id: "cfa3-institutional-foundations-q09", topicId: "cfa3-institutional-foundations", text: "Endowments aim to preserve the corpus's ____ value over time.", optionA: "Nominal", optionB: "Real (inflation-adjusted)", optionC: "Book", optionD: "Par", correctOption: "B", explanation: "They target maintaining the inflation-adjusted (real) value to support spending forever.", orderIndex: 8 },
+  { id: "cfa3-institutional-foundations-q10", topicId: "cfa3-institutional-foundations", text: "A simple percentage-of-beginning-assets spending rule is criticized for:", optionA: "Smoothing spending too much", optionB: "Volatile spending tied to market swings", optionC: "Ignoring assets", optionD: "Being illegal", correctOption: "B", explanation: "Tying spending to current asset values makes distributions swing with markets.", orderIndex: 9 },
+  { id: "cfa3-institutional-foundations-q11", topicId: "cfa3-institutional-foundations", text: "Donor restrictions on gifts are an example of which constraint?", optionA: "Legal/regulatory (and unique)", optionB: "Time horizon", optionC: "Taxes", optionD: "Beta", correctOption: "A", explanation: "Donor-imposed restrictions create legal/unique constraints on how funds may be invested/spent.", orderIndex: 10 },
+  { id: "cfa3-institutional-foundations-q12", topicId: "cfa3-institutional-foundations", text: "Compared with a foundation, a university endowment's spending also funds:", optionA: "A meaningful share of the operating budget", optionB: "Only grants", optionC: "Nothing", optionD: "Taxes", correctOption: "A", explanation: "University endowments often support a significant portion of the institution's operating budget.", orderIndex: 11 },
+
+  // Insurance companies
+  { id: "cfa3-institutional-insurance-q01", topicId: "cfa3-institutional-insurance", text: "Insurance companies are fundamentally:", optionA: "Liability-driven investors", optionB: "Return-maximizing with no liabilities", optionC: "Tax-exempt always", optionD: "Short-horizon traders", correctOption: "A", explanation: "Insurers invest to fund future claims, making them liability-driven and heavily regulated.", orderIndex: 0 },
+  { id: "cfa3-institutional-insurance-q02", topicId: "cfa3-institutional-insurance", text: "Life insurers' liabilities are typically:", optionA: "Short and lumpy", optionB: "Long-duration and relatively predictable", optionC: "Zero", optionD: "Equity-like", correctOption: "B", explanation: "Life liabilities are long-dated and fairly predictable, favoring long bonds and ALM.", orderIndex: 1 },
+  { id: "cfa3-institutional-insurance-q03", topicId: "cfa3-institutional-insurance", text: "Property-casualty insurers, versus life insurers, need:", optionA: "Less liquidity", optionB: "More liquidity (claims are lumpy/uncertain)", optionC: "Longer-duration assets", optionD: "No bonds", correctOption: "B", explanation: "P&C claims (e.g., catastrophes) are uncertain and lumpy, requiring higher liquidity and shorter assets.", orderIndex: 2 },
+  { id: "cfa3-institutional-insurance-q04", topicId: "cfa3-institutional-insurance", text: "A key risk for life insurers is:", optionA: "Interest-rate/disintermediation risk", optionB: "Catastrophe risk only", optionC: "No risk", optionD: "Equity-only risk", correctOption: "A", explanation: "Rate moves affect both asset values and policyholder behavior (disintermediation), a core life-insurer risk.", orderIndex: 3 },
+  { id: "cfa3-institutional-insurance-q05", topicId: "cfa3-institutional-insurance", text: "Insurers generally have a ____ risk tolerance for reserves backing liabilities.", optionA: "High", optionB: "Low (protect solvency/policyholders)", optionC: "Unlimited", optionD: "Negative", correctOption: "B", explanation: "Reserves are invested conservatively to protect policyholders and meet solvency requirements.", orderIndex: 4 },
+  { id: "cfa3-institutional-insurance-q06", topicId: "cfa3-institutional-insurance", text: "Regulatory capital regimes (e.g., RBC, Solvency II) influence insurers by:", optionA: "Encouraging only equities", optionB: "Driving asset choices toward higher-quality/liquid holdings", optionC: "Removing all constraints", optionD: "Eliminating ALM", correctOption: "B", explanation: "Capital rules penalize risky assets, steering insurers toward high-grade, liquid securities.", orderIndex: 5 },
+  { id: "cfa3-institutional-insurance-q07", topicId: "cfa3-institutional-insurance", text: "The insurer's 'float' refers to:", optionA: "Premiums invested before claims are paid", optionB: "A type of bond", optionC: "Equity capital", optionD: "A derivative", correctOption: "A", explanation: "Float is the premium money held and invested until claims come due.", orderIndex: 6 },
+  { id: "cfa3-institutional-insurance-q08", topicId: "cfa3-institutional-insurance", text: "A life insurer's surplus portfolio, vs reserves, can:", optionA: "Take more investment risk (e.g., equities)", optionB: "Take less risk", optionC: "Hold only cash", optionD: "Not be invested", correctOption: "A", explanation: "Surplus (capital beyond reserves) can bear more risk than the assets backing liabilities.", orderIndex: 7 },
+  { id: "cfa3-institutional-insurance-q09", topicId: "cfa3-institutional-insurance", text: "Asset-liability management for insurers focuses on:", optionA: "Maximizing turnover", optionB: "Matching asset and liability cash flows/durations", optionC: "Currency speculation", optionD: "Ignoring liabilities", correctOption: "B", explanation: "ALM aligns the timing/duration of assets with liabilities to manage interest-rate risk.", orderIndex: 8 },
+  { id: "cfa3-institutional-insurance-q10", topicId: "cfa3-institutional-insurance", text: "P&C insurers typically hold ____ duration assets than life insurers.", optionA: "Longer", optionB: "Shorter", optionC: "Identical", optionD: "Zero", correctOption: "B", explanation: "Shorter, uncertain P&C liabilities call for shorter-duration, more liquid assets.", orderIndex: 9 },
+  { id: "cfa3-institutional-insurance-q11", topicId: "cfa3-institutional-insurance", text: "Insurers are generally:", optionA: "Tax-exempt", optionB: "Taxable, with complex tax rules", optionC: "Subject to no regulation", optionD: "Individuals", correctOption: "B", explanation: "Insurance companies are taxable entities facing complex, regime-specific tax treatment.", orderIndex: 10 },
+  { id: "cfa3-institutional-insurance-q12", topicId: "cfa3-institutional-insurance", text: "Credit quality is emphasized in insurer portfolios mainly to:", optionA: "Maximize yield at any risk", optionB: "Protect solvency and meet capital requirements", optionC: "Increase turnover", optionD: "Avoid bonds", correctOption: "B", explanation: "High credit quality supports solvency and reduces regulatory capital charges.", orderIndex: 11 },
+
+  // Banks & ALM
+  { id: "cfa3-institutional-banks-q01", topicId: "cfa3-institutional-banks", text: "A bank's securities portfolio is primarily managed to:", optionA: "Maximize return at any risk", optionB: "Provide liquidity and manage the duration gap (ALM)", optionC: "Speculate on equities", optionD: "Avoid regulation", correctOption: "B", explanation: "The securities book serves liquidity, collateral, and interest-rate (ALM) management within regulatory limits.", orderIndex: 0 },
+  { id: "cfa3-institutional-banks-q02", topicId: "cfa3-institutional-banks", text: "The duration gap is the mismatch between the durations of a bank's:", optionA: "Assets and liabilities", optionB: "Equity and debt only", optionC: "Two benchmarks", optionD: "Loans and dividends", correctOption: "A", explanation: "ALM manages the gap between asset (loans/securities) and liability (deposits/borrowings) durations.", orderIndex: 1 },
+  { id: "cfa3-institutional-banks-q03", topicId: "cfa3-institutional-banks", text: "Banks favor high-quality, liquid securities partly because:", optionA: "They have the highest yield", optionB: "Regulatory (Basel) rules and liquidity needs reward them", optionC: "They are tax-free", optionD: "They have no duration", correctOption: "B", explanation: "Capital/liquidity rules (risk weights, LCR/NSFR) steer banks toward governments/agencies.", orderIndex: 2 },
+  { id: "cfa3-institutional-banks-q04", topicId: "cfa3-institutional-banks", text: "Net interest margin is the difference between:", optionA: "Interest earned on assets and interest paid on liabilities", optionB: "Dividends and coupons", optionC: "Two benchmarks", optionD: "Equity and debt", correctOption: "A", explanation: "NIM measures the spread the bank earns between its assets' yield and its funding cost.", orderIndex: 3 },
+  { id: "cfa3-institutional-banks-q05", topicId: "cfa3-institutional-banks", text: "The risk tolerance of a bank's securities book is generally:", optionA: "High", optionB: "Low (it backs deposits and regulatory needs)", optionC: "Unlimited", optionD: "Negative", correctOption: "B", explanation: "Because it supports liquidity and capital requirements, the securities portfolio is conservative.", orderIndex: 4 },
+  { id: "cfa3-institutional-banks-q06", topicId: "cfa3-institutional-banks", text: "Banks use interest-rate swaps and futures to:", optionA: "Speculate on equities", optionB: "Manage the duration gap / interest-rate risk", optionC: "Avoid taxes", optionD: "Increase the NIM with no risk", correctOption: "B", explanation: "Derivatives adjust the duration gap and hedge interest-rate risk efficiently.", orderIndex: 5 },
+  { id: "cfa3-institutional-banks-q07", topicId: "cfa3-institutional-banks", text: "A positive duration gap (assets longer than liabilities) means rising rates will:", optionA: "Increase the bank's net worth", optionB: "Decrease the bank's economic net worth", optionC: "Have no effect", optionD: "Raise the NIM immediately", correctOption: "B", explanation: "If assets are more rate-sensitive (longer) than liabilities, rising rates lower asset values more, reducing net worth.", orderIndex: 6 },
+  { id: "cfa3-institutional-banks-q08", topicId: "cfa3-institutional-banks", text: "Liquidity regulations affecting banks include the:", optionA: "LCR and NSFR", optionB: "P/E ratio", optionC: "Sharpe ratio", optionD: "Cap rate", correctOption: "A", explanation: "The Liquidity Coverage Ratio and Net Stable Funding Ratio are key Basel liquidity rules.", orderIndex: 7 },
+  { id: "cfa3-institutional-banks-q09", topicId: "cfa3-institutional-banks", text: "Banks are generally:", optionA: "Tax-exempt", optionB: "Taxable", optionC: "Individuals", optionD: "Unregulated", correctOption: "B", explanation: "Banks are taxable, regulated entities.", orderIndex: 8 },
+  { id: "cfa3-institutional-banks-q10", topicId: "cfa3-institutional-banks", text: "The bank securities portfolio also provides:", optionA: "Collateral for borrowing and regulatory liquidity", optionB: "Only dividend income", optionC: "Equity upside only", optionD: "No function", correctOption: "A", explanation: "High-quality securities serve as collateral and count toward liquidity requirements.", orderIndex: 9 },
+  { id: "cfa3-institutional-banks-q11", topicId: "cfa3-institutional-banks", text: "Managing the duration gap toward zero aims to:", optionA: "Maximize interest-rate risk", optionB: "Immunize net worth against interest-rate moves", optionC: "Increase turnover", optionD: "Avoid all bonds", correctOption: "B", explanation: "A zero duration gap makes the bank's net worth approximately insensitive to small rate changes.", orderIndex: 10 },
+  { id: "cfa3-institutional-banks-q12", topicId: "cfa3-institutional-banks", text: "A bank's time horizon for its securities book is tied to its:", optionA: "Liability (deposit/funding) structure", optionB: "Dividend policy", optionC: "Equity beta", optionD: "Auditor", correctOption: "A", explanation: "The funding/liability structure drives the appropriate horizon and duration of the securities portfolio.", orderIndex: 11 },
+
+  // Sovereign wealth funds
+  { id: "cfa3-institutional-sovereign-q01", topicId: "cfa3-institutional-sovereign", text: "A budget-stabilization sovereign wealth fund typically has a:", optionA: "Long horizon and high risk tolerance", optionB: "Short horizon, low risk, high liquidity", optionC: "Perpetual horizon", optionD: "No objective", correctOption: "B", explanation: "Stabilization funds smooth revenue swings, so they stay short, conservative, and liquid.", orderIndex: 0 },
+  { id: "cfa3-institutional-sovereign-q02", topicId: "cfa3-institutional-sovereign", text: "A savings/future-generations SWF generally has:", optionA: "A very long horizon and high risk tolerance", optionB: "A one-year horizon", optionC: "No risk tolerance", optionD: "Daily liquidity needs", correctOption: "A", explanation: "Savings funds preserve wealth across generations, allowing long horizons and aggressive allocations.", orderIndex: 1 },
+  { id: "cfa3-institutional-sovereign-q03", topicId: "cfa3-institutional-sovereign", text: "A development SWF aims to:", optionA: "Fund domestic economic projects", optionB: "Smooth budget revenue", optionC: "Hold only cash", optionD: "Pay dividends", correctOption: "A", explanation: "Development funds invest to support domestic economic development goals.", orderIndex: 2 },
+  { id: "cfa3-institutional-sovereign-q04", topicId: "cfa3-institutional-sovereign", text: "A reserve-investment SWF is created to:", optionA: "Earn higher returns on excess FX reserves", optionB: "Pay current pensions", optionC: "Fund a single project", optionD: "Avoid taxes", correctOption: "A", explanation: "Reserve-investment funds seek better returns on reserves beyond traditional liquidity holdings.", orderIndex: 3 },
+  { id: "cfa3-institutional-sovereign-q05", topicId: "cfa3-institutional-sovereign", text: "A pension-reserve SWF is liability-aware because it:", optionA: "Pre-funds future pension obligations", optionB: "Has no liabilities", optionC: "Is a stabilization fund", optionD: "Holds only equities", correctOption: "A", explanation: "Pension reserve funds set aside assets to meet future pension liabilities, so they consider those liabilities.", orderIndex: 4 },
+  { id: "cfa3-institutional-sovereign-q06", topicId: "cfa3-institutional-sovereign", text: "Long-horizon savings SWFs most resemble:", optionA: "Liquidity reserves", optionB: "Endowments (equity/alternatives heavy)", optionC: "Banks", optionD: "P&C insurers", correctOption: "B", explanation: "Their perpetual, growth-oriented mandate mirrors the endowment model.", orderIndex: 5 },
+  { id: "cfa3-institutional-sovereign-q07", topicId: "cfa3-institutional-sovereign", text: "Stabilization funds most resemble:", optionA: "Endowments", optionB: "Short-duration liquidity reserves", optionC: "Equity hedge funds", optionD: "Private equity", correctOption: "B", explanation: "Their need to deploy funds on short notice makes them like conservative liquidity portfolios.", orderIndex: 6 },
+  { id: "cfa3-institutional-sovereign-q08", topicId: "cfa3-institutional-sovereign", text: "The Santiago Principles relate to SWF:", optionA: "Tax rates", optionB: "Governance and transparency best practices", optionC: "Currency hedging", optionD: "Duration matching", correctOption: "B", explanation: "The Santiago Principles set voluntary governance/transparency standards for sovereign wealth funds.", orderIndex: 7 },
+  { id: "cfa3-institutional-sovereign-q09", topicId: "cfa3-institutional-sovereign", text: "A key non-financial constraint for SWFs is:", optionA: "Political scrutiny and governance", optionB: "Dividend dates", optionC: "Coupon schedules", optionD: "Beta limits", correctOption: "A", explanation: "Political oversight, governance, and transparency are significant constraints for state-owned funds.", orderIndex: 8 },
+  { id: "cfa3-institutional-sovereign-q10", topicId: "cfa3-institutional-sovereign", text: "Liquidity needs are highest for which SWF type?", optionA: "Savings", optionB: "Budget stabilization", optionC: "Development", optionD: "Pension reserve", correctOption: "B", explanation: "Stabilization funds must be ready to deploy on short notice, so liquidity needs are highest.", orderIndex: 9 },
+  { id: "cfa3-institutional-sovereign-q11", topicId: "cfa3-institutional-sovereign", text: "A resource-rich country smoothing oil-revenue swings would use a:", optionA: "Stabilization fund", optionB: "Pension reserve fund", optionC: "Development bank loan", optionD: "Hedge fund", correctOption: "A", explanation: "Stabilization funds buffer government budgets against commodity-revenue volatility.", orderIndex: 10 },
+  { id: "cfa3-institutional-sovereign-q12", topicId: "cfa3-institutional-sovereign", text: "The objective and risk profile of an SWF depend mainly on its:", optionA: "Type/purpose", optionB: "Currency only", optionC: "Auditor", optionD: "Coupon", correctOption: "A", explanation: "Each SWF type (stabilization, savings, development, reserve, pension) implies a distinct horizon/risk profile.", orderIndex: 11 },
+
+  // Code of ethics & the seven standards
+  { id: "cfa3-ethics-code-standards-q01", topicId: "cfa3-ethics-code-standards", text: "When local law is less strict than the Code and Standards, members must follow:", optionA: "Local law", optionB: "The stricter (Code and Standards)", optionC: "Neither", optionD: "Client preference", correctOption: "B", explanation: "Standard I(A) requires adhering to the stricter of applicable law or the Code and Standards.", orderIndex: 0 },
+  { id: "cfa3-ethics-code-standards-q02", topicId: "cfa3-ethics-code-standards", text: "Standard II concerns:", optionA: "Integrity of capital markets (MNPI, manipulation)", optionB: "Duties to employers", optionC: "Conflicts of interest", optionD: "Professionalism", correctOption: "A", explanation: "Standard II covers material nonpublic information and market manipulation.", orderIndex: 1 },
+  { id: "cfa3-ethics-code-standards-q03", topicId: "cfa3-ethics-code-standards", text: "Suitability falls under which Standard?", optionA: "III Duties to Clients", optionB: "I Professionalism", optionC: "VI Conflicts", optionD: "VII Member responsibilities", correctOption: "A", explanation: "Suitability is Standard III(C), part of Duties to Clients.", orderIndex: 2 },
+  { id: "cfa3-ethics-code-standards-q04", topicId: "cfa3-ethics-code-standards", text: "Record retention and diligence/reasonable basis are under Standard:", optionA: "V Investment Analysis, Recommendations & Actions", optionB: "II Integrity of Capital Markets", optionC: "IV Duties to Employers", optionD: "VI Conflicts", correctOption: "A", explanation: "Standard V covers diligence/reasonable basis, communication, and record retention.", orderIndex: 3 },
+  { id: "cfa3-ethics-code-standards-q05", topicId: "cfa3-ethics-code-standards", text: "Priority of transactions is part of Standard:", optionA: "VI Conflicts of Interest", optionB: "I Professionalism", optionC: "III Duties to Clients", optionD: "VII Member responsibilities", correctOption: "A", explanation: "Priority of transactions is Standard VI(B).", orderIndex: 4 },
+  { id: "cfa3-ethics-code-standards-q06", topicId: "cfa3-ethics-code-standards", text: "Conduct in the CFA Program is governed by Standard:", optionA: "VII Responsibilities as a Member/Candidate", optionB: "I Professionalism", optionC: "V Investment Analysis", optionD: "III Duties to Clients", correctOption: "A", explanation: "Standard VII addresses conduct that could compromise CFA Institute or the program.", orderIndex: 5 },
+  { id: "cfa3-ethics-code-standards-q07", topicId: "cfa3-ethics-code-standards", text: "Independence and objectivity is part of Standard:", optionA: "I Professionalism", optionB: "II Integrity of Markets", optionC: "IV Employers", optionD: "VI Conflicts", correctOption: "A", explanation: "Independence and objectivity is Standard I(B).", orderIndex: 6 },
+  { id: "cfa3-ethics-code-standards-q08", topicId: "cfa3-ethics-code-standards", text: "Loyalty to employer and supervisory responsibilities are under Standard:", optionA: "IV Duties to Employers", optionB: "III Duties to Clients", optionC: "I Professionalism", optionD: "V Investment Analysis", correctOption: "A", explanation: "Standard IV covers loyalty, additional compensation, and supervisor responsibilities.", orderIndex: 7 },
+  { id: "cfa3-ethics-code-standards-q09", topicId: "cfa3-ethics-code-standards", text: "The most heavily weighted topic area across all CFA levels is:", optionA: "Derivatives", optionB: "Ethics and Professional Standards", optionC: "Economics", optionD: "Alternative investments", correctOption: "B", explanation: "Ethics is consistently the most heavily tested area at every level.", orderIndex: 8 },
+  { id: "cfa3-ethics-code-standards-q10", topicId: "cfa3-ethics-code-standards", text: "The recommended approach to an ethics vignette is to:", optionA: "Pick the first plausible answer", optionB: "Map actions to the precise sub-standard and choose the least-compliant", optionC: "Ignore the facts", optionD: "Assume all actions comply", correctOption: "B", explanation: "Identify each action, match it to the relevant sub-standard, then select the least compliant choice.", orderIndex: 9 },
+  { id: "cfa3-ethics-code-standards-q11", topicId: "cfa3-ethics-code-standards", text: "The Code of Ethics differs from the Standards in that the Code:", optionA: "Provides specific rules", optionB: "States the broad ethical principles", optionC: "Is optional", optionD: "Applies only to candidates", correctOption: "B", explanation: "The Code states principles; the Standards translate them into specific, actionable conduct rules.", orderIndex: 10 },
+  { id: "cfa3-ethics-code-standards-q12", topicId: "cfa3-ethics-code-standards", text: "If a member knows of an ongoing violation of law, they should:", optionA: "Participate", optionB: "Dissociate from the activity", optionC: "Ignore it", optionD: "Profit from it", correctOption: "B", explanation: "Standard I(A) requires members to dissociate from known violations.", orderIndex: 11 },
+
+  // Professionalism & market integrity (I & II) — L3
+  { id: "cfa3-ethics-professionalism-q01", topicId: "cfa3-ethics-professionalism", text: "Accepting lavish, influence-seeking gifts from a covered company risks violating:", optionA: "I(B) Independence and Objectivity", optionB: "II(B) Manipulation", optionC: "V(C) Records", optionD: "VII Conduct", correctOption: "A", explanation: "Lavish benefits that could bias judgment threaten independence and objectivity.", orderIndex: 0 },
+  { id: "cfa3-ethics-professionalism-q02", topicId: "cfa3-ethics-professionalism", text: "Trading on material nonpublic information violates:", optionA: "II(A) Material Nonpublic Information", optionB: "I(C) Misrepresentation", optionC: "IV(A) Loyalty", optionD: "VI(B) Priority", correctOption: "A", explanation: "Acting on MNPI breaches Standard II(A).", orderIndex: 1 },
+  { id: "cfa3-ethics-professionalism-q03", topicId: "cfa3-ethics-professionalism", text: "The mosaic theory permits combining:", optionA: "Insider tips and rumors", optionB: "Public and non-material nonpublic information", optionC: "Two material nonpublic items", optionD: "Client and personal trades", correctOption: "B", explanation: "Conclusions from public plus non-material nonpublic information are permissible under the mosaic theory.", orderIndex: 2 },
+  { id: "cfa3-ethics-professionalism-q04", topicId: "cfa3-ethics-professionalism", text: "Wash trades and spoofing are examples of:", optionA: "Market manipulation [II(B)]", optionB: "Fair dealing", optionC: "Diligence", optionD: "Record retention", correctOption: "A", explanation: "Transaction-based manipulation (wash trades, spoofing) violates II(B).", orderIndex: 3 },
+  { id: "cfa3-ethics-professionalism-q05", topicId: "cfa3-ethics-professionalism", text: "Plagiarizing another's report violates:", optionA: "I(C) Misrepresentation", optionB: "II(A) MNPI", optionC: "IV(A) Loyalty", optionD: "VI(C) Referral fees", correctOption: "A", explanation: "Plagiarism is a misrepresentation under Standard I(C).", orderIndex: 4 },
+  { id: "cfa3-ethics-professionalism-q06", topicId: "cfa3-ethics-professionalism", text: "Firewalls are a recommended procedure to comply with:", optionA: "II(A) Material Nonpublic Information", optionB: "III(C) Suitability", optionC: "V(C) Records", optionD: "VI(B) Priority", correctOption: "A", explanation: "Information barriers prevent improper flow/use of MNPI, supporting II(A).", orderIndex: 5 },
+  { id: "cfa3-ethics-professionalism-q07", topicId: "cfa3-ethics-professionalism", text: "Guaranteeing a specific return on a volatile fund violates:", optionA: "I(C) Misrepresentation", optionB: "II(A) MNPI", optionC: "IV(B) Compensation", optionD: "VI(A) Disclosure", correctOption: "A", explanation: "Promising a return on a risky investment is a misrepresentation under I(C).", orderIndex: 6 },
+  { id: "cfa3-ethics-professionalism-q08", topicId: "cfa3-ethics-professionalism", text: "A 'pump-and-dump' scheme is:", optionA: "Information-based market manipulation", optionB: "Fair dealing", optionC: "Suitability analysis", optionD: "Independence", correctOption: "A", explanation: "Spreading false positives to inflate a price then selling is information-based manipulation [II(B)].", orderIndex: 7 },
+  { id: "cfa3-ethics-professionalism-q09", topicId: "cfa3-ethics-professionalism", text: "A modest meal and a branded pen at an investor day are:", optionA: "A violation requiring client disclosure", optionB: "Acceptable token items", optionC: "Market manipulation", optionD: "Misconduct", correctOption: "B", explanation: "Token items unlikely to bias judgment are acceptable; the concern is lavish/influence-seeking benefits.", orderIndex: 8 },
+  { id: "cfa3-ethics-professionalism-q10", topicId: "cfa3-ethics-professionalism", text: "Dishonesty or fraud reflecting on professional integrity violates:", optionA: "I(D) Misconduct", optionB: "II(A) MNPI", optionC: "III(B) Fair Dealing", optionD: "VI(A) Disclosure", correctOption: "A", explanation: "Standard I(D) Misconduct addresses dishonest/fraudulent conduct affecting professional reputation.", orderIndex: 9 },
+  { id: "cfa3-ethics-professionalism-q11", topicId: "cfa3-ethics-professionalism", text: "Using recognized government statistical data without attribution is:", optionA: "Always plagiarism", optionB: "Permitted (factual/statistical data need not be cited)", optionC: "A violation of independence", optionD: "Manipulation", correctOption: "B", explanation: "Recognized factual/statistical data may be used without attribution; plagiarism concerns others' analysis.", orderIndex: 10 },
+  { id: "cfa3-ethics-professionalism-q12", topicId: "cfa3-ethics-professionalism", text: "Pressure from an employer to issue a biased rating should be:", optionA: "Followed", optionB: "Resisted to maintain independence and objectivity [I(B)]", optionC: "Disclosed only to the SEC", optionD: "Ignored", correctOption: "B", explanation: "Members must keep independent, objective opinions despite internal pressure.", orderIndex: 11 },
+
+  // Duties to clients (Standard III)
+  { id: "cfa3-ethics-duties-clients-q01", topicId: "cfa3-ethics-duties-clients", text: "Under III(A), a pension manager's loyalty runs primarily to the:", optionA: "Plan sponsor's executives", optionB: "Plan beneficiaries", optionC: "Brokerage firm", optionD: "Regulator", correctOption: "B", explanation: "Loyalty, Prudence and Care requires acting for the ultimate beneficiaries.", orderIndex: 0 },
+  { id: "cfa3-ethics-duties-clients-q02", topicId: "cfa3-ethics-duties-clients", text: "Tipping a favored client before others violates:", optionA: "III(B) Fair Dealing", optionB: "I(B) Independence", optionC: "VI(B) Priority", optionD: "IV(A) Loyalty", correctOption: "A", explanation: "Fair Dealing requires fair dissemination of recommendations and changes.", orderIndex: 1 },
+  { id: "cfa3-ethics-duties-clients-q03", topicId: "cfa3-ethics-duties-clients", text: "Suitability [III(C)] requires matching recommendations to the client's:", optionA: "Objectives and constraints (IPS)", optionB: "Broker's targets", optionC: "Country only", optionD: "Tax bracket only", correctOption: "A", explanation: "Suitability ties recommendations to each client's IPS and, in advisory relationships, the total portfolio.", orderIndex: 2 },
+  { id: "cfa3-ethics-duties-clients-q04", topicId: "cfa3-ethics-duties-clients", text: "Performance presentation [III(D)] must be:", optionA: "Cherry-picked", optionB: "Fair, accurate and complete", optionC: "Only the best account", optionD: "Hypothetical", correctOption: "B", explanation: "Performance must be presented fairly, accurately, and completely.", orderIndex: 3 },
+  { id: "cfa3-ethics-duties-clients-q05", topicId: "cfa3-ethics-duties-clients", text: "Confidentiality [III(E)] applies to:", optionA: "Only current clients", optionB: "Current, former, and prospective clients", optionC: "No one", optionD: "Competitors", correctOption: "B", explanation: "Confidentiality extends to current, former, and prospective clients (subject to legal exceptions).", orderIndex: 4 },
+  { id: "cfa3-ethics-duties-clients-q06", topicId: "cfa3-ethics-duties-clients", text: "Soft dollars (client brokerage) must be used:", optionA: "For firm overhead", optionB: "For the client's benefit (research)", optionC: "For personal travel", optionD: "However the manager wishes", correctOption: "B", explanation: "Client brokerage belongs to the client and must fund research benefiting the investment process.", orderIndex: 5 },
+  { id: "cfa3-ethics-duties-clients-q07", topicId: "cfa3-ethics-duties-clients", text: "Best execution must not be sacrificed to:", optionA: "Reduce client taxes", optionB: "Direct soft-dollar business to a broker", optionC: "Comply with the law", optionD: "Diversify", correctOption: "B", explanation: "Managers must seek best execution; soft-dollar arrangements cannot override it.", orderIndex: 6 },
+  { id: "cfa3-ethics-duties-clients-q08", topicId: "cfa3-ethics-duties-clients", text: "Confidential client information may be disclosed when:", optionA: "A friend asks", optionB: "Legally required or concerning illegal activity", optionC: "It benefits the manager", optionD: "Never", correctOption: "B", explanation: "Disclosure is permitted when required by law or to report illegal client activity.", orderIndex: 7 },
+  { id: "cfa3-ethics-duties-clients-q09", topicId: "cfa3-ethics-duties-clients", text: "Fair dealing requires that recommendation changes be communicated:", optionA: "To large clients first", optionB: "Fairly to all clients", optionC: "Only to the manager's account", optionD: "After trading personally", correctOption: "B", explanation: "All clients must be treated fairly when disseminating changes.", orderIndex: 8 },
+  { id: "cfa3-ethics-duties-clients-q10", topicId: "cfa3-ethics-duties-clients", text: "In an advisory relationship, suitability considers the:", optionA: "Single trade alone", optionB: "Client's total portfolio", optionC: "Manager's portfolio", optionD: "Benchmark only", correctOption: "B", explanation: "Suitability is judged in the context of the client's overall portfolio, not the trade in isolation.", orderIndex: 9 },
+  { id: "cfa3-ethics-duties-clients-q11", topicId: "cfa3-ethics-duties-clients", text: "Loyalty, Prudence and Care requires the manager to:", optionA: "Favor the employer", optionB: "Act with reasonable care in the client's interest", optionC: "Maximize commissions", optionD: "Trade ahead of clients", correctOption: "B", explanation: "III(A) requires prudence and care, placing the client's interest first.", orderIndex: 10 },
+  { id: "cfa3-ethics-duties-clients-q12", topicId: "cfa3-ethics-duties-clients", text: "Selectively presenting only top-performing composites violates:", optionA: "III(D) Performance Presentation", optionB: "II(A) MNPI", optionC: "I(A) Knowledge of Law", optionD: "VI(C) Referral Fees", correctOption: "A", explanation: "Cherry-picking performance breaches the fair, accurate, complete requirement of III(D).", orderIndex: 11 },
+
+  // Conflicts & priority of transactions (VI)
+  { id: "cfa3-ethics-conflicts-q01", topicId: "cfa3-ethics-conflicts", text: "Standard VI(A) requires members to ____ conflicts of interest.", optionA: "Conceal", optionB: "Fully and fairly disclose", optionC: "Ignore if small", optionD: "Disclose only to regulators", correctOption: "B", explanation: "Conflicts must be disclosed prominently, fully, and fairly in plain language.", orderIndex: 0 },
+  { id: "cfa3-ethics-conflicts-q02", topicId: "cfa3-ethics-conflicts", text: "Priority of transactions [VI(B)] requires that:", optionA: "The member trades first", optionB: "Client and employer trades take precedence over the member's own", optionC: "All trades are simultaneous", optionD: "Personal trades are banned entirely", correctOption: "B", explanation: "Clients and the employer come before the member's personal transactions.", orderIndex: 1 },
+  { id: "cfa3-ethics-conflicts-q03", topicId: "cfa3-ethics-conflicts", text: "Referral fees [VI(C)] must be disclosed to:", optionA: "Clients and the employer", optionB: "Only the regulator", optionC: "No one", optionD: "Competitors", correctOption: "A", explanation: "Disclosing referral compensation lets clients assess potential bias.", orderIndex: 2 },
+  { id: "cfa3-ethics-conflicts-q04", topicId: "cfa3-ethics-conflicts", text: "Taking a desirable IPO allocation ahead of clients violates:", optionA: "VI(B) Priority of Transactions", optionB: "III(D) Performance", optionC: "I(A) Knowledge of Law", optionD: "IV(C) Supervisors", correctOption: "A", explanation: "Members must not take attractive allocations ahead of clients.", orderIndex: 3 },
+  { id: "cfa3-ethics-conflicts-q05", topicId: "cfa3-ethics-conflicts", text: "Recommended procedures for personal trading include:", optionA: "No rules", optionB: "Restricted lists, pre-clearance, and blackout periods", optionC: "Front-running", optionD: "Trading ahead of clients", correctOption: "B", explanation: "These controls help comply with VI(B) priority of transactions.", orderIndex: 4 },
+  { id: "cfa3-ethics-conflicts-q06", topicId: "cfa3-ethics-conflicts", text: "A board seat at a covered company should be:", optionA: "Hidden", optionB: "Disclosed under VI(A)", optionC: "Disclosed only to the board", optionD: "Ignored if unpaid", correctOption: "B", explanation: "Board membership can impair objectivity and must be disclosed as a conflict.", orderIndex: 5 },
+  { id: "cfa3-ethics-conflicts-q07", topicId: "cfa3-ethics-conflicts", text: "The default remedy for a conflict of interest is:", optionA: "Concealment", optionB: "Full disclosure and proper management", optionC: "Resignation always", optionD: "Ignoring it", correctOption: "B", explanation: "Conflicts are addressed by disclosing and managing them.", orderIndex: 6 },
+  { id: "cfa3-ethics-conflicts-q08", topicId: "cfa3-ethics-conflicts", text: "A compensation structure that could bias a recommendation is:", optionA: "Not a conflict", optionB: "A disclosable conflict under VI(A)", optionC: "Manipulation", optionD: "Misconduct", correctOption: "B", explanation: "Compensation arrangements that may affect objectivity must be disclosed.", orderIndex: 7 },
+  { id: "cfa3-ethics-conflicts-q09", topicId: "cfa3-ethics-conflicts", text: "Disclosure of a conflict should be:", optionA: "Buried in fine print", optionB: "Prominent and in plain language", optionC: "Verbal only", optionD: "After trading", correctOption: "B", explanation: "Disclosures must be clear and understandable so recipients can evaluate the conflict.", orderIndex: 8 },
+  { id: "cfa3-ethics-conflicts-q10", topicId: "cfa3-ethics-conflicts", text: "Standard IV(B) Additional Compensation requires:", optionA: "No action", optionB: "Written consent for outside compensation that competes with the employer", optionC: "Only verbal notice", optionD: "Client disclosure only", correctOption: "B", explanation: "Members need written consent for competing additional compensation arrangements.", orderIndex: 9 },
+  { id: "cfa3-ethics-conflicts-q11", topicId: "cfa3-ethics-conflicts", text: "Supervisors [IV(C)] must take reasonable steps to:", optionA: "Maximize trades", optionB: "Prevent and detect violations by those they supervise", optionC: "Avoid compliance", optionD: "Hide conflicts", correctOption: "B", explanation: "Supervisory responsibility requires adequate procedures to prevent/detect violations.", orderIndex: 10 },
+  { id: "cfa3-ethics-conflicts-q12", topicId: "cfa3-ethics-conflicts", text: "Personal-trading rules ensure members do not:", optionA: "Benefit clients", optionB: "Disadvantage clients through their own trades", optionC: "Disclose conflicts", optionD: "Keep records", correctOption: "B", explanation: "VI(B) protects clients from being disadvantaged by a member's personal transactions.", orderIndex: 11 },
+
+  // Application of the code & standards (cases)
+  { id: "cfa3-ethics-application-cases-q01", topicId: "cfa3-ethics-application-cases", text: "The first step in analyzing an ethics vignette is to:", optionA: "Pick the longest answer", optionB: "Identify the actors and actions", optionC: "Assume compliance", optionD: "Skip the facts", correctOption: "B", explanation: "Start by identifying who did what before mapping to the standards.", orderIndex: 0 },
+  { id: "cfa3-ethics-application-cases-q02", topicId: "cfa3-ethics-application-cases", text: "Taking a client list to a new employer maps to:", optionA: "IV(A) Loyalty to Employer", optionB: "II(A) MNPI", optionC: "III(C) Suitability", optionD: "VI(C) Referral Fees", correctOption: "A", explanation: "Client lists/records are the employer's property; taking them breaches IV(A).", orderIndex: 1 },
+  { id: "cfa3-ethics-application-cases-q03", topicId: "cfa3-ethics-application-cases", text: "Acting on a friend's tip about an unannounced merger maps to:", optionA: "II(A) Material Nonpublic Information", optionB: "III(B) Fair Dealing", optionC: "I(B) Independence", optionD: "V(C) Records", correctOption: "A", explanation: "Trading on material nonpublic information violates II(A).", orderIndex: 2 },
+  { id: "cfa3-ethics-application-cases-q04", topicId: "cfa3-ethics-application-cases", text: "A gift from a client for past performance should be:", optionA: "Declined always", optionB: "Disclosed to the employer", optionC: "Hidden", optionD: "Returned with interest", correctOption: "B", explanation: "Client gifts for prior work are permitted but must be disclosed to the employer.", orderIndex: 3 },
+  { id: "cfa3-ethics-application-cases-q05", topicId: "cfa3-ethics-application-cases", text: "A gift/benefit from a third party seeking to influence research should be:", optionA: "Accepted freely", optionB: "Declined (or strictly limited)", optionC: "Disclosed only to clients", optionD: "Shared with the team", correctOption: "B", explanation: "Influence-seeking third-party benefits should be declined to protect independence.", orderIndex: 4 },
+  { id: "cfa3-ethics-application-cases-q06", topicId: "cfa3-ethics-application-cases", text: "When law and the Code conflict, follow the:", optionA: "Less strict", optionB: "Stricter", optionC: "Local law always", optionD: "Code always", correctOption: "B", explanation: "Members must comply with the stricter of applicable law or the Code and Standards.", orderIndex: 5 },
+  { id: "cfa3-ethics-application-cases-q07", topicId: "cfa3-ethics-application-cases", text: "Most ethics cases can be resolved by recommending procedures such as:", optionA: "Firewalls, restricted lists, disclosure, supervision", optionB: "Higher leverage", optionC: "More trading", optionD: "Ignoring conflicts", correctOption: "A", explanation: "Standard recommended procedures (controls/disclosure) typically resolve case scenarios.", orderIndex: 6 },
+  { id: "cfa3-ethics-application-cases-q08", topicId: "cfa3-ethics-application-cases", text: "Claiming GIPS compliance for only the firm's best composites is:", optionA: "Acceptable", optionB: "A violation — GIPS compliance is firm-wide", optionC: "Required", optionD: "A tax strategy", correctOption: "B", explanation: "GIPS compliance must be firm-wide; partial/cherry-picked claims are prohibited.", orderIndex: 7 },
+  { id: "cfa3-ethics-application-cases-q09", topicId: "cfa3-ethics-application-cases", text: "Using public reports plus your own non-material observations to reach a buy is:", optionA: "Permissible (mosaic theory)", optionB: "Insider trading", optionC: "Manipulation", optionD: "Misconduct", correctOption: "A", explanation: "The mosaic theory permits combining public and non-material nonpublic information.", orderIndex: 8 },
+  { id: "cfa3-ethics-application-cases-q10", topicId: "cfa3-ethics-application-cases", text: "When choosing among answers, select the one that is:", optionA: "Most compliant / best remedies the issue", optionB: "Longest", optionC: "Most aggressive", optionD: "Cheapest", correctOption: "A", explanation: "Pick the most compliant action or best remedy (or identify the least-compliant act, per the question).", orderIndex: 9 },
+  { id: "cfa3-ethics-application-cases-q11", topicId: "cfa3-ethics-application-cases", text: "Reasonable basis and diligence behind a recommendation is required by Standard:", optionA: "V(A)", optionB: "II(B)", optionC: "VI(A)", optionD: "IV(C)", correctOption: "A", explanation: "Standard V(A) requires a reasonable and adequate basis for recommendations and actions.", orderIndex: 10 },
+  { id: "cfa3-ethics-application-cases-q12", topicId: "cfa3-ethics-application-cases", text: "Mixed-use research paid with client brokerage should be:", optionA: "Fully charged to clients", optionB: "Allocated, with only the research portion paid by client brokerage", optionC: "Charged entirely to the firm regardless", optionD: "Never disclosed", correctOption: "B", explanation: "Mixed-use products must be reasonably allocated; only the research portion may use client brokerage.", orderIndex: 11 }
 ];

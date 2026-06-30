@@ -5580,7 +5580,7 @@ h = d * tan(theta)
       optionC: "10",
       optionD: "20",
       correctOption: "C",
-      explanation: "5C2 = 10.",
+      explanation: "Choosing 2 from 5 is a combination: 5C2 = 5!/(2!·3!) = 10.",
       orderIndex: 1
     },
     {
