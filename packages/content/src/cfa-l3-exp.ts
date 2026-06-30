@@ -65,7 +65,21 @@ export const expTopics: Topic[] = [
   { id: "cfa3-ethics-professionalism", subjectId: "cfa3-ethics", name: "Professionalism & Market Integrity (I & II)", slug: "professionalism", orderIndex: 2 },
   { id: "cfa3-ethics-duties-clients", subjectId: "cfa3-ethics", name: "Duties to Clients (Standard III)", slug: "duties-clients", orderIndex: 3 },
   { id: "cfa3-ethics-conflicts", subjectId: "cfa3-ethics", name: "Conflicts & Priority of Transactions (VI)", slug: "conflicts", orderIndex: 4 },
-  { id: "cfa3-ethics-application-cases", subjectId: "cfa3-ethics", name: "Application of the Code & Standards", slug: "application-cases", orderIndex: 5 }
+  { id: "cfa3-ethics-application-cases", subjectId: "cfa3-ethics", name: "Application of the Code & Standards", slug: "application-cases", orderIndex: 5 },
+  { id: "cfa3-risk-management-market-risk", subjectId: "cfa3-risk-management", name: "Measuring & Managing Market Risk (VaR)", slug: "market-risk", orderIndex: 2 },
+  { id: "cfa3-risk-management-swaps-forwards", subjectId: "cfa3-risk-management", name: "Swaps, Forwards & Futures Strategies", slug: "swaps-forwards", orderIndex: 3 },
+  { id: "cfa3-risk-management-options-strategies", subjectId: "cfa3-risk-management", name: "Options Strategies", slug: "options-strategies", orderIndex: 4 },
+  { id: "cfa3-risk-management-enterprise", subjectId: "cfa3-risk-management", name: "Risk Governance & Enterprise Risk Management", slug: "enterprise", orderIndex: 5 },
+  { id: "cfa3-alternative-investments-hedge-funds", subjectId: "cfa3-alternative-investments", name: "Hedge Fund Strategies", slug: "hedge-funds", orderIndex: 1 },
+  { id: "cfa3-alternative-investments-private-equity", subjectId: "cfa3-alternative-investments", name: "Private Equity & Venture Capital", slug: "private-equity", orderIndex: 2 },
+  { id: "cfa3-alternative-investments-real-estate", subjectId: "cfa3-alternative-investments", name: "Real Estate Investment", slug: "real-estate", orderIndex: 3 },
+  { id: "cfa3-alternative-investments-real-assets", subjectId: "cfa3-alternative-investments", name: "Commodities & Real Assets", slug: "real-assets", orderIndex: 4 },
+  { id: "cfa3-alternative-investments-private-debt", subjectId: "cfa3-alternative-investments", name: "Private Debt & Infrastructure", slug: "private-debt", orderIndex: 5 },
+  { id: "cfa3-manager-selection-quantitative", subjectId: "cfa3-manager-selection", name: "Quantitative Manager Evaluation", slug: "quantitative", orderIndex: 1 },
+  { id: "cfa3-manager-selection-fees", subjectId: "cfa3-manager-selection", name: "Fee Structures & Alignment", slug: "fees", orderIndex: 2 },
+  { id: "cfa3-manager-selection-style-analysis", subjectId: "cfa3-manager-selection", name: "Style & Holdings-Based Analysis", slug: "style-analysis", orderIndex: 3 },
+  { id: "cfa3-manager-selection-monitoring", subjectId: "cfa3-manager-selection", name: "Monitoring & Manager Termination", slug: "monitoring", orderIndex: 4 },
+  { id: "cfa3-manager-selection-universe", subjectId: "cfa3-manager-selection", name: "Universe Definition & Process Screening", slug: "universe", orderIndex: 5 }
 ];
 
 export const expMaterials: AuthoredMaterial[] = [
@@ -1108,6 +1122,292 @@ A DB plan's ability to take risk **rises** with: a **younger** workforce (longer
 - **Recommended procedures** (firewalls, restricted lists, disclosure, supervision, record retention) usually resolve the case.`,
     estimatedReadTime: 2,
     orderIndex: 5
+  },
+  {
+    id: "cfa3-risk-management-market-risk-m01",
+    topicId: "cfa3-risk-management-market-risk",
+    title: "Measuring & Managing Market Risk (VaR)",
+    content: `**Value at Risk (VaR)** is the minimum loss expected over a horizon at a given probability — e.g., a 5% one-day VaR of $1m means losses should exceed $1m on ~5% of days.
+
+## Estimating VaR
+- **Parametric (variance–covariance)**: assumes normally distributed returns; fast but understates tail risk.
+- **Historical simulation**: re-prices the portfolio over an actual past return window; no distributional assumption but anchored to history.
+- **Monte Carlo**: simulates many return paths from an assumed model; flexible but model- and compute-intensive.
+
+## Limits & complements
+- VaR says nothing about losses **beyond** the threshold → use **Conditional VaR (expected shortfall)**, the average loss in the tail.
+- Add **sensitivity measures** (beta, duration, delta/gamma, vega) and **scenario/stress tests** (historical and hypothetical) to capture non-normal, regime-shift risk.
+
+## Using risk measures
+- **Risk budgeting** allocates a total risk limit across positions/managers.
+- Constraints include **position limits, stop-losses, and VaR/scenario limits**; market participants (banks, asset managers, pensions) weight these differently per their mandates.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa3-risk-management-swaps-forwards-m01",
+    topicId: "cfa3-risk-management-swaps-forwards",
+    title: "Swaps, Forwards & Futures Strategies",
+    content: `Linear (symmetric) derivatives let managers alter exposures **without trading the underlying**.
+
+## Duration & equity exposure
+- **Interest-rate swaps**: receive-fixed/pay-floating **adds** duration; pay-fixed/receive-floating **reduces** it. The swap's duration ≈ difference between fixed- and floating-leg durations.
+- **Bond futures** adjust portfolio duration toward a target via the basis-point value (BPV) hedge ratio.
+- **Equity index futures** change beta: contracts ≈ [(β_target − β_port)/β_fut] × (portfolio value / futures value).
+
+## Currency & asset-class overlays
+- **Currency forwards/swaps** hedge or take FX exposure; **total-return / equity swaps** synthetically gain or shed an asset-class exposure cheaply.
+- A **cash-equitization** ("cash drag") overlay uses index futures to keep idle cash market-exposed.
+
+## Trade-offs
+- Symmetric instruments remove **both** downside and upside. Futures bring **margin and daily mark-to-market**; swaps are OTC with counterparty risk (mitigated by collateral/clearing). **Basis risk** remains when the derivative imperfectly matches the exposure.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa3-risk-management-options-strategies-m01",
+    topicId: "cfa3-risk-management-options-strategies",
+    title: "Options Strategies",
+    content: `Options give **asymmetric** payoffs — protection or income — for a premium.
+
+## Directional & protective
+- **Protective put**: long asset + long put → floor on losses, upside kept (less premium).
+- **Covered call**: long asset + short call → premium income, upside capped at the strike.
+- **Collar**: protective put financed by a short call → bounded downside *and* upside.
+
+## Spreads & volatility
+- **Bull call / bear put spreads** reduce cost by capping the payoff; **calendar spreads** trade time decay.
+- **Straddle/strangle** (long): profit from large moves either way (long volatility); short versions earn premium if the market is quiet.
+
+## The Greeks
+- **Delta** (≈ directional exposure), **gamma** (delta's sensitivity → why delta hedges must be rebalanced), **theta** (time decay), **vega** (volatility), **rho** (rates).
+- Implied volatility and the **volatility smile/skew** shape option prices; managers choose strategies by their volatility and directional view.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa3-risk-management-enterprise-m01",
+    topicId: "cfa3-risk-management-enterprise",
+    title: "Risk Governance & Enterprise Risk Management",
+    content: `**Enterprise Risk Management (ERM)** is a centralized, top-down framework that manages risk **across the whole organization** against its goals and risk tolerance.
+
+## Risk governance
+- The **board/senior management** set risk tolerance aligned to objectives; an effective framework is **enterprise-wide**, not siloed.
+- Steps: (1) identify & classify risks, (2) measure & aggregate, (3) set a **risk budget/limits**, (4) monitor & report, (5) adjust/mitigate.
+
+## Risk types
+- **Financial**: market, credit, liquidity. **Non-financial**: operational, model, solvency, regulatory, legal, settlement, tail risk.
+- Aggregation must account for **correlations** — risks are not simply additive.
+
+## Mitigation choices
+- **Prevent/avoid**, **accept** (self-insure), **transfer** (insurance), or **shift/hedge** (derivatives). Choice weighs cost vs. benefit and the firm's comparative advantage in bearing each risk.
+- Good governance places risk decisions where the firm has the most knowledge and gives a **centralized** view of total exposure.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa3-alternative-investments-hedge-funds-m01",
+    topicId: "cfa3-alternative-investments-hedge-funds",
+    title: "Hedge Fund Strategies",
+    content: `Hedge funds pursue **absolute return** using leverage, shorting, and derivatives, grouped by strategy.
+
+## Major categories
+- **Equity hedge**: long/short equity, market-neutral, short-biased.
+- **Event-driven**: merger arbitrage, distressed, special situations.
+- **Relative value**: fixed-income/convertible arbitrage — small mispricings, high leverage.
+- **Opportunistic/macro**: global macro, managed futures (CTAs/trend-following).
+- **Multi-strategy**: allocate dynamically across the above.
+
+## Risk & return profile
+- Strategies vary from **equity-like** (long/short) to **diversifying/convex** (managed futures often gains in crises).
+- Many carry **tail risk**: arbitrage and short-volatility styles can show steady gains then sharp drawdowns ("picking up pennies in front of a steamroller").
+
+## Practicalities
+- Conditional, **time-varying correlations** to equities (low in calm, higher in stress).
+- **Fees** (commonly ~1.5-and-15/20), lock-ups, and gates. Benchmarking uses **peer groups, absolute targets, or risk-factor models** rather than a single index.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa3-alternative-investments-private-equity-m01",
+    topicId: "cfa3-alternative-investments-private-equity",
+    title: "Private Equity & Venture Capital",
+    content: `Private equity buys, improves, and exits private (or take-private) companies via long-lived, illiquid funds.
+
+## Structure
+- **Closed-end LP funds**: investors (LPs) commit capital that a **GP** draws down over an investment period. Typical terms: **2% management fee + 20% carried interest** over an **8% hurdle**, often with a **clawback**.
+- **Capital is committed, then called** — investors hold dry powder and pace commitments across **vintage years**.
+
+## Value creation & the J-curve
+- Buyouts add value through **operational improvement, financial leverage, and multiple expansion**; venture funds back early-stage growth with high dispersion and failure rates.
+- The **J-curve**: fees and early markdowns create initial negative returns before exits drive gains.
+
+## Performance & risk
+- Measured by **IRR and MOIC/TVPI** (money-weighted), plus **DPI** (realized). Compared against a **public-market equivalent (PME)**.
+- Risks: illiquidity, leverage, manager dispersion (skill persistence matters), and valuation **smoothing** that understates true volatility.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa3-alternative-investments-real-estate-m01",
+    topicId: "cfa3-alternative-investments-real-estate",
+    title: "Real Estate Investment",
+    content: `Real estate spans **private** (direct, funds) and **public** (REITs) plus **equity** and **debt** (mortgages) quadrants.
+
+## Valuation
+- **Income/direct-capitalization**: Value = NOI / **cap rate**; a lower cap rate implies a higher price (and lower expected return).
+- **Discounted cash flow** of NOI plus a terminal value; **cost** and **sales-comparison** approaches cross-check.
+- **NOI** = rental and other income − operating expenses (excludes financing and taxes).
+
+## Portfolio role
+- Provides **income, diversification, and partial inflation protection**; returns driven by income yield plus appreciation.
+- **Leverage** amplifies both return and risk; vacancy, financing, and liquidity are key risks.
+
+## Vehicles
+- **REITs** offer liquidity and daily pricing but behave more **equity-like** in the short run; **private real estate** is appraisal-priced → **smoothed**, understated volatility.
+- Core → value-add → opportunistic styles trade rising risk/return and leverage.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa3-alternative-investments-real-assets-m01",
+    topicId: "cfa3-alternative-investments-real-assets",
+    title: "Commodities & Real Assets",
+    content: `Commodities and other real assets are added mainly for **inflation sensitivity and diversification**.
+
+## Commodity returns
+- Most exposure is via **futures**, not physical holding. Total return = **spot + roll + collateral** yield.
+- **Roll yield** is positive in **backwardation** (futures below spot) and negative in **contango** (futures above spot).
+- Theories: **insurance/hedging-pressure** and **theory of storage** (convenience yield) explain the futures curve.
+
+## Role & risks
+- Historically **positive correlation with inflation surprises**, a diversifier versus stocks/bonds — but volatile and producing **no income**.
+- Storage, seasonality, and curve shape drive returns; correlations can rise in macro shocks.
+
+## Other real assets
+- **Infrastructure, timber, farmland, and natural resources** offer long-duration, inflation-linked cash flows.
+- Like other privates, valuations may be **appraisal-based (smoothed)**; sizing must respect illiquidity.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa3-alternative-investments-private-debt-m01",
+    topicId: "cfa3-alternative-investments-private-debt",
+    title: "Private Debt & Infrastructure",
+    content: `Private debt and infrastructure provide **contractual, often inflation-linked income** with illiquidity premia.
+
+## Private debt
+- **Direct lending** (senior secured loans to mid-market firms), **mezzanine** (subordinated, equity kicker), **distressed**, and **specialty finance** (venture debt, real-estate/asset-backed).
+- Return drivers: **credit spread + illiquidity premium**, often **floating-rate** (low duration, rises with rates). Key risk is **credit/default and recovery**, plus weak covenants in frothy markets.
+
+## Infrastructure
+- Long-lived physical assets (transport, utilities, energy, social). **Brownfield** (operating, stable yield) vs. **greenfield** (development, higher risk).
+- Cash flows are often **regulated or contracted and inflation-linked**, giving bond-like, diversifying returns over long horizons.
+
+## Portfolio fit
+- Both suit long-horizon investors seeking **income and inflation protection**; illiquidity, leverage, and (for infrastructure) regulatory/political risk constrain sizing and require careful pacing.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
+  },
+  {
+    id: "cfa3-manager-selection-quantitative-m01",
+    topicId: "cfa3-manager-selection-quantitative",
+    title: "Quantitative Manager Evaluation",
+    content: `Quantitative evaluation tests whether a track record reflects **skill** rather than luck, beta, or biases.
+
+## Returns-based analysis
+- Regress manager returns on factor/benchmark returns to separate **alpha (skill)** from **factor (beta) exposure** — don't pay active fees for cheap beta.
+- Gauge consistency with the **information ratio** (active return / tracking error) and risk-adjusted measures (Sharpe, Sortino).
+
+## Statistical caution
+- Short, volatile records have **low statistical power** to distinguish skill from luck.
+- **Backfill and survivorship biases** inflate database track records; returns may be **smoothed** for illiquid holdings.
+
+## Style & drift
+- Confirm the manager actually delivers the intended exposures; watch for **style drift** away from the mandate.
+- Outputs feed a **forward-looking** judgment — past returns alone are weak predictors, so combine the quant evidence with qualitative due diligence.`,
+    estimatedReadTime: 2,
+    orderIndex: 1
+  },
+  {
+    id: "cfa3-manager-selection-fees-m01",
+    topicId: "cfa3-manager-selection-fees",
+    title: "Fee Structures & Alignment",
+    content: `Fee terms shape **net** returns and the alignment between manager and client incentives.
+
+## Common structures
+- **Ad valorem (AUM) fees**: a fixed % of assets — simple, but rewards asset gathering.
+- **Performance fees**: a share of gains, raising upside alignment but also **risk-taking incentives**.
+- **High-water mark**: performance fees only on new net profits (no double-charging after a drawdown). **Hurdle rate**: performance fee applies only above a threshold return.
+
+## Alignment tools
+- **Clawbacks** (private funds) return excess carry if later results disappoint; **caps** limit how much performance fee accrues.
+- A **symmetric (fulcrum) fee** rewards out- and penalizes under-performance, improving alignment.
+
+## Evaluation
+- Compare **gross vs. net** of fees and assess whether the structure encourages **appropriate risk**.
+- High fixed fees on a **beta-heavy** strategy destroy value; selection should weigh fee level *and* structure against expected, repeatable skill.`,
+    estimatedReadTime: 2,
+    orderIndex: 2
+  },
+  {
+    id: "cfa3-manager-selection-style-analysis-m01",
+    topicId: "cfa3-manager-selection-style-analysis",
+    title: "Style & Holdings-Based Analysis",
+    content: `Style analysis verifies **what a manager actually does** versus what they claim.
+
+## Two approaches
+- **Returns-based style analysis (RBSA)**: regress fund returns on a set of style indexes; the constrained coefficients estimate the **effective style mix**. Cheap and timely but backward-looking and can miss rapid changes.
+- **Holdings-based style analysis (HBSA)**: classify the **actual positions** by size, value/growth, sector, region. More precise and current but **data-intensive** and a snapshot.
+
+## What it reveals
+- **Style drift** away from mandate, hidden **factor tilts**, and concentration.
+- Whether reported alpha is genuine or simply **persistent factor exposure**.
+
+## Use in selection
+- Confirms the manager fits the intended **portfolio role** and won't overlap or double-count exposures with existing managers.
+- Combine RBSA (history/consistency) with HBSA (current positioning) for a fuller picture before hiring or monitoring.`,
+    estimatedReadTime: 2,
+    orderIndex: 3
+  },
+  {
+    id: "cfa3-manager-selection-monitoring-m01",
+    topicId: "cfa3-manager-selection-monitoring",
+    title: "Monitoring & Manager Termination",
+    content: `Selection doesn't end at hiring — managers must be **monitored** and replaced when the thesis breaks.
+
+## What to monitor
+- **Performance** vs. benchmark and peers (in the right risk context), **style consistency**, and the original **investment thesis**.
+- **People, process, and firm**: team turnover/**key-person** departures, ownership changes, asset growth toward **capacity** limits, and **operational** red flags.
+
+## Termination triggers
+- Loss of the rationale for hiring: **style drift**, **process change**, eroding edge, or operational/ethical problems — not just a bad quarter.
+- Beware **performance chasing**: firing after underperformance and hiring recent winners often **destroys value** (mean reversion).
+
+## Errors revisited
+- Premature firing of a skilled manager is a **Type II error**; retaining an unskilled one is **Type I**. Set decisions on a sound, ex-ante framework and watch **transaction/transition costs** of replacement.`,
+    estimatedReadTime: 2,
+    orderIndex: 4
+  },
+  {
+    id: "cfa3-manager-selection-universe-m01",
+    topicId: "cfa3-manager-selection-universe",
+    title: "Universe Definition & Process Screening",
+    content: `Sound selection starts by **defining the opportunity set** and screening it down to candidates worth deep diligence.
+
+## Universe definition
+- Specify the **mandate**: asset class, style, region, vehicle (separate account vs. fund), liquidity, and constraints (ESG, leverage).
+- A poorly defined universe yields **apples-to-oranges** comparisons and misleading peer rankings.
+
+## Screening
+- Apply **quantitative filters** (track-record length, AUM/capacity, risk-adjusted performance, fees) and **qualitative filters** (firm stability, transparency, alignment).
+- Adjust databases for **survivorship/backfill** bias so the screen isn't built on inflated histories.
+
+## From screen to shortlist
+- Surviving managers proceed to full **investment + operational due diligence**.
+- The aim is a **repeatable, documented process** that controls both error types and produces a **conviction-weighted** recommendation grounded in skill and operations — not a ranking by last year's return.`,
+    estimatedReadTime: 2,
+    orderIndex: 5
   }
 ];
 
@@ -1852,5 +2152,201 @@ export const expQuestions: Question[] = [
   { id: "cfa3-ethics-application-cases-q09", topicId: "cfa3-ethics-application-cases", text: "Using public reports plus your own non-material observations to reach a buy is:", optionA: "Permissible (mosaic theory)", optionB: "Insider trading", optionC: "Manipulation", optionD: "Misconduct", correctOption: "A", explanation: "The mosaic theory permits combining public and non-material nonpublic information.", orderIndex: 8 },
   { id: "cfa3-ethics-application-cases-q10", topicId: "cfa3-ethics-application-cases", text: "When choosing among answers, select the one that is:", optionA: "Most compliant / best remedies the issue", optionB: "Longest", optionC: "Most aggressive", optionD: "Cheapest", correctOption: "A", explanation: "Pick the most compliant action or best remedy (or identify the least-compliant act, per the question).", orderIndex: 9 },
   { id: "cfa3-ethics-application-cases-q11", topicId: "cfa3-ethics-application-cases", text: "Reasonable basis and diligence behind a recommendation is required by Standard:", optionA: "V(A)", optionB: "II(B)", optionC: "VI(A)", optionD: "IV(C)", correctOption: "A", explanation: "Standard V(A) requires a reasonable and adequate basis for recommendations and actions.", orderIndex: 10 },
-  { id: "cfa3-ethics-application-cases-q12", topicId: "cfa3-ethics-application-cases", text: "Mixed-use research paid with client brokerage should be:", optionA: "Fully charged to clients", optionB: "Allocated, with only the research portion paid by client brokerage", optionC: "Charged entirely to the firm regardless", optionD: "Never disclosed", correctOption: "B", explanation: "Mixed-use products must be reasonably allocated; only the research portion may use client brokerage.", orderIndex: 11 }
+  { id: "cfa3-ethics-application-cases-q12", topicId: "cfa3-ethics-application-cases", text: "Mixed-use research paid with client brokerage should be:", optionA: "Fully charged to clients", optionB: "Allocated, with only the research portion paid by client brokerage", optionC: "Charged entirely to the firm regardless", optionD: "Never disclosed", correctOption: "B", explanation: "Mixed-use products must be reasonably allocated; only the research portion may use client brokerage.", orderIndex: 11 },
+
+  // Risk Management — Measuring & Managing Market Risk (VaR)
+  { id: "cfa3-risk-management-market-risk-q01", topicId: "cfa3-risk-management-market-risk", text: "A 5% one-day VaR of $2m means:", optionA: "Losses will never exceed $2m", optionB: "On ~5% of days losses are expected to exceed $2m", optionC: "The portfolio will gain $2m 5% of the time", optionD: "Average daily loss is $2m", correctOption: "B", explanation: "VaR gives a threshold loss exceeded with the stated probability — here, on about 5% of days.", orderIndex: 0 },
+  { id: "cfa3-risk-management-market-risk-q02", topicId: "cfa3-risk-management-market-risk", text: "The parametric (variance–covariance) VaR method primarily assumes:", optionA: "Returns are normally distributed", optionB: "No correlation among assets", optionC: "Zero volatility", optionD: "Returns are fat-tailed", correctOption: "A", explanation: "Parametric VaR assumes normally distributed returns, which makes it fast but prone to understating tail risk.", orderIndex: 1 },
+  { id: "cfa3-risk-management-market-risk-q03", topicId: "cfa3-risk-management-market-risk", text: "Historical simulation VaR is computed by:", optionA: "Assuming a normal distribution", optionB: "Re-pricing the portfolio over an actual past return window", optionC: "Drawing random paths from a model", optionD: "Using only the latest day's return", correctOption: "B", explanation: "Historical simulation applies actual historical returns to the current portfolio, requiring no distributional assumption.", orderIndex: 2 },
+  { id: "cfa3-risk-management-market-risk-q04", topicId: "cfa3-risk-management-market-risk", text: "A key weakness of VaR is that it:", optionA: "Says nothing about the size of losses beyond the threshold", optionB: "Cannot be computed", optionC: "Always overstates risk", optionD: "Requires no data", correctOption: "A", explanation: "VaR ignores the magnitude of tail losses past the cutoff, which is why expected shortfall complements it.", orderIndex: 3 },
+  { id: "cfa3-risk-management-market-risk-q05", topicId: "cfa3-risk-management-market-risk", text: "Conditional VaR (expected shortfall) measures the:", optionA: "Probability of any loss", optionB: "Average loss given that the VaR threshold is exceeded", optionC: "Maximum possible gain", optionD: "Daily volatility", correctOption: "B", explanation: "CVaR/expected shortfall is the mean loss in the tail beyond VaR, capturing tail severity.", orderIndex: 4 },
+  { id: "cfa3-risk-management-market-risk-q06", topicId: "cfa3-risk-management-market-risk", text: "Monte Carlo VaR is most useful when:", optionA: "The portfolio has complex, non-linear payoffs", optionB: "There is no computing power", optionC: "Returns are exactly normal", optionD: "Only one asset is held", correctOption: "A", explanation: "Monte Carlo simulation flexibly handles non-linear instruments like options, at the cost of model risk and computation.", orderIndex: 5 },
+  { id: "cfa3-risk-management-market-risk-q07", topicId: "cfa3-risk-management-market-risk", text: "For a bond portfolio, the key sensitivity measure is:", optionA: "Delta", optionB: "Duration (and convexity)", optionC: "Vega", optionD: "Beta", correctOption: "B", explanation: "Duration (with convexity) measures a bond portfolio's sensitivity to interest-rate changes.", orderIndex: 6 },
+  { id: "cfa3-risk-management-market-risk-q08", topicId: "cfa3-risk-management-market-risk", text: "Scenario analysis and stress testing are valuable because they:", optionA: "Replace the need for VaR", optionB: "Capture extreme, non-normal outcomes VaR may miss", optionC: "Guarantee no losses", optionD: "Only use normal distributions", correctOption: "B", explanation: "Stress tests examine severe, plausible shocks and regime shifts that standard VaR can understate.", orderIndex: 7 },
+  { id: "cfa3-risk-management-market-risk-q09", topicId: "cfa3-risk-management-market-risk", text: "Risk budgeting refers to:", optionA: "Setting a marketing budget", optionB: "Allocating a total risk limit across positions or managers", optionC: "Minimizing all risk to zero", optionD: "Forecasting returns", correctOption: "B", explanation: "Risk budgeting distributes an overall risk allowance among activities so total risk stays within tolerance.", orderIndex: 8 },
+  { id: "cfa3-risk-management-market-risk-q10", topicId: "cfa3-risk-management-market-risk", text: "For an options book, the sensitivity to a change in volatility is:", optionA: "Delta", optionB: "Vega", optionC: "Duration", optionD: "Rho", correctOption: "B", explanation: "Vega measures the change in an option's value for a change in implied volatility.", orderIndex: 9 },
+  { id: "cfa3-risk-management-market-risk-q11", topicId: "cfa3-risk-management-market-risk", text: "Different market participants (banks vs. pensions) set risk limits differently mainly because of their:", optionA: "Office size", optionB: "Distinct objectives, liabilities and regulation", optionC: "Logo colors", optionD: "Number of employees", correctOption: "B", explanation: "Mandates, liability profiles, and regulatory regimes drive how each participant frames and limits risk.", orderIndex: 10 },
+  { id: "cfa3-risk-management-market-risk-q12", topicId: "cfa3-risk-management-market-risk", text: "A common constraint used alongside VaR limits is a:", optionA: "Position/stop-loss limit", optionB: "Marketing quota", optionC: "Dividend target", optionD: "Headcount cap", correctOption: "A", explanation: "Position limits and stop-losses are practical constraints used together with VaR and scenario limits.", orderIndex: 11 },
+
+  // Risk Management — Swaps, Forwards & Futures Strategies
+  { id: "cfa3-risk-management-swaps-forwards-q01", topicId: "cfa3-risk-management-swaps-forwards", text: "To increase a bond portfolio's duration with a swap, a manager would:", optionA: "Pay fixed / receive floating", optionB: "Receive fixed / pay floating", optionC: "Sell the portfolio", optionD: "Buy a call option", correctOption: "B", explanation: "Receiving fixed adds positive duration; paying floating offsets little, so the swap raises portfolio duration.", orderIndex: 0 },
+  { id: "cfa3-risk-management-swaps-forwards-q02", topicId: "cfa3-risk-management-swaps-forwards", text: "A pay-fixed interest-rate swap has a duration that is:", optionA: "Positive and large", optionB: "Negative (reduces portfolio duration)", optionC: "Always zero", optionD: "Equal to the coupon", correctOption: "B", explanation: "Paying fixed/receiving floating carries negative duration, lowering a portfolio's interest-rate sensitivity.", orderIndex: 1 },
+  { id: "cfa3-risk-management-swaps-forwards-q03", topicId: "cfa3-risk-management-swaps-forwards", text: "Equity index futures are used to change a portfolio's:", optionA: "Credit rating", optionB: "Beta (equity market exposure)", optionC: "Coupon", optionD: "Dividend policy", correctOption: "B", explanation: "Long or short equity index futures raise or lower the portfolio's effective beta without trading shares.", orderIndex: 2 },
+  { id: "cfa3-risk-management-swaps-forwards-q04", topicId: "cfa3-risk-management-swaps-forwards", text: "A total-return (equity) swap lets an investor:", optionA: "Gain an asset's return synthetically without owning it", optionB: "Eliminate counterparty risk", optionC: "Avoid all fees", optionD: "Guarantee a profit", correctOption: "A", explanation: "A total-return swap exchanges a financing rate for an asset's total return, giving synthetic exposure.", orderIndex: 3 },
+  { id: "cfa3-risk-management-swaps-forwards-q05", topicId: "cfa3-risk-management-swaps-forwards", text: "Cash equitization (an overlay) is used to:", optionA: "Keep idle cash exposed to the market via index futures", optionB: "Increase cash holdings", optionC: "Hedge credit risk", optionD: "Lower equity exposure", correctOption: "A", explanation: "Buying index futures against cash removes 'cash drag' by giving idle cash market exposure.", orderIndex: 4 },
+  { id: "cfa3-risk-management-swaps-forwards-q06", topicId: "cfa3-risk-management-swaps-forwards", text: "A drawback of hedging with forwards/futures versus options is they:", optionA: "Remove upside as well as downside", optionB: "Cost a large premium", optionC: "Have unlimited upside", optionD: "Cannot be closed out", correctOption: "A", explanation: "Symmetric instruments lock in a rate, giving up favorable moves along with adverse ones.", orderIndex: 5 },
+  { id: "cfa3-risk-management-swaps-forwards-q07", topicId: "cfa3-risk-management-swaps-forwards", text: "Compared with OTC forwards, exchange-traded futures involve:", optionA: "No counterparty", optionB: "Margin and daily mark-to-market via a clearinghouse", optionC: "Bilateral term negotiation", optionD: "No standardization", correctOption: "B", explanation: "Futures are standardized, margined, and cleared with daily settlement, reducing counterparty risk.", orderIndex: 6 },
+  { id: "cfa3-risk-management-swaps-forwards-q08", topicId: "cfa3-risk-management-swaps-forwards", text: "The number of bond futures to hit a target duration is based on the ratio of:", optionA: "Portfolio BPV to futures BPV", optionB: "Coupon to yield", optionC: "Price to earnings", optionD: "Dividends to price", correctOption: "A", explanation: "The hedge uses the basis-point value (BPV) of the portfolio relative to the futures' BPV.", orderIndex: 7 },
+  { id: "cfa3-risk-management-swaps-forwards-q09", topicId: "cfa3-risk-management-swaps-forwards", text: "Counterparty risk on OTC swaps is mitigated mainly by:", optionA: "Collateral and central clearing", optionB: "Higher coupons", optionC: "Longer maturities", optionD: "Ignoring it", correctOption: "A", explanation: "Collateral posting and clearinghouses reduce bilateral counterparty exposure on swaps.", orderIndex: 8 },
+  { id: "cfa3-risk-management-swaps-forwards-q10", topicId: "cfa3-risk-management-swaps-forwards", text: "Basis risk in a futures hedge arises when:", optionA: "The hedge and exposure move imperfectly together", optionB: "Margin is required", optionC: "The future is cleared", optionD: "Rates are zero", correctOption: "A", explanation: "Basis risk is residual risk from imperfect correlation between the hedging future and the hedged exposure.", orderIndex: 9 },
+  { id: "cfa3-risk-management-swaps-forwards-q11", topicId: "cfa3-risk-management-swaps-forwards", text: "A receive-fixed swap is most like adding a position in a:", optionA: "Long fixed-rate bond", optionB: "Short bond", optionC: "Equity index", optionD: "Currency forward", correctOption: "A", explanation: "Receiving fixed behaves like owning a fixed-rate bond, adding positive duration.", orderIndex: 10 },
+  { id: "cfa3-risk-management-swaps-forwards-q12", topicId: "cfa3-risk-management-swaps-forwards", text: "Using a currency swap, an investor can:", optionA: "Convert cash flows from one currency to another over time", optionB: "Increase equity beta", optionC: "Raise credit quality", optionD: "Remove duration", correctOption: "A", explanation: "Currency swaps exchange principal and/or interest in different currencies, managing FX exposure over a horizon.", orderIndex: 11 },
+
+  // Risk Management — Options Strategies
+  { id: "cfa3-risk-management-options-strategies-q01", topicId: "cfa3-risk-management-options-strategies", text: "A protective put consists of:", optionA: "Long asset + long put", optionB: "Long asset + short call", optionC: "Short asset + long call", optionD: "Two short puts", correctOption: "A", explanation: "Holding the asset and buying a put sets a floor on losses while keeping upside, less the premium.", orderIndex: 0 },
+  { id: "cfa3-risk-management-options-strategies-q02", topicId: "cfa3-risk-management-options-strategies", text: "A covered call:", optionA: "Earns premium but caps upside", optionB: "Provides unlimited upside", optionC: "Removes all downside", optionD: "Requires shorting the stock", correctOption: "A", explanation: "Long stock plus a short call generates income but limits gains at the strike, cushioning downside only by the premium.", orderIndex: 1 },
+  { id: "cfa3-risk-management-options-strategies-q03", topicId: "cfa3-risk-management-options-strategies", text: "A collar is built from a:", optionA: "Long put financed by a short call", optionB: "Two long calls", optionC: "Long straddle", optionD: "Short put only", correctOption: "A", explanation: "A collar buys a protective put and sells a call to fund it, bounding both downside and upside.", orderIndex: 2 },
+  { id: "cfa3-risk-management-options-strategies-q04", topicId: "cfa3-risk-management-options-strategies", text: "A long straddle profits when the underlying:", optionA: "Stays flat", optionB: "Makes a large move in either direction", optionC: "Pays a dividend", optionD: "Rises slightly only", correctOption: "B", explanation: "A long call plus long put at the same strike gains from big moves up or down (a long-volatility bet).", orderIndex: 3 },
+  { id: "cfa3-risk-management-options-strategies-q05", topicId: "cfa3-risk-management-options-strategies", text: "A bull call spread is used to:", optionA: "Profit from a moderate rise at lower cost, with capped payoff", optionB: "Hedge currency", optionC: "Add duration", optionD: "Short volatility only", correctOption: "A", explanation: "Buying a lower-strike call and selling a higher-strike call lowers cost but caps the upside payoff.", orderIndex: 4 },
+  { id: "cfa3-risk-management-options-strategies-q06", topicId: "cfa3-risk-management-options-strategies", text: "Delta of an option measures sensitivity to:", optionA: "The underlying price", optionB: "Volatility", optionC: "Time", optionD: "Interest rates", correctOption: "A", explanation: "Delta is the change in option value per unit change in the underlying's price.", orderIndex: 5 },
+  { id: "cfa3-risk-management-options-strategies-q07", topicId: "cfa3-risk-management-options-strategies", text: "Gamma is important because it explains why:", optionA: "Delta hedges must be rebalanced as the underlying moves", optionB: "Options never expire", optionC: "Premiums are zero", optionD: "Rates rise", correctOption: "A", explanation: "Gamma is the rate of change of delta, so a static delta hedge drifts and needs dynamic rebalancing.", orderIndex: 6 },
+  { id: "cfa3-risk-management-options-strategies-q08", topicId: "cfa3-risk-management-options-strategies", text: "Theta represents an option's sensitivity to:", optionA: "Time decay", optionB: "The underlying price", optionC: "Volatility", optionD: "Currency", correctOption: "A", explanation: "Theta measures how an option's value erodes as time to expiration passes.", orderIndex: 7 },
+  { id: "cfa3-risk-management-options-strategies-q09", topicId: "cfa3-risk-management-options-strategies", text: "Writing (shorting) a straddle is a bet that volatility will be:", optionA: "Low (the market stays quiet)", optionB: "Very high", optionC: "Irrelevant", optionD: "Negative", correctOption: "A", explanation: "A short straddle earns premium if the underlying barely moves, but has large risk if it moves sharply.", orderIndex: 8 },
+  { id: "cfa3-risk-management-options-strategies-q10", topicId: "cfa3-risk-management-options-strategies", text: "The volatility 'skew/smile' refers to:", optionA: "Implied volatility varying across strikes", optionB: "A constant volatility", optionC: "The risk-free rate", optionD: "Dividend yield", correctOption: "A", explanation: "Implied volatility typically differs by strike (and maturity), producing a smile or skew in option prices.", orderIndex: 9 },
+  { id: "cfa3-risk-management-options-strategies-q11", topicId: "cfa3-risk-management-options-strategies", text: "Relative to a forward, an option hedge offers:", optionA: "Asymmetric protection for a premium", optionB: "A symmetric locked rate at no cost", optionC: "No protection", optionD: "Guaranteed gains", correctOption: "A", explanation: "Options hedge adverse moves while keeping favorable ones, paid for with the premium — unlike symmetric forwards.", orderIndex: 10 },
+  { id: "cfa3-risk-management-options-strategies-q12", topicId: "cfa3-risk-management-options-strategies", text: "A calendar spread mainly trades:", optionA: "Differences in time decay between two expirations", optionB: "Currency exposure", optionC: "Credit risk", optionD: "Equity beta", correctOption: "A", explanation: "A calendar spread is long and short options of the same strike but different expiries, profiting from time-decay differences.", orderIndex: 11 },
+
+  // Risk Management — Enterprise Risk Management
+  { id: "cfa3-risk-management-enterprise-q01", topicId: "cfa3-risk-management-enterprise", text: "Enterprise Risk Management (ERM) is best described as:", optionA: "Managing each desk's risk in isolation", optionB: "A centralized, enterprise-wide view of risk against objectives", optionC: "Buying insurance only", optionD: "Ignoring non-financial risk", correctOption: "B", explanation: "ERM takes a top-down, organization-wide approach aligning total risk with the firm's goals and tolerance.", orderIndex: 0 },
+  { id: "cfa3-risk-management-enterprise-q02", topicId: "cfa3-risk-management-enterprise", text: "Who is ultimately responsible for setting risk tolerance?", optionA: "The board / senior management", optionB: "Individual traders", optionC: "The custodian", optionD: "External auditors", correctOption: "A", explanation: "Risk governance places ultimate responsibility for risk tolerance with the board and senior management.", orderIndex: 1 },
+  { id: "cfa3-risk-management-enterprise-q03", topicId: "cfa3-risk-management-enterprise", text: "Which is a NON-financial risk?", optionA: "Market risk", optionB: "Operational risk", optionC: "Credit risk", optionD: "Liquidity risk", correctOption: "B", explanation: "Operational (also model, legal, regulatory, solvency) risks are non-financial; market/credit/liquidity are financial.", orderIndex: 2 },
+  { id: "cfa3-risk-management-enterprise-q04", topicId: "cfa3-risk-management-enterprise", text: "Aggregating risks across an organization must account for:", optionA: "Correlations among risks", optionB: "Only the largest single risk", optionC: "Office locations", optionD: "Nothing — risks simply add", correctOption: "A", explanation: "Risks are not simply additive; correlations determine the true aggregate exposure.", orderIndex: 3 },
+  { id: "cfa3-risk-management-enterprise-q05", topicId: "cfa3-risk-management-enterprise", text: "Transferring a risk via insurance is appropriate when:", optionA: "The firm has no comparative advantage in bearing it", optionB: "The risk is free to retain", optionC: "The premium exceeds any benefit always", optionD: "The risk cannot be measured at all", correctOption: "A", explanation: "Risks the firm is poorly positioned to bear are good candidates to transfer when the cost is justified.", orderIndex: 4 },
+  { id: "cfa3-risk-management-enterprise-q06", topicId: "cfa3-risk-management-enterprise", text: "Self-insuring (accepting) a risk means the firm:", optionA: "Retains and bears the risk itself", optionB: "Buys an option", optionC: "Sells the business", optionD: "Hedges fully", correctOption: "A", explanation: "Acceptance/self-insurance keeps the risk on the firm's own book rather than transferring or hedging it.", orderIndex: 5 },
+  { id: "cfa3-risk-management-enterprise-q07", topicId: "cfa3-risk-management-enterprise", text: "The first step in a risk-management process is to:", optionA: "Identify and classify the risks", optionB: "Buy insurance", optionC: "Fire managers", optionD: "Set marketing goals", correctOption: "A", explanation: "Effective ERM begins by identifying and classifying the risks the organization faces.", orderIndex: 6 },
+  { id: "cfa3-risk-management-enterprise-q08", topicId: "cfa3-risk-management-enterprise", text: "A risk budget in ERM serves to:", optionA: "Allocate total acceptable risk across activities", optionB: "Set salaries", optionC: "Eliminate all risk", optionD: "Forecast revenue", correctOption: "A", explanation: "A risk budget distributes the firm's overall risk tolerance across units and activities.", orderIndex: 7 },
+  { id: "cfa3-risk-management-enterprise-q09", topicId: "cfa3-risk-management-enterprise", text: "Good risk governance locates risk decisions where the firm has:", optionA: "The most knowledge and comparative advantage", optionB: "The fewest employees", optionC: "The lowest pay", optionD: "The newest office", correctOption: "A", explanation: "Decisions should sit where expertise and comparative advantage in bearing the risk are greatest.", orderIndex: 8 },
+  { id: "cfa3-risk-management-enterprise-q10", topicId: "cfa3-risk-management-enterprise", text: "Model risk is the risk that:", optionA: "A pricing/risk model is wrong or misused", optionB: "Markets fall", optionC: "Rates rise", optionD: "A counterparty defaults", correctOption: "A", explanation: "Model risk arises when flawed assumptions or misuse of a model produce incorrect valuations or risk estimates.", orderIndex: 9 },
+  { id: "cfa3-risk-management-enterprise-q11", topicId: "cfa3-risk-management-enterprise", text: "Tail risk is best addressed with:", optionA: "Scenario/stress testing and CVaR", optionB: "Higher leverage", optionC: "Ignoring extreme events", optionD: "More marketing", correctOption: "A", explanation: "Extreme, low-probability losses are examined via stress tests and expected-shortfall measures, not standard VaR alone.", orderIndex: 10 },
+  { id: "cfa3-risk-management-enterprise-q12", topicId: "cfa3-risk-management-enterprise", text: "An effective ERM framework should be:", optionA: "Siloed by department", optionB: "Enterprise-wide and integrated", optionC: "Limited to market risk", optionD: "Run only by traders", correctOption: "B", explanation: "ERM is integrated across the whole enterprise rather than fragmented into independent silos.", orderIndex: 11 },
+
+  // Alternatives — Hedge Fund Strategies
+  { id: "cfa3-alternative-investments-hedge-funds-q01", topicId: "cfa3-alternative-investments-hedge-funds", text: "Hedge funds generally target:", optionA: "Benchmark-relative returns", optionB: "Absolute returns using leverage, shorting and derivatives", optionC: "Index replication", optionD: "Guaranteed income", correctOption: "B", explanation: "Hedge funds pursue absolute returns with flexible tools rather than tracking a benchmark.", orderIndex: 0 },
+  { id: "cfa3-alternative-investments-hedge-funds-q02", topicId: "cfa3-alternative-investments-hedge-funds", text: "Merger (risk) arbitrage is an example of which category?", optionA: "Event-driven", optionB: "Global macro", optionC: "Equity market-neutral", optionD: "Managed futures", correctOption: "A", explanation: "Merger arbitrage trades announced deals and is classified under event-driven strategies.", orderIndex: 1 },
+  { id: "cfa3-alternative-investments-hedge-funds-q03", topicId: "cfa3-alternative-investments-hedge-funds", text: "Equity market-neutral funds aim to:", optionA: "Maximize market beta", optionB: "Remove net market exposure and profit from relative mispricing", optionC: "Hold only cash", optionD: "Replicate an index", correctOption: "B", explanation: "Market-neutral balances longs and shorts to strip out beta, seeking alpha from relative value.", orderIndex: 2 },
+  { id: "cfa3-alternative-investments-hedge-funds-q04", topicId: "cfa3-alternative-investments-hedge-funds", text: "Managed futures / CTAs are valued in a portfolio because they often:", optionA: "Provide crisis-period diversification (positive in trends)", optionB: "Guarantee returns", optionC: "Have no leverage", optionD: "Track the S&P exactly", correctOption: "A", explanation: "Trend-following CTAs can perform well in sustained market moves, adding crisis-period diversification.", orderIndex: 3 },
+  { id: "cfa3-alternative-investments-hedge-funds-q05", topicId: "cfa3-alternative-investments-hedge-funds", text: "Relative-value arbitrage strategies typically use:", optionA: "High leverage on small mispricings", optionB: "No leverage", optionC: "Only long equities", optionD: "Physical commodities", correctOption: "A", explanation: "Arbitrage of small pricing differences relies on significant leverage to make returns meaningful.", orderIndex: 4 },
+  { id: "cfa3-alternative-investments-hedge-funds-q06", topicId: "cfa3-alternative-investments-hedge-funds", text: "The phrase 'picking up pennies in front of a steamroller' describes:", optionA: "Steady small gains with rare large losses (tail risk)", optionB: "Guaranteed losses", optionC: "Low-risk indexing", optionD: "High daily volatility", correctOption: "A", explanation: "Many arbitrage/short-volatility styles show consistent small profits punctuated by severe drawdowns.", orderIndex: 5 },
+  { id: "cfa3-alternative-investments-hedge-funds-q07", topicId: "cfa3-alternative-investments-hedge-funds", text: "A global macro fund primarily trades on:", optionA: "Top-down views of economies, rates and currencies", optionB: "Single-stock fundamentals only", optionC: "Real estate appraisals", optionD: "Merger spreads only", correctOption: "A", explanation: "Global macro takes directional positions across asset classes based on macroeconomic forecasts.", orderIndex: 6 },
+  { id: "cfa3-alternative-investments-hedge-funds-q08", topicId: "cfa3-alternative-investments-hedge-funds", text: "Hedge fund correlations to equities tend to:", optionA: "Stay constant", optionB: "Rise during market stress", optionC: "Fall to −1 in crises", optionD: "Always be zero", correctOption: "B", explanation: "Correlations are time-varying and often increase in stressed markets, reducing diversification when needed.", orderIndex: 7 },
+  { id: "cfa3-alternative-investments-hedge-funds-q09", topicId: "cfa3-alternative-investments-hedge-funds", text: "A multi-strategy hedge fund:", optionA: "Allocates dynamically across several strategies", optionB: "Holds only government bonds", optionC: "Uses no leverage", optionD: "Tracks an index", correctOption: "A", explanation: "Multi-strategy funds shift capital among strategies to exploit the best opportunities and smooth returns.", orderIndex: 8 },
+  { id: "cfa3-alternative-investments-hedge-funds-q10", topicId: "cfa3-alternative-investments-hedge-funds", text: "A 'gate' provision allows a fund to:", optionA: "Limit the amount investors can redeem at once", optionB: "Guarantee returns", optionC: "Avoid all fees", optionD: "Add leverage automatically", correctOption: "A", explanation: "Gates cap aggregate redemptions in a period, protecting the fund from forced asset sales.", orderIndex: 9 },
+  { id: "cfa3-alternative-investments-hedge-funds-q11", topicId: "cfa3-alternative-investments-hedge-funds", text: "Benchmarking hedge funds is difficult, so investors often use:", optionA: "Peer groups, absolute targets, or factor models", optionB: "A single government-bond index", optionC: "The risk-free rate exactly", optionD: "No evaluation at all", correctOption: "A", explanation: "Because no single index fits, hedge funds are judged against peers, absolute return goals, or risk-factor benchmarks.", orderIndex: 10 },
+  { id: "cfa3-alternative-investments-hedge-funds-q12", topicId: "cfa3-alternative-investments-hedge-funds", text: "A distressed-securities strategy invests in:", optionA: "Securities of firms in or near financial distress", optionB: "AAA government bonds only", optionC: "Index funds", optionD: "Cash equivalents", correctOption: "A", explanation: "Distressed investing buys the debt or equity of troubled companies, an event-driven approach.", orderIndex: 11 },
+
+  // Alternatives — Private Equity & Venture Capital
+  { id: "cfa3-alternative-investments-private-equity-q01", topicId: "cfa3-alternative-investments-private-equity", text: "A typical private-equity fund is structured as a:", optionA: "Closed-end limited partnership", optionB: "Daily-liquidity mutual fund", optionC: "Bank deposit", optionD: "Exchange-traded fund", correctOption: "A", explanation: "PE funds are closed-end LPs with committed capital drawn down over an investment period.", orderIndex: 0 },
+  { id: "cfa3-alternative-investments-private-equity-q02", topicId: "cfa3-alternative-investments-private-equity", text: "'Carried interest' refers to the GP's:", optionA: "Share of fund profits (e.g., 20%)", optionB: "Annual management fee", optionC: "Office rent", optionD: "Hurdle rate", correctOption: "A", explanation: "Carried interest is the general partner's performance share of profits, commonly around 20%.", orderIndex: 1 },
+  { id: "cfa3-alternative-investments-private-equity-q03", topicId: "cfa3-alternative-investments-private-equity", text: "A hurdle rate in a PE fund means carry is paid only:", optionA: "Above a minimum return to LPs", optionB: "Before any returns", optionC: "On management fees", optionD: "If the fund loses money", correctOption: "A", explanation: "The hurdle (preferred return) requires LPs to earn a minimum before the GP shares in profits.", orderIndex: 2 },
+  { id: "cfa3-alternative-investments-private-equity-q04", topicId: "cfa3-alternative-investments-private-equity", text: "The J-curve describes:", optionA: "Early negative returns followed by later gains", optionB: "Steadily rising returns from day one", optionC: "Constant returns", optionD: "Guaranteed losses", correctOption: "A", explanation: "Fees and early markdowns produce initial negative returns before exits drive the curve upward.", orderIndex: 3 },
+  { id: "cfa3-alternative-investments-private-equity-q05", topicId: "cfa3-alternative-investments-private-equity", text: "Buyout funds create value mainly through:", optionA: "Operational improvement, leverage and multiple expansion", optionB: "Daily trading", optionC: "Currency hedging", optionD: "Holding cash", correctOption: "A", explanation: "Leveraged buyouts add value via operating gains, financial leverage, and exit multiple expansion.", orderIndex: 4 },
+  { id: "cfa3-alternative-investments-private-equity-q06", topicId: "cfa3-alternative-investments-private-equity", text: "Venture capital is characterized by:", optionA: "Early-stage investing with high dispersion and failure rates", optionB: "Low risk and steady income", optionC: "Daily liquidity", optionD: "Government guarantees", correctOption: "A", explanation: "VC funds back early-stage companies, where a few big winners offset many failures.", orderIndex: 5 },
+  { id: "cfa3-alternative-investments-private-equity-q07", topicId: "cfa3-alternative-investments-private-equity", text: "PE performance is primarily measured by:", optionA: "IRR and MOIC/TVPI (money-weighted)", optionB: "Time-weighted return only", optionC: "Cap rate", optionD: "Current ratio", correctOption: "A", explanation: "Because the GP controls cash-flow timing, money-weighted IRR and multiples like MOIC/TVPI are standard.", orderIndex: 6 },
+  { id: "cfa3-alternative-investments-private-equity-q08", topicId: "cfa3-alternative-investments-private-equity", text: "DPI (distributions to paid-in) measures:", optionA: "Realized cash returned relative to capital called", optionB: "Unrealized value only", optionC: "Management fees", optionD: "The hurdle rate", correctOption: "A", explanation: "DPI captures cash actually distributed to LPs per dollar of paid-in capital — the realized multiple.", orderIndex: 7 },
+  { id: "cfa3-alternative-investments-private-equity-q09", topicId: "cfa3-alternative-investments-private-equity", text: "A public-market equivalent (PME) compares PE returns to:", optionA: "A public-index investment with the same cash-flow timing", optionB: "The risk-free rate", optionC: "Inflation", optionD: "A peer hedge fund", correctOption: "A", explanation: "PME benchmarks a private fund against the return of investing the same cash flows in a public index.", orderIndex: 8 },
+  { id: "cfa3-alternative-investments-private-equity-q10", topicId: "cfa3-alternative-investments-private-equity", text: "A 'clawback' provision requires the GP to:", optionA: "Return excess carry if later results disappoint", optionB: "Add capital each year", optionC: "Pay LP taxes", optionD: "Lower its hurdle", correctOption: "A", explanation: "Clawbacks return previously paid carried interest if the fund's overall results fall short of the agreed split.", orderIndex: 9 },
+  { id: "cfa3-alternative-investments-private-equity-q11", topicId: "cfa3-alternative-investments-private-equity", text: "Vintage-year diversification helps manage:", optionA: "Timing/concentration and J-curve risk", optionB: "Currency risk only", optionC: "Coupon risk", optionD: "Dividend risk", correctOption: "A", explanation: "Spreading commitments across vintages reduces dependence on any one market environment and smooths the J-curve.", orderIndex: 10 },
+  { id: "cfa3-alternative-investments-private-equity-q12", topicId: "cfa3-alternative-investments-private-equity", text: "'Committed capital' that has not yet been called is known as:", optionA: "Dry powder", optionB: "Carried interest", optionC: "NOI", optionD: "A hurdle", correctOption: "A", explanation: "Uncalled commitments waiting to be drawn are referred to as dry powder.", orderIndex: 11 },
+
+  // Alternatives — Real Estate Investment
+  { id: "cfa3-alternative-investments-real-estate-q01", topicId: "cfa3-alternative-investments-real-estate", text: "Under direct capitalization, property value equals:", optionA: "NOI divided by the cap rate", optionB: "NOI times the cap rate", optionC: "Rent minus taxes", optionD: "Price times yield", correctOption: "A", explanation: "Value = NOI / cap rate; a lower cap rate implies a higher value and lower expected return.", orderIndex: 0 },
+  { id: "cfa3-alternative-investments-real-estate-q02", topicId: "cfa3-alternative-investments-real-estate", text: "Net operating income (NOI) excludes:", optionA: "Financing costs and income taxes", optionB: "Rental income", optionC: "Operating expenses", optionD: "Vacancy allowance", correctOption: "A", explanation: "NOI is income after operating expenses but before financing and taxes.", orderIndex: 1 },
+  { id: "cfa3-alternative-investments-real-estate-q03", topicId: "cfa3-alternative-investments-real-estate", text: "A lower capitalization rate generally implies:", optionA: "A higher property price and lower expected return", optionB: "A lower price", optionC: "Higher risk", optionD: "No effect on value", correctOption: "A", explanation: "Cap rate moves inversely with price; a low cap rate means investors accept a lower yield for the asset.", orderIndex: 2 },
+  { id: "cfa3-alternative-investments-real-estate-q04", topicId: "cfa3-alternative-investments-real-estate", text: "The three main valuation approaches for real estate are income, cost, and:", optionA: "Sales comparison", optionB: "Dividend discount", optionC: "Black–Scholes", optionD: "CAPM", correctOption: "A", explanation: "Real estate is valued via income, cost, and sales-comparison (comparable transactions) approaches.", orderIndex: 3 },
+  { id: "cfa3-alternative-investments-real-estate-q05", topicId: "cfa3-alternative-investments-real-estate", text: "REITs differ from direct private real estate by being:", optionA: "Liquid and daily-priced, behaving more equity-like short term", optionB: "Always lower returning", optionC: "Appraisal-priced", optionD: "Free of market risk", correctOption: "A", explanation: "Listed REITs trade like equities with daily prices, showing more short-run correlation to stocks.", orderIndex: 4 },
+  { id: "cfa3-alternative-investments-real-estate-q06", topicId: "cfa3-alternative-investments-real-estate", text: "Private real estate returns are 'smoothed' because they are:", optionA: "Appraisal-based and infrequently marked", optionB: "Traded every second", optionC: "Government set", optionD: "Risk-free", correctOption: "A", explanation: "Infrequent appraisals understate true volatility and correlation, smoothing reported returns.", orderIndex: 5 },
+  { id: "cfa3-alternative-investments-real-estate-q07", topicId: "cfa3-alternative-investments-real-estate", text: "Leverage in real estate:", optionA: "Amplifies both returns and risk", optionB: "Removes risk", optionC: "Has no effect", optionD: "Guarantees gains", correctOption: "A", explanation: "Mortgage financing magnifies equity returns up and down and adds financing/refinancing risk.", orderIndex: 6 },
+  { id: "cfa3-alternative-investments-real-estate-q08", topicId: "cfa3-alternative-investments-real-estate", text: "Real estate is often added to a portfolio for:", optionA: "Income, diversification, and partial inflation protection", optionB: "Daily liquidity", optionC: "Zero volatility", optionD: "Tax exemption", correctOption: "A", explanation: "Property offers income yield, diversification, and some inflation sensitivity over time.", orderIndex: 7 },
+  { id: "cfa3-alternative-investments-real-estate-q09", topicId: "cfa3-alternative-investments-real-estate", text: "Moving from core to opportunistic real estate strategies generally means:", optionA: "Higher risk, return, and leverage", optionB: "Lower risk", optionC: "More liquidity", optionD: "No development risk", correctOption: "A", explanation: "Core→value-add→opportunistic trades up risk, expected return, and the use of leverage and development.", orderIndex: 8 },
+  { id: "cfa3-alternative-investments-real-estate-q10", topicId: "cfa3-alternative-investments-real-estate", text: "The debt quadrant of real estate refers to:", optionA: "Mortgages and mortgage-backed lending", optionB: "Equity ownership", optionC: "REIT shares", optionD: "Vacant land", correctOption: "A", explanation: "Real estate exposure can be equity or debt (mortgages), and public or private — the four quadrants.", orderIndex: 9 },
+  { id: "cfa3-alternative-investments-real-estate-q11", topicId: "cfa3-alternative-investments-real-estate", text: "A primary risk specific to rental properties is:", optionA: "Vacancy / tenant default", optionB: "Coupon reinvestment", optionC: "Convexity", optionD: "Tracking error", correctOption: "A", explanation: "Vacancy and tenant credit directly reduce NOI and therefore value.", orderIndex: 10 },
+  { id: "cfa3-alternative-investments-real-estate-q12", topicId: "cfa3-alternative-investments-real-estate", text: "A terminal (reversion) value in a DCF of property represents the:", optionA: "Estimated sale value at the end of the holding period", optionB: "First year's rent", optionC: "Annual depreciation", optionD: "Loan balance", correctOption: "A", explanation: "DCF valuation discounts interim NOI plus a terminal value reflecting the expected resale price.", orderIndex: 11 },
+
+  // Alternatives — Commodities & Real Assets
+  { id: "cfa3-alternative-investments-real-assets-q01", topicId: "cfa3-alternative-investments-real-assets", text: "Most institutional commodity exposure is obtained through:", optionA: "Futures contracts", optionB: "Physical storage", optionC: "Bank deposits", optionD: "Equities only", correctOption: "A", explanation: "Investors typically use commodity futures rather than holding and storing the physical goods.", orderIndex: 0 },
+  { id: "cfa3-alternative-investments-real-assets-q02", topicId: "cfa3-alternative-investments-real-assets", text: "Total return on a collateralized commodity futures position is spot + collateral yield +:", optionA: "Roll yield", optionB: "Dividend yield", optionC: "Coupon", optionD: "Cap rate", correctOption: "A", explanation: "Commodity futures total return decomposes into spot price change, roll yield, and collateral (cash) yield.", orderIndex: 1 },
+  { id: "cfa3-alternative-investments-real-assets-q03", topicId: "cfa3-alternative-investments-real-assets", text: "Roll yield is positive when the futures curve is in:", optionA: "Backwardation (futures below spot)", optionB: "Contango", optionC: "A flat shape", optionD: "Inversion of rates", correctOption: "A", explanation: "In backwardation, rolling to cheaper near-dated futures produces a positive roll yield.", orderIndex: 2 },
+  { id: "cfa3-alternative-investments-real-assets-q04", topicId: "cfa3-alternative-investments-real-assets", text: "Contango in a futures market means:", optionA: "Futures prices exceed the spot price", optionB: "Futures below spot", optionC: "No futures exist", optionD: "Spot equals zero", correctOption: "A", explanation: "Contango is an upward-sloping curve (futures above spot), producing a negative roll yield.", orderIndex: 3 },
+  { id: "cfa3-alternative-investments-real-assets-q05", topicId: "cfa3-alternative-investments-real-assets", text: "Commodities are added to portfolios mainly for:", optionA: "Inflation sensitivity and diversification", optionB: "Steady income", optionC: "Daily coupons", optionD: "Guaranteed returns", correctOption: "A", explanation: "Commodities historically correlate with inflation surprises and diversify stock/bond portfolios, despite paying no income.", orderIndex: 4 },
+  { id: "cfa3-alternative-investments-real-assets-q06", topicId: "cfa3-alternative-investments-real-assets", text: "The 'theory of storage' explains the futures curve via:", optionA: "Convenience yield and storage costs", optionB: "Dividend policy", optionC: "Bond duration", optionD: "Equity beta", correctOption: "A", explanation: "The theory of storage links the curve shape to storage costs, financing, and the convenience yield of holding the physical.", orderIndex: 5 },
+  { id: "cfa3-alternative-investments-real-assets-q07", topicId: "cfa3-alternative-investments-real-assets", text: "A defining feature of commodities versus bonds is that commodities:", optionA: "Produce no income", optionB: "Pay regular coupons", optionC: "Have fixed maturities", optionD: "Carry credit ratings", correctOption: "A", explanation: "Commodities generate no cash income; return comes from price and roll, not coupons or dividends.", orderIndex: 6 },
+  { id: "cfa3-alternative-investments-real-assets-q08", topicId: "cfa3-alternative-investments-real-assets", text: "Timberland and farmland are examples of:", optionA: "Real assets with inflation-linked, long-duration cash flows", optionB: "Money-market instruments", optionC: "Equity derivatives", optionD: "Government bonds", correctOption: "A", explanation: "Natural-resource real assets offer long-horizon, often inflation-sensitive returns and diversification.", orderIndex: 7 },
+  { id: "cfa3-alternative-investments-real-assets-q09", topicId: "cfa3-alternative-investments-real-assets", text: "The hedging-pressure (insurance) hypothesis says futures prices reflect:", optionA: "Compensation paid by hedgers to speculators", optionB: "Only inflation", optionC: "Dividend yields", optionD: "Bond convexity", correctOption: "A", explanation: "Hedgers may accept a lower expected price to offload risk, paying a premium to speculators who bear it.", orderIndex: 8 },
+  { id: "cfa3-alternative-investments-real-assets-q10", topicId: "cfa3-alternative-investments-real-assets", text: "Commodity returns tend to be:", optionA: "Volatile, with correlations rising in macro shocks", optionB: "Always stable", optionC: "Risk-free", optionD: "Perfectly normal", correctOption: "A", explanation: "Commodities are volatile and can see correlations move with macroeconomic conditions.", orderIndex: 9 },
+  { id: "cfa3-alternative-investments-real-assets-q11", topicId: "cfa3-alternative-investments-real-assets", text: "A practical reason to access commodities via futures rather than physical is:", optionA: "Avoiding storage, insurance and spoilage costs", optionB: "Earning dividends", optionC: "Gaining voting rights", optionD: "Lower volatility", correctOption: "A", explanation: "Futures avoid the cost and impracticality of storing, insuring, and transporting physical commodities.", orderIndex: 10 },
+  { id: "cfa3-alternative-investments-real-assets-q12", topicId: "cfa3-alternative-investments-real-assets", text: "Like other private real assets, infrastructure/timber valuations may be:", optionA: "Appraisal-based and smoothed", optionB: "Marked every second", optionC: "Government guaranteed", optionD: "Free of illiquidity", correctOption: "A", explanation: "Private real-asset valuations are often appraisal-based, smoothing returns and understating volatility.", orderIndex: 11 },
+
+  // Alternatives — Private Debt & Infrastructure
+  { id: "cfa3-alternative-investments-private-debt-q01", topicId: "cfa3-alternative-investments-private-debt", text: "Direct lending typically provides:", optionA: "Senior secured loans to mid-market firms", optionB: "Common equity stakes", optionC: "Government bonds", optionD: "Listed REIT shares", correctOption: "A", explanation: "Direct lending funds make senior secured loans, mostly to middle-market companies.", orderIndex: 0 },
+  { id: "cfa3-alternative-investments-private-debt-q02", topicId: "cfa3-alternative-investments-private-debt", text: "Mezzanine debt is best described as:", optionA: "Subordinated debt, often with an equity kicker", optionB: "Senior secured debt", optionC: "Government guaranteed", optionD: "Daily-liquid", correctOption: "A", explanation: "Mezzanine sits between senior debt and equity, carrying higher yield and often warrants/equity participation.", orderIndex: 1 },
+  { id: "cfa3-alternative-investments-private-debt-q03", topicId: "cfa3-alternative-investments-private-debt", text: "Private-debt returns are driven mainly by:", optionA: "Credit spread plus an illiquidity premium", optionB: "Equity multiple expansion", optionC: "Roll yield", optionD: "Dividend growth", correctOption: "A", explanation: "Investors earn the credit spread and an illiquidity premium for locking up capital in private loans.", orderIndex: 2 },
+  { id: "cfa3-alternative-investments-private-debt-q04", topicId: "cfa3-alternative-investments-private-debt", text: "Many direct loans are floating-rate, which means they:", optionA: "Have low duration and benefit as rates rise", optionB: "Have very high duration", optionC: "Pay no interest", optionD: "Are equity-like", correctOption: "A", explanation: "Floating-rate loans reset with short rates, giving low duration and rising coupons when rates increase.", orderIndex: 3 },
+  { id: "cfa3-alternative-investments-private-debt-q05", topicId: "cfa3-alternative-investments-private-debt", text: "The primary risk in private debt is:", optionA: "Credit/default and recovery risk", optionB: "Currency only", optionC: "Tracking error", optionD: "Dividend cuts", correctOption: "A", explanation: "Default probability and recovery on the underlying borrowers drive private-debt risk, with covenant quality key.", orderIndex: 4 },
+  { id: "cfa3-alternative-investments-private-debt-q06", topicId: "cfa3-alternative-investments-private-debt", text: "Infrastructure assets are typically:", optionA: "Long-lived physical assets with regulated/contracted cash flows", optionB: "Short-term trading instruments", optionC: "Daily-liquid equities", optionD: "Zero-coupon bonds", correctOption: "A", explanation: "Infrastructure comprises long-duration physical assets whose cash flows are often regulated or contracted.", orderIndex: 5 },
+  { id: "cfa3-alternative-investments-private-debt-q07", topicId: "cfa3-alternative-investments-private-debt", text: "Brownfield infrastructure refers to assets that are:", optionA: "Already operating, offering stable yield", optionB: "Under development", optionC: "Never built", optionD: "Listed equities", correctOption: "A", explanation: "Brownfield assets are existing, operating projects with more predictable, lower-risk cash flows than greenfield.", orderIndex: 6 },
+  { id: "cfa3-alternative-investments-private-debt-q08", topicId: "cfa3-alternative-investments-private-debt", text: "Greenfield infrastructure carries higher risk because it involves:", optionA: "Construction/development before cash flows begin", optionB: "Guaranteed income", optionC: "Daily liquidity", optionD: "No leverage", correctOption: "A", explanation: "Greenfield projects must be built, adding construction, completion, and demand risk before generating revenue.", orderIndex: 7 },
+  { id: "cfa3-alternative-investments-private-debt-q09", topicId: "cfa3-alternative-investments-private-debt", text: "Infrastructure cash flows are attractive to long-horizon investors because they are often:", optionA: "Inflation-linked and bond-like", optionB: "Highly volatile", optionC: "Tax-exempt", optionD: "Zero", correctOption: "A", explanation: "Regulated/contracted, frequently inflation-indexed cash flows give infrastructure stable, diversifying, bond-like returns.", orderIndex: 8 },
+  { id: "cfa3-alternative-investments-private-debt-q10", topicId: "cfa3-alternative-investments-private-debt", text: "A specific risk of infrastructure investing is:", optionA: "Regulatory / political risk", optionB: "Coupon reinvestment only", optionC: "Style drift", optionD: "Survivorship bias", correctOption: "A", explanation: "Because many assets are regulated utilities/transport, changes in regulation or politics materially affect returns.", orderIndex: 9 },
+  { id: "cfa3-alternative-investments-private-debt-q11", topicId: "cfa3-alternative-investments-private-debt", text: "Both private debt and infrastructure are well-suited to investors seeking:", optionA: "Income and inflation protection over long horizons", optionB: "Daily liquidity", optionC: "Maximum equity beta", optionD: "Zero risk", correctOption: "A", explanation: "Their contractual, often inflation-linked income fits long-horizon investors who can bear illiquidity.", orderIndex: 10 },
+  { id: "cfa3-alternative-investments-private-debt-q12", topicId: "cfa3-alternative-investments-private-debt", text: "Weak loan covenants ('cov-lite') in private debt tend to:", optionA: "Reduce lender protection and worsen recoveries", optionB: "Increase coupon guarantees", optionC: "Eliminate default risk", optionD: "Raise liquidity", correctOption: "A", explanation: "Looser covenants give lenders fewer early warning rights, often lowering recoveries when borrowers struggle.", orderIndex: 11 },
+
+  // Manager Selection — Quantitative Manager Evaluation
+  { id: "cfa3-manager-selection-quantitative-q01", topicId: "cfa3-manager-selection-quantitative", text: "Returns-based analysis seeks to separate a manager's return into:", optionA: "Alpha (skill) and factor (beta) exposures", optionB: "Fees and taxes", optionC: "Income and capital gains", optionD: "Cash and bonds", correctOption: "A", explanation: "Regressing returns on factors isolates genuine alpha from cheap factor/beta exposure.", orderIndex: 0 },
+  { id: "cfa3-manager-selection-quantitative-q02", topicId: "cfa3-manager-selection-quantitative", text: "The information ratio is defined as:", optionA: "Active return divided by tracking error", optionB: "Return divided by total volatility", optionC: "Beta times the market return", optionD: "Alpha minus fees", correctOption: "A", explanation: "The information ratio measures active return per unit of active risk, gauging consistency of skill.", orderIndex: 1 },
+  { id: "cfa3-manager-selection-quantitative-q03", topicId: "cfa3-manager-selection-quantitative", text: "A short, volatile track record makes it hard to:", optionA: "Distinguish skill from luck statistically", optionB: "Compute fees", optionC: "Define the mandate", optionD: "Read disclosures", correctOption: "A", explanation: "Limited, noisy data has low statistical power to separate true skill from random good luck.", orderIndex: 2 },
+  { id: "cfa3-manager-selection-quantitative-q04", topicId: "cfa3-manager-selection-quantitative", text: "Backfill bias in a manager database tends to:", optionA: "Overstate historical performance", optionB: "Understate performance", optionC: "Have no effect", optionD: "Only affect fees", correctOption: "A", explanation: "Adding a manager's favorable past returns when they join inflates the database's reported performance.", orderIndex: 3 },
+  { id: "cfa3-manager-selection-quantitative-q05", topicId: "cfa3-manager-selection-quantitative", text: "Survivorship bias arises because databases:", optionA: "Drop failed/closed funds, inflating average returns", optionB: "Include too many funds", optionC: "Use net returns", optionD: "Report monthly", correctOption: "A", explanation: "Excluding funds that closed leaves only survivors, biasing measured performance upward.", orderIndex: 4 },
+  { id: "cfa3-manager-selection-quantitative-q06", topicId: "cfa3-manager-selection-quantitative", text: "Paying active fees for returns that are really factor exposure means:", optionA: "Overpaying for cheap beta", optionB: "Earning true alpha", optionC: "Reducing risk", optionD: "Avoiding fees", correctOption: "A", explanation: "If 'alpha' is just persistent factor tilt, the investor is paying active fees for beta that could be bought cheaply.", orderIndex: 5 },
+  { id: "cfa3-manager-selection-quantitative-q07", topicId: "cfa3-manager-selection-quantitative", text: "The Sortino ratio differs from the Sharpe ratio by using:", optionA: "Downside deviation instead of total volatility", optionB: "Beta instead of alpha", optionC: "Gross instead of net returns", optionD: "Tracking error", correctOption: "A", explanation: "Sortino penalizes only downside volatility, useful when returns are asymmetric.", orderIndex: 6 },
+  { id: "cfa3-manager-selection-quantitative-q08", topicId: "cfa3-manager-selection-quantitative", text: "Smoothed (appraisal-based) returns in a quant evaluation will:", optionA: "Understate volatility and overstate risk-adjusted ratios", optionB: "Overstate volatility", optionC: "Have no impact", optionD: "Eliminate alpha", correctOption: "A", explanation: "Smoothing lowers measured volatility, flattering Sharpe/IR; returns should be unsmoothed first.", orderIndex: 7 },
+  { id: "cfa3-manager-selection-quantitative-q09", topicId: "cfa3-manager-selection-quantitative", text: "A high information ratio sustained over time suggests:", optionA: "Consistent active skill", optionB: "Pure luck", optionC: "High fees", optionD: "Low risk only", correctOption: "A", explanation: "Persistently high active return per unit of active risk is evidence of repeatable skill.", orderIndex: 8 },
+  { id: "cfa3-manager-selection-quantitative-q10", topicId: "cfa3-manager-selection-quantitative", text: "Quantitative evaluation alone is insufficient because:", optionA: "It must be paired with qualitative/operational due diligence", optionB: "Numbers are always wrong", optionC: "It ignores returns", optionD: "It sets fees", correctOption: "A", explanation: "Past statistics weakly predict future results, so quant work is combined with qualitative and operational DD.", orderIndex: 9 },
+  { id: "cfa3-manager-selection-quantitative-q11", topicId: "cfa3-manager-selection-quantitative", text: "Style drift detected in returns-based analysis means the manager:", optionA: "Has moved away from the intended exposures", optionB: "Earned guaranteed alpha", optionC: "Lowered fees", optionD: "Closed the fund", correctOption: "A", explanation: "Drift signals exposures inconsistent with the mandate, a flag for monitoring or termination.", orderIndex: 10 },
+  { id: "cfa3-manager-selection-quantitative-q12", topicId: "cfa3-manager-selection-quantitative", text: "Risk-adjusted return measures are preferred over raw returns because they:", optionA: "Account for the risk taken to earn the return", optionB: "Ignore risk", optionC: "Always exceed benchmarks", optionD: "Remove fees", correctOption: "A", explanation: "Adjusting for risk reveals whether returns came from skill or simply from taking more risk.", orderIndex: 11 },
+
+  // Manager Selection — Fee Structures & Alignment
+  { id: "cfa3-manager-selection-fees-q01", topicId: "cfa3-manager-selection-fees", text: "An ad valorem fee is charged as:", optionA: "A fixed percentage of assets under management", optionB: "A share of profits", optionC: "A flat dollar amount", optionD: "A percentage of losses", correctOption: "A", explanation: "Ad valorem (AUM) fees are a fixed percentage of assets, rewarding asset gathering.", orderIndex: 0 },
+  { id: "cfa3-manager-selection-fees-q02", topicId: "cfa3-manager-selection-fees", text: "A high-water mark ensures performance fees are charged only on:", optionA: "New net profits above the prior peak", optionB: "Total assets", optionC: "Losses", optionD: "Management fees", correctOption: "A", explanation: "The high-water mark prevents charging performance fees again on gains that merely recover a prior drawdown.", orderIndex: 1 },
+  { id: "cfa3-manager-selection-fees-q03", topicId: "cfa3-manager-selection-fees", text: "A hurdle rate means a performance fee applies only:", optionA: "Above a specified threshold return", optionB: "On all returns", optionC: "When the fund loses money", optionD: "On the management fee", correctOption: "A", explanation: "The hurdle sets a minimum return the manager must beat before earning performance fees.", orderIndex: 2 },
+  { id: "cfa3-manager-selection-fees-q04", topicId: "cfa3-manager-selection-fees", text: "Performance fees can create an incentive for managers to:", optionA: "Take excessive risk for upside", optionB: "Avoid all risk", optionC: "Lower their AUM", optionD: "Reduce returns", correctOption: "A", explanation: "Sharing the upside but not the downside can encourage excessive risk-taking, a key alignment concern.", orderIndex: 3 },
+  { id: "cfa3-manager-selection-fees-q05", topicId: "cfa3-manager-selection-fees", text: "A symmetric (fulcrum) fee:", optionA: "Rewards outperformance and penalizes underperformance", optionB: "Only rewards gains", optionC: "Is a fixed AUM fee", optionD: "Never changes", correctOption: "A", explanation: "Fulcrum fees adjust up and down around a benchmark, improving alignment by sharing both outcomes.", orderIndex: 4 },
+  { id: "cfa3-manager-selection-fees-q06", topicId: "cfa3-manager-selection-fees", text: "When evaluating managers, investors should compare returns:", optionA: "Net of fees", optionB: "Gross only", optionC: "Before any costs", optionD: "Ignoring fees", correctOption: "A", explanation: "What matters to the client is net-of-fee return; high fees can erase a manager's gross edge.", orderIndex: 5 },
+  { id: "cfa3-manager-selection-fees-q07", topicId: "cfa3-manager-selection-fees", text: "A clawback provision protects investors by:", optionA: "Recovering excess carry if later results disappoint", optionB: "Raising fees", optionC: "Removing the hurdle", optionD: "Adding leverage", correctOption: "A", explanation: "Clawbacks return previously paid performance fees when overall results fall short, improving alignment.", orderIndex: 6 },
+  { id: "cfa3-manager-selection-fees-q08", topicId: "cfa3-manager-selection-fees", text: "Paying high fixed fees for a beta-heavy strategy is problematic because:", optionA: "The investor pays active prices for cheap market exposure", optionB: "Beta is unavailable", optionC: "Fees are tax-deductible", optionD: "It lowers risk", correctOption: "A", explanation: "If most return is beta, high active fees destroy value relative to cheaply available index exposure.", orderIndex: 7 },
+  { id: "cfa3-manager-selection-fees-q09", topicId: "cfa3-manager-selection-fees", text: "AUM-based fees can misalign incentives because they reward:", optionA: "Asset gathering over performance", optionB: "Risk reduction", optionC: "Closing the fund", optionD: "Lower fees", correctOption: "A", explanation: "Because the fee scales with assets, managers may prioritize growing AUM rather than returns.", orderIndex: 8 },
+  { id: "cfa3-manager-selection-fees-q10", topicId: "cfa3-manager-selection-fees", text: "A cap on performance fees serves to:", optionA: "Limit how much performance fee can accrue", optionB: "Guarantee returns", optionC: "Raise the hurdle", optionD: "Remove the high-water mark", correctOption: "A", explanation: "A cap bounds the manager's performance-fee share, a tool in negotiating fee terms.", orderIndex: 9 },
+  { id: "cfa3-manager-selection-fees-q11", topicId: "cfa3-manager-selection-fees", text: "Combining a hurdle with a high-water mark primarily improves:", optionA: "Alignment between manager and client", optionB: "The management fee", optionC: "Leverage", optionD: "Tracking error", correctOption: "A", explanation: "Together they ensure performance fees reward only genuine, sustained outperformance.", orderIndex: 10 },
+  { id: "cfa3-manager-selection-fees-q12", topicId: "cfa3-manager-selection-fees", text: "Fee evaluation in selection should weigh:", optionA: "Both the level and the structure of fees", optionB: "Only the headline rate", optionC: "Office location", optionD: "Fund age only", correctOption: "A", explanation: "Both how much and how fees are charged (incentives) matter for net value and alignment.", orderIndex: 11 },
+
+  // Manager Selection — Style & Holdings-Based Analysis
+  { id: "cfa3-manager-selection-style-analysis-q01", topicId: "cfa3-manager-selection-style-analysis", text: "Returns-based style analysis (RBSA) estimates style by:", optionA: "Regressing fund returns on style-index returns", optionB: "Listing every holding", optionC: "Reading the prospectus", optionD: "Interviewing the manager", correctOption: "A", explanation: "RBSA uses a constrained regression of fund returns on style indexes to infer the effective style mix.", orderIndex: 0 },
+  { id: "cfa3-manager-selection-style-analysis-q02", topicId: "cfa3-manager-selection-style-analysis", text: "Holdings-based style analysis (HBSA) classifies a manager by:", optionA: "The actual portfolio positions", optionB: "Past returns only", optionC: "Fees charged", optionD: "AUM size", correctOption: "A", explanation: "HBSA examines actual holdings by size, value/growth, sector, and region for a precise current snapshot.", orderIndex: 1 },
+  { id: "cfa3-manager-selection-style-analysis-q03", topicId: "cfa3-manager-selection-style-analysis", text: "An advantage of RBSA over HBSA is that it is:", optionA: "Cheap and timely, needing only return data", optionB: "Always more precise", optionC: "Forward-looking", optionD: "Free of estimation error", correctOption: "A", explanation: "RBSA requires only returns, making it inexpensive and timely, though it is backward-looking and less precise.", orderIndex: 2 },
+  { id: "cfa3-manager-selection-style-analysis-q04", topicId: "cfa3-manager-selection-style-analysis", text: "An advantage of HBSA over RBSA is that it is:", optionA: "More precise and current about actual exposures", optionB: "Cheaper", optionC: "Requires no data", optionD: "Backward-looking", correctOption: "A", explanation: "Examining real positions gives a precise, up-to-date view, at the cost of being data-intensive and a snapshot.", orderIndex: 3 },
+  { id: "cfa3-manager-selection-style-analysis-q05", topicId: "cfa3-manager-selection-style-analysis", text: "Style drift refers to a manager:", optionA: "Moving away from the intended style/mandate", optionB: "Lowering fees", optionC: "Closing the fund", optionD: "Beating the benchmark", correctOption: "A", explanation: "Style drift is unintended migration away from the mandate's exposures, a key thing style analysis detects.", orderIndex: 4 },
+  { id: "cfa3-manager-selection-style-analysis-q06", topicId: "cfa3-manager-selection-style-analysis", text: "Style analysis helps reveal whether reported alpha is really:", optionA: "Persistent factor exposure", optionB: "A data error", optionC: "A fee", optionD: "Cash drag", correctOption: "A", explanation: "By identifying exposures, style analysis shows whether 'alpha' is genuine or just hidden factor tilts.", orderIndex: 5 },
+  { id: "cfa3-manager-selection-style-analysis-q07", topicId: "cfa3-manager-selection-style-analysis", text: "A limitation of RBSA is that it:", optionA: "Is backward-looking and can miss rapid changes", optionB: "Requires every holding", optionC: "Cannot use regression", optionD: "Is too expensive", correctOption: "A", explanation: "RBSA infers average past exposures and may lag quick shifts in actual positioning.", orderIndex: 6 },
+  { id: "cfa3-manager-selection-style-analysis-q08", topicId: "cfa3-manager-selection-style-analysis", text: "A limitation of HBSA is that it is:", optionA: "Data-intensive and only a point-in-time snapshot", optionB: "Always backward-looking", optionC: "Free of detail", optionD: "Unable to show sectors", correctOption: "A", explanation: "HBSA needs full holdings data and captures only the positions at one moment, missing intra-period trading.", orderIndex: 7 },
+  { id: "cfa3-manager-selection-style-analysis-q09", topicId: "cfa3-manager-selection-style-analysis", text: "Style analysis supports selection by confirming a manager:", optionA: "Fits the intended portfolio role without overlap", optionB: "Has the lowest fee", optionC: "Is the largest fund", optionD: "Has the longest history", correctOption: "A", explanation: "It verifies the manager delivers the wanted exposures and won't duplicate existing managers' bets.", orderIndex: 8 },
+  { id: "cfa3-manager-selection-style-analysis-q10", topicId: "cfa3-manager-selection-style-analysis", text: "Combining RBSA and HBSA is useful because they provide:", optionA: "History/consistency plus current positioning", optionB: "Identical information", optionC: "Only fee data", optionD: "No added value", correctOption: "A", explanation: "RBSA shows consistency over time while HBSA shows the present mix; together they give a fuller picture.", orderIndex: 9 },
+  { id: "cfa3-manager-selection-style-analysis-q11", topicId: "cfa3-manager-selection-style-analysis", text: "Detecting hidden factor tilts matters because they can:", optionA: "Concentrate risk and double-count exposures across managers", optionB: "Raise the hurdle rate", optionC: "Lower the AUM fee", optionD: "Remove tracking error", correctOption: "A", explanation: "Unseen tilts may concentrate portfolio risk or overlap with other managers, undermining diversification.", orderIndex: 10 },
+  { id: "cfa3-manager-selection-style-analysis-q12", topicId: "cfa3-manager-selection-style-analysis", text: "The constrained coefficients in RBSA are interpreted as:", optionA: "The portfolio's effective style weights", optionB: "Future returns", optionC: "Fees", optionD: "Tracking error", correctOption: "A", explanation: "The regression weights (summing to one, non-negative) estimate the manager's effective allocation to each style.", orderIndex: 11 },
+
+  // Manager Selection — Monitoring & Termination
+  { id: "cfa3-manager-selection-monitoring-q01", topicId: "cfa3-manager-selection-monitoring", text: "Ongoing manager monitoring should track performance, style consistency, and:", optionA: "The original investment thesis (people, process, firm)", optionB: "Only last quarter's return", optionC: "Office size", optionD: "Logo changes", correctOption: "A", explanation: "Monitoring confirms the reasons for hiring still hold — performance in context, style, and the thesis.", orderIndex: 0 },
+  { id: "cfa3-manager-selection-monitoring-q02", topicId: "cfa3-manager-selection-monitoring", text: "An appropriate termination trigger is:", optionA: "Loss of the original rationale (style drift, process change)", optionB: "A single weak quarter", optionC: "A new office", optionD: "A rebranding", correctOption: "A", explanation: "Managers should be replaced when the basis for hiring breaks down, not for short-term noise.", orderIndex: 1 },
+  { id: "cfa3-manager-selection-monitoring-q03", topicId: "cfa3-manager-selection-monitoring", text: "Performance chasing — firing losers and hiring recent winners — often:", optionA: "Destroys value due to mean reversion", optionB: "Guarantees outperformance", optionC: "Lowers fees", optionD: "Removes all risk", correctOption: "A", explanation: "Chasing past returns tends to buy high and sell low as performance mean-reverts, hurting results.", orderIndex: 2 },
+  { id: "cfa3-manager-selection-monitoring-q04", topicId: "cfa3-manager-selection-monitoring", text: "Prematurely firing a genuinely skilled manager is a:", optionA: "Type II error", optionB: "Type I error", optionC: "Data entry error", optionD: "Benchmark error", correctOption: "A", explanation: "Rejecting/firing a skilled manager is a Type II (false-negative) error.", orderIndex: 3 },
+  { id: "cfa3-manager-selection-monitoring-q05", topicId: "cfa3-manager-selection-monitoring", text: "Retaining an unskilled manager is a:", optionA: "Type I error", optionB: "Type II error", optionC: "Rounding error", optionD: "Sampling error", correctOption: "A", explanation: "Keeping a manager with no real skill is a Type I (false-positive) error.", orderIndex: 4 },
+  { id: "cfa3-manager-selection-monitoring-q06", topicId: "cfa3-manager-selection-monitoring", text: "Key-person risk monitoring watches for:", optionA: "Departure of a critical individual", optionB: "Currency moves", optionC: "Coupon changes", optionD: "Index rebalancing", correctOption: "A", explanation: "Over-reliance on one person means their exit can impair the strategy, a monitoring priority.", orderIndex: 5 },
+  { id: "cfa3-manager-selection-monitoring-q07", topicId: "cfa3-manager-selection-monitoring", text: "Rapid asset growth toward capacity limits is a concern because it can:", optionA: "Erode alpha via market impact and crowding", optionB: "Lower fees automatically", optionC: "Guarantee returns", optionD: "Remove risk", correctOption: "A", explanation: "Too many assets raise transaction costs and reduce opportunity per dollar, decaying the strategy's edge.", orderIndex: 6 },
+  { id: "cfa3-manager-selection-monitoring-q08", topicId: "cfa3-manager-selection-monitoring", text: "Operational red flags during monitoring include:", optionA: "Valuation, control, or service-provider problems", optionB: "Strong returns", optionC: "Low turnover", optionD: "Clear disclosures", correctOption: "A", explanation: "Operational issues (weak controls, valuation concerns, provider changes) are leading causes of fund failure.", orderIndex: 7 },
+  { id: "cfa3-manager-selection-monitoring-q09", topicId: "cfa3-manager-selection-monitoring", text: "Performance should be evaluated:", optionA: "In the proper risk and style context, not in isolation", optionB: "Only versus cash", optionC: "Gross of everything", optionD: "Once at hiring", correctOption: "A", explanation: "Returns must be judged against the right benchmark/peers and the risk taken, not as a raw number.", orderIndex: 8 },
+  { id: "cfa3-manager-selection-monitoring-q10", topicId: "cfa3-manager-selection-monitoring", text: "Transition (replacement) costs matter because firing a manager involves:", optionA: "Transaction costs and potential market impact", optionB: "No costs at all", optionC: "Higher guaranteed returns", optionD: "Lower risk only", correctOption: "A", explanation: "Replacing a manager incurs trading and transition costs that must be weighed against the expected benefit.", orderIndex: 9 },
+  { id: "cfa3-manager-selection-monitoring-q11", topicId: "cfa3-manager-selection-monitoring", text: "A change in the manager's investment process should prompt:", optionA: "Re-evaluation of whether the thesis still holds", optionB: "An automatic fee cut", optionC: "Immediate ignore", optionD: "More leverage", correctOption: "A", explanation: "A process change can invalidate the original reason for hiring and warrants reassessment.", orderIndex: 10 },
+  { id: "cfa3-manager-selection-monitoring-q12", topicId: "cfa3-manager-selection-monitoring", text: "Termination decisions should be based on:", optionA: "A sound, ex-ante framework rather than recent returns alone", optionB: "Last month's return only", optionC: "The cheapest option", optionD: "Fund size", correctOption: "A", explanation: "Disciplined, forward-looking criteria reduce both error types versus reacting to short-term performance.", orderIndex: 11 },
+
+  // Manager Selection — Universe Definition & Process Screening
+  { id: "cfa3-manager-selection-universe-q01", topicId: "cfa3-manager-selection-universe", text: "Sound manager selection begins by:", optionA: "Defining the universe / mandate", optionB: "Negotiating fees", optionC: "Firing the incumbent", optionD: "Setting marketing goals", correctOption: "A", explanation: "Specifying the asset class, style, region, and constraints defines the opportunity set before screening.", orderIndex: 0 },
+  { id: "cfa3-manager-selection-universe-q02", topicId: "cfa3-manager-selection-universe", text: "A poorly defined universe leads to:", optionA: "Apples-to-oranges comparisons and misleading rankings", optionB: "Lower fees", optionC: "Guaranteed alpha", optionD: "No estimation error", correctOption: "A", explanation: "Comparing managers with different mandates produces invalid peer rankings and poor decisions.", orderIndex: 1 },
+  { id: "cfa3-manager-selection-universe-q03", topicId: "cfa3-manager-selection-universe", text: "Quantitative screens typically filter on:", optionA: "Track-record length, AUM/capacity, risk-adjusted performance, fees", optionB: "Office decor", optionC: "Manager surnames", optionD: "Logo color", correctOption: "A", explanation: "Quant filters narrow the universe using measurable criteria like performance, capacity, and cost.", orderIndex: 2 },
+  { id: "cfa3-manager-selection-universe-q04", topicId: "cfa3-manager-selection-universe", text: "Qualitative screens assess factors such as:", optionA: "Firm stability, transparency, and alignment", optionB: "Daily price ticks", optionC: "Index weights", optionD: "Coupon rates", correctOption: "A", explanation: "Qualitative criteria gauge the organization's soundness, openness, and incentive alignment.", orderIndex: 3 },
+  { id: "cfa3-manager-selection-universe-q05", topicId: "cfa3-manager-selection-universe", text: "Databases used for screening should be adjusted for:", optionA: "Survivorship and backfill bias", optionB: "Currency only", optionC: "Coupon reinvestment", optionD: "Convexity", correctOption: "A", explanation: "Without correcting these biases, screens are built on inflated historical performance.", orderIndex: 4 },
+  { id: "cfa3-manager-selection-universe-q06", topicId: "cfa3-manager-selection-universe", text: "Managers surviving the screen proceed to:", optionA: "Full investment and operational due diligence", optionB: "Immediate funding", optionC: "Termination", optionD: "A fee auction", correctOption: "A", explanation: "Screening yields a shortlist that then undergoes deep investment and operational due diligence.", orderIndex: 5 },
+  { id: "cfa3-manager-selection-universe-q07", topicId: "cfa3-manager-selection-universe", text: "Including capacity in the universe definition matters because:", optionA: "A strategy too large for the mandate may decay in alpha", optionB: "Capacity is irrelevant", optionC: "It sets fees", optionD: "It removes risk", correctOption: "A", explanation: "Strategies near capacity can struggle to deploy new assets without eroding their edge.", orderIndex: 6 },
+  { id: "cfa3-manager-selection-universe-q08", topicId: "cfa3-manager-selection-universe", text: "Specifying the investment vehicle (e.g., separate account vs. fund) affects:", optionA: "Liquidity, customization, and control", optionB: "Nothing", optionC: "Only the logo", optionD: "The risk-free rate", correctOption: "A", explanation: "Vehicle choice influences liquidity terms, customization, fees, and governance, so it belongs in the mandate.", orderIndex: 7 },
+  { id: "cfa3-manager-selection-universe-q09", topicId: "cfa3-manager-selection-universe", text: "Constraints like ESG or leverage limits should be:", optionA: "Built into the universe/mandate definition", optionB: "Ignored", optionC: "Added after funding only", optionD: "Set by the manager alone", correctOption: "A", explanation: "Client constraints define which managers are even eligible and belong in the universe specification.", orderIndex: 8 },
+  { id: "cfa3-manager-selection-universe-q10", topicId: "cfa3-manager-selection-universe", text: "The goal of a documented selection process is to:", optionA: "Be repeatable and control both error types", optionB: "Pick the cheapest manager", optionC: "Maximize AUM", optionD: "Avoid all due diligence", correctOption: "A", explanation: "A disciplined, repeatable process reduces Type I/II errors and yields defensible decisions.", orderIndex: 9 },
+  { id: "cfa3-manager-selection-universe-q11", topicId: "cfa3-manager-selection-universe", text: "The final output of selection should be:", optionA: "A conviction-weighted recommendation grounded in skill and operations", optionB: "A ranking by last year's return", optionC: "The largest fund", optionD: "The newest firm", correctOption: "A", explanation: "Selection should produce a forward-looking, conviction-based decision integrating skill and operational soundness.", orderIndex: 10 },
+  { id: "cfa3-manager-selection-universe-q12", topicId: "cfa3-manager-selection-universe", text: "Screening on fees in the universe stage helps:", optionA: "Eliminate managers whose costs outweigh expected skill", optionB: "Increase tracking error", optionC: "Guarantee returns", optionD: "Add leverage", correctOption: "A", explanation: "Filtering on cost early removes managers unlikely to deliver value net of fees.", orderIndex: 11 }
 ];
