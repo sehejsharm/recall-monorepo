@@ -2,6 +2,7 @@ import { defineBundle } from "./builder";
 import { bioTopics, bioMaterials, bioQuestions } from "./neet-exp-bio";
 import { chemTopics, chemMaterials, chemQuestions } from "./neet-exp-chem";
 import { phyTopics, phyMaterials, phyQuestions } from "./neet-exp-phy";
+import { extraTopics, extraMaterials, extraQuestions } from "./neet-exp-extra";
 
 export const neet = defineBundle({
   exam: {
@@ -313,7 +314,8 @@ export const neet = defineBundle({
     },
     ...bioTopics,
     ...chemTopics,
-    ...phyTopics
+    ...phyTopics,
+    ...extraTopics
   ],
   materials: [
     {
@@ -1699,7 +1701,8 @@ h f = phi + KE_max       (Einstein's equation)
     },
     ...bioMaterials,
     ...chemMaterials,
-    ...phyMaterials
+    ...phyMaterials,
+    ...extraMaterials
   ],
   questions: [
     {
@@ -5736,6 +5739,7 @@ h f = phi + KE_max       (Einstein's equation)
     },
     ...bioQuestions,
     ...chemQuestions,
-    ...phyQuestions
+    ...phyQuestions,
+    ...extraQuestions
   ]
 });
