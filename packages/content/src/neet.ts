@@ -1,5 +1,6 @@
 import { defineBundle } from "./builder";
 import { bioTopics, bioMaterials, bioQuestions } from "./neet-exp-bio";
+import { chemTopics, chemMaterials, chemQuestions } from "./neet-exp-chem";
 
 export const neet = defineBundle({
   exam: {
@@ -309,7 +310,8 @@ export const neet = defineBundle({
       slug: "semiconductor-electronics",
       orderIndex: 12
     },
-    ...bioTopics
+    ...bioTopics,
+    ...chemTopics
   ],
   materials: [
     {
@@ -1693,7 +1695,8 @@ h f = phi + KE_max       (Einstein's equation)
       estimatedReadTime: 2,
       orderIndex: 0
     },
-    ...bioMaterials
+    ...bioMaterials,
+    ...chemMaterials
   ],
   questions: [
     {
@@ -5728,6 +5731,7 @@ h f = phi + KE_max       (Einstein's equation)
       explanation: "A transistor can amplify signals or act as an electronic switch.",
       orderIndex: 7
     },
-    ...bioQuestions
+    ...bioQuestions,
+    ...chemQuestions
   ]
 });
