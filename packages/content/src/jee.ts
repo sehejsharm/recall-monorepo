@@ -2,16 +2,20 @@ import { defineBundle } from "./builder";
 
 export const jee = defineBundle({
   exam: {
-    id: "jee",
-    slug: "jee",
-    name: "JEE Main & Advanced",
-    tagline: "Physics · Chemistry · Mathematics for the IITs",
-    orderIndex: 1
+    id: "jee-main",
+    slug: "jee-main",
+    name: "JEE Main",
+    tagline: "Physics · Chemistry · Mathematics — the NTA qualifier",
+    orderIndex: 1,
+    family: "jee",
+    familyName: "JEE",
+    familyTagline: "Joint Entrance Exam — pick your level",
+    levelLabel: "Main"
   },
   subjects: [
-    { id: "jee-physics", examId: "jee", name: "Physics", slug: "physics", orderIndex: 0 },
-    { id: "jee-chemistry", examId: "jee", name: "Chemistry", slug: "chemistry", orderIndex: 1 },
-    { id: "jee-mathematics", examId: "jee", name: "Mathematics", slug: "mathematics", orderIndex: 2 }
+    { id: "jee-physics", examId: "jee-main", name: "Physics", slug: "physics", orderIndex: 0 },
+    { id: "jee-chemistry", examId: "jee-main", name: "Chemistry", slug: "chemistry", orderIndex: 1 },
+    { id: "jee-mathematics", examId: "jee-main", name: "Mathematics", slug: "mathematics", orderIndex: 2 }
   ],
   topics: [
     {

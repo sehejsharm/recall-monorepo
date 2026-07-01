@@ -10,7 +10,8 @@
 
 export type ExamSlug =
   | "upsc"
-  | "jee"
+  | "jee-main"
+  | "jee-adv"
   | "neet"
   | "ssc-cgl"
   | "gate"
