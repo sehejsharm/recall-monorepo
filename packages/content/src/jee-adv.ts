@@ -1,6 +1,7 @@
 import { defineBundle } from "./builder";
 import { advTopics, advMaterials, advQuestions } from "./jee-adv-exp";
 import { adv2Topics, adv2Materials, adv2Questions } from "./jee-adv-exp2";
+import { adv3Topics, adv3Materials, adv3Questions } from "./jee-adv-exp3";
 
 // JEE Advanced — the IIT-level track. Shares the Main syllabus but tests it
 // with tougher, multi-concept questions on the highest-yield chapters. Its own
@@ -51,7 +52,8 @@ export const jeeAdvanced = defineBundle({
     { id: "jee-adv-math-vectors-3d", subjectId: "jee-adv-mathematics", name: "Vectors & 3D Geometry", slug: "vectors-3d", orderIndex: 6 },
     { id: "jee-adv-math-binomial-series", subjectId: "jee-adv-mathematics", name: "Binomial Theorem, Sequences & Series", slug: "binomial-series", orderIndex: 7 },
     ...advTopics,
-    ...adv2Topics
+    ...adv2Topics,
+    ...adv3Topics
   ],
   materials: [
     { id: "jee-adv-phy-rotational-dynamics-m01", topicId: "jee-adv-phy-rotational-dynamics", title: "Rotational Dynamics", content: `**Torque** τ = Iα rotates a rigid body; **moment of inertia** I depends on mass distribution (solid sphere (2/5)MR², solid cylinder/disc ½MR², ring MR²). Use the **parallel-axis theorem** I = I_cm + Md². For **rolling without slipping** v = ωR and friction is static (does no work). In rolling, KE splits as translational + rotational; the rotational fraction is I/(I+MR²). Bodies with smaller I/MR² (e.g., a solid sphere) accelerate fastest down an incline. **Angular momentum** L = Iω is conserved when net external torque is zero — the basis of the spinning-skater effect.`, estimatedReadTime: 2, orderIndex: 0 },
@@ -79,7 +81,8 @@ export const jeeAdvanced = defineBundle({
     { id: "jee-adv-math-vectors-3d-m01", topicId: "jee-adv-math-vectors-3d", title: "Vectors & 3D Geometry", content: `The **dot product** a·b = |a||b|cosθ is zero for perpendicular vectors and gives projections. The **cross product** a×b is perpendicular to both, with |a×b| = |a||b|sinθ equal to the area of the parallelogram they span. The **scalar triple product** [a b c] = a·(b×c) equals the volume of the parallelepiped and is **zero when the vectors are coplanar**. Direction cosines satisfy l² + m² + n² = 1, and a **unit vector** is a/|a|. Lines and planes in 3D reduce to these products (e.g., angle between planes from their normals).`, estimatedReadTime: 2, orderIndex: 6 },
     { id: "jee-adv-math-binomial-series-m01", topicId: "jee-adv-math-binomial-series", title: "Binomial & Series", content: `The **binomial theorem** (a+b)ⁿ has general term T_{r+1} = ⁿC_r a^{n−r}bʳ and n+1 terms; the **middle term** is the (n/2 + 1)-th when n is even. Coefficient facts: **ⁿC_r = ⁿC_{n−r}** and the sum of all coefficients is 2ⁿ (put a = b = 1). For an **AP**, Sₙ = n/2·[2a + (n−1)d]; for a **GP**, Sₙ = a(rⁿ−1)/(r−1) and the infinite sum a/(1−r) when |r| < 1. Useful sums: Σk = n(n+1)/2, Σk² = n(n+1)(2n+1)/6.`, estimatedReadTime: 2, orderIndex: 7 },
     ...advMaterials,
-    ...adv2Materials
+    ...adv2Materials,
+    ...adv3Materials
   ],
   questions: [
     // ── Physics: Rotational Dynamics ──
@@ -322,6 +325,7 @@ export const jeeAdvanced = defineBundle({
     { id: "jee-adv-math-binomial-series-q07", topicId: "jee-adv-math-binomial-series", text: "The sum of the first n natural numbers is:", optionA: "n(n+1)/2", optionB: "n²", optionC: "n(n+1)(2n+1)/6", optionD: "n(n−1)/2", correctOption: "A", explanation: "1 + 2 + … + n = n(n+1)/2.", orderIndex: 6 },
     { id: "jee-adv-math-binomial-series-q08", topicId: "jee-adv-math-binomial-series", text: "The identity ⁿC_r = ⁿC_{n−r} reflects that:", optionA: "Choosing r items equals leaving out n−r items", optionB: "Coefficients are always 1", optionC: "r must equal n", optionD: "The sum is 2ⁿ", correctOption: "A", explanation: "Selecting r objects is equivalent to excluding the other n − r, so the coefficients are equal.", orderIndex: 7 },
     ...advQuestions,
-    ...adv2Questions
+    ...adv2Questions,
+    ...adv3Questions
   ]
 });
