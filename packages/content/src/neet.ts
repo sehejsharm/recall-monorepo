@@ -1,4 +1,5 @@
 import { defineBundle } from "./builder";
+import { bioTopics, bioMaterials, bioQuestions } from "./neet-exp-bio";
 
 export const neet = defineBundle({
   exam: {
@@ -307,7 +308,8 @@ export const neet = defineBundle({
       name: "Semiconductor Electronics",
       slug: "semiconductor-electronics",
       orderIndex: 12
-    }
+    },
+    ...bioTopics
   ],
   materials: [
     {
@@ -1690,7 +1692,8 @@ h f = phi + KE_max       (Einstein's equation)
 - **Forbidden energy gap** of silicon is about 1.1 eV.`,
       estimatedReadTime: 2,
       orderIndex: 0
-    }
+    },
+    ...bioMaterials
   ],
   questions: [
     {
@@ -5724,6 +5727,7 @@ h f = phi + KE_max       (Einstein's equation)
       correctOption: "C",
       explanation: "A transistor can amplify signals or act as an electronic switch.",
       orderIndex: 7
-    }
+    },
+    ...bioQuestions
   ]
 });
