@@ -1,6 +1,7 @@
 import { defineBundle } from "./builder";
 import { bioTopics, bioMaterials, bioQuestions } from "./neet-exp-bio";
 import { chemTopics, chemMaterials, chemQuestions } from "./neet-exp-chem";
+import { phyTopics, phyMaterials, phyQuestions } from "./neet-exp-phy";
 
 export const neet = defineBundle({
   exam: {
@@ -311,7 +312,8 @@ export const neet = defineBundle({
       orderIndex: 12
     },
     ...bioTopics,
-    ...chemTopics
+    ...chemTopics,
+    ...phyTopics
   ],
   materials: [
     {
@@ -1696,7 +1698,8 @@ h f = phi + KE_max       (Einstein's equation)
       orderIndex: 0
     },
     ...bioMaterials,
-    ...chemMaterials
+    ...chemMaterials,
+    ...phyMaterials
   ],
   questions: [
     {
@@ -5732,6 +5735,7 @@ h f = phi + KE_max       (Einstein's equation)
       orderIndex: 7
     },
     ...bioQuestions,
-    ...chemQuestions
+    ...chemQuestions,
+    ...phyQuestions
   ]
 });
