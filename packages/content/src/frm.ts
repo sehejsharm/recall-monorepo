@@ -7,6 +7,7 @@ import { expansionTopics as frmExp3Topics, expansionMaterials as frmExp3Material
 import { expansionTopics as frmExp4Topics, expansionMaterials as frmExp4Materials, expansionQuestions as frmExp4Questions } from "./frm-exp-4";
 import { expansionTopics as frmExp5Topics, expansionMaterials as frmExp5Materials, expansionQuestions as frmExp5Questions } from "./frm-exp-5";
 import { expansionTopics as frmExp6Topics, expansionMaterials as frmExp6Materials, expansionQuestions as frmExp6Questions } from "./frm-exp-6";
+import { expansionQuestions as frmExp7Questions } from "./frm-exp-7";
 
 const allSubjects: Subject[] = [
     { id: "frm-foundations", examId: "frm", name: "Foundations of Risk Management", slug: "foundations", orderIndex: 0 },
@@ -1476,7 +1477,8 @@ const allQuestions: Question[] = [
     ...(frmExp3Questions as Question[]),
     ...(frmExp4Questions as Question[]),
     ...(frmExp5Questions as Question[]),
-    ...(frmExp6Questions as Question[])
+    ...(frmExp6Questions as Question[]),
+    ...(frmExp7Questions as Question[])
 ];
 
 const frmBundles = defineProgram(
