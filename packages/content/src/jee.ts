@@ -1,4 +1,5 @@
 import { defineBundle } from "./builder";
+import { mainTopUpQuestions } from "./jee-main-exp";
 
 export const jee = defineBundle({
   exam: {
@@ -9402,6 +9403,7 @@ h = d * tan(theta)
       correctOption: "B",
       explanation: "Two observations let you eliminate the unknown base distance and solve for height.",
       orderIndex: 7
-    }
+    },
+    ...mainTopUpQuestions
   ]
 });
