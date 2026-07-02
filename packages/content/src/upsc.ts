@@ -1,4 +1,5 @@
 import { defineBundle } from "./builder";
+import { topUp1 } from "./upsc-exp1";
 
 export const upsc = defineBundle({
   exam: {
@@ -8293,6 +8294,7 @@ Pair each index with the **correct parent organisation**, as wrong pairings are 
       correctOption: "B",
       explanation: "Prevention, mitigation and preparedness are activities of the pre-disaster phase.",
       orderIndex: 7
-    }
+    },
+    ...topUp1
   ]
 });
