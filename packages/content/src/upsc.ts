@@ -1,5 +1,6 @@
 import { defineBundle } from "./builder";
 import { topUp1 } from "./upsc-exp1";
+import { historyTopics, historyMaterials, historyQuestions } from "./upsc-exp2-history";
 
 export const upsc = defineBundle({
   exam: {
@@ -459,7 +460,8 @@ export const upsc = defineBundle({
       name: "Disaster Management",
       slug: "disaster-management",
       orderIndex: 3
-    }
+    },
+    ...historyTopics
   ],
   materials: [
     {
@@ -2340,7 +2342,8 @@ Pair each index with the **correct parent organisation**, as wrong pairings are 
 - Disasters are **natural** (earthquakes, floods, cyclones) or **man-made** (industrial, chemical, nuclear). The **Bhopal Gas Tragedy (1984)** is a landmark industrial disaster.`,
       estimatedReadTime: 2,
       orderIndex: 0
-    }
+    },
+    ...historyMaterials
   ],
   questions: [
     {
@@ -8295,6 +8298,7 @@ Pair each index with the **correct parent organisation**, as wrong pairings are 
       explanation: "Prevention, mitigation and preparedness are activities of the pre-disaster phase.",
       orderIndex: 7
     },
-    ...topUp1
+    ...topUp1,
+    ...historyQuestions
   ]
 });
