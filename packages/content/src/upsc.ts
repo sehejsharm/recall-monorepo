@@ -1,6 +1,7 @@
 import { defineBundle } from "./builder";
 import { topUp1 } from "./upsc-exp1";
 import { historyTopics, historyMaterials, historyQuestions } from "./upsc-exp2-history";
+import { geoTopics, geoMaterials, geoQuestions } from "./upsc-exp3-geography";
 
 export const upsc = defineBundle({
   exam: {
@@ -461,7 +462,8 @@ export const upsc = defineBundle({
       slug: "disaster-management",
       orderIndex: 3
     },
-    ...historyTopics
+    ...historyTopics,
+    ...geoTopics
   ],
   materials: [
     {
@@ -2343,7 +2345,8 @@ Pair each index with the **correct parent organisation**, as wrong pairings are 
       estimatedReadTime: 2,
       orderIndex: 0
     },
-    ...historyMaterials
+    ...historyMaterials,
+    ...geoMaterials
   ],
   questions: [
     {
@@ -8299,6 +8302,7 @@ Pair each index with the **correct parent organisation**, as wrong pairings are 
       orderIndex: 7
     },
     ...topUp1,
-    ...historyQuestions
+    ...historyQuestions,
+    ...geoQuestions
   ]
 });
