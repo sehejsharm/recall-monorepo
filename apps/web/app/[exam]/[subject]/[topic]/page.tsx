@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { repo } from "@/lib/content";
 import { TopicShell } from "@/components/TopicShell";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { jsonLdHtml } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return repo.exams().flatMap((e) =>
@@ -86,7 +87,7 @@ export default async function TopicPage({
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }}
       />
       <Breadcrumbs
         visible={false}

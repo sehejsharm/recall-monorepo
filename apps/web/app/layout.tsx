@@ -5,6 +5,7 @@ import { Splash } from "@/components/Splash";
 import { Onboarding } from "@/components/Onboarding";
 import { BottomNav } from "@/components/BottomNav";
 import { Analytics } from "@/components/Analytics";
+import { jsonLdHtml } from "@/lib/jsonld";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
@@ -93,7 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-screen bg-oled font-sans text-ink antialiased">
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }}
         />
         <Analytics />
         <StoreProvider>
