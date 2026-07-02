@@ -5,6 +5,7 @@ import { geoTopics, geoMaterials, geoQuestions } from "./upsc-exp3-geography";
 import { exp4Topics, exp4Materials, exp4Questions } from "./upsc-exp4";
 import { exp5Topics, exp5Materials, exp5Questions } from "./upsc-exp5";
 import { exp6Topics, exp6Materials, exp6Questions } from "./upsc-exp6";
+import { exp7Topics, exp7Materials, exp7Questions } from "./upsc-exp7-history";
 
 export const upsc = defineBundle({
   exam: {
@@ -469,7 +470,8 @@ export const upsc = defineBundle({
     ...geoTopics,
     ...exp4Topics,
     ...exp5Topics,
-    ...exp6Topics
+    ...exp6Topics,
+    ...exp7Topics
   ],
   materials: [
     {
@@ -2355,7 +2357,8 @@ Pair each index with the **correct parent organisation**, as wrong pairings are 
     ...geoMaterials,
     ...exp4Materials,
     ...exp5Materials,
-    ...exp6Materials
+    ...exp6Materials,
+    ...exp7Materials
   ],
   questions: [
     {
@@ -8315,6 +8318,7 @@ Pair each index with the **correct parent organisation**, as wrong pairings are 
     ...geoQuestions,
     ...exp4Questions,
     ...exp5Questions,
-    ...exp6Questions
+    ...exp6Questions,
+    ...exp7Questions
   ]
 });
