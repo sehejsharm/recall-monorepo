@@ -12,12 +12,19 @@ import { buildQueue, buildReviewQueue, dueCount, topicCounts, DEFAULT_QUEUE_LIMI
 import { gradeBinary } from "./sm2";
 import type { StorageAdapter } from "./storage";
 import { syncUserData, type SupabaseLike, type SyncResult } from "./sync";
-import type { DrillCard, ProgressRecord, ReadRecord, TopicCounts } from "./types";
+import type { AnsweredCard, DrillCard, OptionKey, ProgressRecord, ReadRecord, TopicCounts } from "./types";
 
 /** repetitions threshold at which a card counts as "mastered". */
 const MASTERY_REPETITIONS = 3;
 
-export type DrillPhase = "idle" | "question" | "revealed" | "complete";
+/**
+ * Drill is an auto-graded multiple-choice loop:
+ *   "question"  — the four options are shown; the user taps one.
+ *   "answered"  — the app has graded the tap (right/wrong is derived, never
+ *                 self-reported); the correct option and explanation are shown.
+ *   "complete"  — every card answered; the review screen lists them all.
+ */
+export type DrillPhase = "idle" | "question" | "answered" | "complete";
 
 /**
  * Sentinel `drill.topicId` for a cross-exam review session (not tied to any
@@ -37,17 +44,17 @@ export interface DrillSession {
   queue: DrillCard[];
   index: number;
   phase: DrillPhase;
-  /** The grade just given, kept for the brief reveal/flash on the card. */
-  lastGrade: boolean | null;
+  /** The option the user tapped for the current card (null until answered). */
+  selected: OptionKey | null;
+  /** Every answered question, in order, for the end-of-session review screen. */
+  answers: AnsweredCard[];
   stats: { knew: number; wrong: number };
-  /** Consecutive "Knew It" run in this session (drives combo UI + bonus XP). */
+  /** Consecutive correct run in this session (drives combo UI + bonus XP). */
   combo: number;
   /** Total XP earned this session. */
   sessionXp: number;
-  /** XP awarded by the most recent grade (drives the "+N" float). */
+  /** XP awarded by the most recent answer (drives the "+N" float). */
   lastXpAward: number;
-  /** Lapsed cards re-enter the back of the queue once per session. */
-  requeued: Record<string, true>;
 }
 
 export interface JyotirState {
@@ -71,8 +78,10 @@ export interface JyotirState {
   startCustomDrill(topicIds: string[], limit?: number): void;
   /** Drill only the user's bookmarked questions. */
   startBookmarkedDrill(limit?: number): void;
-  reveal(): void;
-  grade(knewIt: boolean): void;
+  /** Grade the current card from the tapped option and reveal the answer. */
+  answer(option: OptionKey): void;
+  /** Advance from the revealed answer to the next card (or the review screen). */
+  next(): void;
   exitDrill(): void;
 
   markRead(materialId: string): void;
@@ -100,7 +109,8 @@ export interface StoreDeps {
   content: ContentSource;
   /** Platform feedback hooks (e.g. expo-haptics). Fired synchronously. */
   onReveal?: () => void;
-  onGrade?: (knewIt: boolean) => void;
+  /** Fired when a card is graded; `correct` reflects the tapped option. */
+  onGrade?: (correct: boolean) => void;
 }
 
 const emptyDrill = (): DrillSession => ({
@@ -108,12 +118,12 @@ const emptyDrill = (): DrillSession => ({
   queue: [],
   index: 0,
   phase: "idle",
-  lastGrade: null,
+  selected: null,
+  answers: [],
   stats: { knew: 0, wrong: 0 },
   combo: 0,
   sessionXp: 0,
-  lastXpAward: 0,
-  requeued: {}
+  lastXpAward: 0
 });
 
 const countMastered = (progress: Record<string, ProgressRecord>): number => {
@@ -201,43 +211,31 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
       });
     },
 
-    reveal() {
-      const { drill } = get();
-      if (drill.phase !== "question") return;
-      deps.onReveal?.();
-      set({ drill: { ...drill, phase: "revealed" } });
-    },
-
-    grade(knewIt) {
+    answer(option) {
       const { drill, progress, stats } = get();
-      if (drill.phase !== "revealed") return;
+      if (drill.phase !== "question") return;
       const card = drill.queue[drill.index];
       if (!card) return;
 
-      deps.onGrade?.(knewIt);
+      // Correctness is derived from the tapped option — never self-reported.
+      const correct = option === card.question.correctOption;
+      deps.onGrade?.(correct);
 
       const qid = card.question.id;
-      const record = gradeBinary(qid, progress[qid], knewIt);
+      const record = gradeBinary(qid, progress[qid], correct);
       const nextProgress = { ...progress, [qid]: record };
 
-      // Lapsed card relearns within the session: re-queue at the back, once.
-      let queue = drill.queue;
-      let requeued = drill.requeued;
-      if (!knewIt && !requeued[qid]) {
-        queue = [...queue, { question: card.question, reason: "due" }];
-        requeued = { ...requeued, [qid]: true };
-      }
-
-      const index = drill.index + 1;
-      const phase = index >= queue.length ? "complete" : "question";
       const sessionStats = {
-        knew: drill.stats.knew + (knewIt ? 1 : 0),
-        wrong: drill.stats.wrong + (knewIt ? 0 : 1)
+        knew: drill.stats.knew + (correct ? 1 : 0),
+        wrong: drill.stats.wrong + (correct ? 0 : 1)
       };
-      const combo = knewIt ? drill.combo + 1 : 0;
+      const combo = correct ? drill.combo + 1 : 0;
+      // The queue is fixed for the session (no in-session re-queue), so the
+      // last card is known up front and completion achievements fire on it.
+      const isLast = drill.index + 1 >= drill.queue.length;
 
       // --- gamification ---
-      const outcome = applyGradeToStats(stats, knewIt, combo, dayKey());
+      const outcome = applyGradeToStats(stats, correct, combo, dayKey());
       // Attribute this card's XP to its exam (per-exam leaderboards).
       const examId = repo.examIdForTopic(card.question.topicId);
       const examXp = examId
@@ -247,7 +245,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
       const unlocked = evaluateAchievements({
         state: outcome.state,
         masteredCount: countMastered(nextProgress),
-        sessionComplete: phase === "complete",
+        sessionComplete: isLast,
         sessionSize,
         sessionAccuracy: sessionSize > 0 ? (sessionStats.knew / sessionSize) * 100 : 0
       });
@@ -259,17 +257,22 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
           : outcome.state.achievements
       };
 
+      const answered: AnsweredCard = {
+        question: card.question,
+        selected: option,
+        correct: card.question.correctOption,
+        wasCorrect: correct
+      };
+
       set({
         progress: nextProgress,
         stats: nextStats,
         newlyUnlocked: [...get().newlyUnlocked, ...unlocked],
         drill: {
           ...drill,
-          queue,
-          requeued,
-          index,
-          lastGrade: knewIt,
-          phase,
+          phase: "answered",
+          selected: option,
+          answers: [...drill.answers, answered],
           stats: sessionStats,
           combo,
           sessionXp: drill.sessionXp + outcome.xpAwarded,
@@ -277,10 +280,17 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
         }
       });
 
-      // I/O strictly after the synchronous state transition: the next card
-      // is already on screen before these writes begin.
+      // I/O strictly after the synchronous state transition.
       persist(adapter.saveProgress(record));
       persist(adapter.saveStats(nextStats));
+    },
+
+    next() {
+      const { drill } = get();
+      if (drill.phase !== "answered") return;
+      const index = drill.index + 1;
+      const phase: DrillPhase = index >= drill.queue.length ? "complete" : "question";
+      set({ drill: { ...drill, index, phase, selected: null } });
     },
 
     exitDrill() {

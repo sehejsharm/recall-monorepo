@@ -169,6 +169,20 @@ export interface DrillCard {
   reason: QueueReason;
 }
 
+/**
+ * A question the user has answered in the current drill, retained so the
+ * end-of-session review screen can show the picked option, correctness and the
+ * correct answer for every question in order.
+ */
+export interface AnsweredCard {
+  question: Question;
+  /** The option the user tapped. */
+  selected: OptionKey;
+  /** The right answer (`question.correctOption`, denormalised for the review). */
+  correct: OptionKey;
+  wasCorrect: boolean;
+}
+
 export interface TopicCounts {
   /** Cards with nextReviewDate <= now. */
   due: number;

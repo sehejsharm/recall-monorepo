@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { createJyotirStore, REVIEW_SCOPE } from "../src/store";
 import { MemoryStorageAdapter } from "../src/storage";
 import type { ContentSource } from "../src/content-repo";
-import type { Question } from "../src/types";
+import type { OptionKey, Question } from "../src/types";
 
 const q = (id: string, orderIndex: number): Question => ({
   id,
@@ -40,51 +40,74 @@ function makeStore() {
 }
 
 describe("drill loop", () => {
-  it("runs reveal -> grade synchronously with zero awaits between cards", () => {
+  it("auto-grades a correct tap and advances on next()", () => {
     const store = makeStore();
     store.getState().startDrill("t1");
     expect(store.getState().drill.queue).toHaveLength(3);
     expect(store.getState().drill.phase).toBe("question");
 
-    store.getState().reveal();
-    expect(store.getState().drill.phase).toBe("revealed");
-
-    store.getState().grade(true);
-    // Next card is already live — no promise in between.
-    expect(store.getState().drill.phase).toBe("question");
-    expect(store.getState().drill.index).toBe(1);
+    store.getState().answer("B"); // "B" is the correct option in the fixture
+    let drill = store.getState().drill;
+    expect(drill.phase).toBe("answered");
+    expect(drill.selected).toBe("B");
+    expect(drill.stats).toEqual({ knew: 1, wrong: 0 });
+    // The answer is recorded for the review screen with the derived verdict.
+    expect(drill.answers).toHaveLength(1);
+    expect(drill.answers[0]).toMatchObject({ selected: "B", correct: "B", wasCorrect: true });
     expect(store.getState().progress["q1"]?.repetitions).toBe(1);
     // XP is attributed to the card's exam (per-exam leaderboards).
     const s = store.getState().stats;
     expect(s.examXp["upsc"]).toBeGreaterThan(0);
     expect(s.examXp["upsc"]).toBe(s.xp);
+
+    store.getState().next();
+    drill = store.getState().drill;
+    expect(drill.phase).toBe("question");
+    expect(drill.index).toBe(1);
+    expect(drill.selected).toBeNull();
   });
 
-  it("ignores grade before reveal (tap-anywhere contract)", () => {
+  it("auto-grades a wrong tap without the user self-reporting", () => {
     const store = makeStore();
     store.getState().startDrill("t1");
-    store.getState().grade(true);
-    expect(store.getState().drill.index).toBe(0);
+    store.getState().answer("A"); // wrong — correct is "B"
+    const { drill } = store.getState();
+    expect(drill.phase).toBe("answered");
+    expect(drill.stats).toEqual({ knew: 0, wrong: 1 });
+    expect(drill.answers[0]).toMatchObject({ selected: "A", correct: "B", wasCorrect: false });
+  });
+
+  it("ignores answer() outside the question phase and next() outside answered", () => {
+    const store = makeStore();
+    store.getState().startDrill("t1");
+    // next() before answering is a no-op.
+    store.getState().next();
     expect(store.getState().drill.phase).toBe("question");
+    expect(store.getState().drill.index).toBe(0);
+    // A second answer() while already answered is ignored.
+    store.getState().answer("B");
+    store.getState().answer("A");
+    expect(store.getState().drill.answers).toHaveLength(1);
   });
 
-  it("re-queues a lapsed card once at the back of the session", () => {
+  it("collects every answer in order for the review screen and completes cleanly", () => {
     const store = makeStore();
     store.getState().startDrill("t1");
 
-    store.getState().reveal();
-    store.getState().grade(false); // q1 lapses -> re-queued
-    expect(store.getState().drill.queue).toHaveLength(4);
+    // Answer q1 wrong, q2 & q3 correct — the queue is not re-ordered.
+    const picks: OptionKey[] = ["A", "B", "B"];
+    picks.forEach((opt, i) => {
+      store.getState().answer(opt);
+      if (i < picks.length - 1) store.getState().next();
+    });
+    store.getState().next(); // advance past the last card -> complete
 
-    // Work through q2, q3, then q1 again — wrong again must NOT re-queue.
-    for (let i = 0; i < 3; i++) {
-      store.getState().reveal();
-      store.getState().grade(i < 2);
-    }
     const { drill } = store.getState();
     expect(drill.phase).toBe("complete");
-    expect(drill.queue).toHaveLength(4);
-    expect(drill.stats).toEqual({ knew: 2, wrong: 2 });
+    expect(drill.queue).toHaveLength(3);
+    expect(drill.answers).toHaveLength(3);
+    expect(drill.answers.map((a) => a.wasCorrect)).toEqual([false, true, true]);
+    expect(drill.stats).toEqual({ knew: 2, wrong: 1 });
   });
 
   it("counts due cards for the Read-to-Drill CTA", () => {
@@ -92,17 +115,15 @@ describe("drill loop", () => {
     expect(store.getState().countsForTopic("t1")).toEqual({ due: 0, fresh: 3, total: 3 });
 
     store.getState().startDrill("t1");
-    store.getState().reveal();
-    store.getState().grade(true); // scheduled tomorrow -> no longer fresh or due
+    store.getState().answer("B"); // correct -> scheduled tomorrow, no longer fresh or due
     expect(store.getState().countsForTopic("t1")).toEqual({ due: 0, fresh: 2, total: 3 });
   });
 
-  it("persists progress to the adapter after grading", async () => {
+  it("persists progress to the adapter after answering", async () => {
     const adapter = new MemoryStorageAdapter();
     const store = createJyotirStore({ adapter, content });
     store.getState().startDrill("t1");
-    store.getState().reveal();
-    store.getState().grade(true);
+    store.getState().answer("B");
     await new Promise((r) => setTimeout(r, 0));
     const saved = await adapter.loadProgress();
     expect(saved["q1"]?.repetitions).toBe(1);

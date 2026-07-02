@@ -19,13 +19,11 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     storeRef.current = createJyotirStore({
       adapter: new SqliteStorageAdapter(),
       content: contentSource,
-      // Subtle haptics on every drill interaction (fire-and-forget).
-      onReveal: () => {
-        void Haptics.selectionAsync();
-      },
-      onGrade: (knewIt) => {
+      // Haptic verdict when a tapped answer is graded (fire-and-forget):
+      // a light tick for correct, a firmer bump for wrong.
+      onGrade: (correct) => {
         void Haptics.impactAsync(
-          knewIt ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
+          correct ? Haptics.ImpactFeedbackStyle.Light : Haptics.ImpactFeedbackStyle.Medium
         );
       }
     });
