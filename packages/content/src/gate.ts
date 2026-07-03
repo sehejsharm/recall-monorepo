@@ -1,4 +1,5 @@
 import { defineBundle } from "./builder";
+import { gateTopUp } from "./gate-exp1";
 
 export const gate = defineBundle({
   exam: {
@@ -5848,6 +5849,7 @@ Characteristic eqn: x^2 = c1*x + c2
       correctOption: "C",
       explanation: "A generating function represents a sequence as coefficients in a power series.",
       orderIndex: 7
-    }
+    },
+    ...gateTopUp
   ]
 });
