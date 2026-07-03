@@ -17,7 +17,9 @@ export function DrillEngine({
   topicId,
   onStudy,
   reviewMode = false,
-  onExit
+  onExit,
+  onNextTopic,
+  onExamHome
 }: {
   topicId: string;
   onStudy?: () => void;
@@ -25,6 +27,10 @@ export function DrillEngine({
   reviewMode?: boolean;
   /** Secondary action on the completion screen (e.g. back to home). */
   onExit?: () => void;
+  /** Completion action: advance to the next topic card. */
+  onNextTopic?: () => void;
+  /** Completion action: return to the exam's topic list. */
+  onExamHome?: () => void;
 }) {
   const drill = useJyotir((s) => s.drill);
   const ready = useJyotir((s) => s.ready);
@@ -136,12 +142,20 @@ export function DrillEngine({
         )}
 
         <div className="mt-6 flex flex-col gap-2.5">
+          {onNextTopic && (
+            <button
+              onClick={dismiss(onNextTopic)}
+              className="w-full rounded-xl bg-correct py-3.5 font-bold text-black transition-transform active:scale-[0.98]"
+            >
+              Next topic →
+            </button>
+          )}
           {!caughtUp && (
             <button
               onClick={dismiss(start)}
               className="w-full rounded-xl bg-ink py-3.5 font-bold text-black transition-transform active:scale-[0.98]"
             >
-              {reviewMode ? "Review Again" : "Drill Again"}
+              {reviewMode ? "Review Again" : "Drill this topic again"}
             </button>
           )}
           {onStudy && (
@@ -150,6 +164,14 @@ export function DrillEngine({
               className="w-full rounded-xl border border-edge py-3.5 font-semibold text-muted transition-colors hover:text-ink"
             >
               Back to the notes
+            </button>
+          )}
+          {onExamHome && (
+            <button
+              onClick={dismiss(onExamHome)}
+              className="w-full rounded-xl border border-edge py-3.5 font-semibold text-muted transition-colors hover:text-ink"
+            >
+              Back to exam home
             </button>
           )}
           {onExit && (

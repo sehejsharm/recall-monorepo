@@ -11,20 +11,13 @@ const ITEMS = [
   { href: "/settings", label: "Settings", Icon: GearIcon }
 ] as const;
 
-/** Routes that get the bottom tab bar (the immersive drill/topic screens don't). */
-const SHOW_ON = new Set([
-  "/",
-  "/leaderboard",
-  "/stats",
-  "/settings",
-  "/contact",
-  "/request-exam",
-  "/account"
-]);
-
+/**
+ * Global tab bar — shown on every screen, including the immersive drill and
+ * study screens (previously it hid there). Pages get bottom padding in the root
+ * layout so content is never obscured by the fixed bar.
+ */
 export function BottomNav() {
   const pathname = usePathname();
-  if (!SHOW_ON.has(pathname)) return null;
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-edge bg-surface/90 backdrop-blur">

@@ -14,12 +14,12 @@ const SLIDES: Slide[] = [
   {
     Icon: ({ className }) => <RecallMark className={className} />,
     title: "Welcome to Recall",
-    body: "Master 7 tough exams by active recall — short notes, then rapid-fire questions. No feeds, no fluff."
+    body: "Master tough exams by active recall — short notes, then rapid-fire questions. No feeds, no fluff."
   },
   {
     Icon: BoltIcon,
     title: "The drill loop",
-    body: "See a question, decide in your head, tap to reveal the answer, then mark Knew It or Got It Wrong. The next card is instant."
+    body: "See a question, pick the answer you think is right, and the app grades it instantly. At the end you review every question and the correct answers."
   },
   {
     Icon: FlameIcon,
@@ -29,32 +29,90 @@ const SLIDES: Slide[] = [
   {
     Icon: TrophyIcon,
     title: "Earn XP and level up",
-    body: "Every card earns XP, combos give bonuses, and 12 achievements await. Climb from Novice to Legend."
+    body: "Every card earns XP, combos give bonuses, and achievements await. Climb from Novice to Legend."
   },
   {
     Icon: UsersIcon,
     title: "Compete on the ranks",
-    body: "Sign in to climb the anonymized global board and a separate leaderboard for each exam. Your real name stays private."
+    body: "Sign in from Account (optional) to climb the anonymized leaderboards. Your real name stays private."
   }
 ];
 
-/** First-run guided tour; shown once, after the splash. */
+/**
+ * First-run flow. Step 0 is a MANDATORY name capture — the app cannot be used
+ * without a name and this step has no skip. After that comes the skippable
+ * feature tour. Signing in stays optional, so a broken/absent cloud backend
+ * never blocks entry.
+ */
 export function Onboarding() {
-  const [show, setShow] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [needName, setNeedName] = useState(false);
+  const [showTour, setShowTour] = useState(false);
+  const [name, setName] = useState("");
   const [i, setI] = useState(0);
 
   useEffect(() => {
-    if (!loadSettings().onboarded) {
-      const t = setTimeout(() => setShow(true), 850); // let the splash finish first
+    const s = loadSettings();
+    setNeedName(!s.named);
+    // Only show the tour once a name exists; let the splash finish first.
+    if (s.named && !s.onboarded) {
+      const t = setTimeout(() => setShowTour(true), 850);
+      setReady(true);
       return () => clearTimeout(t);
     }
+    setReady(true);
   }, []);
 
-  if (!show) return null;
+  if (!ready) return null;
+
+  // ── Mandatory name gate ────────────────────────────────────────────────
+  if (needName) {
+    const trimmed = name.trim();
+    const valid = trimmed.length >= 2;
+    const submit = () => {
+      if (!valid) return;
+      saveSettings({ ...loadSettings(), displayName: trimmed, named: true });
+      setNeedName(false);
+      setShowTour(true); // continue straight into the tour
+    };
+    return (
+      <div className="fixed inset-0 z-[60] flex flex-col bg-oled px-6 pb-8 pt-16">
+        <div className="flex flex-1 flex-col items-center justify-center text-center">
+          <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-3xl bg-raised text-correct">
+            <UsersIcon className="h-10 w-10" />
+          </div>
+          <h2 className="mt-7 text-2xl font-bold tracking-tight">What should we call you?</h2>
+          <p className="mx-auto mt-3 max-w-sm text-[15px] leading-relaxed text-muted">
+            Enter your name to get started. This stays on your device — your public
+            leaderboard identity is always anonymized.
+          </p>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && submit()}
+            placeholder="Your name"
+            autoFocus
+            maxLength={24}
+            className="mt-8 w-full max-w-sm rounded-2xl border border-edge bg-surface px-4 py-3.5 text-center text-base text-ink outline-none focus:border-correct/50"
+          />
+        </div>
+        <button
+          onClick={submit}
+          disabled={!valid}
+          className="w-full rounded-2xl bg-correct py-4 text-base font-bold text-black transition-transform active:scale-[0.98] disabled:opacity-40"
+        >
+          Continue
+        </button>
+      </div>
+    );
+  }
+
+  // ── Skippable feature tour ─────────────────────────────────────────────
+  if (!showTour) return null;
 
   const finish = () => {
     saveSettings({ ...loadSettings(), onboarded: true });
-    setShow(false);
+    setShowTour(false);
   };
 
   const slide = SLIDES[i]!;

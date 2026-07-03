@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 /** Local, device-level preferences. displayName + handle also feed the leaderboard. */
 export interface Settings {
   displayName: string;
+  /** True once the user has entered their own name — required before the app
+   *  can be used. Distinct from `onboarded` (the skippable tour). */
+  named: boolean;
   /** Anonymized public identity shown on the global leaderboard. */
   handle: string;
   /** Daily target (cards) for the streak ring. */
@@ -27,6 +30,7 @@ function randomHandle(): string {
 export function defaultSettings(): Settings {
   return {
     displayName: "Aspirant",
+    named: false,
     handle: randomHandle(),
     dailyGoal: 20,
     reduceMotion: false,

@@ -101,7 +101,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SyncProvider>
             <Splash />
             <Onboarding />
-            {children}
+            {/* pb-16 keeps page content clear of the fixed global tab bar */}
+            <div className="pb-16">{children}</div>
             <BottomNav />
           </SyncProvider>
         </StoreProvider>
