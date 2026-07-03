@@ -5,7 +5,6 @@ import { groupExams } from "@jyotir/core";
 import { repo } from "@/lib/content";
 import { useJyotir } from "@/lib/store-provider";
 import { ProfileStrip } from "@/components/ProfileStrip";
-import { BottomNav } from "@/components/BottomNav";
 import { Ionicons } from "@expo/vector-icons";
 
 export default function ExamPickerScreen() {
@@ -15,7 +14,7 @@ export default function ExamPickerScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-oled">
-      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8 pb-28">
+      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8">
         <Text className="text-3xl font-bold tracking-tight text-ink">Recall</Text>
         <Text className="mb-5 mt-1 text-sm text-muted">
           Drill. Read. Repeat. Nothing else.
@@ -91,7 +90,6 @@ export default function ExamPickerScreen() {
           )}
         </View>
       </ScrollView>
-      <BottomNav />
     </SafeAreaView>
   );
 }

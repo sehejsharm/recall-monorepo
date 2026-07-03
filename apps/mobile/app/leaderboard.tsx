@@ -4,7 +4,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { repo } from "@/lib/content";
 import { getSupabase } from "@/lib/supabase";
 import { fetchLeaderboard, fetchMyRank, type LeaderboardRow } from "@/lib/leaderboard";
-import { BottomNav } from "@/components/BottomNav";
 
 export default function LeaderboardScreen() {
   const supabase = getSupabase();
@@ -40,7 +39,7 @@ export default function LeaderboardScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-oled" edges={["top"]}>
-      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8 pb-28">
+      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8">
         <Text className="text-2xl font-bold tracking-tight text-ink">Ranks</Text>
         <Text className="mb-5 mt-0.5 text-xs text-muted">Anonymized global standings.</Text>
 
@@ -72,7 +71,6 @@ export default function LeaderboardScreen() {
           </View>
         )}
       </ScrollView>
-      <BottomNav />
     </SafeAreaView>
   );
 }

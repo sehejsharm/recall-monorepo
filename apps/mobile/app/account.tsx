@@ -95,21 +95,56 @@ export default function AccountScreen() {
     );
   }
 
+  /** Turn raw Supabase auth errors into something a user can act on. */
+  const friendlyError = (message: string): string => {
+    const m = message.toLowerCase();
+    if (m.includes("invalid login credentials")) return "Wrong email or password.";
+    if (m.includes("email not confirmed"))
+      return "Please confirm your email first — check your inbox for the confirmation link.";
+    if (m.includes("already registered") || m.includes("already been registered"))
+      return "That email already has an account. Try logging in instead.";
+    if (m.includes("email logins are disabled") || m.includes("signups not allowed"))
+      return "Email sign-in isn't enabled for this app yet. You can keep using Recall without an account.";
+    if (m.includes("network") || m.includes("fetch"))
+      return "Network error — check your connection and try again.";
+    return message;
+  };
+
   const submit = async () => {
-    setBusy(true);
+    const cleanEmail = email.trim().toLowerCase();
+    const cleanPassword = password.trim();
     setError(null);
     setNotice(null);
+
+    // Validate before hitting the network so users get instant, clear feedback.
+    if (!cleanEmail.includes("@") || cleanEmail.length < 5) {
+      setError("Enter a valid email address.");
+      return;
+    }
+    if (cleanPassword.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
+
+    setBusy(true);
     try {
       if (mode === "signup") {
-        const { data, error: err } = await supabase.auth.signUp({ email, password });
+        const { data, error: err } = await supabase.auth.signUp({
+          email: cleanEmail,
+          password: cleanPassword
+        });
         if (err) throw err;
-        if (!data.session) setNotice(`Almost there — check ${email} to confirm your account.`);
+        if (!data.session)
+          setNotice(`Almost there — check ${cleanEmail} to confirm your account, then log in.`);
       } else {
-        const { error: err } = await supabase.auth.signInWithPassword({ email, password });
+        const { error: err } = await supabase.auth.signInWithPassword({
+          email: cleanEmail,
+          password: cleanPassword
+        });
         if (err) throw err;
       }
     } catch (e) {
-      setError((e as Error).message);
+      setError(friendlyError((e as Error).message));
     } finally {
       setBusy(false);
     }

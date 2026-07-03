@@ -17,7 +17,9 @@ export function DrillEngine({
   reviewMode = false,
   bookmarkMode = false,
   customTopicIds,
-  onExit
+  onExit,
+  onNextTopic,
+  onExamHome
 }: {
   topicId: string;
   onStudy?: () => void;
@@ -29,6 +31,10 @@ export function DrillEngine({
   customTopicIds?: string[];
   /** Secondary action on the completion screen (e.g. back to home). */
   onExit?: () => void;
+  /** Completion action: advance to the next topic card. */
+  onNextTopic?: () => void;
+  /** Completion action: return to the exam's topic list. */
+  onExamHome?: () => void;
 }) {
   const store = useJyotirStore();
   const drill = useJyotir((s) => s.drill);
@@ -127,13 +133,22 @@ export function DrillEngine({
         </ScrollView>
 
         <View className="gap-2.5 pt-3">
+          {onNextTopic && (
+            <Pressable
+              onPress={() => leave(onNextTopic)}
+              className="flex-row items-center justify-center gap-1.5 rounded-xl bg-correct py-3.5 active:scale-[0.98]"
+            >
+              <Text className="font-bold text-black">Next topic</Text>
+              <Ionicons name="arrow-forward" size={16} color="#000000" />
+            </Pressable>
+          )}
           {!caughtUp && (
             <Pressable
               onPress={start}
               className="items-center rounded-xl bg-ink py-3.5 active:scale-[0.98]"
             >
               <Text className="font-bold text-black">
-                {reviewMode ? "Review Again" : "Drill Again"}
+                {reviewMode ? "Review Again" : "Drill this topic again"}
               </Text>
             </Pressable>
           )}
@@ -143,6 +158,14 @@ export function DrillEngine({
               className="items-center rounded-xl border border-edge py-3.5"
             >
               <Text className="font-semibold text-muted">Back to the notes</Text>
+            </Pressable>
+          )}
+          {onExamHome && (
+            <Pressable
+              onPress={() => leave(onExamHome)}
+              className="items-center rounded-xl border border-edge py-3.5"
+            >
+              <Text className="font-semibold text-muted">Back to exam home</Text>
             </Pressable>
           )}
           {onExit && (

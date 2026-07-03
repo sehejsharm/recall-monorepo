@@ -5,7 +5,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { repo } from "@/lib/content";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
 import { DrillEngine } from "@/components/DrillEngine";
-import { BottomNav } from "@/components/BottomNav";
 import { useState } from "react";
 
 export default function BookmarksScreen() {
@@ -35,7 +34,7 @@ export default function BookmarksScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-oled" edges={["top"]}>
-      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8 pb-28">
+      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8">
         <Pressable onPress={() => router.replace("/")} hitSlop={12}>
           <Text className="text-xs text-muted">← Home</Text>
         </Pressable>
@@ -81,7 +80,6 @@ export default function BookmarksScreen() {
           </>
         )}
       </ScrollView>
-      <BottomNav />
     </SafeAreaView>
   );
 }

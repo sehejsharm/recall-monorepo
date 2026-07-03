@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { Pressable, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { useSettings } from "@/lib/settings";
@@ -13,29 +13,75 @@ interface Slide {
 
 const SLIDES: Slide[] = [
   { icon: "flash", title: "Welcome to Recall", body: "Master tough exams by active recall — short notes, then rapid-fire questions. No feeds, no fluff." },
-  { icon: "albums", title: "The drill loop", body: "See a question, decide in your head, tap to reveal, then mark Knew It or Got It Wrong. The next card is instant." },
+  { icon: "albums", title: "The drill loop", body: "See a question, tap the answer you think is right, and the app grades it instantly. At the end you review every question and the correct answers." },
   { icon: "flame", title: "Spaced repetition + streaks", body: "We schedule each card with SM-2 so you review right before you forget. Drill daily to build your streak." },
   { icon: "trophy", title: "Earn XP and level up", body: "Every card earns XP, combos give bonuses, and achievements await. Climb from Novice to Legend." },
-  { icon: "podium", title: "Compete on the ranks", body: "Sign in to climb the anonymized global and per-exam leaderboards. Your real name stays private." }
+  { icon: "podium", title: "Compete on the ranks", body: "Sign in from Account (optional) to climb the anonymized leaderboards. Your real name stays private." }
 ];
 
 /**
- * First-run tour, shown once after the splash. The final step is a soft
- * notification opt-in: we only fire the OS permission prompt after the user
- * taps "Enable daily reminder", which is App-Store-friendly (no surprise
- * system dialog on launch) and keeps a clear decline path.
+ * First-run flow. Step 0 is a MANDATORY name capture — the app cannot be used
+ * without a name, and this step has no skip. After that comes the skippable
+ * feature tour, ending in a soft notification opt-in. Signing in stays optional
+ * (offered later in Account), so a broken/absent cloud backend never blocks entry.
  */
 export function Onboarding() {
   const { settings, update } = useSettings();
+  const [name, setName] = useState("");
   const [i, setI] = useState(0);
   const [busy, setBusy] = useState(false);
-  if (settings.onboarded) return null;
 
-  // Steps: the slide tour, then one notification-permission step at the end.
+  // Nothing to do once the user is named and has seen (or skipped) the tour.
+  if (settings.named && settings.onboarded) return null;
+
+  // ── Mandatory name gate ────────────────────────────────────────────────
+  if (!settings.named) {
+    const trimmed = name.trim();
+    const valid = trimmed.length >= 2;
+    return (
+      <View className="absolute inset-0 z-[60] bg-oled">
+        <SafeAreaView className="flex-1 px-6">
+          <View className="flex-1 items-center justify-center">
+            <View className="h-20 w-20 items-center justify-center rounded-3xl bg-raised">
+              <Ionicons name="person" size={40} color="#10B981" />
+            </View>
+            <Text className="mt-7 text-2xl font-bold tracking-tight text-ink">
+              What should we call you?
+            </Text>
+            <Text className="mt-3 max-w-sm text-center text-[15px] leading-relaxed text-muted">
+              Enter your name to get started. This stays on your device — your public
+              leaderboard identity is always anonymized.
+            </Text>
+            <TextInput
+              value={name}
+              onChangeText={setName}
+              placeholder="Your name"
+              placeholderTextColor="#55555C"
+              autoCapitalize="words"
+              autoCorrect={false}
+              returnKeyType="done"
+              maxLength={24}
+              onSubmitEditing={() => valid && update({ displayName: trimmed, named: true })}
+              className="mt-8 w-full rounded-2xl border border-edge bg-surface px-4 py-3.5 text-center text-base text-ink"
+            />
+          </View>
+          <Pressable
+            onPress={() => update({ displayName: trimmed, named: true })}
+            disabled={!valid}
+            className="mb-4 items-center rounded-2xl bg-correct py-4 active:scale-[0.98]"
+            style={{ opacity: valid ? 1 : 0.4 }}
+          >
+            <Text className="text-base font-bold text-black">Continue</Text>
+          </Pressable>
+        </SafeAreaView>
+      </View>
+    );
+  }
+
+  // ── Skippable feature tour ─────────────────────────────────────────────
   const PERMISSION_STEP = SLIDES.length;
   const onPermissionStep = i === PERMISSION_STEP;
   const stepCount = SLIDES.length + 1;
-
   const finish = () => update({ onboarded: true });
 
   const enableReminders = async () => {
@@ -43,7 +89,6 @@ export function Onboarding() {
     setBusy(true);
     try {
       const granted = await scheduleDailyReminder(settings.reminderMinutes);
-      // Reflect the real outcome: only turn the setting on if the OS granted it.
       update({ reminderOn: granted, onboarded: true });
     } catch {
       finish();

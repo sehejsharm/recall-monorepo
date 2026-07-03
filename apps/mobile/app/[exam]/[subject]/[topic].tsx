@@ -1,14 +1,31 @@
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { useState } from "react";
-import { Pressable, Text, View } from "react-native";
+import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  Dimensions,
+  FlatList,
+  Pressable,
+  Text,
+  View,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent
+} from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Ionicons } from "@expo/vector-icons";
+import type { Subject, Topic } from "@jyotir/core";
 import { repo } from "@/lib/content";
 import { useJyotir } from "@/lib/store-provider";
 import { DrillEngine } from "@/components/DrillEngine";
 import { StudyReader } from "@/components/StudyReader";
 
-type Tab = "drill" | "study";
+const { width: SCREEN_W } = Dimensions.get("window");
 
+/**
+ * Topic screen as a horizontally swipeable deck: each card is one topic, and
+ * the user swipes left/right (Tinder-style) to move between topics in the
+ * subject. Drilling is never mandatory — a card can be read and skipped. Only
+ * the active card mounts the drill engine, keeping the single in-memory drill
+ * session safe.
+ */
 export default function TopicScreen() {
   const {
     exam: examSlug,
@@ -16,15 +33,123 @@ export default function TopicScreen() {
     topic: topicSlug
   } = useLocalSearchParams<{ exam: string; subject: string; topic: string }>();
   const router = useRouter();
-  const exitDrill = useJyotir((s) => s.exitDrill);
 
   const exam = repo.examBySlug(examSlug ?? "");
   const subject = exam ? repo.subjectBySlug(exam.id, subjectSlug ?? "") : undefined;
-  const topic = subject ? repo.topicBySlug(subject.id, topicSlug ?? "") : undefined;
-  const material = topic ? repo.materialByTopic(topic.id) : undefined;
+  const topics = subject ? repo.topicsBySubject(subject.id) : [];
+  const startIndex = Math.max(
+    0,
+    topics.findIndex((t) => t.slug === topicSlug)
+  );
 
+  const listRef = useRef<FlatList<Topic>>(null);
+  const [active, setActive] = useState(startIndex);
+
+  const examHome = useCallback(() => {
+    if (exam && subject) router.replace(`/${exam.slug}/${subject.slug}`);
+    else router.back();
+  }, [exam, subject, router]);
+
+  const goToIndex = useCallback(
+    (idx: number) => {
+      if (idx < 0 || idx >= topics.length) return;
+      listRef.current?.scrollToIndex({ index: idx, animated: true });
+      setActive(idx);
+    },
+    [topics.length]
+  );
+
+  const onMomentumEnd = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const idx = Math.round(e.nativeEvent.contentOffset.x / SCREEN_W);
+    if (idx !== active) setActive(idx);
+  };
+
+  if (!exam || !subject || topics.length === 0) return null;
+  const current = topics[active] ?? topics[startIndex]!;
+
+  return (
+    <SafeAreaView className="flex-1 bg-oled" edges={["top", "left", "right"]}>
+      <View className="px-5 pt-4">
+        <Pressable onPress={examHome} hitSlop={12} className="flex-row items-center gap-1">
+          <Ionicons name="chevron-back" size={14} color="#8B8B93" />
+          <Text className="text-xs text-muted">{subject.name}</Text>
+        </Pressable>
+        <View className="mt-2 flex-row items-center justify-between">
+          <Text className="flex-1 text-xl font-bold tracking-tight text-ink" numberOfLines={1}>
+            {current.name}
+          </Text>
+          <Text className="ml-3 text-xs font-medium text-faint">
+            {active + 1} / {topics.length}
+          </Text>
+        </View>
+        <Text className="mt-1 text-[11px] text-faint">← swipe to change topic →</Text>
+      </View>
+
+      <FlatList
+        ref={listRef}
+        data={topics}
+        keyExtractor={(t) => t.id}
+        horizontal
+        pagingEnabled
+        showsHorizontalScrollIndicator={false}
+        initialScrollIndex={startIndex}
+        getItemLayout={(_, index) => ({ length: SCREEN_W, offset: SCREEN_W * index, index })}
+        onMomentumScrollEnd={onMomentumEnd}
+        windowSize={3}
+        initialNumToRender={1}
+        maxToRenderPerBatch={2}
+        removeClippedSubviews
+        className="flex-1"
+        renderItem={({ item, index }) => (
+          <TopicCard
+            exam={exam}
+            subject={subject}
+            topic={item}
+            isActive={index === active}
+            hasNext={index + 1 < topics.length}
+            onNextTopic={() => goToIndex(index + 1)}
+            onExamHome={examHome}
+          />
+        )}
+      />
+    </SafeAreaView>
+  );
+}
+
+type Tab = "study" | "drill";
+
+/** One swipeable topic card: study notes ⇄ drill, scoped to a single topic. */
+function TopicCard({
+  exam,
+  subject,
+  topic,
+  isActive,
+  hasNext,
+  onNextTopic,
+  onExamHome
+}: {
+  exam: { slug: string };
+  subject: Subject;
+  topic: Topic;
+  isActive: boolean;
+  hasNext: boolean;
+  onNextTopic: () => void;
+  onExamHome: () => void;
+}) {
+  const material = repo.materialByTopic(topic.id);
+  const exitDrill = useJyotir((s) => s.exitDrill);
   const [tab, setTab] = useState<Tab>(material ? "study" : "drill");
-  if (!exam || !subject || !topic) return null;
+
+  // When a card scrolls out of focus, drop any drill in progress and reset to
+  // the notes so the single global drill session only ever belongs to the
+  // active card.
+  useEffect(() => {
+    if (!isActive) {
+      exitDrill();
+      setTab(material ? "study" : "drill");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isActive]);
 
   const switchTab = (next: Tab) => {
     if (next === tab) return;
@@ -33,56 +158,56 @@ export default function TopicScreen() {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-oled">
-      <View className="flex-1 px-5 pt-4">
-        <Pressable onPress={() => router.back()} hitSlop={12}>
-          <Text className="text-xs text-muted">← {subject.name}</Text>
-        </Pressable>
-        <Text className="mt-2 text-xl font-bold tracking-tight text-ink">
-          {topic.name}
-        </Text>
-
-        <View className="my-5 flex-row rounded-xl border border-edge bg-surface p-1">
+    <View style={{ width: SCREEN_W }} className="flex-1 px-5 pt-3">
+      <View className="mb-4 flex-row items-center gap-2">
+        <View className="flex-1 flex-row rounded-xl border border-edge bg-surface p-1">
           <Pressable
             onPress={() => switchTab("drill")}
-            className={`flex-1 items-center rounded-lg py-2 ${
-              tab === "drill" ? "bg-raised" : ""
-            }`}
+            className={`flex-1 items-center rounded-lg py-2 ${tab === "drill" ? "bg-raised" : ""}`}
           >
-            <Text
-              className={`text-sm font-semibold ${
-                tab === "drill" ? "text-ink" : "text-muted"
-              }`}
-            >
+            <Text className={`text-sm font-semibold ${tab === "drill" ? "text-ink" : "text-muted"}`}>
               Drill Engine
             </Text>
           </Pressable>
           <Pressable
             onPress={() => material && switchTab("study")}
             disabled={!material}
-            className={`flex-1 items-center rounded-lg py-2 ${
-              tab === "study" ? "bg-raised" : ""
-            } ${material ? "" : "opacity-30"}`}
+            className={`flex-1 items-center rounded-lg py-2 ${tab === "study" ? "bg-raised" : ""} ${
+              material ? "" : "opacity-30"
+            }`}
           >
-            <Text
-              className={`text-sm font-semibold ${
-                tab === "study" ? "text-ink" : "text-muted"
-              }`}
-            >
+            <Text className={`text-sm font-semibold ${tab === "study" ? "text-ink" : "text-muted"}`}>
               Study Material
             </Text>
           </Pressable>
         </View>
-
-        {tab === "drill" ? (
-          <DrillEngine
-            topicId={topic.id}
-            onStudy={material ? () => switchTab("study") : undefined}
-          />
-        ) : material ? (
-          <StudyReader material={material} onDrill={() => switchTab("drill")} />
-        ) : null}
+        {hasNext && (
+          <Pressable
+            onPress={onNextTopic}
+            hitSlop={8}
+            className="flex-row items-center gap-1 rounded-lg border border-edge px-3 py-2 active:bg-raised"
+          >
+            <Text className="text-xs font-semibold text-muted">Skip</Text>
+            <Ionicons name="arrow-forward" size={13} color="#8B8B93" />
+          </Pressable>
+        )}
       </View>
-    </SafeAreaView>
+
+      {/* Only the active card runs a drill (protects the single drill session). */}
+      {tab === "drill" && isActive ? (
+        <DrillEngine
+          topicId={topic.id}
+          onStudy={material ? () => switchTab("study") : undefined}
+          onNextTopic={hasNext ? onNextTopic : undefined}
+          onExamHome={onExamHome}
+        />
+      ) : material ? (
+        <StudyReader material={material} onDrill={() => switchTab("drill")} />
+      ) : (
+        <View className="flex-1 items-center justify-center">
+          <Text className="text-sm text-muted">Swipe back to drill this topic.</Text>
+        </View>
+      )}
+    </View>
   );
 }

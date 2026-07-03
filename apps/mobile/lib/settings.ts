@@ -5,6 +5,9 @@ export type ThemeChoice = "dark" | "light" | "system";
 
 export interface Settings {
   displayName: string;
+  /** True once the user has entered their own name — required before the app
+   *  can be used. Distinct from `onboarded` (the skippable feature tour). */
+  named: boolean;
   /** Anonymized public identity shown on the leaderboard. */
   handle: string;
   dailyGoal: number;
@@ -29,6 +32,7 @@ function randomHandle(): string {
 export function defaultSettings(): Settings {
   return {
     displayName: "Aspirant",
+    named: false,
     handle: randomHandle(),
     dailyGoal: 20,
     leaderboardOptIn: true,

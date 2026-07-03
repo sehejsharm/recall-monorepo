@@ -6,7 +6,6 @@ import { getSupabase } from "@/lib/supabase";
 import { useSettings, type ThemeChoice } from "@/lib/settings";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
 import { cancelDailyReminder, scheduleDailyReminder } from "@/lib/notifications";
-import { BottomNav } from "@/components/BottomNav";
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
@@ -72,7 +71,7 @@ export default function SettingsScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-oled" edges={["top"]}>
-      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8 pb-28">
+      <ScrollView className="flex-1 px-5" contentContainerClassName="py-8">
         <Text className="mb-6 text-2xl font-bold tracking-tight text-ink">Settings</Text>
 
         <Section title="Account">
@@ -175,7 +174,6 @@ export default function SettingsScreen() {
 
         <Text className="mt-2 text-center text-[11px] text-faint">Recall · Drill. Read. Repeat.</Text>
       </ScrollView>
-      <BottomNav />
     </SafeAreaView>
   );
 }

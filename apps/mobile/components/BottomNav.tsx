@@ -10,16 +10,18 @@ const ITEMS = [
   { href: "/settings", label: "Settings", icon: "settings" }
 ] as const;
 
-/** Routes that show the tab bar (immersive drill/topic screens don't). */
-const SHOW_ON = new Set(["/", "/leaderboard", "/stats", "/settings", "/account", "/bookmarks", "/custom"]);
-
+/**
+ * Global tab bar. Rendered once in the root layout so it stays constant on
+ * every screen — including the immersive drill and study screens. It sits as a
+ * flex child beneath the navigator (not an absolute overlay), so screen content
+ * is never hidden behind it.
+ */
 export function BottomNav() {
   const pathname = usePathname();
   const router = useRouter();
-  if (!SHOW_ON.has(pathname)) return null;
 
   return (
-    <View className="absolute inset-x-0 bottom-0 border-t border-edge bg-surface/95">
+    <View className="border-t border-edge bg-surface">
       <SafeAreaView edges={["bottom"]}>
         <View className="flex-row">
           {ITEMS.map(({ href, label, icon }) => {
