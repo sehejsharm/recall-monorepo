@@ -1,5 +1,6 @@
 import { defineBundle } from "./builder";
 import { gateTopUp } from "./gate-exp1";
+import { gate2Topics, gate2Materials, gate2Questions } from "./gate-exp2";
 
 export const gate = defineBundle({
   exam: {
@@ -311,7 +312,8 @@ export const gate = defineBundle({
       name: "Counting & Recurrences",
       slug: "counting-recurrences",
       orderIndex: 3
-    }
+    },
+    ...gate2Topics
   ],
   materials: [
     {
@@ -1815,7 +1817,8 @@ Characteristic eqn: x^2 = c1*x + c2
 - For a linear recurrence, form and solve the characteristic equation; repeated roots add a factor of n.`,
       estimatedReadTime: 2,
       orderIndex: 0
-    }
+    },
+    ...gate2Materials
   ],
   questions: [
     {
@@ -5850,6 +5853,7 @@ Characteristic eqn: x^2 = c1*x + c2
       explanation: "A generating function represents a sequence as coefficients in a power series.",
       orderIndex: 7
     },
-    ...gateTopUp
+    ...gateTopUp,
+    ...gate2Questions
   ]
 });
