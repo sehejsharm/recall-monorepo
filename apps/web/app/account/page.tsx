@@ -8,6 +8,23 @@ import { useJyotirStore } from "@/lib/store-provider";
 
 type Mode = "login" | "signup" | "magic";
 
+/**
+ * Page chrome. Declared at module scope — defining this inside AccountPage
+ * created a brand-new component type on every render, so React remounted the
+ * whole subtree (and reset the form inputs) on each keystroke.
+ */
+function Shell({ children }: { children: React.ReactNode }) {
+  return (
+    <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-24 pt-14">
+      <Link href="/" className="text-xs text-muted hover:text-ink">
+        ← Home
+      </Link>
+      <h1 className="mb-8 mt-3 text-2xl font-bold tracking-tight">Account</h1>
+      {children}
+    </main>
+  );
+}
+
 export default function AccountPage() {
   const supabase = getSupabase();
   const store = useJyotirStore();
@@ -27,16 +44,6 @@ export default function AccountPage() {
     );
     return () => sub.subscription.unsubscribe();
   }, [supabase]);
-
-  const Shell = ({ children }: { children: React.ReactNode }) => (
-    <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-24 pt-14">
-      <Link href="/" className="text-xs text-muted hover:text-ink">
-        ← Home
-      </Link>
-      <h1 className="mb-8 mt-3 text-2xl font-bold tracking-tight">Account</h1>
-      {children}
-    </main>
-  );
 
   if (!supabase) {
     return (

@@ -67,7 +67,10 @@ export function TopicShell({
   const current = topics[active] ?? topics[startIndex]!;
 
   return (
-    <div className="mx-auto flex h-[100dvh] w-full max-w-xl flex-col px-5 pb-2 pt-10">
+    // 100dvh minus the fixed bottom nav's clearance (pb-16 in the root layout),
+    // so the end of a card — e.g. the "Drill this topic" CTA — is never
+    // rendered underneath the nav bar.
+    <div className="mx-auto flex h-[calc(100dvh-4rem)] w-full max-w-xl flex-col px-5 pb-2 pt-10">
       <header className="mb-4">
         <Link href={examHomeHref} className="text-xs text-muted hover:text-ink">
           ← {subjectName}
@@ -109,6 +112,11 @@ export function TopicShell({
           return (
             <section
               key={t.id}
+              // Off-screen cards are inert + aria-hidden: only the active
+              // card's tab set is focusable/exposed, so the DOM never carries
+              // a duplicate, interactive copy of the Drill/Study tabs.
+              inert={index !== active}
+              aria-hidden={index !== active}
               className="flex h-full w-full shrink-0 snap-start flex-col overflow-y-auto pr-0.5"
             >
               {nearby ? (

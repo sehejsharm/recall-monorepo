@@ -32,6 +32,9 @@ function Toggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void 
   );
 }
 
+const GOAL_MIN = 5;
+const GOAL_MAX = 500;
+
 export default function SettingsPage() {
   const [settings, update] = useSettings();
   const supabase = getSupabase();
@@ -39,6 +42,39 @@ export default function SettingsPage() {
   const stats = useJyotir((s) => s.stats);
   const [confirmReset, setConfirmReset] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  // Drafts let the user type freely; values are validated and committed on
+  // blur, with explicit feedback instead of silent clamping / empty saves.
+  const [nameDraft, setNameDraft] = useState<string | null>(null);
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [goalDraft, setGoalDraft] = useState<string | null>(null);
+  const [goalError, setGoalError] = useState<string | null>(null);
+
+  const commitName = () => {
+    const clean = (nameDraft ?? settings.displayName).trim();
+    if (!clean) {
+      setNameError("Name can't be empty — keeping your previous name.");
+    } else {
+      setNameError(null);
+      update({ displayName: clean });
+    }
+    setNameDraft(null);
+  };
+
+  const commitGoal = () => {
+    const parsed = Number(goalDraft ?? settings.dailyGoal);
+    if (!Number.isFinite(parsed) || goalDraft === "") {
+      setGoalError(`Enter a number between ${GOAL_MIN} and ${GOAL_MAX}.`);
+    } else if (parsed < GOAL_MIN || parsed > GOAL_MAX) {
+      const clamped = Math.min(GOAL_MAX, Math.max(GOAL_MIN, Math.round(parsed)));
+      setGoalError(`Goal must be ${GOAL_MIN}–${GOAL_MAX} cards/day — set to ${clamped}.`);
+      update({ dailyGoal: clamped });
+    } else {
+      setGoalError(null);
+      update({ dailyGoal: Math.round(parsed) });
+    }
+    setGoalDraft(null);
+  };
 
   useEffect(() => {
     if (supabase) void supabase.auth.getUser().then(({ data }) => setUserEmail(data.user?.email ?? null));
@@ -53,24 +89,49 @@ export default function SettingsPage() {
         <div className="rounded-2xl border border-edge bg-surface px-4">
           <Row label="Display name" hint="Private to you; never shown to others.">
             <input
-              value={settings.displayName}
-              onChange={(e) => update({ displayName: e.target.value })}
-              className="w-36 rounded-lg border border-edge bg-oled px-3 py-1.5 text-right text-sm outline-none focus:border-correct/50"
+              value={nameDraft ?? settings.displayName}
+              onChange={(e) => {
+                setNameDraft(e.target.value);
+                setNameError(null);
+              }}
+              onBlur={commitName}
+              aria-invalid={!!nameError}
+              className={`w-36 rounded-lg border bg-oled px-3 py-1.5 text-right text-sm outline-none focus:border-correct/50 ${
+                nameError ? "border-wrong/60" : "border-edge"
+              }`}
             />
           </Row>
+          {nameError && (
+            <p role="alert" className="px-1 pb-3 text-xs text-wrong-bright">
+              {nameError}
+            </p>
+          )}
           <Row label="Leaderboard handle" hint="Your anonymized public identity.">
             <span className="text-sm font-semibold text-correct">{settings.handle}</span>
           </Row>
-          <Row label="Daily goal" hint="Cards per day.">
+          <Row label="Daily goal" hint={`Cards per day (${GOAL_MIN}–${GOAL_MAX}).`}>
             <input
               type="number"
-              min={5}
-              max={500}
-              value={settings.dailyGoal}
-              onChange={(e) => update({ dailyGoal: Math.max(5, Number(e.target.value) || 5) })}
-              className="w-20 rounded-lg border border-edge bg-oled px-3 py-1.5 text-right text-sm outline-none focus:border-correct/50"
+              inputMode="numeric"
+              min={GOAL_MIN}
+              max={GOAL_MAX}
+              value={goalDraft ?? settings.dailyGoal}
+              onChange={(e) => {
+                setGoalDraft(e.target.value.replace(/[^0-9]/g, ""));
+                setGoalError(null);
+              }}
+              onBlur={commitGoal}
+              aria-invalid={!!goalError}
+              className={`w-20 rounded-lg border bg-oled px-3 py-1.5 text-right text-sm outline-none focus:border-correct/50 ${
+                goalError ? "border-wrong/60" : "border-edge"
+              }`}
             />
           </Row>
+          {goalError && (
+            <p role="alert" className="px-1 pb-3 text-xs text-wrong-bright">
+              {goalError}
+            </p>
+          )}
         </div>
       </section>
 

@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { ACHIEVEMENTS, isStreakActive, levelProgress, RANKS } from "@jyotir/core";
 import { useJyotir } from "@/lib/store-provider";
 import { FlameIcon, TrophyIcon } from "@/components/icons";
@@ -25,11 +24,10 @@ export default function StatsPage() {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 py-12">
+      {/* No breadcrumb: Stats is a bottom-nav destination (like Settings), so
+          a "← Home" link here was misleading when arriving via the tab bar. */}
       <header className="mb-8">
-        <Link href="/" className="text-xs text-muted hover:text-ink">
-          ← Home
-        </Link>
-        <h1 className="mt-3 text-2xl font-bold tracking-tight">Your Progress</h1>
+        <h1 className="text-2xl font-bold tracking-tight">Your Progress</h1>
       </header>
 
       {!ready ? (
@@ -53,7 +51,7 @@ export default function StatsPage() {
               <div className="h-full rounded-full bg-correct" style={{ width: `${lp.pct}%` }} />
             </div>
             <div className="mt-1.5 flex justify-between text-[11px] tabular-nums text-faint">
-              <span>{stats.xp} XP total</span>
+              <span title="Lifetime XP across all levels">{stats.xp} XP earned in total</span>
               <span>
                 {lp.toNext} XP to {nextRank}
               </span>

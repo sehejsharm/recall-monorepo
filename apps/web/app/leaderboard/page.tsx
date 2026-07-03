@@ -66,27 +66,34 @@ export default function LeaderboardPage() {
         </p>
       </header>
 
-      {/* Scope selector: Overall + per exam */}
-      <div className="mb-5 -mx-5 flex gap-2 overflow-x-auto px-5 pb-1">
-        <button
-          onClick={() => setScope("")}
-          className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-            scope === "" ? "border-correct bg-correct-dim/40 text-correct-bright" : "border-edge text-muted"
-          }`}
-        >
-          Overall
-        </button>
-        {exams.map((e) => (
+      {/* Scope selector: Overall + per exam. The right-edge fade signals that
+          the chip row scrolls horizontally beyond the viewport. */}
+      <div className="relative -mx-5 mb-5">
+        <div className="flex gap-2 overflow-x-auto px-5 pb-1">
           <button
-            key={e.id}
-            onClick={() => setScope(e.id)}
+            onClick={() => setScope("")}
             className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
-              scope === e.id ? "border-correct bg-correct-dim/40 text-correct-bright" : "border-edge text-muted"
+              scope === "" ? "border-correct bg-correct-dim/40 text-correct-bright" : "border-edge text-muted"
             }`}
           >
-            {chipLabel(e)}
+            Overall
           </button>
-        ))}
+          {exams.map((e) => (
+            <button
+              key={e.id}
+              onClick={() => setScope(e.id)}
+              className={`shrink-0 rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors ${
+                scope === e.id ? "border-correct bg-correct-dim/40 text-correct-bright" : "border-edge text-muted"
+              }`}
+            >
+              {chipLabel(e)}
+            </button>
+          ))}
+        </div>
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-oled to-transparent"
+        />
       </div>
 
       {!supabase ? (

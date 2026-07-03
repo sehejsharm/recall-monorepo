@@ -83,8 +83,11 @@ export function StudyReader({
         </Markdown>
       </article>
 
-      {/* The "Read to Drill" CTA — sticky, giant, impossible to miss. */}
-      <div className="fixed inset-x-0 bottom-0 bg-gradient-to-t from-oled via-oled/95 to-transparent px-5 pb-5 pt-8">
+      {/* The "Read to Drill" CTA — sticky, giant, impossible to miss.
+          Sticky (not fixed): it stays inside the card's own scroll container,
+          so it never slides under the global bottom nav and never stacks on
+          top of a neighbouring card's CTA in the swipe deck. */}
+      <div className="sticky bottom-0 bg-gradient-to-t from-oled via-oled/95 to-transparent pb-2 pt-8">
         <button
           onClick={handleDrill}
           className="mx-auto block w-full max-w-xl rounded-2xl bg-correct py-4 text-base font-bold text-black shadow-[0_0_32px_rgba(16,185,129,0.25)] transition-transform active:scale-[0.98]"

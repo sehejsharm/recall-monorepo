@@ -34,8 +34,11 @@ export function ProfileStrip() {
       <div className="min-w-0 flex-1">
         <div className="flex items-baseline justify-between">
           <span className="truncate text-sm font-semibold">{lp.rank}</span>
-          <span className="ml-2 shrink-0 text-[11px] tabular-nums text-faint">
-            {lp.into} / {lp.span} XP
+          <span
+            className="ml-2 shrink-0 text-[11px] tabular-nums text-faint"
+            title={`XP within level ${lp.level} — see Stats for your lifetime total`}
+          >
+            {lp.into} / {lp.span} XP this level
           </span>
         </div>
         <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-raised">

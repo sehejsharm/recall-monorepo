@@ -35,6 +35,9 @@ const fmtTime = (mins: number) => {
   return `${h12}:${String(m).padStart(2, "0")} ${ampm}`;
 };
 
+const GOAL_MIN = 5;
+const GOAL_MAX = 500;
+
 export default function SettingsScreen() {
   const router = useRouter();
   const { settings, update } = useSettings();
@@ -43,6 +46,39 @@ export default function SettingsScreen() {
   const stats = useJyotir((s) => s.stats);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
+
+  // Drafts let the user type freely; values are validated and committed when
+  // editing ends, with explicit feedback instead of silent clamping.
+  const [nameDraft, setNameDraft] = useState<string | null>(null);
+  const [nameError, setNameError] = useState<string | null>(null);
+  const [goalDraft, setGoalDraft] = useState<string | null>(null);
+  const [goalError, setGoalError] = useState<string | null>(null);
+
+  const commitName = () => {
+    const clean = (nameDraft ?? settings.displayName).trim();
+    if (!clean) {
+      setNameError("Name can't be empty — keeping your previous name.");
+    } else {
+      setNameError(null);
+      update({ displayName: clean });
+    }
+    setNameDraft(null);
+  };
+
+  const commitGoal = () => {
+    const parsed = Number(goalDraft ?? settings.dailyGoal);
+    if (!Number.isFinite(parsed) || goalDraft === "") {
+      setGoalError(`Enter a number between ${GOAL_MIN} and ${GOAL_MAX}.`);
+    } else if (parsed < GOAL_MIN || parsed > GOAL_MAX) {
+      const clamped = Math.min(GOAL_MAX, Math.max(GOAL_MIN, Math.round(parsed)));
+      setGoalError(`Goal must be ${GOAL_MIN}–${GOAL_MAX} cards/day — set to ${clamped}.`);
+      update({ dailyGoal: clamped });
+    } else {
+      setGoalError(null);
+      update({ dailyGoal: Math.round(parsed) });
+    }
+    setGoalDraft(null);
+  };
 
   useEffect(() => {
     if (supabase) void supabase.auth.getUser().then(({ data }) => setUserEmail(data.user?.email ?? null));
@@ -89,23 +125,37 @@ export default function SettingsScreen() {
         <Section title="Profile">
           <Row label="Display name" hint="Private to you.">
             <TextInput
-              value={settings.displayName}
-              onChangeText={(t) => update({ displayName: t })}
-              className="w-36 rounded-lg border border-edge bg-oled px-3 py-1.5 text-right text-sm text-ink"
+              value={nameDraft ?? settings.displayName}
+              onChangeText={(t) => {
+                setNameDraft(t);
+                setNameError(null);
+              }}
+              onBlur={commitName}
+              className={`w-36 rounded-lg border bg-oled px-3 py-1.5 text-right text-sm text-ink ${
+                nameError ? "border-wrong/60" : "border-edge"
+              }`}
               placeholderTextColor="#55555C"
             />
           </Row>
+          {nameError ? <Text className="pb-3 text-xs text-wrong-bright">{nameError}</Text> : null}
           <Row label="Leaderboard handle" hint="Your anonymized public identity.">
             <Text className="text-sm font-semibold text-correct">{settings.handle}</Text>
           </Row>
-          <Row label="Daily goal" hint="Cards per day.">
+          <Row label="Daily goal" hint={`Cards per day (${GOAL_MIN}–${GOAL_MAX}).`}>
             <TextInput
-              value={String(settings.dailyGoal)}
-              onChangeText={(t) => update({ dailyGoal: Math.max(5, Number(t.replace(/[^0-9]/g, "")) || 5) })}
+              value={goalDraft ?? String(settings.dailyGoal)}
+              onChangeText={(t) => {
+                setGoalDraft(t.replace(/[^0-9]/g, ""));
+                setGoalError(null);
+              }}
+              onBlur={commitGoal}
               keyboardType="number-pad"
-              className="w-20 rounded-lg border border-edge bg-oled px-3 py-1.5 text-right text-sm text-ink"
+              className={`w-20 rounded-lg border bg-oled px-3 py-1.5 text-right text-sm text-ink ${
+                goalError ? "border-wrong/60" : "border-edge"
+              }`}
             />
           </Row>
+          {goalError ? <Text className="pb-3 text-xs text-wrong-bright">{goalError}</Text> : null}
         </Section>
 
         <Section title="Reminders">
