@@ -9,6 +9,7 @@ import { expansionTopics as cfaExp6Topics, expansionMaterials as cfaExp6Material
 import { cfaL1TopUp } from "./cfa-exp-7";
 import { exp8Topics, exp8Materials, exp8Questions } from "./cfa-exp-8";
 import { exp9Topics, exp9Materials, exp9Questions } from "./cfa-exp-9";
+import { exp10Topics, exp10Materials, exp10Questions } from "./cfa-exp-10";
 
 export const cfaLevel1 = defineBundle({
   exam: {
@@ -112,7 +113,8 @@ export const cfaLevel1 = defineBundle({
     ...cfaExp5Topics,
     ...cfaExp6Topics,
     ...exp8Topics,
-    ...exp9Topics
+    ...exp9Topics,
+    ...exp10Topics
   ],
   materials: [
     {
@@ -512,7 +514,8 @@ E(R) = Rf + beta * (Rm - Rf)
     ...cfaExp5Materials,
     ...cfaExp6Materials,
     ...exp8Materials,
-    ...exp9Materials
+    ...exp9Materials,
+    ...exp10Materials
   ],
   questions: [
     {
@@ -1483,6 +1486,7 @@ E(R) = Rf + beta * (Rm - Rf)
     ...(cfaExp6Questions as Question[]),
     ...cfaL1TopUp,
     ...exp8Questions,
-    ...exp9Questions
+    ...exp9Questions,
+    ...exp10Questions
   ]
 });
