@@ -1,4 +1,5 @@
 import { defineBundle } from "./builder";
+import { sscTopUp } from "./ssc-cgl-exp1";
 
 export const sscCgl = defineBundle({
   exam: {
@@ -1707,7 +1708,7 @@ Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri
       optionC: "15 m/s",
       optionD: "25 m/s",
       correctOption: "B",
-      explanation: "72 × 5/18 = 20 m/s.",
+      explanation: "To convert km/h to m/s, multiply by 5/18: 72 × 5/18 = 20 m/s.",
       orderIndex: 1
     },
     {
@@ -4949,6 +4950,7 @@ Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri
       correctOption: "C",
       explanation: "Order is Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri.",
       orderIndex: 7
-    }
+    },
+    ...sscTopUp
   ]
 });
