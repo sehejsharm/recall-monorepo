@@ -1,5 +1,6 @@
 import { defineBundle } from "./builder";
 import { sscTopUp } from "./ssc-cgl-exp1";
+import { sscQuant2Topics, sscQuant2Materials, sscQuant2Questions } from "./ssc-cgl-exp2";
 
 export const sscCgl = defineBundle({
   exam: {
@@ -260,7 +261,8 @@ export const sscCgl = defineBundle({
       name: "Books, Authors & Awards",
       slug: "books-authors-awards",
       orderIndex: 6
-    }
+    },
+    ...sscQuant2Topics
   ],
   materials: [
     {
@@ -1588,7 +1590,8 @@ Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri
 - Attributing Wings of Fire to the wrong author; it is **A.P.J. Abdul Kalam's** autobiography.`,
       estimatedReadTime: 2,
       orderIndex: 0
-    }
+    },
+    ...sscQuant2Materials
   ],
   questions: [
     {
@@ -4951,6 +4954,7 @@ Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri
       explanation: "Order is Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri.",
       orderIndex: 7
     },
-    ...sscTopUp
+    ...sscTopUp,
+    ...sscQuant2Questions
   ]
 });
