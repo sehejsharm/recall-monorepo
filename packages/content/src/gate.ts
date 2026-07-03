@@ -1,6 +1,7 @@
 import { defineBundle } from "./builder";
 import { gateTopUp } from "./gate-exp1";
 import { gate2Topics, gate2Materials, gate2Questions } from "./gate-exp2";
+import { gate3Topics, gate3Materials, gate3Questions } from "./gate-exp3";
 
 export const gate = defineBundle({
   exam: {
@@ -313,7 +314,8 @@ export const gate = defineBundle({
       slug: "counting-recurrences",
       orderIndex: 3
     },
-    ...gate2Topics
+    ...gate2Topics,
+    ...gate3Topics
   ],
   materials: [
     {
@@ -1818,7 +1820,8 @@ Characteristic eqn: x^2 = c1*x + c2
       estimatedReadTime: 2,
       orderIndex: 0
     },
-    ...gate2Materials
+    ...gate2Materials,
+    ...gate3Materials
   ],
   questions: [
     {
@@ -5854,6 +5857,7 @@ Characteristic eqn: x^2 = c1*x + c2
       orderIndex: 7
     },
     ...gateTopUp,
-    ...gate2Questions
+    ...gate2Questions,
+    ...gate3Questions
   ]
 });
