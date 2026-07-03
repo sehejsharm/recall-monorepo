@@ -1,6 +1,7 @@
 import { defineBundle } from "./builder";
 import { sscTopUp } from "./ssc-cgl-exp1";
 import { sscQuant2Topics, sscQuant2Materials, sscQuant2Questions } from "./ssc-cgl-exp2";
+import { ssc3Topics, ssc3Materials, ssc3Questions } from "./ssc-cgl-exp3";
 
 export const sscCgl = defineBundle({
   exam: {
@@ -262,7 +263,8 @@ export const sscCgl = defineBundle({
       slug: "books-authors-awards",
       orderIndex: 6
     },
-    ...sscQuant2Topics
+    ...sscQuant2Topics,
+    ...ssc3Topics
   ],
   materials: [
     {
@@ -1591,7 +1593,8 @@ Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri
       estimatedReadTime: 2,
       orderIndex: 0
     },
-    ...sscQuant2Materials
+    ...sscQuant2Materials,
+    ...ssc3Materials
   ],
   questions: [
     {
@@ -4955,6 +4958,7 @@ Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri
       orderIndex: 7
     },
     ...sscTopUp,
-    ...sscQuant2Questions
+    ...sscQuant2Questions,
+    ...ssc3Questions
   ]
 });
