@@ -2,6 +2,7 @@ import { defineBundle } from "./builder";
 import { gateTopUp } from "./gate-exp1";
 import { gate2Topics, gate2Materials, gate2Questions } from "./gate-exp2";
 import { gate3Topics, gate3Materials, gate3Questions } from "./gate-exp3";
+import { gate4Topics, gate4Materials, gate4Questions } from "./gate-exp4";
 
 export const gate = defineBundle({
   exam: {
@@ -315,7 +316,8 @@ export const gate = defineBundle({
       orderIndex: 3
     },
     ...gate2Topics,
-    ...gate3Topics
+    ...gate3Topics,
+    ...gate4Topics
   ],
   materials: [
     {
@@ -1821,7 +1823,8 @@ Characteristic eqn: x^2 = c1*x + c2
       orderIndex: 0
     },
     ...gate2Materials,
-    ...gate3Materials
+    ...gate3Materials,
+    ...gate4Materials
   ],
   questions: [
     {
@@ -5858,6 +5861,7 @@ Characteristic eqn: x^2 = c1*x + c2
     },
     ...gateTopUp,
     ...gate2Questions,
-    ...gate3Questions
+    ...gate3Questions,
+    ...gate4Questions
   ]
 });
