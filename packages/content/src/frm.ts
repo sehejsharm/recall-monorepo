@@ -8,6 +8,7 @@ import { expansionTopics as frmExp4Topics, expansionMaterials as frmExp4Material
 import { expansionTopics as frmExp5Topics, expansionMaterials as frmExp5Materials, expansionQuestions as frmExp5Questions } from "./frm-exp-5";
 import { expansionTopics as frmExp6Topics, expansionMaterials as frmExp6Materials, expansionQuestions as frmExp6Questions } from "./frm-exp-6";
 import { expansionQuestions as frmExp7Questions } from "./frm-exp-7";
+import { expansionTopics as frmExp8Topics, expansionMaterials as frmExp8Materials, expansionQuestions as frmExp8Questions } from "./frm-exp-8";
 
 const allSubjects: Subject[] = [
     { id: "frm-foundations", examId: "frm", name: "Foundations of Risk Management", slug: "foundations", orderIndex: 0 },
@@ -98,7 +99,8 @@ const allTopics: Topic[] = [
     ...frmExp3Topics,
     ...frmExp4Topics,
     ...frmExp5Topics,
-    ...frmExp6Topics
+    ...frmExp6Topics,
+    ...frmExp8Topics
 ];
 
 const allMaterials: AuthoredMaterial[] = [
@@ -508,7 +510,8 @@ Leverage ratio = Tier 1 capital / Total exposure >= 3%
     ...frmExp3Materials,
     ...frmExp4Materials,
     ...frmExp5Materials,
-    ...frmExp6Materials
+    ...frmExp6Materials,
+    ...frmExp8Materials
 ];
 
 const allQuestions: Question[] = [
@@ -1478,7 +1481,8 @@ const allQuestions: Question[] = [
     ...(frmExp4Questions as Question[]),
     ...(frmExp5Questions as Question[]),
     ...(frmExp6Questions as Question[]),
-    ...(frmExp7Questions as Question[])
+    ...(frmExp7Questions as Question[]),
+    ...(frmExp8Questions as Question[])
 ];
 
 const frmBundles = defineProgram(
