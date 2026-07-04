@@ -92,8 +92,10 @@ export default function LeaderboardPage() {
         </div>
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-oled to-transparent"
-        />
+          className="pointer-events-none absolute inset-y-0 right-0 flex w-14 items-center justify-end bg-gradient-to-l from-oled via-oled/80 to-transparent pb-1 pr-0.5"
+        >
+          <span className="text-lg leading-none text-muted">›</span>
+        </div>
       </div>
 
       {!supabase ? (

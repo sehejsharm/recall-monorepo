@@ -47,7 +47,14 @@ export default function StatsPage() {
                 <span className="text-xs text-muted">day{stats.currentStreak === 1 ? "" : "s"}</span>
               </div>
             </div>
-            <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-raised">
+            <div
+              role="progressbar"
+              aria-valuemin={0}
+              aria-valuemax={lp.span}
+              aria-valuenow={lp.into}
+              aria-label={`Level ${lp.level} progress: ${lp.into} of ${lp.span} XP`}
+              className="mt-4 h-2 w-full overflow-hidden rounded-full bg-raised"
+            >
               <div className="h-full rounded-full bg-correct" style={{ width: `${lp.pct}%` }} />
             </div>
             <div className="mt-1.5 flex justify-between text-[11px] tabular-nums text-faint">

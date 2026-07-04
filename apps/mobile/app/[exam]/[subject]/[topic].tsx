@@ -82,7 +82,19 @@ export default function TopicScreen() {
             {active + 1} / {topics.length}
           </Text>
         </View>
-        <Text className="mt-1 text-[11px] text-faint">← swipe to change topic →</Text>
+        {/* Carousel dots: the visual cue that this deck swipes. */}
+        <View className="mt-2 flex-row items-center justify-center gap-1">
+          {topics.map((t, i) => (
+            <Pressable key={t.id} onPress={() => goToIndex(i)} hitSlop={6} className="py-1.5">
+              <View
+                className={`rounded-full ${
+                  i === active ? "h-1.5 w-4 bg-correct" : "h-1.5 w-1.5 bg-raised"
+                }`}
+              />
+            </Pressable>
+          ))}
+        </View>
+        <Text className="text-center text-[11px] text-muted">← swipe to change topic →</Text>
       </View>
 
       <FlatList
@@ -163,7 +175,7 @@ function TopicCard({
         <View className="flex-1 flex-row rounded-xl border border-edge bg-surface p-1">
           <Pressable
             onPress={() => switchTab("drill")}
-            className={`flex-1 items-center rounded-lg py-2 ${tab === "drill" ? "bg-raised" : ""}`}
+            className={`min-h-[44px] flex-1 items-center justify-center rounded-lg py-2 ${tab === "drill" ? "bg-raised" : ""}`}
           >
             <Text className={`text-sm font-semibold ${tab === "drill" ? "text-ink" : "text-muted"}`}>
               Drill Engine
@@ -172,7 +184,7 @@ function TopicCard({
           <Pressable
             onPress={() => material && switchTab("study")}
             disabled={!material}
-            className={`flex-1 items-center rounded-lg py-2 ${tab === "study" ? "bg-raised" : ""} ${
+            className={`min-h-[44px] flex-1 items-center justify-center rounded-lg py-2 ${tab === "study" ? "bg-raised" : ""} ${
               material ? "" : "opacity-30"
             }`}
           >
@@ -185,7 +197,7 @@ function TopicCard({
           <Pressable
             onPress={onNextTopic}
             hitSlop={8}
-            className="flex-row items-center gap-1 rounded-lg border border-edge px-3 py-2 active:bg-raised"
+            className="min-h-[44px] flex-row items-center gap-1 rounded-lg border border-edge px-3 active:bg-raised"
           >
             <Text className="text-xs font-semibold text-muted">Skip</Text>
             <Ionicons name="arrow-forward" size={13} color="#8B8B93" />

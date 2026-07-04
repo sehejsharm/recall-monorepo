@@ -195,11 +195,21 @@ export function DrillEngine({
 
   return (
     <div className="relative flex flex-1 flex-col">
-      {/* progress hairline + combo badge */}
+      {/* session progress: visible counter + bar + combo badge */}
       <div className="mb-6 flex items-center gap-3">
-        <div className="h-0.5 flex-1 overflow-hidden rounded-full bg-raised">
+        <span className="shrink-0 text-xs font-semibold tabular-nums text-muted">
+          Q {drill.index + 1} / {drill.queue.length}
+        </span>
+        <div
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={drill.queue.length}
+          aria-valuenow={drill.index}
+          aria-label={`Question ${drill.index + 1} of ${drill.queue.length}`}
+          className="h-1.5 flex-1 overflow-hidden rounded-full bg-raised"
+        >
           <div
-            className="h-full bg-correct transition-[width] duration-200"
+            className="h-full rounded-full bg-correct transition-[width] duration-200"
             style={{ width: `${progressPct}%` }}
           />
         </div>
@@ -238,8 +248,16 @@ export function DrillEngine({
               <li key={key}>
                 <button
                   disabled={answered}
-                  onClick={() => answer(key)}
-                  className={`flex w-full items-baseline gap-3 rounded-xl border px-4 py-3 text-left text-[15px] transition-all duration-150 ${
+                  onClick={() => {
+                    // Light haptic pulse on grade (feature-gated; no-op on desktop).
+                    try {
+                      navigator.vibrate?.(key === question.correctOption ? 30 : [80, 40, 80]);
+                    } catch {
+                      /* unsupported */
+                    }
+                    answer(key);
+                  }}
+                  className={`flex w-full items-baseline gap-3 rounded-xl border px-4 py-3 text-left text-[15px] transition-all duration-150 active:scale-[0.97] ${
                     isCorrect
                       ? "border-correct bg-correct-dim/60 font-semibold text-correct-bright"
                       : isWrongPick

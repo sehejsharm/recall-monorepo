@@ -21,6 +21,7 @@
     "android": {
       "package": "app.jyotir",
       "edgeToEdgeEnabled": true,
+      "permissions": ["android.permission.VIBRATE"],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"

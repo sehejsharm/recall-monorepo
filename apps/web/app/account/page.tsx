@@ -215,9 +215,9 @@ export default function AccountPage() {
 
       <button
         onClick={() => setMode((m) => (m === "magic" ? "login" : "magic"))}
-        className="mt-4 text-center text-xs text-muted hover:text-ink"
+        className="mt-3 min-h-[44px] w-full rounded-xl border border-edge text-sm font-semibold text-correct transition-colors hover:border-correct/40"
       >
-        {mode === "magic" ? "Use email + password instead" : "Or sign in with a magic link (no password)"}
+        {mode === "magic" ? "Use email + password instead" : "Sign in with a magic link (no password) →"}
       </button>
 
       {notice && <p className="mt-4 rounded-xl border border-correct/40 bg-correct-dim/30 px-4 py-3 text-sm text-correct-bright">{notice}</p>}

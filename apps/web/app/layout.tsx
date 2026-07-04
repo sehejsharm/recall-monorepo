@@ -101,8 +101,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <SyncProvider>
             <Splash />
             <Onboarding />
-            {/* pb-16 keeps page content clear of the fixed global tab bar */}
-            <div className="pb-16">{children}</div>
+            {/* Bottom padding = tab bar height + notch-phone safe area, so page
+                content is never obscured by the fixed global tab bar. */}
+            <div className="pb-[calc(4rem+env(safe-area-inset-bottom))]">{children}</div>
             <BottomNav />
           </SyncProvider>
         </StoreProvider>

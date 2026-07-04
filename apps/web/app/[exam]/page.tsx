@@ -63,11 +63,14 @@ export default async function SubjectsPage({
             <li key={subject.id}>
               <Link
                 href={`/${exam.slug}/${subject.slug}`}
-                className="flex items-baseline justify-between rounded-2xl border border-edge bg-surface px-5 py-4 transition-colors hover:border-correct/40 active:bg-raised"
+                className="flex items-center justify-between gap-3 rounded-2xl border border-edge bg-surface px-5 py-4 transition-colors hover:border-correct/40 active:bg-raised"
               >
-                <span className="font-semibold">{subject.name}</span>
-                <span className="text-xs text-muted">
+                <span className="min-w-0 flex-1 font-semibold">{subject.name}</span>
+                <span className="shrink-0 text-xs text-muted">
                   {topicCount} {topicCount === 1 ? "topic" : "topics"}
+                </span>
+                <span aria-hidden className="shrink-0 text-lg leading-none text-muted">
+                  ›
                 </span>
               </Link>
             </li>

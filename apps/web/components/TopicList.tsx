@@ -62,6 +62,9 @@ export function TopicList({
                 ) : (
                   <span className="shrink-0 text-xs font-semibold text-correct">✓ clear</span>
                 )}
+                <span aria-hidden className="shrink-0 text-lg leading-none text-muted">
+                  ›
+                </span>
               </Link>
             </li>
           );

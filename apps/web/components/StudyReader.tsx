@@ -45,7 +45,10 @@ export function StudyReader({
         {isRead ? (
           <span className="font-semibold text-correct">read ✓</span>
         ) : (
-          <button onClick={() => markRead(material.id)} className="hover:text-ink">
+          <button
+            onClick={() => markRead(material.id)}
+            className="-my-3 -mr-2 flex min-h-[44px] items-center px-2 hover:text-ink"
+          >
             mark as read
           </button>
         )}

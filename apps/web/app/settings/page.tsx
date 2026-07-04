@@ -49,6 +49,12 @@ export default function SettingsPage() {
   const [nameError, setNameError] = useState<string | null>(null);
   const [goalDraft, setGoalDraft] = useState<string | null>(null);
   const [goalError, setGoalError] = useState<string | null>(null);
+  // Transient "Saved ✓" confirmation so blur-autosave is never silent.
+  const [savedField, setSavedField] = useState<"name" | "goal" | null>(null);
+  const flashSaved = (field: "name" | "goal") => {
+    setSavedField(field);
+    setTimeout(() => setSavedField((f) => (f === field ? null : f)), 1800);
+  };
 
   const commitName = () => {
     const clean = (nameDraft ?? settings.displayName).trim();
@@ -56,7 +62,10 @@ export default function SettingsPage() {
       setNameError("Name can't be empty — keeping your previous name.");
     } else {
       setNameError(null);
-      update({ displayName: clean });
+      if (clean !== settings.displayName) {
+        update({ displayName: clean });
+        flashSaved("name");
+      }
     }
     setNameDraft(null);
   };
@@ -71,7 +80,10 @@ export default function SettingsPage() {
       update({ dailyGoal: clamped });
     } else {
       setGoalError(null);
-      update({ dailyGoal: Math.round(parsed) });
+      if (Math.round(parsed) !== settings.dailyGoal) {
+        update({ dailyGoal: Math.round(parsed) });
+        flashSaved("goal");
+      }
     }
     setGoalDraft(null);
   };
@@ -106,6 +118,11 @@ export default function SettingsPage() {
               {nameError}
             </p>
           )}
+          {savedField === "name" && (
+            <p role="status" className="px-1 pb-3 text-xs font-semibold text-correct">
+              Saved ✓
+            </p>
+          )}
           <Row label="Leaderboard handle" hint="Your anonymized public identity.">
             <span className="text-sm font-semibold text-correct">{settings.handle}</span>
           </Row>
@@ -130,6 +147,11 @@ export default function SettingsPage() {
           {goalError && (
             <p role="alert" className="px-1 pb-3 text-xs text-wrong-bright">
               {goalError}
+            </p>
+          )}
+          {savedField === "goal" && (
+            <p role="status" className="px-1 pb-3 text-xs font-semibold text-correct">
+              Saved ✓
             </p>
           )}
         </div>

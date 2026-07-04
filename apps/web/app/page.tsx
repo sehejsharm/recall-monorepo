@@ -33,10 +33,15 @@ export default function ExamPickerPage() {
             <li key={group.id}>
               <Link
                 href={`/${group.levels[0]!.slug}`}
-                className="block rounded-2xl border border-edge bg-surface px-5 py-4 transition-colors hover:border-correct/40 active:bg-raised"
+                className="flex items-center justify-between gap-3 rounded-2xl border border-edge bg-surface px-5 py-4 transition-colors hover:border-correct/40 active:bg-raised"
               >
-                <span className="text-lg font-semibold">{group.levels[0]!.name}</span>
-                <span className="mt-0.5 block text-xs text-muted">{group.levels[0]!.tagline}</span>
+                <span className="min-w-0">
+                  <span className="block text-lg font-semibold">{group.levels[0]!.name}</span>
+                  <span className="mt-0.5 block text-xs text-muted">{group.levels[0]!.tagline}</span>
+                </span>
+                <span aria-hidden className="shrink-0 text-lg text-muted">
+                  ›
+                </span>
               </Link>
             </li>
           ) : (

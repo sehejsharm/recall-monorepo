@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Text, Vibration, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { achievementById, OPTION_KEYS, optionText, type AnsweredCard, type OptionKey } from "@jyotir/core";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
@@ -190,8 +190,11 @@ export function DrillEngine({
   return (
     <View className="flex-1">
       <View className="mb-5 flex-row items-center gap-3">
-        <View className="h-0.5 flex-1 overflow-hidden rounded-full bg-raised">
-          <View className="h-full bg-correct" style={{ width: `${progressPct}%` }} />
+        <Text className="text-xs font-semibold text-muted">
+          Q {drill.index + 1} / {drill.queue.length}
+        </Text>
+        <View className="h-1.5 flex-1 overflow-hidden rounded-full bg-raised">
+          <View className="h-full rounded-full bg-correct" style={{ width: `${progressPct}%` }} />
         </View>
         {drill.combo >= 2 && (
           <View className="rounded-full bg-correct-dim/60 px-2 py-0.5">
@@ -219,8 +222,13 @@ export function DrillEngine({
               <Pressable
                 key={key}
                 disabled={answered}
-                onPress={() => store.getState().answer(key)}
-                className={`flex-row items-baseline gap-3 rounded-xl border px-4 py-3.5 active:bg-raised ${
+                onPress={() => {
+                  // Haptic grade feedback: short pulse right, double buzz wrong.
+                  if (key === question.correctOption) Vibration.vibrate(30);
+                  else Vibration.vibrate([0, 80, 40, 80]);
+                  store.getState().answer(key);
+                }}
+                className={`flex-row items-baseline gap-3 rounded-xl border px-4 py-3.5 active:scale-[0.97] active:bg-raised ${
                   isCorrect
                     ? "border-correct bg-correct-dim/60"
                     : isWrongPick

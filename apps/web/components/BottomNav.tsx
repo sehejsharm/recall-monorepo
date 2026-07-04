@@ -20,7 +20,10 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-edge bg-surface/90 backdrop-blur">
+    // The safe-area bottom padding keeps the tab row above the iOS home
+    // indicator / Android gesture bar (viewport-fit=cover is set in the root
+    // viewport config).
+    <nav className="fixed inset-x-0 bottom-0 z-40 border-t border-edge bg-surface/90 pb-[env(safe-area-inset-bottom)] backdrop-blur">
       <div className="mx-auto flex max-w-xl">
         {ITEMS.map(({ href, label, Icon }) => {
           const active = href === "/" ? pathname === "/" : pathname.startsWith(href);

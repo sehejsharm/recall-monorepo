@@ -41,14 +41,21 @@ export function ProfileStrip() {
             {lp.into} / {lp.span} XP this level
           </span>
         </div>
-        <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-raised">
+        <div
+          role="progressbar"
+          aria-valuemin={0}
+          aria-valuemax={lp.span}
+          aria-valuenow={lp.into}
+          aria-label={`Level ${lp.level} progress: ${lp.into} of ${lp.span} XP`}
+          className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-raised"
+        >
           <div className="h-full rounded-full bg-correct" style={{ width: `${lp.pct}%` }} />
         </div>
       </div>
 
       <div
         className={`flex shrink-0 items-center gap-1 ${streakAlive ? "text-correct" : "text-faint"}`}
-        title={`Longest streak: ${stats.longestStreak} days`}
+        title={`${stats.currentStreak}-day streak — drill daily to keep it alive. Longest: ${stats.longestStreak} days`}
       >
         <FlameIcon className="h-4 w-4" />
         <span className="text-sm font-bold tabular-nums">{stats.currentStreak}</span>

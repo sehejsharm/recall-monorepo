@@ -67,37 +67,61 @@ export function TopicShell({
   const current = topics[active] ?? topics[startIndex]!;
 
   return (
-    // 100dvh minus the fixed bottom nav's clearance (pb-16 in the root layout),
-    // so the end of a card — e.g. the "Drill this topic" CTA — is never
-    // rendered underneath the nav bar.
-    <div className="mx-auto flex h-[calc(100dvh-4rem)] w-full max-w-xl flex-col px-5 pb-2 pt-10">
-      <header className="mb-4">
-        <Link href={examHomeHref} className="text-xs text-muted hover:text-ink">
+    // 100dvh minus the fixed bottom nav's clearance (nav height + notch-phone
+    // safe area, matching the root layout), so the end of a card — e.g. the
+    // "Drill this topic" CTA — is never rendered underneath the nav bar.
+    <div className="mx-auto flex h-[calc(100dvh-4rem-env(safe-area-inset-bottom))] w-full max-w-xl flex-col px-5 pb-2 pt-10">
+      <header className="mb-2">
+        {/* min-h keeps every header control at a ≥44px thumb target without
+            growing the visual text size (negative margins absorb the box). */}
+        <Link
+          href={examHomeHref}
+          className="-my-2 inline-flex min-h-[44px] items-center text-xs text-muted hover:text-ink"
+        >
           ← {subjectName}
         </Link>
-        <div className="mt-2 flex items-center justify-between gap-3">
+        <div className="mt-1 flex items-center justify-between gap-3">
           <h1 className="min-w-0 flex-1 truncate text-xl font-bold tracking-tight">{current.name}</h1>
-          <span className="shrink-0 text-xs font-medium text-faint">
+          <span className="shrink-0 text-xs font-medium text-muted">
             {active + 1} / {topics.length}
           </span>
         </div>
-        <div className="mt-1 flex items-center gap-3">
+        <div className="-my-1 flex items-center justify-between gap-2">
           <button
             onClick={() => goToIndex(active - 1)}
             disabled={active === 0}
-            className="text-xs text-muted hover:text-ink disabled:opacity-30"
+            aria-label="Previous topic"
+            className="-mx-2 flex min-h-[44px] min-w-[44px] items-center px-2 text-xs text-muted hover:text-ink disabled:pointer-events-none disabled:opacity-30"
           >
             ← prev
           </button>
-          <span className="text-[11px] text-faint">swipe / drag to change topic</span>
+          {/* Carousel dots: the visual cue that this deck swipes. */}
+          <div className="flex min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden" aria-hidden>
+            {topics.map((t, i) => (
+              <button
+                key={t.id}
+                tabIndex={-1}
+                onClick={() => goToIndex(i)}
+                className="shrink-0 py-2"
+              >
+                <span
+                  className={`block rounded-full transition-all ${
+                    i === active ? "h-1.5 w-4 bg-correct" : "h-1.5 w-1.5 bg-raised"
+                  }`}
+                />
+              </button>
+            ))}
+          </div>
           <button
             onClick={() => goToIndex(active + 1)}
             disabled={active >= topics.length - 1}
-            className="text-xs text-muted hover:text-ink disabled:opacity-30"
+            aria-label="Next topic"
+            className="-mx-2 flex min-h-[44px] min-w-[44px] items-center px-2 text-xs text-muted hover:text-ink disabled:pointer-events-none disabled:opacity-30"
           >
             next →
           </button>
         </div>
+        <p className="pb-1 text-center text-[11px] text-muted">swipe / drag to change topic</p>
       </header>
 
       <div
@@ -185,7 +209,7 @@ function TopicCard({
             role="tab"
             aria-selected={tab === "drill"}
             onClick={() => switchTab("drill")}
-            className={`rounded-lg py-2 text-sm font-semibold transition-colors ${
+            className={`min-h-[44px] rounded-lg py-2 text-sm font-semibold transition-colors ${
               tab === "drill" ? "bg-raised text-ink" : "text-muted hover:text-ink"
             }`}
           >
@@ -196,7 +220,7 @@ function TopicCard({
             aria-selected={tab === "study"}
             onClick={() => switchTab("study")}
             disabled={!material}
-            className={`rounded-lg py-2 text-sm font-semibold transition-colors disabled:opacity-30 ${
+            className={`min-h-[44px] rounded-lg py-2 text-sm font-semibold transition-colors disabled:opacity-30 ${
               tab === "study" ? "bg-raised text-ink" : "text-muted hover:text-ink"
             }`}
           >
@@ -206,7 +230,7 @@ function TopicCard({
         {hasNext && (
           <button
             onClick={onNextTopic}
-            className="shrink-0 rounded-lg border border-edge px-3 py-2 text-xs font-semibold text-muted hover:text-ink"
+            className="min-h-[44px] shrink-0 rounded-lg border border-edge px-3 text-xs font-semibold text-muted hover:text-ink"
           >
             Skip →
           </button>
