@@ -1,5 +1,6 @@
 import { defineBundle } from "./builder";
 import { mainTopUpQuestions } from "./jee-main-exp";
+import { jeeM2Topics, jeeM2Materials, jeeM2Questions } from "./jee-main-exp2";
 
 export const jee = defineBundle({
   exam: {
@@ -480,7 +481,8 @@ export const jee = defineBundle({
       name: "Heights & Distances",
       slug: "heights-distances",
       orderIndex: 19
-    }
+    },
+    ...jeeM2Topics
   ],
   materials: [
     {
@@ -3065,7 +3067,8 @@ h = d * tan(theta)
 - Always draw a clear **right-angled diagram** and label the known angle and side first.`,
       estimatedReadTime: 2,
       orderIndex: 0
-    }
+    },
+    ...jeeM2Materials
   ],
   questions: [
     {
@@ -5597,7 +5600,7 @@ h = d * tan(theta)
       optionC: "120",
       optionD: "10",
       correctOption: "B",
-      explanation: "5P3 = 5!/(2!) = 60.",
+      explanation: "5P3 = 5!/(5−3)! = 5!/2! = 60 ordered arrangements.",
       orderIndex: 2
     },
     {
@@ -9404,6 +9407,7 @@ h = d * tan(theta)
       explanation: "Two observations let you eliminate the unknown base distance and solve for height.",
       orderIndex: 7
     },
-    ...mainTopUpQuestions
+    ...mainTopUpQuestions,
+    ...jeeM2Questions
   ]
 });
