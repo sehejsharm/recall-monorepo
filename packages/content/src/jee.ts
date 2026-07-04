@@ -1,6 +1,7 @@
 import { defineBundle } from "./builder";
 import { mainTopUpQuestions } from "./jee-main-exp";
 import { jeeM2Topics, jeeM2Materials, jeeM2Questions } from "./jee-main-exp2";
+import { mainDepthQuestions } from "./jee-main-exp3";
 
 export const jee = defineBundle({
   exam: {
@@ -9408,6 +9409,7 @@ h = d * tan(theta)
       orderIndex: 7
     },
     ...mainTopUpQuestions,
-    ...jeeM2Questions
+    ...jeeM2Questions,
+    ...mainDepthQuestions
   ]
 });
