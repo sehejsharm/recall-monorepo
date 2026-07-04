@@ -5,6 +5,7 @@ import { defineBundle } from "./builder";
 import type { Question } from "@jyotir/core";
 import type { AuthoredMaterial } from "./builder";
 import { expSubjects, expTopics, expMaterials, expQuestions } from "./cfa-l3-exp";
+import { exp2Topics, exp2Materials, exp2Questions } from "./cfa-l3-exp2";
 
 const exam = {
   id: "cfa-3",
@@ -213,7 +214,7 @@ const questions: Question[] = [
 export const cfaLevel3 = defineBundle({
   exam,
   subjects: [...subjects, ...expSubjects],
-  topics: [...topics, ...expTopics],
-  materials: [...materials, ...expMaterials],
-  questions: [...questions, ...expQuestions]
+  topics: [...topics, ...expTopics, ...exp2Topics],
+  materials: [...materials, ...expMaterials, ...exp2Materials],
+  questions: [...questions, ...expQuestions, ...exp2Questions]
 });
