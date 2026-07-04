@@ -6,6 +6,7 @@ import { extraTopics, extraMaterials, extraQuestions } from "./neet-exp-extra";
 import { bio2Topics, bio2Materials, bio2Questions } from "./neet-exp-bio2";
 import { chem2Topics, chem2Materials, chem2Questions } from "./neet-exp-chem2";
 import { phy2Topics, phy2Materials, phy2Questions } from "./neet-exp-phy2";
+import { neetDepthQuestions } from "./neet-exp-depth";
 
 export const neet = defineBundle({
   exam: {
@@ -5752,6 +5753,7 @@ h f = phi + KE_max       (Einstein's equation)
     ...extraQuestions,
     ...bio2Questions,
     ...chem2Questions,
-    ...phy2Questions
+    ...phy2Questions,
+    ...neetDepthQuestions
   ]
 });
