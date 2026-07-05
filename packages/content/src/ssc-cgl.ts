@@ -4,6 +4,7 @@ import { sscQuant2Topics, sscQuant2Materials, sscQuant2Questions } from "./ssc-c
 import { ssc3Topics, ssc3Materials, ssc3Questions } from "./ssc-cgl-exp3";
 import { ssc4Topics, ssc4Materials, ssc4Questions } from "./ssc-cgl-exp4";
 import { ssc5Topics, ssc5Materials, ssc5Questions } from "./ssc-cgl-exp5";
+import { sscDepthQuestions } from "./ssc-cgl-exp-depth";
 
 export const sscCgl = defineBundle({
   exam: {
@@ -4967,6 +4968,7 @@ Bharat Ratna > Padma Vibhushan > Padma Bhushan > Padma Shri
     ...sscQuant2Questions,
     ...ssc3Questions,
     ...ssc4Questions,
-    ...ssc5Questions
+    ...ssc5Questions,
+    ...sscDepthQuestions
   ]
 });
