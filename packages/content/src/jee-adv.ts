@@ -3,6 +3,7 @@ import { advTopics, advMaterials, advQuestions } from "./jee-adv-exp";
 import { adv2Topics, adv2Materials, adv2Questions } from "./jee-adv-exp2";
 import { adv3Topics, adv3Materials, adv3Questions } from "./jee-adv-exp3";
 import { adv4Topics, adv4Materials, adv4Questions } from "./jee-adv-exp4";
+import { advDepthQuestions } from "./jee-adv-exp-depth";
 
 // JEE Advanced — the IIT-level track. Shares the Main syllabus but tests it
 // with tougher, multi-concept questions on the highest-yield chapters. Its own
@@ -330,6 +331,7 @@ export const jeeAdvanced = defineBundle({
     ...advQuestions,
     ...adv2Questions,
     ...adv3Questions,
-    ...adv4Questions
+    ...adv4Questions,
+    ...advDepthQuestions
   ]
 });
