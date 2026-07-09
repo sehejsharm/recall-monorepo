@@ -1,0 +1,45 @@
+# Re-applies the content seed to the Supabase database whenever the seed
+# changes on main, so the backend `questions`/`study_materials` tables can
+# never drift behind the shipped bundle (stale rows FK-fail progress sync).
+#
+# Requires ONE repository secret (Settings → Secrets → Actions):
+#   SUPABASE_DB_URL — the Postgres connection string of the Supabase project
+#                     (Dashboard → Project Settings → Database → Connection
+#                     string, URI format). Nothing else is stored in the repo.
+#
+# If the secret is not configured, the job logs a notice and exits green —
+# apply manually instead with:  DATABASE_URL=… pnpm seed:apply
+name: Apply seed
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "supabase/seed.sql"
+      - "supabase/migrations/**"
+  workflow_dispatch:
+
+concurrency:
+  group: seed-apply
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_DB_URL: ${{ secrets.SUPABASE_DB_URL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Apply migrations + seed
+        run: |
+          if [ -z "$SUPABASE_DB_URL" ]; then
+            echo "::notice::SUPABASE_DB_URL secret not configured — skipping. Apply manually: DATABASE_URL=… pnpm seed:apply"
+            exit 0
+          fi
+          for f in supabase/migrations/*.sql; do
+            echo "applying $f"
+            psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f "$f"
+          done
+          echo "applying supabase/seed.sql"
+          psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f supabase/seed.sql

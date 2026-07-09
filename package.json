@@ -10,6 +10,7 @@
     "test": "turbo test",
     "typecheck": "turbo typecheck",
     "seed:generate": "tsx scripts/generate-seed.ts",
+    "seed:apply": "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -f supabase/seed.sql",
     "preflight:store": "node scripts/preflight-store.mjs"
   },
   "devDependencies": {

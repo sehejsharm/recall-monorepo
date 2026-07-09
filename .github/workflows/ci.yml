@@ -42,3 +42,36 @@ jobs:
         run: pnpm --filter @jyotir/mobile exec expo export --platform ios --platform android --output-dir /tmp/expo-export
         env:
           CI: "1"
+
+  # The backend `questions` table once drifted 8,000+ questions behind the
+  # shipped bundle, FK-failing every progress sync for new content. This job
+  # makes that class of bug impossible to merge: the committed seed must
+  # always match what `scripts/generate-seed.ts` emits from @jyotir/content.
+  seed-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Regenerate seed from the content bundle
+        run: pnpm seed:generate
+
+      - name: Fail if supabase/seed.sql or setup.sql is out of date
+        run: |
+          if ! git diff --exit-code -- supabase/seed.sql supabase/setup.sql; then
+            echo "::error::supabase/seed.sql is stale — run 'pnpm seed:generate' and commit the result."
+            exit 1
+          fi
