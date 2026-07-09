@@ -27,11 +27,19 @@ function randomHandle(): string {
   return `Aspirant-${s}`;
 }
 
+/**
+ * MUST be deterministic: this runs in useState initializers during both the
+ * server prerender and the client's first render. Anything random here (the
+ * handle used to be generated with Math.random()) bakes a different value
+ * into the SSR HTML than the client computes, throwing React #418 (hydration
+ * mismatch) on every page that renders a settings value. The real handle is
+ * minted client-side in loadSettings() on first use.
+ */
 export function defaultSettings(): Settings {
   return {
     displayName: "Aspirant",
     named: false,
-    handle: randomHandle(),
+    handle: "",
     dailyGoal: 20,
     reduceMotion: false,
     leaderboardOptIn: true,
@@ -44,11 +52,17 @@ export function loadSettings(): Settings {
   try {
     const raw = window.localStorage.getItem(KEY);
     if (!raw) {
-      const d = defaultSettings();
+      const d = { ...defaultSettings(), handle: randomHandle() };
       window.localStorage.setItem(KEY, JSON.stringify(d));
       return d;
     }
-    return { ...defaultSettings(), ...(JSON.parse(raw) as Partial<Settings>) };
+    const s = { ...defaultSettings(), ...(JSON.parse(raw) as Partial<Settings>) };
+    // Heal records saved without a handle (pre-effect writes, old versions).
+    if (!s.handle) {
+      s.handle = randomHandle();
+      window.localStorage.setItem(KEY, JSON.stringify(s));
+    }
+    return s;
   } catch {
     return defaultSettings();
   }

@@ -220,7 +220,13 @@ function TopicCard({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
+  // Belt-and-braces with `inert`: inert blocks real user interaction on
+  // off-screen cards, but programmatic clicks (automation, some assistive
+  // tech) still dispatch handlers — so every handler on a non-active card
+  // must also be a no-op, or a click meant for the visible topic can mark
+  // a NEIGHBOUR topic read / switch its tab.
   const switchTab = (next: Tab) => {
+    if (!isActive) return;
     if (next === tab) return;
     if (next === "study") exitDrill();
     setTab(next);
@@ -258,7 +264,9 @@ function TopicCard({
         </div>
         {hasNext && (
           <button
-            onClick={onNextTopic}
+            onClick={() => {
+              if (isActive) onNextTopic();
+            }}
             className="min-h-[44px] shrink-0 rounded-lg border border-edge px-3 text-xs font-semibold text-muted hover:text-ink"
           >
             Skip →
@@ -275,7 +283,7 @@ function TopicCard({
           onExamHome={onExamHome}
         />
       ) : material ? (
-        <StudyReader material={material} onDrill={() => switchTab("drill")} />
+        <StudyReader material={material} onDrill={() => switchTab("drill")} interactive={isActive} />
       ) : (
         <div className="flex flex-1 items-center justify-center text-sm text-muted">
           Swipe back to drill this topic.

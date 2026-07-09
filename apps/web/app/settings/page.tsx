@@ -34,6 +34,7 @@ function Toggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void 
 
 const GOAL_MIN = 5;
 const GOAL_MAX = 500;
+const NAME_MAX = 40;
 
 export default function SettingsPage() {
   const [settings, update] = useSettings();
@@ -76,7 +77,7 @@ export default function SettingsPage() {
   };
 
   const commitName = () => {
-    const clean = (nameDraft ?? settings.displayName).trim();
+    const clean = (nameDraft ?? settings.displayName).trim().slice(0, NAME_MAX);
     if (!clean) {
       setNameError("Name can't be empty — keeping your previous name.");
     } else {
@@ -121,6 +122,7 @@ export default function SettingsPage() {
           <Row label="Display name" hint="Private to you; never shown to others.">
             <input
               value={nameDraft ?? settings.displayName}
+              maxLength={NAME_MAX}
               onChange={(e) => {
                 setNameDraft(e.target.value);
                 setNameError(null);

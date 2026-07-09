@@ -14,17 +14,25 @@ import { useJyotir } from "@/lib/store-provider";
  */
 export function StudyReader({
   material,
-  onDrill
+  onDrill,
+  interactive = true
 }: {
   material: StudyMaterial;
   onDrill: () => void;
+  /** False when rendered as an off-screen neighbour preview in the swipe
+   *  deck: handlers no-op so a programmatic click (automation/AT) on this
+   *  card can never mark a topic the user isn't looking at as read. */
+  interactive?: boolean;
 }) {
   // Select the stable `progress` reference and derive counts in render —
   // never return a fresh object from a Zustand selector (infinite loop).
   const progress = useJyotir((s) => s.progress);
   const counts = topicCounts(repo.questionsByTopic(material.topicId), progress);
   const isRead = useJyotir((s) => Boolean(s.reads[material.id]));
-  const markRead = useJyotir((s) => s.markRead);
+  const markReadRaw = useJyotir((s) => s.markRead);
+  const markRead = (id: string) => {
+    if (interactive) markReadRaw(id);
+  };
 
   // The CTA promises exactly what the drill session will serve: due + new
   // cards (never inflated by not-yet-due cards), split out so "due" always
@@ -39,6 +47,7 @@ export function StudyReader({
           : "Practice This Topic (All Caught Up)";
 
   const handleDrill = () => {
+    if (!interactive) return;
     if (!isRead) markRead(material.id);
     onDrill();
   };

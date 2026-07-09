@@ -8,7 +8,14 @@ import {
   normalizeGamification,
   type GamificationState
 } from "./gamification";
-import { buildQueue, buildReviewQueue, dueCount, topicCounts, DEFAULT_QUEUE_LIMIT } from "./scheduler";
+import {
+  buildQueue,
+  buildReviewQueue,
+  dueCount,
+  topicCounts,
+  DEFAULT_QUEUE_LIMIT,
+  REVIEW_QUEUE_LIMIT
+} from "./scheduler";
 import { gradeBinary } from "./sm2";
 import type { StorageAdapter } from "./storage";
 import { syncUserData, type SupabaseLike, type SyncResult } from "./sync";
@@ -204,7 +211,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
       });
     },
 
-    startReview(limit = DEFAULT_QUEUE_LIMIT) {
+    startReview(limit = REVIEW_QUEUE_LIMIT) {
       const queue = buildReviewQueue(repo.allQuestions(), get().progress, new Date(), limit);
       set({
         drill: {

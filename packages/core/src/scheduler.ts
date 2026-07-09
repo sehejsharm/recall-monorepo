@@ -20,6 +20,15 @@ import type { DrillCard, ProgressRecord, Question, TopicCounts } from "./types";
  */
 export const DEFAULT_QUEUE_LIMIT = 30;
 
+/**
+ * The cross-exam daily review serves EVERYTHING due — the home banner
+ * promises "everything due, across all your exams", so the session length
+ * must equal the advertised due count, not a 30-card slice of it. The cap
+ * exists only as a memory/sanity guard for pathological backlogs; UI copy
+ * must disclose the truncation whenever dueTotal exceeds it.
+ */
+export const REVIEW_QUEUE_LIMIT = 500;
+
 export type EarlyFill = "always" | "ifEmpty";
 
 export function buildQueue(

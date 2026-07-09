@@ -19,7 +19,12 @@ export default function LeaderboardPage() {
   const [me, setMe] = useState<LeaderboardRow | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [signedIn, setSignedIn] = useState(false);
-  const myHandle = typeof window !== "undefined" ? loadSettings().handle : "";
+  // Loaded in an effect, never at render: reading localStorage during render
+  // bakes SSR/client differences into the HTML (React #418), and loadSettings
+  // can even WRITE storage on first read — a side effect renders must not have.
+  const [myHandle, setMyHandle] = useState("");
+
+  useEffect(() => setMyHandle(loadSettings().handle), []);
 
   useEffect(() => {
     if (!supabase) return;
