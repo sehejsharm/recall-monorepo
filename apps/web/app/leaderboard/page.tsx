@@ -18,7 +18,13 @@ export default function LeaderboardPage() {
   const [rows, setRows] = useState<LeaderboardRow[] | null>(null);
   const [me, setMe] = useState<LeaderboardRow | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [signedIn, setSignedIn] = useState(false);
   const myHandle = typeof window !== "undefined" ? loadSettings().handle : "";
+
+  useEffect(() => {
+    if (!supabase) return;
+    void supabase.auth.getSession().then(({ data }) => setSignedIn(Boolean(data.session)));
+  }, [supabase]);
 
   // Distinct, compact chip label: "CFA I", "FRM II", else first word ("UPSC").
   const chipLabel = (e: (typeof exams)[number]) => {
@@ -111,7 +117,17 @@ export default function LeaderboardPage() {
         <div className="h-40 animate-pulse rounded-2xl border border-edge bg-surface" />
       ) : rows.length === 0 ? (
         <div className="rounded-2xl border border-edge bg-surface px-5 py-6 text-sm text-muted">
-          {scope ? "No one has drilled this exam yet — claim the top spot." : "No players yet. Drill and sign in to lead."}
+          {scope ? (
+            "No one has drilled this exam yet — claim the top spot."
+          ) : signedIn ? (
+            <>
+              No ranks yet. You&apos;re signed in with{" "}
+              <span className="font-semibold text-ink">{localXp} XP</span> — it appears here once it
+              syncs after your next drill. If this persists, check Settings → Status.
+            </>
+          ) : (
+            "No players yet. Drill and sign in to lead."
+          )}
         </div>
       ) : (
         <>

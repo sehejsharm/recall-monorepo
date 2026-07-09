@@ -4,6 +4,7 @@ import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { topicCounts, type StudyMaterial } from "@jyotir/core";
 import { repo } from "@/lib/content";
+import { readMinutes } from "@/lib/read-time";
 import { useJyotir } from "@/lib/store-provider";
 
 /**
@@ -25,11 +26,17 @@ export function StudyReader({
   const isRead = useJyotir((s) => Boolean(s.reads[material.id]));
   const markRead = useJyotir((s) => s.markRead);
 
-  const pending = counts.due + counts.fresh;
+  // The CTA promises exactly what the drill session will serve: due + new
+  // cards (never inflated by not-yet-due cards), split out so "due" always
+  // means "scheduled for review now".
   const ctaLabel =
-    pending > 0
-      ? `Drill This Topic Now (${pending} ${pending === 1 ? "Card" : "Cards"} Due)`
-      : "Drill This Topic Now (All Caught Up)";
+    counts.due > 0 && counts.fresh > 0
+      ? `Drill This Topic Now (${counts.due} Due · ${counts.fresh} New)`
+      : counts.due > 0
+        ? `Drill This Topic Now (${counts.due} ${counts.due === 1 ? "Card" : "Cards"} Due)`
+        : counts.fresh > 0
+          ? `Drill This Topic Now (${counts.fresh} New ${counts.fresh === 1 ? "Card" : "Cards"})`
+          : "Practice This Topic (All Caught Up)";
 
   const handleDrill = () => {
     if (!isRead) markRead(material.id);
@@ -40,7 +47,7 @@ export function StudyReader({
     <div className="flex flex-1 flex-col">
       <div className="mb-4 flex items-center justify-between text-xs text-muted">
         <span>
-          {material.title} · {material.estimatedReadTime} min read
+          {material.title} · {readMinutes(material)} min read
         </span>
         {isRead ? (
           <span className="font-semibold text-correct">read ✓</span>

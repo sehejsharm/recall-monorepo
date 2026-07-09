@@ -130,7 +130,7 @@ describe("syncUserData", () => {
     expect(saved["q-fresh-local"]?.repetitions).toBe(1);
   });
 
-  it("surfaces a push error instead of silently dropping progress", async () => {
+  it("reports a push error in the result and keeps the rows dirty for retry", async () => {
     const adapter = new MemoryStorageAdapter();
     await adapter.saveProgress(localProgress({ questionId: "q1", synced: false }));
 
@@ -147,9 +147,82 @@ describe("syncUserData", () => {
       }
     };
 
-    await expect(syncUserData(adapter, failing, "user-1", () => {})).rejects.toThrow(/rls denied/);
+    // Push failures no longer abort the sync (the pull still runs); they are
+    // reported so the UI can surface an honest status.
+    const result = await syncUserData(adapter, failing, "user-1", () => {});
+    expect(result.failedProgress).toBe(1);
+    expect(result.pushedProgress).toBe(0);
+    expect(result.pushError).toMatch(/rls denied/);
     // The unsynced row must remain unsynced so a later sync retries it.
     const saved = await adapter.loadProgress();
     expect(saved["q1"]?.synced).toBe(false);
+  });
+
+  it("quarantines rows for retired content ids so they never poison the push", async () => {
+    const adapter = new MemoryStorageAdapter();
+    // "q-old" belongs to a retired content version — its id no longer exists.
+    await adapter.saveProgress(localProgress({ questionId: "q-old", synced: false }));
+    await adapter.saveProgress(localProgress({ questionId: "q-live", synced: false }));
+
+    const { client, upserts } = fakeSupabase({});
+    const result = await syncUserData(adapter, client, "user-1", () => {}, {
+      knownQuestionIds: new Set(["q-live"]),
+      knownMaterialIds: new Set()
+    });
+
+    // Only the live row was pushed; the orphan was quarantined, not sent.
+    expect(upserts.user_progress).toHaveLength(1);
+    expect(upserts.user_progress?.[0]?.map((r) => r.question_id)).toEqual(["q-live"]);
+    expect(result.pushedProgress).toBe(1);
+    expect(result.orphanedProgress).toBe(1);
+    expect(result.failedProgress).toBe(0);
+
+    // The orphan is retired from the outbound queue permanently (marked
+    // synced locally) so it can never block a future sync either.
+    const saved = await adapter.loadProgress();
+    expect(saved["q-old"]?.synced).toBe(true);
+    expect(saved["q-live"]?.synced).toBe(true);
+  });
+
+  it("falls back to per-row pushes when the batch fails, so one bad row cannot block the rest", async () => {
+    const adapter = new MemoryStorageAdapter();
+    await adapter.saveProgress(localProgress({ questionId: "q-good-1", synced: false }));
+    await adapter.saveProgress(localProgress({ questionId: "q-poison", synced: false }));
+    await adapter.saveProgress(localProgress({ questionId: "q-good-2", synced: false }));
+
+    // Server double: rejects any payload containing q-poison (FK violation),
+    // accepts everything else — mimicking the real 409 that used to zero out
+    // the entire account's sync.
+    const poisoned: SupabaseLike = {
+      from(table: string) {
+        return {
+          upsert(values: Record<string, unknown>[]) {
+            const bad = values.some((v) => v.question_id === "q-poison");
+            return Promise.resolve(
+              bad
+                ? { data: null, error: { message: 'violates foreign key constraint "user_progress_question_id_fkey"' } }
+                : { data: null, error: null }
+            );
+          },
+          select() {
+            return { eq() { return Promise.resolve({ data: [], error: null }); } };
+          }
+        };
+      }
+    };
+
+    const result = await syncUserData(adapter, poisoned, "user-1", () => {});
+
+    // Both healthy rows synced despite the poisoned neighbour.
+    expect(result.pushedProgress).toBe(2);
+    expect(result.failedProgress).toBe(1);
+    expect(result.pushError).toMatch(/foreign key/);
+
+    const saved = await adapter.loadProgress();
+    expect(saved["q-good-1"]?.synced).toBe(true);
+    expect(saved["q-good-2"]?.synced).toBe(true);
+    // The bad row stays dirty (would retry — or be quarantined once the
+    // caller passes knownQuestionIds).
+    expect(saved["q-poison"]?.synced).toBe(false);
   });
 });

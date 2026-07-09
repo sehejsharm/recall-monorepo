@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Topic } from "@jyotir/core";
 import { repo } from "@/lib/content";
 import { useJyotir } from "@/lib/store-provider";
@@ -38,6 +38,11 @@ export function TopicShell({
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(startIndex);
+  // Neighbour cards render full content only once the deck is scrolled to
+  // the requested topic. Before that (SSR HTML, pre-hydration, the frame
+  // before positioning) the only real content on screen is the requested
+  // topic's own card — a different topic's study note can never flash.
+  const [positioned, setPositioned] = useState(false);
   const examHomeHref = `/${examSlug}/${subjectSlug}`;
 
   const goToIndex = useCallback(
@@ -50,15 +55,29 @@ export function TopicShell({
     [topics.length]
   );
 
-  // Jump to the requested topic on first mount (no animation).
-  useEffect(() => {
+  // Jump to the requested topic BEFORE first paint (no animation). If the
+  // layout hasn't settled yet (clientWidth 0, e.g. behind the launch
+  // splash), retry on the next frame instead of silently landing on the
+  // wrong card.
+  useLayoutEffect(() => {
     const el = scrollerRef.current;
-    if (el) el.scrollLeft = startIndex * el.clientWidth;
+    if (!el) return;
+    let raf = 0;
+    const place = () => {
+      if (el.clientWidth === 0) {
+        raf = requestAnimationFrame(place);
+        return;
+      }
+      el.scrollLeft = startIndex * el.clientWidth;
+      setPositioned(true);
+    };
+    place();
+    return () => cancelAnimationFrame(raf);
   }, [startIndex]);
 
   const onScroll = () => {
     const el = scrollerRef.current;
-    if (!el) return;
+    if (!el || el.clientWidth === 0) return;
     const idx = Math.round(el.scrollLeft / el.clientWidth);
     if (idx !== active) setActive(idx);
   };
@@ -80,9 +99,16 @@ export function TopicShell({
         >
           ← {subjectName}
         </Link>
-        <div className="mt-1 flex items-center justify-between gap-3">
-          <h1 className="min-w-0 flex-1 truncate text-xl font-bold tracking-tight">{current.name}</h1>
-          <span className="shrink-0 text-xs font-medium text-muted">
+        <div className="mt-1 flex items-start justify-between gap-3">
+          {/* Wrap to two lines before ellipsizing; title= exposes the full
+              name on hover/long-press for the rare 3-line monster. */}
+          <h1
+            title={current.name}
+            className="line-clamp-2 min-w-0 flex-1 text-xl font-bold leading-snug tracking-tight"
+          >
+            {current.name}
+          </h1>
+          <span className="shrink-0 pt-1 text-xs font-medium text-muted">
             {active + 1} / {topics.length}
           </span>
         </div>
@@ -131,8 +157,9 @@ export function TopicShell({
         style={{ scrollbarWidth: "none" }}
       >
         {topics.map((t, index) => {
-          // Only render heavy content for the active card and its neighbours.
-          const nearby = Math.abs(index - active) <= 1;
+          // Only render heavy content for the active card and its neighbours —
+          // and neighbours only after the deck has scrolled into position.
+          const nearby = positioned ? Math.abs(index - active) <= 1 : index === active;
           return (
             <section
               key={t.id}
@@ -152,7 +179,9 @@ export function TopicShell({
                   onExamHome={() => router.push(examHomeHref)}
                 />
               ) : (
-                <div className="flex flex-1 items-center justify-center text-sm text-faint">{t.name}</div>
+                <div className="flex flex-1 items-center justify-center text-sm text-faint">
+                  {positioned ? t.name : null}
+                </div>
               )}
             </section>
           );

@@ -47,6 +47,31 @@ describe("buildQueue", () => {
     expect(buildQueue(questions, {}, NOW)).toHaveLength(30);
     expect(buildQueue(questions, {}, NOW, 10)).toHaveLength(10);
   });
+
+  it('earlyFill "ifEmpty" excludes not-yet-due cards when anything is due/new (session matches the promised count)', () => {
+    const questions = [q("due1", 0), q("new1", 1), q("early1", 2), q("early2", 3)];
+    const progress = {
+      due1: prog("due1", "2026-06-01T00:00:00.000Z"),
+      early1: prog("early1", "2026-06-20T00:00:00.000Z"),
+      early2: prog("early2", "2026-06-25T00:00:00.000Z")
+    };
+    const queue = buildQueue(questions, progress, NOW, 30, "ifEmpty");
+    // "1 due · 1 new" is exactly what the session serves — never padded
+    // with cards that are still scheduled for the future.
+    expect(queue.map((c) => c.question.id)).toEqual(["due1", "new1"]);
+    expect(queue.map((c) => c.reason)).toEqual(["due", "new"]);
+  });
+
+  it('earlyFill "ifEmpty" still serves early cards when fully caught up (practice mode)', () => {
+    const questions = [q("early1", 0), q("early2", 1)];
+    const progress = {
+      early1: prog("early1", "2026-06-20T00:00:00.000Z"),
+      early2: prog("early2", "2026-06-25T00:00:00.000Z")
+    };
+    const queue = buildQueue(questions, progress, NOW, 30, "ifEmpty");
+    expect(queue.map((c) => c.question.id)).toEqual(["early1", "early2"]);
+    expect(queue.every((c) => c.reason === "early")).toBe(true);
+  });
 });
 
 describe("topicCounts", () => {

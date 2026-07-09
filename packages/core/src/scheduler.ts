@@ -8,16 +8,26 @@ import type { DrillCard, ProgressRecord, Question, TopicCounts } from "./types";
  * Priority order:
  *   1. "due"   — reviewed before, nextReviewDate <= now, most overdue first
  *   2. "new"   — never reviewed, in authored order
- *   3. "early" — not yet due, soonest first (only to fill up to `limit`,
- *                so a user who is fully caught up can still drill)
+ *   3. "early" — not yet due, soonest first
+ *
+ * `earlyFill` controls when early cards join the queue:
+ *   "always"  — pad the session up to `limit` (explicit practice decks:
+ *               custom drills, bookmark drills).
+ *   "ifEmpty" — only when there is nothing due and nothing new, so the
+ *               session length matches the due/new count the UI promised
+ *               ("11 Cards Due" starts an 11-card session), while a fully
+ *               caught-up user can still practice.
  */
 export const DEFAULT_QUEUE_LIMIT = 30;
+
+export type EarlyFill = "always" | "ifEmpty";
 
 export function buildQueue(
   questions: Question[],
   progress: Record<string, ProgressRecord>,
   now: Date = new Date(),
-  limit: number = DEFAULT_QUEUE_LIMIT
+  limit: number = DEFAULT_QUEUE_LIMIT,
+  earlyFill: EarlyFill = "always"
 ): DrillCard[] {
   const nowIso = now.toISOString();
   const due: { q: Question; at: string }[] = [];
@@ -39,10 +49,11 @@ export function buildQueue(
   fresh.sort((a, b) => a.orderIndex - b.orderIndex);
   early.sort((a, b) => a.at.localeCompare(b.at));
 
+  const includeEarly = earlyFill === "always" || (due.length === 0 && fresh.length === 0);
   const queue: DrillCard[] = [
     ...due.map(({ q }) => ({ question: q, reason: "due" as const })),
     ...fresh.map((q) => ({ question: q, reason: "new" as const })),
-    ...early.map(({ q }) => ({ question: q, reason: "early" as const }))
+    ...(includeEarly ? early.map(({ q }) => ({ question: q, reason: "early" as const })) : [])
   ];
 
   return queue.slice(0, limit);

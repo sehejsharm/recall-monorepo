@@ -98,7 +98,10 @@ export default async function TopicPage({
           { name: topic.name, href: `/${exam.slug}/${subject.slug}/${topic.slug}` }
         ]}
       />
+      {/* Keyed by topic so client-side navigation between topic URLs always
+          remounts the deck at the requested topic (never a stale index). */}
       <TopicShell
+        key={topic.id}
         examSlug={exam.slug}
         subjectSlug={subject.slug}
         subjectName={subject.name}

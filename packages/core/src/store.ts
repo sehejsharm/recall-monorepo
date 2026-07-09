@@ -57,6 +57,20 @@ export interface DrillSession {
   lastXpAward: number;
 }
 
+/** Outcome of the most recent sync attempt — drives honest status UI. */
+export interface SyncStatus {
+  /** ISO time of the attempt. */
+  at: string;
+  /** True when the round-trip completed and the server accepted every row. */
+  ok: boolean;
+  /** Failure detail when !ok (network/pull error or first rejected row). */
+  error?: string;
+  /** Rows the server rejected this attempt (kept locally; retried later). */
+  failedRows: number;
+  /** Retired-content rows quarantined out of the outbound queue. */
+  orphanedRows: number;
+}
+
 export interface JyotirState {
   ready: boolean;
   progress: Record<string, ProgressRecord>;
@@ -67,6 +81,8 @@ export interface JyotirState {
   /** Achievement ids unlocked since the UI last consumed them (for toasts). */
   newlyUnlocked: string[];
   drill: DrillSession;
+  /** Result of the last sync attempt (null until one runs). */
+  lastSync: SyncStatus | null;
 
   hydrate(): Promise<void>;
 
@@ -141,6 +157,17 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
   const persist = (p: Promise<void>) =>
     p.catch((err) => console.error("[jyotir] persistence failed:", err));
 
+  // Content ids known to this build — computed once, on first sync. Local
+  // progress rows outside these sets reference retired content (old bundle
+  // versions) and must never reach the server (they 409 on the FK and used
+  // to poison the whole batched push).
+  let knownIds: { questions: Set<string>; materials: Set<string> } | null = null;
+  const knownContentIds = () =>
+    (knownIds ??= {
+      questions: new Set(deps.content.questions.map((q) => q.id)),
+      materials: new Set(deps.content.materials.map((m) => m.id))
+    });
+
   const store = createStore<JyotirState>()((set, get) => ({
     ready: false,
     progress: {},
@@ -149,6 +176,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
     stats: initialGamification(),
     newlyUnlocked: [],
     drill: emptyDrill(),
+    lastSync: null,
 
     async hydrate() {
       const [progress, reads, bookmarks, stats] = await Promise.all([
@@ -162,7 +190,10 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
 
     startDrill(topicId, limit = DEFAULT_QUEUE_LIMIT) {
       const questions = repo.questionsByTopic(topicId);
-      const queue = buildQueue(questions, get().progress, new Date(), limit);
+      // "ifEmpty": the session serves exactly the due+new cards the topic
+      // badge/CTA promised; not-yet-due cards only appear when the user is
+      // fully caught up (pure practice, labelled "ahead of schedule").
+      const queue = buildQueue(questions, get().progress, new Date(), limit, "ifEmpty");
       set({
         drill: {
           ...emptyDrill(),
@@ -355,23 +386,55 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
     },
 
     async syncNow(supabase, userId) {
-      const result = await syncUserData(adapter, supabase, userId, (progress, reads) => {
-        if (progress.length === 0 && reads.length === 0) return;
-        set((s) => {
-          const nextProgress = { ...s.progress };
-          for (const p of progress) nextProgress[p.questionId] = p;
-          const nextReads = { ...s.reads };
-          for (const r of reads) nextReads[r.materialId] = r;
-          return { progress: nextProgress, reads: nextReads };
+      const ids = knownContentIds();
+      let result: SyncResult;
+      try {
+        result = await syncUserData(
+          adapter,
+          supabase,
+          userId,
+          (progress, reads) => {
+            if (progress.length === 0 && reads.length === 0) return;
+            set((s) => {
+              const nextProgress = { ...s.progress };
+              for (const p of progress) nextProgress[p.questionId] = p;
+              const nextReads = { ...s.reads };
+              for (const r of reads) nextReads[r.materialId] = r;
+              return { progress: nextProgress, reads: nextReads };
+            });
+          },
+          { knownQuestionIds: ids.questions, knownMaterialIds: ids.materials }
+        );
+      } catch (err) {
+        set({
+          lastSync: {
+            at: new Date().toISOString(),
+            ok: false,
+            error: err instanceof Error ? err.message : String(err),
+            failedRows: 0,
+            orphanedRows: 0
+          }
         });
-      });
-      // Reflect the pushed flags without re-reading storage.
-      set((s) => {
-        const progress: Record<string, ProgressRecord> = {};
-        for (const [k, v] of Object.entries(s.progress)) progress[k] = { ...v, synced: true };
-        const reads: Record<string, ReadRecord> = {};
-        for (const [k, v] of Object.entries(s.reads)) reads[k] = { ...v, synced: true };
-        return { progress, reads };
+        throw err;
+      }
+      // Adopt the adapter's post-sync flags verbatim: only rows the server
+      // actually accepted are marked synced (failed rows stay dirty and
+      // retry on the next sync).
+      const [progress, reads] = await Promise.all([
+        adapter.loadProgress(),
+        adapter.loadReadHistory()
+      ]);
+      const failedRows = result.failedProgress + result.failedReads;
+      set({
+        progress,
+        reads,
+        lastSync: {
+          at: new Date().toISOString(),
+          ok: failedRows === 0,
+          ...(result.pushError ? { error: result.pushError } : {}),
+          failedRows,
+          orphanedRows: result.orphanedProgress + result.orphanedReads
+        }
       });
       return result;
     }

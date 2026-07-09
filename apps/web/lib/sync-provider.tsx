@@ -30,14 +30,20 @@ export function SyncProvider({ children }: { children: ReactNode }) {
     const sync = async () => {
       if (!userId || inFlight) return;
       inFlight = true;
+      // Progress sync and the leaderboard stats push are independent:
+      // a failure in one must never silently starve the other (a failing
+      // progress push used to keep signed-in users off the leaderboard).
       try {
         await store.getState().syncNow(supabase as unknown as SupabaseLike, userId);
+      } catch (err) {
+        console.error("[recall] progress sync failed:", err);
+      }
+      try {
         await pushStats(supabase, userId, store.getState().stats);
       } catch (err) {
-        console.error("[recall] sync failed:", err);
-      } finally {
-        inFlight = false;
+        console.error("[recall] leaderboard stats push failed:", err);
       }
+      inFlight = false;
     };
 
     void supabase.auth.getSession().then(({ data }) => {

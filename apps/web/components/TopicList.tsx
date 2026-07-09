@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { repo } from "@/lib/content";
+import { readMinutes } from "@/lib/read-time";
 import { useJyotir } from "@/lib/store-provider";
 import { topicCounts } from "@jyotir/core";
 
@@ -24,11 +25,23 @@ export function TopicList({
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 py-14">
-      <header className="mb-8">
+      <header className="mb-6">
         <Link href={`/${examSlug}`} className="text-xs text-muted hover:text-ink">
           ← {examName}
         </Link>
         <h1 className="mt-3 text-2xl font-bold tracking-tight">{subjectName}</h1>
+        {/* Legend: what the badge colours mean (count = cards waiting for you). */}
+        <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-faint">
+          <span className="inline-flex items-center gap-1.5">
+            <span aria-hidden className="h-2 w-2 rounded-full bg-correct" /> due for review
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span aria-hidden className="h-2 w-2 rounded-full bg-raised" /> new cards
+          </span>
+          <span className="inline-flex items-center gap-1.5">
+            <span aria-hidden className="text-correct">✓</span> all caught up
+          </span>
+        </p>
       </header>
 
       <ul className="flex flex-col gap-2.5">
@@ -47,12 +60,13 @@ export function TopicList({
                 <div className="min-w-0">
                   <span className="block truncate font-semibold">{topic.name}</span>
                   <span className="mt-0.5 block text-xs text-muted">
-                    {material ? `${material.estimatedReadTime} min read` : "drill only"}
+                    {material ? `${readMinutes(material)} min read` : "drill only"}
                     {isRead && <span className="text-correct"> · read ✓</span>}
                   </span>
                 </div>
                 {pending > 0 ? (
                   <span
+                    title={`${counts.due} due for review · ${counts.fresh} new`}
                     className={`shrink-0 rounded-full px-2.5 py-1 text-xs font-bold tabular-nums ${
                       counts.due > 0 ? "bg-correct text-black" : "bg-raised text-muted"
                     }`}

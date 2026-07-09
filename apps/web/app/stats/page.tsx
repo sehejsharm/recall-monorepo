@@ -4,11 +4,23 @@ import { ACHIEVEMENTS, isStreakActive, levelProgress, RANKS } from "@jyotir/core
 import { useJyotir } from "@/lib/store-provider";
 import { FlameIcon, TrophyIcon } from "@/components/icons";
 
-function Stat({ label, value, accent }: { label: string; value: string | number; accent?: boolean }) {
+function Stat({
+  label,
+  value,
+  accent,
+  hint
+}: {
+  label: string;
+  value: string | number;
+  accent?: boolean;
+  /** One-line definition so a "0" is never a mystery (shown under the label). */
+  hint?: string;
+}) {
   return (
-    <div className="rounded-2xl border border-edge bg-surface px-4 py-3">
+    <div className="rounded-2xl border border-edge bg-surface px-4 py-3" title={hint}>
       <div className={`text-2xl font-bold tabular-nums ${accent ? "text-correct" : ""}`}>{value}</div>
       <div className="mt-0.5 text-[11px] uppercase tracking-wider text-faint">{label}</div>
+      {hint && <div className="mt-0.5 text-[10px] leading-tight text-faint">{hint}</div>}
     </div>
   );
 }
@@ -67,7 +79,7 @@ export default function StatsPage() {
 
           <section className="mb-6 grid grid-cols-3 gap-2.5">
             <Stat label="Cards drilled" value={stats.cardsGraded} />
-            <Stat label="Mastered" value={mastered} accent />
+            <Stat label="Mastered" value={mastered} accent hint="3+ correct recalls of a card" />
             <Stat label="Best combo" value={stats.bestCombo} />
             <Stat label="Current streak" value={stats.currentStreak} />
             <Stat label="Longest streak" value={stats.longestStreak} />

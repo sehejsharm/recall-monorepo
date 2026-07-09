@@ -40,8 +40,27 @@ export default function SettingsPage() {
   const supabase = getSupabase();
   const store = useJyotirStore();
   const stats = useJyotir((s) => s.stats);
+  const lastSync = useJyotir((s) => s.lastSync);
   const [confirmReset, setConfirmReset] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
+
+  // Honest sync status: report what the last attempt actually did, never a
+  // static "available" while every sync silently fails in the background.
+  const syncHint = !supabase
+    ? "Local only on this device."
+    : !userEmail
+      ? "Sign in to back up your progress to the cloud."
+      : lastSync === null
+        ? "Cloud sync on — waiting for the first sync…"
+        : lastSync.ok
+          ? `Cloud sync on · last synced ${new Date(lastSync.at).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit"
+            })}.`
+          : lastSync.failedRows > 0
+            ? `Sync issue: ${lastSync.failedRows} record${lastSync.failedRows === 1 ? "" : "s"} couldn't reach the server — kept safely on this device, retrying automatically.`
+            : "Sync is failing right now — your progress is safe on this device and will retry automatically.";
+  const syncTrouble = Boolean(supabase && userEmail && lastSync && !lastSync.ok);
 
   // Drafts let the user type freely; values are validated and committed on
   // blur, with explicit feedback instead of silent clamping / empty saves.
@@ -172,8 +191,11 @@ export default function SettingsPage() {
       <section className="mb-5">
         <h2 className="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-faint">Account</h2>
         <div className="rounded-2xl border border-edge bg-surface px-4">
-          <Row label="Status" hint={supabase ? "Cloud sync available." : "Local only on this device."}>
-            <Link href="/account" className="text-sm font-semibold text-correct">
+          <Row label="Status" hint={syncHint}>
+            <Link
+              href="/account"
+              className={`text-sm font-semibold ${syncTrouble ? "text-wrong-bright" : "text-correct"}`}
+            >
               {userEmail ?? "Sign in"}
             </Link>
           </Row>
