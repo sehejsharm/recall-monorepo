@@ -10,7 +10,7 @@ export default function PrivacyPage() {
         ← Home
       </a>
       <h1 className="mb-1 mt-3 text-2xl font-bold tracking-tight">Privacy Policy</h1>
-      <p className="mb-8 text-xs text-muted">Last updated: 28 June 2026</p>
+      <p className="mb-8 text-xs text-muted">Last updated: 10 July 2026</p>
 
       <div className="space-y-5 text-sm leading-relaxed text-muted">
         <p>
@@ -44,11 +44,14 @@ export default function PrivacyPage() {
         <section>
           <h2 className="mb-1 font-semibold text-ink">Data deletion &amp; contact</h2>
           <p>
-            To delete your account and synced data, email{" "}
+            You can permanently delete your account and all synced data from inside the app at any
+            time: <strong>Account → Delete account &amp; cloud data</strong>. This immediately
+            removes your progress, read history, leaderboard entries and sign-in identity from our
+            servers. If you prefer, email{" "}
             <a className="text-correct-bright" href="mailto:sharmasehej2104@gmail.com">
               sharmasehej2104@gmail.com
             </a>{" "}
-            from your account email; we&apos;ll remove it within 30 days.
+            from your account email and we&apos;ll remove it within 30 days.
           </p>
         </section>
       </div>
