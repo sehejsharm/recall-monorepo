@@ -1,18 +1,20 @@
 import type { Distractors, OptionKey } from "@jyotir/core";
+import { stemDistractors } from "./distractors-stem";
 
 /**
  * Per-wrong-option rationales ("why this is wrong"), keyed by question id and
  * applied as an overlay onto the question bank (see index.ts). Kept separate
  * from the question definitions so the flagship-topic authoring can grow
  * independently, one topic at a time, without touching the large content
- * files.
+ * files. Batches live in sibling files (e.g. distractors-stem.ts) and are
+ * merged below.
  *
  * Authoring contract (enforced by test/distractors.test.ts):
  *   - every key is a real question id in the bundle;
  *   - the correct option is NEVER given a rationale (it has the explanation);
  *   - each rationale is a substantive sentence (≥ 20 chars).
  */
-export const distractorRationales: Record<string, Distractors> = {
+const humanitiesDistractors: Record<string, Distractors> = {
   // ─── CFA Level I · Ethics · Material Non-Public Information ───────────────
   "cfa-ethics-material-non-public-info-q01": {
     B: "Standard I(C) covers misrepresentation, not trading on inside tips — the analyst here is acting on undisclosed earnings, not making a false statement.",
@@ -198,6 +200,12 @@ export const distractorRationales: Record<string, Distractors> = {
     C: "Mitochondria are eukaryotic organelles absent from prokaryotes.",
     D: "The endoplasmic reticulum is a eukaryotic organelle, not a prokaryotic feature."
   }
+};
+
+/** All authored rationale batches, merged. Keys are disjoint across batches. */
+export const distractorRationales: Record<string, Distractors> = {
+  ...humanitiesDistractors,
+  ...stemDistractors
 };
 
 /** Every option key present across all authored rationales (for tests/tooling). */

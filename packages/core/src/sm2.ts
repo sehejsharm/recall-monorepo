@@ -65,6 +65,31 @@ export function sm2(state: Sm2State, quality: Grade, now: Date = new Date()): Sm
   };
 }
 
+/**
+ * A one-line, human explanation of WHY a just-graded card returns when it
+ * does — surfaced after the answer so the schedule is transparent (the trust
+ * signal Anki power users care about), not a black box. `record` is the
+ * post-grade ProgressRecord; `knewIt` is the grade just given.
+ */
+export function scheduleExplanation(record: ProgressRecord, knewIt: boolean): string {
+  const { intervalDays, repetitions, easeFactor } = record;
+  const when =
+    intervalDays === 1
+      ? "tomorrow"
+      : intervalDays < 30
+        ? `in ${intervalDays} days`
+        : intervalDays < 60
+          ? "in about a month"
+          : `in about ${Math.round(intervalDays / 30)} months`;
+  if (!knewIt) {
+    return `Missed — so this card resets and returns ${when} to relearn it.`;
+  }
+  if (repetitions === 1) {
+    return `First clean recall — back ${when}, then the gap widens each time you keep getting it right.`;
+  }
+  return `Recall #${repetitions} — the interval grows by your ease (×${easeFactor.toFixed(2)}), so it returns ${when}.`;
+}
+
 /** The binary drill gesture, producing a full persistable ProgressRecord. */
 export function gradeBinary(
   questionId: string,

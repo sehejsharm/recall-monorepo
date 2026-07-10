@@ -6,6 +6,7 @@ import {
   initialSm2State,
   MIN_EASE_FACTOR,
   nextEaseFactor,
+  scheduleExplanation,
   sm2
 } from "../src/sm2";
 
@@ -85,5 +86,31 @@ describe("gradeBinary", () => {
   it("uses the documented grade constants", () => {
     expect(GRADE_KNEW_IT).toBe(4);
     expect(GRADE_WRONG).toBe(2);
+  });
+});
+
+describe("scheduleExplanation", () => {
+  it("explains a reset after a miss", () => {
+    const rec = gradeBinary("q", undefined, false, NOW);
+    const msg = scheduleExplanation(rec, false);
+    expect(msg).toMatch(/reset/i);
+    expect(msg).toMatch(/tomorrow/);
+  });
+
+  it("explains the first clean recall", () => {
+    const rec = gradeBinary("q", undefined, true, NOW);
+    const msg = scheduleExplanation(rec, true);
+    expect(msg).toMatch(/first clean recall/i);
+    expect(msg).toMatch(/tomorrow/);
+  });
+
+  it("cites the ease multiplier on later recalls and a month-scale interval", () => {
+    // Third clean recall: interval 6 -> round(6 * EF) days, so weeks out.
+    let rec = gradeBinary("q", undefined, true, NOW); // rep 1
+    rec = gradeBinary("q", rec, true, NOW); // rep 2, interval 6
+    rec = gradeBinary("q", rec, true, NOW); // rep 3
+    const msg = scheduleExplanation(rec, true);
+    expect(msg).toMatch(/Recall #3/);
+    expect(msg).toMatch(/×\d\.\d{2}/);
   });
 });

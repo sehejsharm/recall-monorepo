@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect } from "react";
-import { achievementById, OPTION_KEYS, optionText, type AnsweredCard, type OptionKey } from "@jyotir/core";
+import {
+  achievementById,
+  OPTION_KEYS,
+  optionText,
+  scheduleExplanation,
+  type AnsweredCard,
+  type OptionKey
+} from "@jyotir/core";
 import { useJyotir } from "@/lib/store-provider";
 import { BoltIcon, TrophyIcon } from "./icons";
 
@@ -37,6 +44,7 @@ export function DrillEngine({
 }) {
   const drill = useJyotir((s) => s.drill);
   const ready = useJyotir((s) => s.ready);
+  const progress = useJyotir((s) => s.progress);
   const startDrill = useJyotir((s) => s.startDrill);
   const startReview = useJyotir((s) => s.startReview);
   const answer = useJyotir((s) => s.answer);
@@ -302,6 +310,12 @@ export function DrillEngine({
             <p className="border-l-2 border-correct pl-3 text-sm leading-relaxed text-muted">
               {question.explanation}
             </p>
+            {/* Scheduling transparency: why this card comes back when it does. */}
+            {progress[question.id] && (
+              <p className="pl-3 text-xs text-faint">
+                {scheduleExplanation(progress[question.id]!, selected === question.correctOption)}
+              </p>
+            )}
           </div>
         ) : (
           <p className="mt-6 text-center text-xs text-faint">

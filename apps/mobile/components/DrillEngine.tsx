@@ -1,7 +1,14 @@
 import { useEffect } from "react";
 import { Pressable, ScrollView, Text, Vibration, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { achievementById, OPTION_KEYS, optionText, type AnsweredCard, type OptionKey } from "@jyotir/core";
+import {
+  achievementById,
+  OPTION_KEYS,
+  optionText,
+  scheduleExplanation,
+  type AnsweredCard,
+  type OptionKey
+} from "@jyotir/core";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
 
 /**
@@ -42,6 +49,7 @@ export function DrillEngine({
   const store = useJyotirStore();
   const drill = useJyotir((s) => s.drill);
   const ready = useJyotir((s) => s.ready);
+  const progress = useJyotir((s) => s.progress);
   const newlyUnlocked = useJyotir((s) => s.newlyUnlocked);
   const bookmarks = useJyotir((s) => s.bookmarks);
 
@@ -284,6 +292,12 @@ export function DrillEngine({
             <View className="border-l-2 border-correct pl-3">
               <Text className="text-sm leading-5 text-muted">{question.explanation}</Text>
             </View>
+            {/* Scheduling transparency: why this card comes back when it does. */}
+            {progress[question.id] && (
+              <Text className="pl-3 text-xs leading-4 text-faint">
+                {scheduleExplanation(progress[question.id]!, selected === question.correctOption)}
+              </Text>
+            )}
           </View>
         ) : (
           <Text className="mt-6 text-center text-xs text-faint">tap the answer you think is correct</Text>
