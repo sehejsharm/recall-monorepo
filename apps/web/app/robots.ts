@@ -1,8 +1,8 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+import { siteUrl } from "@/lib/site-url";
 
 export default function robots(): MetadataRoute.Robots {
+  const origin = siteUrl();
   return {
     rules: {
       userAgent: "*",
@@ -10,7 +10,7 @@ export default function robots(): MetadataRoute.Robots {
       // Personal/utility routes carry no SEO value.
       disallow: ["/account", "/stats", "/review", "/settings"]
     },
-    sitemap: `${siteUrl}/sitemap.xml`,
-    host: siteUrl
+    sitemap: `${origin}/sitemap.xml`,
+    host: origin
   };
 }

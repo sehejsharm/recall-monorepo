@@ -6,9 +6,10 @@ import { Onboarding } from "@/components/Onboarding";
 import { BottomNav } from "@/components/BottomNav";
 import { Analytics } from "@/components/Analytics";
 import { jsonLdHtml } from "@/lib/jsonld";
+import { siteUrl as resolveSiteUrl } from "@/lib/site-url";
 import "./globals.css";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const siteUrl = resolveSiteUrl();
 
 const description =
   "Frictionless MCQ drilling and 2-minute micro-notes for UPSC, JEE, NEET, SSC CGL, GATE, CFA (Level I–III) and FRM (Part I–II). Spaced repetition, gamified, fully offline.";
