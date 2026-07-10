@@ -252,7 +252,7 @@ export default function SettingsPage() {
         )}
       </section>
 
-      <p className="mt-8 text-center text-[11px] text-faint">Recall · v0.1</p>
+      <p className="mt-8 text-center text-[11px] text-faint">Recall · Drill. Read. Repeat.</p>
     </main>
   );
 }

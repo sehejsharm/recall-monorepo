@@ -532,7 +532,7 @@ export const expansionQuestions = [
     optionC: "Front-running client orders for personal gain",
     optionD: "Recommending securities without disclosing a conflict of interest",
     correctOption: "A",
-    explanation: "Standard II(B) prohibits information-based manipulation, which involves spreading false or misleading information to distort prices. Transaction-based manipulation (option A) is also prohibited but is a different form.",
+    explanation: "Standard II(B) prohibits information-based manipulation, which involves spreading false or misleading information to distort prices. Transaction-based manipulation (option B, trading to move prices artificially) is also prohibited but is a different form.",
     orderIndex: 2,
   },
   {

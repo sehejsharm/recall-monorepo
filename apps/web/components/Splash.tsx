@@ -1,14 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { useJyotir } from "@/lib/store-provider";
 import { RecallMark } from "./icons";
 
+/** App-shell routes that get the branded launch moment. Content routes
+ *  (exam/subject/topic) are deliberately EXCLUDED: they're the SEO landing
+ *  pages — a visitor arriving from search must see the server-rendered note
+ *  on first paint, not a splash covering it for over a second. Those pages
+ *  gate only their interactive parts (the drill) on hydration. */
+const SPLASH_ROUTES = new Set(["/", "/review", "/stats"]);
+
 /**
- * Branded loading screen shown on launch until local data hydrates (and for
- * a short minimum so the brand moment registers), then fades out.
+ * Branded loading screen shown on app launch until local data hydrates (and
+ * for a short minimum so the brand moment registers), then fades out.
  */
 export function Splash() {
+  const pathname = usePathname();
   const ready = useJyotir((s) => s.ready);
   const [minElapsed, setMinElapsed] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -25,6 +34,7 @@ export function Splash() {
     return () => clearTimeout(t);
   }, [done]);
 
+  if (!SPLASH_ROUTES.has(pathname)) return null;
   if (hidden) return null;
 
   return (

@@ -35,6 +35,11 @@ export default function AccountPage() {
   const [busy, setBusy] = useState(false);
   const [notice, setNotice] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  // Account deletion is a two-step flow: reveal the danger card, then type
+  // DELETE to arm the button. Required in-app by App Store 5.1.1(v).
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [deleteText, setDeleteText] = useState("");
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (!supabase) return;
@@ -95,6 +100,70 @@ export default function AccountPage() {
           </button>
         </div>
         {notice && <p className="mt-3 text-center text-xs text-muted">{notice}</p>}
+
+        <div className="mt-10">
+          <h2 className="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-faint">
+            Danger zone
+          </h2>
+          {!confirmDelete ? (
+            <button
+              onClick={() => setConfirmDelete(true)}
+              className="w-full rounded-2xl border border-wrong/30 bg-surface px-4 py-3.5 text-left text-sm font-semibold text-wrong-bright hover:bg-wrong-dim/20"
+            >
+              Delete account &amp; cloud data
+            </button>
+          ) : (
+            <div className="rounded-2xl border border-wrong/40 bg-wrong-dim/20 p-4">
+              <p className="text-sm leading-relaxed">
+                This permanently deletes your account, synced progress, read history and
+                leaderboard entries from the cloud. It cannot be undone. Progress stored locally
+                on this device is kept unless you also reset it in Settings.
+              </p>
+              <input
+                value={deleteText}
+                onChange={(e) => setDeleteText(e.target.value)}
+                placeholder='Type "DELETE" to confirm'
+                autoCapitalize="characters"
+                className="mt-3 w-full rounded-xl border border-edge bg-oled px-4 py-3 text-sm outline-none focus:border-wrong/60"
+              />
+              <div className="mt-3 flex gap-2.5">
+                <button
+                  disabled={deleteText.trim() !== "DELETE" || deleting}
+                  onClick={async () => {
+                    setDeleting(true);
+                    setError(null);
+                    try {
+                      const { error: err } = await supabase.rpc("delete_account");
+                      if (err) throw err;
+                      // The auth user no longer exists; drop the dead session.
+                      await supabase.auth.signOut();
+                      setConfirmDelete(false);
+                      setDeleteText("");
+                      setNotice("Your account and cloud data have been deleted.");
+                    } catch (e) {
+                      setError(`Couldn't delete the account: ${(e as Error).message}`);
+                    } finally {
+                      setDeleting(false);
+                    }
+                  }}
+                  className="flex-1 rounded-xl bg-wrong py-2.5 text-sm font-bold text-ink disabled:opacity-40"
+                >
+                  {deleting ? "Deleting…" : "Delete forever"}
+                </button>
+                <button
+                  onClick={() => {
+                    setConfirmDelete(false);
+                    setDeleteText("");
+                  }}
+                  className="flex-1 rounded-xl border border-edge py-2.5 text-sm font-semibold text-muted"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+          {error && <p className="mt-3 text-sm text-wrong-bright">{error}</p>}
+        </div>
       </Shell>
     );
   }
