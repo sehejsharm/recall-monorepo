@@ -9,6 +9,7 @@ import {
   normalizeGamification,
   rankName,
   registerDrillDay,
+  shareCard,
   xpForGrade,
   xpForLevel,
   type GamificationState
@@ -152,5 +153,31 @@ describe("achievements", () => {
   it("every achievement id has a definition", () => {
     const ids = new Set(ACHIEVEMENTS.map((a) => a.id));
     expect(ids.size).toBe(ACHIEVEMENTS.length); // unique
+  });
+});
+
+describe("shareCard", () => {
+  const base: GamificationState = {
+    ...initialGamification(),
+    xp: 757,
+    cardsGraded: 120,
+    currentStreak: 6,
+    longestStreak: 9
+  };
+
+  it("summarizes rank, streak and cards, and includes the link", () => {
+    const card = shareCard(base, { url: "https://recall.app" });
+    expect(card).toMatch(/Level \d+/);
+    expect(card).toMatch(/757 XP/);
+    expect(card).toMatch(/6-day streak/);
+    expect(card).toMatch(/best 9/);
+    expect(card).toMatch(/120 cards/);
+    expect(card).toContain("https://recall.app");
+  });
+
+  it("names the exam when provided and omits 'best' when current is the best", () => {
+    const card = shareCard({ ...base, longestStreak: 6 }, { examName: "UPSC Civil Services" });
+    expect(card).toContain("UPSC Civil Services");
+    expect(card).not.toMatch(/best/);
   });
 });

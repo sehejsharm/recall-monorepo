@@ -113,6 +113,29 @@ export function levelProgress(xp: number): LevelProgress {
   };
 }
 
+/**
+ * A shareable one-card summary of progress — the growth loop. Plain text so
+ * it drops cleanly into any share sheet (WhatsApp, Instagram, X, etc.). Kept
+ * in core so web and mobile share identical copy, and so it's unit-testable.
+ */
+export function shareCard(
+  stats: GamificationState,
+  opts: { url?: string; examName?: string } = {}
+): string {
+  const lp = levelProgress(stats.xp);
+  const lines = [
+    `📚 My Recall progress${opts.examName ? ` · ${opts.examName}` : ""}`,
+    `${lp.rank} · Level ${lp.level} · ${stats.xp} XP`,
+    `🔥 ${stats.currentStreak}-day streak${
+      stats.longestStreak > stats.currentStreak ? ` (best ${stats.longestStreak})` : ""
+    } · ${stats.cardsGraded} cards drilled`,
+    "",
+    `Drilling for my exam on Recall — join me:`,
+    opts.url ?? "https://recall.app"
+  ];
+  return lines.join("\n");
+}
+
 // ----------------------------- streaks --------------------------------
 
 export function dayKey(d: Date = new Date()): string {

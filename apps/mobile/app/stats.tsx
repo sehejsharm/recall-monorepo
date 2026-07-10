@@ -1,7 +1,8 @@
 import { useRouter } from "expo-router";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { Pressable, ScrollView, Share, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ACHIEVEMENTS, isStreakActive, levelProgress, RANKS } from "@jyotir/core";
+import { Ionicons } from "@expo/vector-icons";
+import { ACHIEVEMENTS, isStreakActive, levelProgress, RANKS, shareCard } from "@jyotir/core";
 import { useJyotir } from "@/lib/store-provider";
 import { repo } from "@/lib/content";
 
@@ -38,7 +39,22 @@ export default function StatsScreen() {
         <Pressable onPress={() => router.back()} hitSlop={12}>
           <Text className="text-xs text-muted">← Home</Text>
         </Pressable>
-        <Text className="mb-6 mt-3 text-2xl font-bold tracking-tight text-ink">Your Progress</Text>
+        <View className="mb-6 mt-3 flex-row items-center justify-between">
+          <Text className="text-2xl font-bold tracking-tight text-ink">Your Progress</Text>
+          {ready && stats.cardsGraded > 0 && (
+            <Pressable
+              onPress={() => {
+                const top = perExam[0]?.name;
+                void Share.share({ message: shareCard(stats, top ? { examName: top } : {}) });
+              }}
+              hitSlop={10}
+              className="flex-row items-center gap-1.5 rounded-full border border-edge bg-surface px-3.5 py-2 active:bg-raised"
+            >
+              <Ionicons name="share-outline" size={15} color="#34D399" />
+              <Text className="text-xs font-semibold text-correct">Share</Text>
+            </Pressable>
+          )}
+        </View>
 
         {!ready ? (
           <View className="h-40 rounded-2xl border border-edge bg-surface" />

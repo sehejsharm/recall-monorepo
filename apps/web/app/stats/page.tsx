@@ -1,6 +1,7 @@
 "use client";
 
-import { ACHIEVEMENTS, isStreakActive, levelProgress, RANKS } from "@jyotir/core";
+import { useState } from "react";
+import { ACHIEVEMENTS, isStreakActive, levelProgress, RANKS, shareCard } from "@jyotir/core";
 import { useJyotir } from "@/lib/store-provider";
 import { FlameIcon, TrophyIcon } from "@/components/icons";
 
@@ -29,17 +30,41 @@ export default function StatsPage() {
   const ready = useJyotir((s) => s.ready);
   const stats = useJyotir((s) => s.stats);
   const mastered = useJyotir((s) => (s.ready ? s.masteredCount() : 0));
+  const [shared, setShared] = useState(false);
 
   const lp = levelProgress(stats.xp);
   const unlocked = new Set(stats.achievements);
   const nextRank = RANKS[Math.min(lp.level, RANKS.length - 1)];
 
+  const onShare = async () => {
+    const text = shareCard(stats, { url: typeof window !== "undefined" ? window.location.origin : undefined });
+    try {
+      if (typeof navigator !== "undefined" && navigator.share) {
+        await navigator.share({ text });
+      } else if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(text);
+        setShared(true);
+        setTimeout(() => setShared(false), 1800);
+      }
+    } catch {
+      /* user dismissed the share sheet — no-op */
+    }
+  };
+
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 py-12">
       {/* No breadcrumb: Stats is a bottom-nav destination (like Settings), so
           a "← Home" link here was misleading when arriving via the tab bar. */}
-      <header className="mb-8">
+      <header className="mb-8 flex items-center justify-between gap-3">
         <h1 className="text-2xl font-bold tracking-tight">Your Progress</h1>
+        {ready && stats.cardsGraded > 0 && (
+          <button
+            onClick={onShare}
+            className="shrink-0 rounded-full border border-edge bg-surface px-3.5 py-2 text-xs font-semibold text-correct transition-colors hover:border-correct/40"
+          >
+            {shared ? "Copied ✓" : "Share"}
+          </button>
+        )}
       </header>
 
       {!ready ? (
