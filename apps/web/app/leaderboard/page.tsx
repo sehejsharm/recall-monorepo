@@ -17,6 +17,7 @@ export default function LeaderboardPage() {
   const [scope, setScope] = useState<string>(""); // "" = overall, else examId
   const [rows, setRows] = useState<LeaderboardRow[] | null>(null);
   const [me, setMe] = useState<LeaderboardRow | null>(null);
+  const [boardSize, setBoardSize] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [signedIn, setSignedIn] = useState(false);
   // Loaded in an effect, never at render: reading localStorage during render
@@ -52,9 +53,18 @@ export default function LeaderboardPage() {
           fetchLeaderboard(supabase, examId, 100),
           fetchMyRank(supabase, examId).catch(() => null)
         ]);
+        // Cohort size: a board under the fetch cap IS the whole cohort; the
+        // global board past the cap has an exact-count RPC. (Per-exam boards
+        // past 100 players skip the percentile rather than estimate it.)
+        let size: number | null = board.length < 100 ? board.length : null;
+        if (size === null && !examId) {
+          const { data: n } = await supabase.rpc("leaderboard_size");
+          if (typeof n === "number") size = n;
+        }
         if (on) {
           setRows(board);
           setMe(rank);
+          setBoardSize(size);
         }
       } catch (e) {
         if (on) setError((e as Error).message);
@@ -137,11 +147,22 @@ export default function LeaderboardPage() {
       ) : (
         <>
           {me && (
-            <div className="mb-4 flex items-center justify-between rounded-2xl border border-correct/40 bg-correct-dim/30 px-4 py-3">
-              <span className="text-sm font-semibold text-correct-bright">
-                You are #{me.rank} · {me.handle}
-              </span>
-              <span className="text-sm font-bold tabular-nums text-correct">{me.xp} XP</span>
+            <div className="mb-4 rounded-2xl border border-correct/40 bg-correct-dim/30 px-4 py-3">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-semibold text-correct-bright">
+                  You are #{me.rank} · {me.handle}
+                </span>
+                <span className="text-sm font-bold tabular-nums text-correct">{me.xp} XP</span>
+              </div>
+              {/* Cohort framing: "ahead of N%" motivates far more than a raw
+                  rank once the board grows — only shown when the cohort is
+                  big enough for the number to mean something. */}
+              {boardSize !== null && boardSize >= 5 && me.rank <= boardSize && (
+                <p className="mt-1 text-xs text-correct-bright/80">
+                  You&apos;re ahead of {Math.round(((boardSize - me.rank) / boardSize) * 100)}% of{" "}
+                  {scope ? `${chipLabel(exams.find((e) => e.id === scope)!)} ` : ""}aspirants.
+                </p>
+              )}
             </div>
           )}
           <ol className="flex flex-col gap-1.5">

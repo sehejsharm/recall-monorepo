@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { repo } from "@/lib/content";
 import { getSupabase } from "@/lib/supabase";
 import { useSettings } from "@/lib/settings";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
@@ -181,6 +182,28 @@ export default function SettingsPage() {
       <section className="mb-5">
         <h2 className="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-faint">Preferences</h2>
         <div className="rounded-2xl border border-edge bg-surface px-4">
+          <Row label="Target exam" hint="Featured on your home screen.">
+            <select
+              value={settings.primaryExamId ?? ""}
+              onChange={(e) => update({ primaryExamId: e.target.value || null })}
+              className="max-w-[11rem] rounded-lg border border-edge bg-oled px-3 py-1.5 text-right text-sm outline-none focus:border-correct/50"
+            >
+              <option value="">None</option>
+              {repo.exams().map((e) => (
+                <option key={e.id} value={e.id}>
+                  {e.name}
+                </option>
+              ))}
+            </select>
+          </Row>
+          <Row label="Exam date" hint="Powers the countdown on your home screen.">
+            <input
+              type="date"
+              value={settings.examDate ?? ""}
+              onChange={(e) => update({ examDate: e.target.value || null })}
+              className="rounded-lg border border-edge bg-oled px-3 py-1.5 text-right text-sm outline-none focus:border-correct/50"
+            />
+          </Row>
           <Row label="Join global leaderboard" hint="Sync your XP to the anonymized ranks.">
             <Toggle on={settings.leaderboardOptIn} onChange={(v) => update({ leaderboardOptIn: v })} />
           </Row>

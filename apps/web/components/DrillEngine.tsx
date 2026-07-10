@@ -17,6 +17,7 @@ export function DrillEngine({
   topicId,
   onStudy,
   reviewMode = false,
+  limit,
   onExit,
   onNextTopic,
   onExamHome
@@ -25,6 +26,8 @@ export function DrillEngine({
   onStudy?: () => void;
   /** Cross-exam review: due-only queue, no study tab. */
   reviewMode?: boolean;
+  /** Cap the session length (e.g. the 5-card onboarding taste session). */
+  limit?: number;
   /** Secondary action on the completion screen (e.g. back to home). */
   onExit?: () => void;
   /** Completion action: advance to the next topic card. */
@@ -41,12 +44,12 @@ export function DrillEngine({
   const newlyUnlocked = useJyotir((s) => s.newlyUnlocked);
   const clearNewlyUnlocked = useJyotir((s) => s.clearNewlyUnlocked);
 
-  const start = () => (reviewMode ? startReview() : startDrill(topicId));
+  const start = () => (reviewMode ? startReview() : startDrill(topicId, limit));
 
   // (Re)build the queue once local progress has hydrated.
   useEffect(() => {
-    if (ready) (reviewMode ? startReview() : startDrill(topicId));
-  }, [ready, topicId, reviewMode, startDrill, startReview]);
+    if (ready) (reviewMode ? startReview() : startDrill(topicId, limit));
+  }, [ready, topicId, reviewMode, limit, startDrill, startReview]);
 
   // Keyboard: A–D or 1–4 answers the question; Enter/Space/→ advances.
   useEffect(() => {
@@ -284,9 +287,22 @@ export function DrillEngine({
         </ul>
 
         {answered ? (
-          <p className="mt-5 border-l-2 border-correct pl-3 text-sm leading-relaxed text-muted">
-            {question.explanation}
-          </p>
+          <div className="mt-5 flex flex-col gap-2.5">
+            {/* When the user picked a wrong option and that option has an
+                authored rationale, lead with WHY their pick is wrong — the
+                highest-value feedback moment — then the correct answer's
+                explanation. */}
+            {selected &&
+              selected !== question.correctOption &&
+              question.distractors?.[selected] && (
+                <p className="border-l-2 border-wrong pl-3 text-sm leading-relaxed text-wrong-bright">
+                  Why not {selected}: {question.distractors[selected]}
+                </p>
+              )}
+            <p className="border-l-2 border-correct pl-3 text-sm leading-relaxed text-muted">
+              {question.explanation}
+            </p>
+          </div>
         ) : (
           <p className="mt-6 text-center text-xs text-faint">
             tap the answer you think is correct (or press A–D)
@@ -335,6 +351,11 @@ function ReviewRow({ answer, index }: { answer: AnsweredCard; index: number }) {
           Your answer: {label(selected)}
         </p>
         {!wasCorrect && <p className="mt-0.5 text-xs text-correct-bright">Correct: {label(correct)}</p>}
+        {!wasCorrect && question.distractors?.[selected] && (
+          <p className="mt-1 text-[11px] leading-normal text-wrong-bright">
+            Why not {selected}: {question.distractors[selected]}
+          </p>
+        )}
         <p className="mt-1.5 text-[11px] leading-normal text-muted">{question.explanation}</p>
       </div>
     </li>

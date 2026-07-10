@@ -119,6 +119,14 @@ export interface StudyMaterial {
 
 export type OptionKey = "A" | "B" | "C" | "D";
 
+/**
+ * Optional per-wrong-option rationales ("why this is wrong"). Keyed by the
+ * distractor's option letter; the correct option is never keyed. Progressive
+ * enhancement — most questions won't have these yet, so the field is optional
+ * and the drill UI degrades gracefully to the single explanation.
+ */
+export type Distractors = Partial<Record<OptionKey, string>>;
+
 export interface Question {
   id: string;
   topicId: string;
@@ -131,6 +139,10 @@ export interface Question {
   /** One line. Shown under the revealed answer. */
   explanation: string;
   orderIndex: number;
+  /** Optional "why each wrong answer is wrong" rationales (top-yield topics
+   *  first). Absent on most questions; when present, keys exclude the
+   *  correct option. */
+  distractors?: Distractors;
 }
 
 /** SM-2 scheduling state for a single (user, question) pair. */

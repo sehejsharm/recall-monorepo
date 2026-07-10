@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Topic } from "@jyotir/core";
 import { repo } from "@/lib/content";
 import { useJyotir } from "@/lib/store-provider";
@@ -15,18 +15,33 @@ import { StudyReader } from "./StudyReader";
  * Drilling is never mandatory (a card can be read and skipped). Only the active
  * card mounts the drill engine, keeping the single in-memory drill session safe.
  */
-export function TopicShell({
-  examSlug,
-  subjectSlug,
-  subjectName,
-  topicId
-}: {
+interface TopicShellProps {
   examSlug: string;
   subjectSlug: string;
   subjectName: string;
   topicId: string;
   topicName: string;
-}) {
+}
+
+/**
+ * Suspense wrapper: TopicDeck reads useSearchParams (for the ?tab/?n taste-
+ * session deep link), which forces a Suspense boundary on a statically
+ * exported page. The fallback is null — the deck mounts client-side anyway.
+ */
+export function TopicShell(props: TopicShellProps) {
+  return (
+    <Suspense fallback={null}>
+      <TopicDeck {...props} />
+    </Suspense>
+  );
+}
+
+function TopicDeck({
+  examSlug,
+  subjectSlug,
+  subjectName,
+  topicId
+}: TopicShellProps) {
   const router = useRouter();
   const exam = repo.examBySlug(examSlug);
   const subject = exam ? repo.subjectBySlug(exam.id, subjectSlug) : undefined;
@@ -44,6 +59,13 @@ export function TopicShell({
   // topic's own card — a different topic's study note can never flash.
   const [positioned, setPositioned] = useState(false);
   const examHomeHref = `/${examSlug}/${subjectSlug}`;
+
+  // Deep-link params: the onboarding taste session lands here as
+  // ?tab=drill&n=5 to open straight into a 5-card drill.
+  const params = useSearchParams();
+  const forceDrill = params.get("tab") === "drill";
+  const nParam = Number(params.get("n"));
+  const drillLimit = Number.isFinite(nParam) && nParam > 0 ? nParam : undefined;
 
   const goToIndex = useCallback(
     (idx: number) => {
@@ -177,6 +199,9 @@ export function TopicShell({
                   hasNext={index + 1 < topics.length}
                   onNextTopic={() => goToIndex(index + 1)}
                   onExamHome={() => router.push(examHomeHref)}
+                  // Deep-link only applies to the initially requested card.
+                  forceDrill={index === startIndex && forceDrill}
+                  drillLimit={index === startIndex ? drillLimit : undefined}
                 />
               ) : (
                 <div className="flex flex-1 items-center justify-center text-sm text-faint">
@@ -199,17 +224,23 @@ function TopicCard({
   isActive,
   hasNext,
   onNextTopic,
-  onExamHome
+  onExamHome,
+  forceDrill = false,
+  drillLimit
 }: {
   topic: Topic;
   isActive: boolean;
   hasNext: boolean;
   onNextTopic: () => void;
   onExamHome: () => void;
+  /** Open directly on the drill tab (onboarding taste-session deep link). */
+  forceDrill?: boolean;
+  /** Cap the drill length (taste session = 5). */
+  drillLimit?: number;
 }) {
   const material = repo.materialByTopic(topic.id);
   const exitDrill = useJyotir((s) => s.exitDrill);
-  const [tab, setTab] = useState<Tab>(material ? "study" : "drill");
+  const [tab, setTab] = useState<Tab>(forceDrill || !material ? "drill" : "study");
 
   // When this card scrolls out of focus, drop any drill in progress and reset.
   useEffect(() => {
@@ -278,6 +309,7 @@ function TopicCard({
       {tab === "drill" && isActive ? (
         <DrillEngine
           topicId={topic.id}
+          limit={drillLimit}
           onStudy={material ? () => switchTab("study") : undefined}
           onNextTopic={hasNext ? onNextTopic : undefined}
           onExamHome={onExamHome}

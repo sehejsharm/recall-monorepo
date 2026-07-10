@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { groupExams } from "@jyotir/core";
 import { repo } from "@/lib/content";
+import { ExamCountdown } from "@/components/ExamCountdown";
 import { ProfileStrip } from "@/components/ProfileStrip";
 import { ReviewBanner } from "@/components/ReviewBanner";
 
@@ -24,6 +25,7 @@ export default function ExamPickerPage() {
       </header>
 
       <ProfileStrip />
+      <ExamCountdown />
       <ReviewBanner />
 
       <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-faint">Exams</h2>

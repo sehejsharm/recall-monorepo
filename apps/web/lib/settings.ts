@@ -16,6 +16,10 @@ export interface Settings {
   leaderboardOptIn: boolean;
   /** Whether the first-run tour has been seen. */
   onboarded: boolean;
+  /** The exam the user is preparing for (chosen at onboarding; editable). */
+  primaryExamId: string | null;
+  /** Target exam date (ISO yyyy-mm-dd) — drives the home countdown. */
+  examDate: string | null;
 }
 
 const KEY = "recall.settings.v1";
@@ -43,7 +47,9 @@ export function defaultSettings(): Settings {
     dailyGoal: 20,
     reduceMotion: false,
     leaderboardOptIn: true,
-    onboarded: false
+    onboarded: false,
+    primaryExamId: null,
+    examDate: null
   };
 }
 
