@@ -10,6 +10,7 @@ import {
   rankName,
   registerDrillDay,
   shareCard,
+  statsSignature,
   xpForGrade,
   xpForLevel,
   type GamificationState
@@ -179,5 +180,23 @@ describe("shareCard", () => {
     const card = shareCard({ ...base, longestStreak: 6 }, { examName: "UPSC Civil Services" });
     expect(card).toContain("UPSC Civil Services");
     expect(card).not.toMatch(/best/);
+  });
+});
+
+describe("statsSignature", () => {
+  const base: GamificationState = { ...initialGamification(), xp: 100, cardsGraded: 10, currentStreak: 3 };
+
+  it("is stable for unchanged stats (so a bare reload never re-pushes)", () => {
+    expect(statsSignature(base)).toBe(statsSignature({ ...base }));
+  });
+
+  it("ignores examXp key order but reflects real changes", () => {
+    const a = { ...base, examXp: { upsc: 60, jee: 40 } };
+    const b = { ...base, examXp: { jee: 40, upsc: 60 } };
+    expect(statsSignature(a)).toBe(statsSignature(b)); // order-independent
+
+    expect(statsSignature(base)).not.toBe(statsSignature({ ...base, xp: 110 }));
+    expect(statsSignature(base)).not.toBe(statsSignature({ ...base, currentStreak: 4 }));
+    expect(statsSignature(base)).not.toBe(statsSignature({ ...base, examXp: { upsc: 10 } }));
   });
 });

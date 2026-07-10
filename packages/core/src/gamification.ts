@@ -136,6 +136,28 @@ export function shareCard(
   return lines.join("\n");
 }
 
+/**
+ * A stable signature of the leaderboard-relevant fields (exactly what
+ * pushStats uploads). Callers persist the last-pushed signature and skip the
+ * upsert when it's unchanged — so a plain page load / tab refocus never
+ * re-writes identical stats. This matters beyond saving a request: the
+ * leaderboard breaks XP ties by `updated_at asc`, so a redundant push would
+ * bump updated_at and silently demote the user on every tie.
+ */
+export function statsSignature(stats: GamificationState): string {
+  const examXp = Object.entries(stats.examXp ?? {})
+    .filter(([, xp]) => xp > 0)
+    .sort(([a], [b]) => a.localeCompare(b));
+  return JSON.stringify([
+    stats.xp,
+    levelForXp(stats.xp),
+    stats.currentStreak,
+    stats.longestStreak,
+    stats.cardsGraded,
+    examXp
+  ]);
+}
+
 // ----------------------------- streaks --------------------------------
 
 export function dayKey(d: Date = new Date()): string {

@@ -13,13 +13,15 @@ export interface LeaderboardRow {
  * Upserts the signed-in user's public stats: the overall row plus one row
  * per exam they've earned XP in (feeds the global and per-exam leaderboards).
  */
+/** Returns true if stats were actually uploaded (false if opted out), so
+ *  callers only cache the pushed signature on a real push. */
 export async function pushStats(
   supabase: SupabaseClient,
   userId: string,
   stats: GamificationState
-): Promise<void> {
+): Promise<boolean> {
   const s = loadSettings();
-  if (!s.leaderboardOptIn) return;
+  if (!s.leaderboardOptIn) return false;
   const now = new Date().toISOString();
 
   const { error } = await supabase.from("user_stats").upsert(
@@ -47,6 +49,7 @@ export async function pushStats(
       .upsert(examRows, { onConflict: "user_id,exam_id" });
     if (err2) throw new Error(`exam leaderboard push: ${err2.message}`);
   }
+  return true;
 }
 
 /** examId omitted = global board; otherwise the per-exam board. */

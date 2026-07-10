@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
-import type { SupabaseLike } from "@jyotir/core";
+import { statsSignature, type SupabaseLike } from "@jyotir/core";
 import { getSupabase } from "./supabase";
 import { pushStats } from "./leaderboard";
 import { useJyotirStore } from "./store-provider";
+
+// Signature of the last stats we uploaded. Persisted so a full page reload —
+// not just an in-session refocus — skips re-pushing identical stats (which
+// would otherwise bump user_stats.updated_at and demote the user on XP ties).
+const LAST_PUSH_KEY = "recall.lastStatsPush.v1";
 
 /**
  * Background progress sync. When Supabase is configured and a user is
@@ -38,8 +43,16 @@ export function SyncProvider({ children }: { children: ReactNode }) {
       } catch (err) {
         console.error("[recall] progress sync failed:", err);
       }
+      // Only push stats when they actually changed since our last upload —
+      // never on a bare load/refocus. Keeps the leaderboard's updated_at
+      // tie-break honest and avoids phantom writes.
       try {
-        await pushStats(supabase, userId, store.getState().stats);
+        const stats = store.getState().stats;
+        const sig = statsSignature(stats);
+        if (localStorage.getItem(LAST_PUSH_KEY) !== sig) {
+          const pushed = await pushStats(supabase, userId, stats);
+          if (pushed) localStorage.setItem(LAST_PUSH_KEY, sig);
+        }
       } catch (err) {
         console.error("[recall] leaderboard stats push failed:", err);
       }
