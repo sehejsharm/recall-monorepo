@@ -4,6 +4,7 @@ import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import type { SupabaseLike } from "@jyotir/core";
 import { getSupabase } from "@/lib/supabase";
+import { kv } from "@/lib/kv";
 import { useJyotirStore } from "@/lib/store-provider";
 
 type Mode = "login" | "signup";
@@ -24,6 +25,7 @@ export default function AccountScreen() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleteText, setDeleteText] = useState("");
   const [deleting, setDeleting] = useState(false);
+  const [confirmSignOut, setConfirmSignOut] = useState(false);
 
   useEffect(() => {
     if (!supabase) return;
@@ -87,12 +89,46 @@ export default function AccountScreen() {
             >
               <Text className="font-bold text-black">Sync now</Text>
             </Pressable>
-            <Pressable
-              onPress={() => void supabase.auth.signOut()}
-              className="items-center rounded-xl border border-edge py-3.5"
-            >
-              <Text className="font-semibold text-muted">Sign out</Text>
-            </Pressable>
+            {!confirmSignOut ? (
+              <Pressable
+                onPress={() => setConfirmSignOut(true)}
+                className="items-center rounded-xl border border-edge py-3.5"
+              >
+                <Text className="font-semibold text-muted">Sign out</Text>
+              </Pressable>
+            ) : (
+              <View className="rounded-xl border border-edge bg-surface p-4">
+                <Text className="text-sm text-ink">
+                  Sign out on this device. Your progress stays here unless you erase it.
+                </Text>
+                <View className="mt-3 gap-2.5">
+                  <Pressable
+                    onPress={() => void supabase.auth.signOut()}
+                    className="items-center rounded-xl bg-ink py-3 active:scale-[0.98]"
+                  >
+                    <Text className="text-sm font-bold text-black">Sign out, keep my progress here</Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => {
+                      store.getState().resetAll();
+                      kv.remove("recall.lastStatsPush.v1");
+                      void supabase.auth.signOut();
+                    }}
+                    className="items-center rounded-xl border border-wrong/40 py-3"
+                  >
+                    <Text className="text-sm font-semibold text-wrong-bright">
+                      Sign out & erase local data
+                    </Text>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => setConfirmSignOut(false)}
+                    className="items-center rounded-xl border border-edge py-3"
+                  >
+                    <Text className="text-sm font-semibold text-muted">Cancel</Text>
+                  </Pressable>
+                </View>
+              </View>
+            )}
           </View>
           {notice ? <Text className="mt-3 text-center text-xs text-muted">{notice}</Text> : null}
 
@@ -234,7 +270,13 @@ export default function AccountScreen() {
           {(["login", "signup"] as Mode[]).map((m) => (
             <Pressable
               key={m}
-              onPress={() => setMode(m)}
+              onPress={() => {
+                // Clear stale error/notice so a message from the previous
+                // mode never lingers under the other tab's form.
+                setMode(m);
+                setError(null);
+                setNotice(null);
+              }}
               className={`flex-1 items-center rounded-lg py-2 ${mode === m ? "bg-raised" : ""}`}
             >
               <Text className={`text-sm font-semibold ${mode === m ? "text-ink" : "text-muted"}`}>

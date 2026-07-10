@@ -40,6 +40,9 @@ export default function AccountPage() {
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [deleteText, setDeleteText] = useState("");
   const [deleting, setDeleting] = useState(false);
+  // Sign-out is a deliberate choice: keep local progress (default) or wipe it
+  // for a shared-device clean slate.
+  const [confirmSignOut, setConfirmSignOut] = useState(false);
 
   useEffect(() => {
     if (!supabase) return;
@@ -92,12 +95,50 @@ export default function AccountPage() {
           >
             Sync now
           </button>
-          <button
-            onClick={() => void supabase.auth.signOut()}
-            className="rounded-xl border border-edge py-3.5 font-semibold text-muted hover:text-ink"
-          >
-            Sign out
-          </button>
+          {!confirmSignOut ? (
+            <button
+              onClick={() => setConfirmSignOut(true)}
+              className="rounded-xl border border-edge py-3.5 font-semibold text-muted hover:text-ink"
+            >
+              Sign out
+            </button>
+          ) : (
+            <div className="rounded-xl border border-edge bg-surface p-4">
+              <p className="text-sm">
+                Sign out on this device. Your progress stays here unless you erase it.
+              </p>
+              <div className="mt-3 flex flex-col gap-2.5">
+                <button
+                  onClick={() => void supabase.auth.signOut()}
+                  className="rounded-xl bg-ink py-3 text-sm font-bold text-black active:scale-[0.98]"
+                >
+                  Sign out, keep my progress here
+                </button>
+                <button
+                  onClick={() => {
+                    // Shared-device clean slate: wipe local data too, and drop
+                    // the stats-push signature so a future login re-uploads.
+                    store.getState().resetAll();
+                    try {
+                      localStorage.removeItem("recall.lastStatsPush.v1");
+                    } catch {
+                      /* storage unavailable — nothing to clear */
+                    }
+                    void supabase.auth.signOut();
+                  }}
+                  className="rounded-xl border border-wrong/40 py-3 text-sm font-semibold text-wrong-bright hover:bg-wrong-dim/20"
+                >
+                  Sign out &amp; erase local data
+                </button>
+                <button
+                  onClick={() => setConfirmSignOut(false)}
+                  className="rounded-xl border border-edge py-3 text-sm font-semibold text-muted"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
         </div>
         {notice && <p className="mt-3 text-center text-xs text-muted">{notice}</p>}
 
@@ -168,6 +209,15 @@ export default function AccountPage() {
     );
   }
 
+  /** Switch auth mode, clearing any transient error/notice from the previous
+   *  mode — a stale "Wrong email or password." must never linger under, say,
+   *  the magic-link form it has nothing to do with. */
+  const switchMode = (m: Mode) => {
+    setMode(m);
+    setError(null);
+    setNotice(null);
+  };
+
   /** Turn raw Supabase auth errors into something a user can act on. */
   const friendlyError = (message: string): string => {
     const m = message.toLowerCase();
@@ -234,7 +284,7 @@ export default function AccountPage() {
     <Shell>
       <div className="mb-5 grid grid-cols-2 rounded-xl border border-edge bg-surface p-1">
         <button
-          onClick={() => setMode("login")}
+          onClick={() => switchMode("login")}
           className={`rounded-lg py-2 text-sm font-semibold transition-colors ${
             mode === "login" ? "bg-raised text-ink" : "text-muted"
           }`}
@@ -242,7 +292,7 @@ export default function AccountPage() {
           Log in
         </button>
         <button
-          onClick={() => setMode("signup")}
+          onClick={() => switchMode("signup")}
           className={`rounded-lg py-2 text-sm font-semibold transition-colors ${
             mode === "signup" ? "bg-raised text-ink" : "text-muted"
           }`}
@@ -251,7 +301,9 @@ export default function AccountPage() {
         </button>
       </div>
 
-      <form onSubmit={submit} className="flex flex-col gap-2.5">
+      {/* noValidate: use the app's own dark-themed inline errors (from submit())
+          instead of the browser's default light validation tooltips. */}
+      <form onSubmit={submit} noValidate className="flex flex-col gap-2.5">
         <input
           type="email"
           required
@@ -283,7 +335,7 @@ export default function AccountPage() {
       </form>
 
       <button
-        onClick={() => setMode((m) => (m === "magic" ? "login" : "magic"))}
+        onClick={() => switchMode(mode === "magic" ? "login" : "magic")}
         className="mt-3 min-h-[44px] w-full rounded-xl border border-edge text-sm font-semibold text-correct transition-colors hover:border-correct/40"
       >
         {mode === "magic" ? "Use email + password instead" : "Sign in with a magic link (no password) →"}
