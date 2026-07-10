@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { groupExams } from "@jyotir/core";
 import { repo } from "@/lib/content";
+import { useSettings } from "@/lib/settings";
 import { useJyotir } from "@/lib/store-provider";
 import { ProfileStrip } from "@/components/ProfileStrip";
 import { Ionicons } from "@expo/vector-icons";
@@ -21,6 +22,8 @@ export default function ExamPickerScreen() {
         </Text>
 
         <ProfileStrip />
+
+        <ExamCountdown />
 
         {/* Cross-exam daily review entry */}
         {ready && due > 0 ? (
@@ -91,6 +94,44 @@ export default function ExamPickerScreen() {
         </View>
       </ScrollView>
     </SafeAreaView>
+  );
+}
+
+/** Home urgency strip: "GATE in 47 days" + one-tap continue into that exam. */
+function ExamCountdown() {
+  const router = useRouter();
+  const { settings } = useSettings();
+  if (!settings.primaryExamId) return null;
+  const exam = repo.exams().find((e) => e.id === settings.primaryExamId);
+  if (!exam) return null;
+
+  let days: number | null = null;
+  if (settings.examDate) {
+    const target = new Date(`${settings.examDate}T00:00:00`);
+    days = Math.ceil((target.getTime() - Date.now()) / 86_400_000);
+  }
+
+  return (
+    <Pressable
+      onPress={() => router.push(`/${exam.slug}` as never)}
+      className="mb-3 flex-row items-center justify-between rounded-2xl border border-edge bg-surface px-5 py-3.5 active:bg-raised"
+    >
+      <View className="flex-1 pr-3">
+        <Text className="text-sm font-bold text-ink" numberOfLines={1}>
+          {days !== null && days >= 0
+            ? days === 0
+              ? `${exam.name} is today — you've got this.`
+              : `${exam.name} in ${days} day${days === 1 ? "" : "s"}`
+            : `Continue ${exam.name}`}
+        </Text>
+        <Text className="mt-0.5 text-xs text-muted">
+          {days !== null && days > 0
+            ? "Every card you clear today compounds."
+            : "Pick up where you left off."}
+        </Text>
+      </View>
+      <Ionicons name="chevron-forward" size={18} color="#55555C" />
+    </Pressable>
   );
 }
 

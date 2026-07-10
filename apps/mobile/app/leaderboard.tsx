@@ -11,6 +11,7 @@ export default function LeaderboardScreen() {
   const [examId, setExamId] = useState<string | undefined>(undefined);
   const [rows, setRows] = useState<LeaderboardRow[] | null>(null);
   const [mine, setMine] = useState<LeaderboardRow | null>(null);
+  const [boardSize, setBoardSize] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -24,9 +25,17 @@ export default function LeaderboardScreen() {
           fetchLeaderboard(supabase, examId),
           fetchMyRank(supabase, examId).catch(() => null)
         ]);
+        // Cohort size: a board under the fetch cap IS the whole cohort;
+        // the global board past the cap has an exact-count RPC.
+        let size: number | null = list.length < 100 ? list.length : null;
+        if (size === null && !examId) {
+          const { data: n } = await supabase.rpc("leaderboard_size");
+          if (typeof n === "number") size = n;
+        }
         if (alive) {
           setRows(list);
           setMine(rank);
+          setBoardSize(size);
         }
       } catch (e) {
         if (alive) setError((e as Error).message);
@@ -36,6 +45,11 @@ export default function LeaderboardScreen() {
       alive = false;
     };
   }, [supabase, examId]);
+
+  const percentileAhead =
+    mine && boardSize !== null && boardSize >= 5 && mine.rank <= boardSize
+      ? Math.round(((boardSize - mine.rank) / boardSize) * 100)
+      : null;
 
   return (
     <SafeAreaView className="flex-1 bg-oled" edges={["top"]}>
@@ -62,8 +76,11 @@ export default function LeaderboardScreen() {
           <Empty text="No ranked aspirants yet. Be the first — drill some cards and sign in." />
         ) : (
           <View className="gap-1.5">
-            {mine && (
-              <RankRow row={mine} highlight />
+            {mine && <RankRow row={mine} highlight />}
+            {percentileAhead !== null && (
+              <Text className="mb-1 px-1 text-xs text-correct-bright">
+                You&apos;re ahead of {percentileAhead}% of aspirants.
+              </Text>
             )}
             {rows.map((r) => (
               <RankRow key={`${r.rank}-${r.handle}`} row={r} />

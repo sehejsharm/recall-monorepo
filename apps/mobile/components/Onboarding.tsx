@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Pressable, Text, TextInput, View } from "react-native";
+import { useRouter } from "expo-router";
+import { Pressable, ScrollView, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
+import { repo } from "@/lib/content";
 import { useSettings } from "@/lib/settings";
 import { scheduleDailyReminder } from "@/lib/notifications";
 
@@ -25,14 +27,32 @@ const SLIDES: Slide[] = [
  * feature tour, ending in a soft notification opt-in. Signing in stays optional
  * (offered later in Account), so a broken/absent cloud backend never blocks entry.
  */
+/** Post-name first-run steps: pick exam → optional date → 5-card taste
+ *  session (retrieval, not a lecture) → the classic feature tour. */
+type Step = "exam" | "date" | "taste" | "tour";
+
 export function Onboarding() {
+  const router = useRouter();
   const { settings, update } = useSettings();
   const [name, setName] = useState("");
   const [i, setI] = useState(0);
   const [busy, setBusy] = useState(false);
+  const [step, setStep] = useState<Step>("exam");
+  const [date, setDate] = useState("");
 
   // Nothing to do once the user is named and has seen (or skipped) the tour.
   if (settings.named && settings.onboarded) return null;
+
+  /** The chosen exam's very first topic — the taste-session destination. */
+  const firstTopicRoute = (examId: string): string | null => {
+    const exam = repo.exams().find((e) => e.id === examId);
+    if (!exam) return null;
+    const subject = repo.subjectsByExam(exam.id)[0];
+    if (!subject) return null;
+    const topic = repo.topicsBySubject(subject.id)[0];
+    if (!topic) return null;
+    return `/${exam.slug}/${subject.slug}/${topic.slug}?tab=drill&n=5`;
+  };
 
   // ── Mandatory name gate ────────────────────────────────────────────────
   if (!settings.named) {
@@ -72,6 +92,127 @@ export function Onboarding() {
             style={{ opacity: valid ? 1 : 0.4 }}
           >
             <Text className="text-base font-bold text-black">Continue</Text>
+          </Pressable>
+        </SafeAreaView>
+      </View>
+    );
+  }
+
+  // ── Step: pick your exam ───────────────────────────────────────────────
+  if (step === "exam") {
+    return (
+      <View className="absolute inset-0 z-[60] bg-oled">
+        <SafeAreaView className="flex-1 px-6">
+          <View className="flex-1 pt-4">
+            <Text className="text-2xl font-bold tracking-tight text-ink">
+              Which exam are you preparing for?
+            </Text>
+            <Text className="mt-2 text-sm leading-relaxed text-muted">
+              We&apos;ll feature it on your home screen. You can study any of the others too.
+            </Text>
+            <ScrollView className="mt-6 flex-1" showsVerticalScrollIndicator={false}>
+              <View className="gap-2 pb-4">
+                {repo.exams().map((e) => (
+                  <Pressable
+                    key={e.id}
+                    onPress={() => {
+                      update({ primaryExamId: e.id });
+                      setStep("date");
+                    }}
+                    className="rounded-2xl border border-edge bg-surface px-4 py-3 active:border-correct/40"
+                  >
+                    <Text className="text-sm font-semibold text-ink">{e.name}</Text>
+                    <Text className="mt-0.5 text-xs text-muted" numberOfLines={1}>
+                      {e.tagline}
+                    </Text>
+                  </Pressable>
+                ))}
+              </View>
+            </ScrollView>
+          </View>
+          <Pressable onPress={() => setStep("tour")} className="mb-4 items-center py-3">
+            <Text className="text-sm font-semibold text-muted">Just exploring →</Text>
+          </Pressable>
+        </SafeAreaView>
+      </View>
+    );
+  }
+
+  // ── Step: target date (optional) ───────────────────────────────────────
+  if (step === "date") {
+    const validDate = /^\d{4}-\d{2}-\d{2}$/.test(date.trim()) && !Number.isNaN(Date.parse(date.trim()));
+    return (
+      <View className="absolute inset-0 z-[60] bg-oled">
+        <SafeAreaView className="flex-1 px-6">
+          <View className="flex-1 items-center justify-center">
+            <View className="h-20 w-20 items-center justify-center rounded-3xl bg-raised">
+              <Ionicons name="flame" size={40} color="#10B981" />
+            </View>
+            <Text className="mt-7 text-2xl font-bold tracking-tight text-ink">When is your exam?</Text>
+            <Text className="mt-3 max-w-sm text-center text-[15px] leading-relaxed text-muted">
+              We&apos;ll show a countdown on your home screen so every session counts toward the day
+              that matters.
+            </Text>
+            <TextInput
+              value={date}
+              onChangeText={setDate}
+              placeholder="YYYY-MM-DD"
+              placeholderTextColor="#55555C"
+              autoCapitalize="none"
+              autoCorrect={false}
+              className="mt-8 w-full rounded-2xl border border-edge bg-surface px-4 py-3.5 text-center text-base text-ink"
+            />
+          </View>
+          <Pressable
+            onPress={() => {
+              if (validDate) update({ examDate: date.trim() });
+              setStep("taste");
+            }}
+            disabled={!validDate}
+            className="mb-3 items-center rounded-2xl bg-correct py-4 active:scale-[0.98]"
+            style={{ opacity: validDate ? 1 : 0.4 }}
+          >
+            <Text className="text-base font-bold text-black">Set my countdown</Text>
+          </Pressable>
+          <Pressable onPress={() => setStep("taste")} className="mb-4 items-center py-2">
+            <Text className="text-sm font-semibold text-muted">Skip for now</Text>
+          </Pressable>
+        </SafeAreaView>
+      </View>
+    );
+  }
+
+  // ── Step: 5-card taste session ─────────────────────────────────────────
+  if (step === "taste") {
+    const route = settings.primaryExamId ? firstTopicRoute(settings.primaryExamId) : null;
+    return (
+      <View className="absolute inset-0 z-[60] bg-oled">
+        <SafeAreaView className="flex-1 px-6">
+          <View className="flex-1 items-center justify-center">
+            <View className="h-20 w-20 items-center justify-center rounded-3xl bg-raised">
+              <Ionicons name="flash" size={40} color="#10B981" />
+            </View>
+            <Text className="mt-7 text-2xl font-bold tracking-tight text-ink">
+              Feel it working — right now
+            </Text>
+            <Text className="mt-3 max-w-sm text-center text-[15px] leading-relaxed text-muted">
+              The fastest way to understand Recall is five quick questions. Answer, get graded, see
+              why. Two minutes.
+            </Text>
+          </View>
+          {route && (
+            <Pressable
+              onPress={() => {
+                update({ onboarded: true });
+                router.push(route as never);
+              }}
+              className="mb-3 items-center rounded-2xl bg-correct py-4 active:scale-[0.98]"
+            >
+              <Text className="text-base font-bold text-black">Start with 5 quick cards →</Text>
+            </Pressable>
+          )}
+          <Pressable onPress={() => setStep("tour")} className="mb-4 items-center py-2">
+            <Text className="text-sm font-semibold text-muted">Show me around first</Text>
           </Pressable>
         </SafeAreaView>
       </View>

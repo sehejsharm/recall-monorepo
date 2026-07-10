@@ -2,6 +2,7 @@ import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Switch, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { repo } from "@/lib/content";
 import { getSupabase } from "@/lib/supabase";
 import { useSettings, type ThemeChoice } from "@/lib/settings";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
@@ -53,6 +54,22 @@ export default function SettingsScreen() {
   const [nameError, setNameError] = useState<string | null>(null);
   const [goalDraft, setGoalDraft] = useState<string | null>(null);
   const [goalError, setGoalError] = useState<string | null>(null);
+  const [dateDraft, setDateDraft] = useState<string | null>(null);
+  const [dateError, setDateError] = useState<string | null>(null);
+
+  const commitDate = () => {
+    const raw = (dateDraft ?? settings.examDate ?? "").trim();
+    if (!raw) {
+      setDateError(null);
+      update({ examDate: null });
+    } else if (!/^\d{4}-\d{2}-\d{2}$/.test(raw) || Number.isNaN(Date.parse(raw))) {
+      setDateError("Use YYYY-MM-DD (e.g. 2027-05-24).");
+    } else {
+      setDateError(null);
+      update({ examDate: raw });
+    }
+    setDateDraft(null);
+  };
 
   const commitName = () => {
     const clean = (nameDraft ?? settings.displayName).trim();
@@ -156,6 +173,59 @@ export default function SettingsScreen() {
             />
           </Row>
           {goalError ? <Text className="pb-3 text-xs text-wrong-bright">{goalError}</Text> : null}
+        </Section>
+
+        <Section title="Your exam">
+          <Text className="pb-2 pt-3 text-xs text-muted">
+            Featured on your home screen with a countdown.
+          </Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-3">
+            <View className="flex-row gap-2">
+              <Pressable
+                onPress={() => update({ primaryExamId: null })}
+                className={`rounded-full border px-3.5 py-1.5 ${
+                  !settings.primaryExamId ? "border-correct bg-correct-dim/40" : "border-edge bg-oled"
+                }`}
+              >
+                <Text className={`text-xs font-semibold ${!settings.primaryExamId ? "text-correct-bright" : "text-muted"}`}>
+                  None
+                </Text>
+              </Pressable>
+              {repo.exams().map((e) => (
+                <Pressable
+                  key={e.id}
+                  onPress={() => update({ primaryExamId: e.id })}
+                  className={`rounded-full border px-3.5 py-1.5 ${
+                    settings.primaryExamId === e.id ? "border-correct bg-correct-dim/40" : "border-edge bg-oled"
+                  }`}
+                >
+                  <Text
+                    className={`text-xs font-semibold ${
+                      settings.primaryExamId === e.id ? "text-correct-bright" : "text-muted"
+                    }`}
+                  >
+                    {e.name}
+                  </Text>
+                </Pressable>
+              ))}
+            </View>
+          </ScrollView>
+          <Row label="Exam date" hint="Powers your home-screen countdown.">
+            <TextInput
+              value={dateDraft ?? settings.examDate ?? ""}
+              onChangeText={(t) => {
+                setDateDraft(t);
+                setDateError(null);
+              }}
+              onBlur={commitDate}
+              placeholder="YYYY-MM-DD"
+              placeholderTextColor="#55555C"
+              className={`w-36 rounded-lg border bg-oled px-3 py-1.5 text-right text-sm text-ink ${
+                dateError ? "border-wrong/60" : "border-edge"
+              }`}
+            />
+          </Row>
+          {dateError ? <Text className="pb-3 text-xs text-wrong-bright">{dateError}</Text> : null}
         </Section>
 
         <Section title="Reminders">

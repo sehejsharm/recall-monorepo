@@ -30,9 +30,17 @@ export default function TopicScreen() {
   const {
     exam: examSlug,
     subject: subjectSlug,
-    topic: topicSlug
-  } = useLocalSearchParams<{ exam: string; subject: string; topic: string }>();
+    topic: topicSlug,
+    tab: tabParam,
+    n: nParam
+  } = useLocalSearchParams<{ exam: string; subject: string; topic: string; tab?: string; n?: string }>();
   const router = useRouter();
+
+  // Deep-link (onboarding taste session): ?tab=drill&n=5 opens straight into
+  // a capped drill on the requested topic.
+  const forceDrill = tabParam === "drill";
+  const nParsed = Number(nParam);
+  const drillLimit = Number.isFinite(nParsed) && nParsed > 0 ? nParsed : undefined;
 
   const exam = repo.examBySlug(examSlug ?? "");
   const subject = exam ? repo.subjectBySlug(exam.id, subjectSlug ?? "") : undefined;
@@ -121,6 +129,8 @@ export default function TopicScreen() {
             hasNext={index + 1 < topics.length}
             onNextTopic={() => goToIndex(index + 1)}
             onExamHome={examHome}
+            forceDrill={index === startIndex && forceDrill}
+            drillLimit={index === startIndex ? drillLimit : undefined}
           />
         )}
       />
@@ -138,7 +148,9 @@ function TopicCard({
   isActive,
   hasNext,
   onNextTopic,
-  onExamHome
+  onExamHome,
+  forceDrill = false,
+  drillLimit
 }: {
   exam: { slug: string };
   subject: Subject;
@@ -147,10 +159,14 @@ function TopicCard({
   hasNext: boolean;
   onNextTopic: () => void;
   onExamHome: () => void;
+  /** Open directly on the drill tab (onboarding taste-session deep link). */
+  forceDrill?: boolean;
+  /** Cap the drill length (taste session = 5). */
+  drillLimit?: number;
 }) {
   const material = repo.materialByTopic(topic.id);
   const exitDrill = useJyotir((s) => s.exitDrill);
-  const [tab, setTab] = useState<Tab>(material ? "study" : "drill");
+  const [tab, setTab] = useState<Tab>(forceDrill || !material ? "drill" : "study");
 
   // When a card scrolls out of focus, drop any drill in progress and reset to
   // the notes so the single global drill session only ever belongs to the
@@ -209,6 +225,7 @@ function TopicCard({
       {tab === "drill" && isActive ? (
         <DrillEngine
           topicId={topic.id}
+          limit={drillLimit}
           onStudy={material ? () => switchTab("study") : undefined}
           onNextTopic={hasNext ? onNextTopic : undefined}
           onExamHome={onExamHome}

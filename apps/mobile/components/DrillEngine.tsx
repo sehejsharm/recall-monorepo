@@ -17,6 +17,7 @@ export function DrillEngine({
   reviewMode = false,
   bookmarkMode = false,
   customTopicIds,
+  limit,
   onExit,
   onNextTopic,
   onExamHome
@@ -29,6 +30,8 @@ export function DrillEngine({
   bookmarkMode?: boolean;
   /** Custom drill across an explicit set of topics. */
   customTopicIds?: string[];
+  /** Cap the session length (e.g. the 5-card onboarding taste session). */
+  limit?: number;
   /** Secondary action on the completion screen (e.g. back to home). */
   onExit?: () => void;
   /** Completion action: advance to the next topic card. */
@@ -48,7 +51,7 @@ export function DrillEngine({
     if (reviewMode) st.startReview();
     else if (bookmarkMode) st.startBookmarkedDrill();
     else if (customTopicIds) st.startCustomDrill(customTopicIds);
-    else st.startDrill(topicId);
+    else st.startDrill(topicId, limit);
   };
   const start = begin;
   const leave = (fn?: () => void) => {
@@ -266,8 +269,21 @@ export function DrillEngine({
         </View>
 
         {answered ? (
-          <View className="mt-5 border-l-2 border-correct pl-3">
-            <Text className="text-sm leading-5 text-muted">{question.explanation}</Text>
+          <View className="mt-5 gap-2.5">
+            {/* Lead with WHY the user's wrong pick is wrong (when authored) —
+                the highest-value feedback moment — then the correct answer. */}
+            {selected &&
+              selected !== question.correctOption &&
+              question.distractors?.[selected] && (
+                <View className="border-l-2 border-wrong pl-3">
+                  <Text className="text-sm leading-5 text-wrong-bright">
+                    Why not {selected}: {question.distractors[selected]}
+                  </Text>
+                </View>
+              )}
+            <View className="border-l-2 border-correct pl-3">
+              <Text className="text-sm leading-5 text-muted">{question.explanation}</Text>
+            </View>
           </View>
         ) : (
           <Text className="mt-6 text-center text-xs text-faint">tap the answer you think is correct</Text>
@@ -318,6 +334,11 @@ function ReviewRow({ answer, index }: { answer: AnsweredCard; index: number }) {
         </Text>
         {!wasCorrect && (
           <Text className="mt-0.5 text-xs text-correct-bright">Correct: {label(correct)}</Text>
+        )}
+        {!wasCorrect && question.distractors?.[selected] && (
+          <Text className="mt-1 text-[11px] leading-4 text-wrong-bright">
+            Why not {selected}: {question.distractors[selected]}
+          </Text>
         )}
         <Text className="mt-1.5 text-[11px] leading-4 text-muted">{question.explanation}</Text>
       </View>

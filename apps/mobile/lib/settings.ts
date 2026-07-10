@@ -18,6 +18,10 @@ export interface Settings {
   reminderOn: boolean;
   /** Reminder time, minutes past midnight (local). Default 20:00. */
   reminderMinutes: number;
+  /** The exam the user is preparing for (chosen at onboarding; editable). */
+  primaryExamId: string | null;
+  /** Target exam date (ISO yyyy-mm-dd) — drives the home countdown. */
+  examDate: string | null;
 }
 
 const KEY = "recall.settings.v1";
@@ -39,7 +43,9 @@ export function defaultSettings(): Settings {
     onboarded: false,
     theme: "dark",
     reminderOn: false,
-    reminderMinutes: 20 * 60
+    reminderMinutes: 20 * 60,
+    primaryExamId: null,
+    examDate: null
   };
 }
 
