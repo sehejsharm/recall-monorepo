@@ -168,14 +168,18 @@ function TopicCard({
   const exitDrill = useJyotir((s) => s.exitDrill);
   const [tab, setTab] = useState<Tab>(forceDrill || !material ? "drill" : "study");
 
-  // When a card scrolls out of focus, drop any drill in progress and reset to
+  // When a card scrolls OUT of focus, drop any drill in progress and reset to
   // the notes so the single global drill session only ever belongs to the
-  // active card.
+  // active card. Guarded on a previous-value ref: FlatList mounts neighbour
+  // cards lazily AFTER the active card's drill has started, and an unguarded
+  // exitDrill() on their mount nuked that session (blank taste-session).
+  const wasActive = useRef(isActive);
   useEffect(() => {
-    if (!isActive) {
+    if (wasActive.current && !isActive) {
       exitDrill();
       setTab(material ? "study" : "drill");
     }
+    wasActive.current = isActive;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 

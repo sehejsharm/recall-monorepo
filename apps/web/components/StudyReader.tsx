@@ -70,7 +70,9 @@ export function StudyReader({
         )}
       </div>
 
-      <article className="flex-1 pb-28">
+      {/* pb-36 clears the sticky CTA + its gradient, so the note's tail —
+          often a table — can scroll fully into view above the button. */}
+      <article className="flex-1 pb-36">
         <Markdown
           remarkPlugins={[remarkGfm]}
           components={{

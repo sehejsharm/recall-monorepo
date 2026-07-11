@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { repo } from "@/lib/content";
 import { loadSettings, saveSettings } from "@/lib/settings";
@@ -54,6 +54,7 @@ type Step = "exam" | "date" | "taste" | "tour";
  */
 export function Onboarding() {
   const router = useRouter();
+  const pathname = usePathname();
   const [ready, setReady] = useState(false);
   const [needName, setNeedName] = useState(false);
   const [step, setStep] = useState<Step | null>(null);
@@ -72,6 +73,12 @@ export function Onboarding() {
     }
     setReady(true);
   }, []);
+
+  // First-run flow only ever appears at the app's front door. A visitor
+  // arriving from search on a content page (exam/subject/topic) must meet
+  // the answer they searched for, never a name-capture modal — they get
+  // onboarded when they come home.
+  if (pathname !== "/") return null;
 
   if (!ready) return null;
 
@@ -117,15 +124,22 @@ export function Onboarding() {
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && submit()}
             placeholder="Your name"
+            aria-label="Your name"
             autoFocus
+            // autoFocus can be swallowed when the overlay mounts post-splash;
+            // the callback ref re-asserts focus so typing works immediately.
+            ref={(el) => el?.focus()}
             maxLength={24}
             className="mt-8 w-full max-w-sm rounded-2xl border border-edge bg-surface px-4 py-3.5 text-center text-base text-ink outline-none focus:border-correct/50"
           />
+          <p className="mt-2 h-4 text-xs text-faint" aria-live="polite">
+            {!valid && trimmed.length > 0 ? "Use at least 2 characters." : ""}
+          </p>
         </div>
         <button
           onClick={submit}
           disabled={!valid}
-          className="w-full rounded-2xl bg-correct py-4 text-base font-bold text-black transition-transform active:scale-[0.98] disabled:opacity-40"
+          className="w-full rounded-2xl py-4 text-base font-bold transition-transform active:scale-[0.98] disabled:cursor-not-allowed enabled:bg-correct enabled:text-black disabled:bg-raised disabled:text-faint"
         >
           Continue
         </button>

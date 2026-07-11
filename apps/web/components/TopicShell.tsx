@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { Topic } from "@jyotir/core";
 import { repo } from "@/lib/content";
 import { useJyotir } from "@/lib/store-provider";
@@ -14,34 +14,25 @@ import { StudyReader } from "./StudyReader";
  * the user swipes/drags (or uses prev/next) to move between them — card-style.
  * Drilling is never mandatory (a card can be read and skipped). Only the active
  * card mounts the drill engine, keeping the single in-memory drill session safe.
+ *
+ * SEO-CRITICAL: this component must stay fully statically renderable. Do NOT
+ * use useSearchParams() here — it opts the nearest Suspense boundary out of
+ * static prerendering, which once reduced every topic page's server HTML to a
+ * 13-word shell (no note content for crawlers). The ?tab/?n taste-session
+ * deep link is read from window.location in a post-hydration effect instead.
  */
-interface TopicShellProps {
+export function TopicShell({
+  examSlug,
+  subjectSlug,
+  subjectName,
+  topicId
+}: {
   examSlug: string;
   subjectSlug: string;
   subjectName: string;
   topicId: string;
   topicName: string;
-}
-
-/**
- * Suspense wrapper: TopicDeck reads useSearchParams (for the ?tab/?n taste-
- * session deep link), which forces a Suspense boundary on a statically
- * exported page. The fallback is null — the deck mounts client-side anyway.
- */
-export function TopicShell(props: TopicShellProps) {
-  return (
-    <Suspense fallback={null}>
-      <TopicDeck {...props} />
-    </Suspense>
-  );
-}
-
-function TopicDeck({
-  examSlug,
-  subjectSlug,
-  subjectName,
-  topicId
-}: TopicShellProps) {
+}) {
   const router = useRouter();
   const exam = repo.examBySlug(examSlug);
   const subject = exam ? repo.subjectBySlug(exam.id, subjectSlug) : undefined;
@@ -61,11 +52,18 @@ function TopicDeck({
   const examHomeHref = `/${examSlug}/${subjectSlug}`;
 
   // Deep-link params: the onboarding taste session lands here as
-  // ?tab=drill&n=5 to open straight into a 5-card drill.
-  const params = useSearchParams();
-  const forceDrill = params.get("tab") === "drill";
-  const nParam = Number(params.get("n"));
-  const drillLimit = Number.isFinite(nParam) && nParam > 0 ? nParam : undefined;
+  // ?tab=drill&n=5 to open straight into a 5-card drill. Parsed from
+  // window.location in an effect — never via useSearchParams, which would
+  // opt the page out of static prerendering (see the component comment).
+  const [entry, setEntry] = useState<{ drill: boolean; limit?: number } | null>(null);
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search);
+    if (p.get("tab") !== "drill") return;
+    const n = Number(p.get("n"));
+    setEntry({ drill: true, limit: Number.isFinite(n) && n > 0 ? n : undefined });
+  }, []);
+  const forceDrill = entry?.drill ?? false;
+  const drillLimit = entry?.limit;
 
   const goToIndex = useCallback(
     (idx: number) => {
@@ -240,16 +238,33 @@ function TopicCard({
 }) {
   const material = repo.materialByTopic(topic.id);
   const exitDrill = useJyotir((s) => s.exitDrill);
-  const [tab, setTab] = useState<Tab>(forceDrill || !material ? "drill" : "study");
+  const [tab, setTab] = useState<Tab>(!material ? "drill" : "study");
 
-  // When this card scrolls out of focus, drop any drill in progress and reset.
+  // When this card scrolls OUT of focus, drop any drill in progress and reset.
+  // Guarded on a previous-value ref: a neighbour card MOUNTING inactive must
+  // NOT exitDrill — on client-side navigation (ready already true) neighbours
+  // mount right after the active card starts its drill, and an unguarded
+  // exitDrill() nuked that session, leaving the taste-session hand-off blank.
+  const wasActive = useRef(isActive);
   useEffect(() => {
-    if (!isActive) {
+    if (wasActive.current && !isActive) {
       exitDrill();
       setTab(material ? "study" : "drill");
     }
+    wasActive.current = isActive;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
+
+  // The taste-session deep link (?tab=drill) is parsed post-hydration, so the
+  // forceDrill prop arrives after mount. Apply it once — after that the user
+  // owns the tab state (switching back to notes must stick).
+  const appliedEntry = useRef(false);
+  useEffect(() => {
+    if (forceDrill && isActive && !appliedEntry.current) {
+      appliedEntry.current = true;
+      setTab("drill");
+    }
+  }, [forceDrill, isActive]);
 
   // Belt-and-braces with `inert`: inert blocks real user interaction on
   // off-screen cards, but programmatic clicks (automation, some assistive
