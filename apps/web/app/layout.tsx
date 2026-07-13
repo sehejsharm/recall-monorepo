@@ -22,6 +22,10 @@ export const metadata: Metadata = {
   },
   description,
   applicationName: "Recall",
+  // Google Search Console domain-ownership verification.
+  verification: {
+    google: "S1I61byaqYgYzZGLxvDWkU6sYgbaRPAS5s6jRlujQqs"
+  },
   keywords: [
     "exam preparation",
     "active recall",
