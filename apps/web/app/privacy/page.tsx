@@ -1,3 +1,6 @@
+import { SUPPORT_EMAIL, MIN_AGE } from "@/lib/site-config";
+import { LegalFooter } from "@/components/LegalFooter";
+
 export const metadata = {
   title: "Privacy Policy — Recall",
   description: "How Recall handles your data: private by default, no ads, no tracking."
@@ -10,7 +13,7 @@ export default function PrivacyPage() {
         ← Home
       </a>
       <h1 className="mb-1 mt-3 text-2xl font-bold tracking-tight">Privacy Policy</h1>
-      <p className="mb-8 text-xs text-muted">Last updated: 10 July 2026</p>
+      <p className="mb-8 text-xs text-muted">Last updated: 27 July 2026</p>
 
       <div className="space-y-5 text-sm leading-relaxed text-muted">
         <p>
@@ -35,26 +38,37 @@ export default function PrivacyPage() {
           </p>
         </section>
         <section>
-          <h2 className="mb-1 font-semibold text-ink">Notifications &amp; children</h2>
+          <h2 className="mb-1 font-semibold text-ink">Age</h2>
           <p>
-            Daily reminders are scheduled locally on your device. The app is intended for exam
-            aspirants (generally 16+) and we don&apos;t knowingly collect data from children under 13.
+            Recall is intended for exam aspirants aged {MIN_AGE} and older. We do not target or
+            knowingly collect personal information from anyone under {MIN_AGE}. If you believe a
+            younger person has created an account, contact us and we will remove it.
           </p>
+        </section>
+        <section>
+          <h2 className="mb-1 font-semibold text-ink">Notifications</h2>
+          <p>Daily reminders are scheduled locally on your device; they involve no server data.</p>
         </section>
         <section>
           <h2 className="mb-1 font-semibold text-ink">Data deletion &amp; contact</h2>
           <p>
             You can permanently delete your account and all synced data from inside the app at any
-            time: <strong>Account → Delete account &amp; cloud data</strong>. This immediately
-            removes your progress, read history, leaderboard entries and sign-in identity from our
-            servers. If you prefer, email{" "}
-            <a className="text-correct-bright" href="mailto:sharmasehej2104@gmail.com">
-              sharmasehej2104@gmail.com
+            time: <strong>Settings → Account, then &ldquo;Delete account &amp; cloud data&rdquo;</strong>.
+            This immediately removes your progress, read history, leaderboard entries and sign-in
+            identity from our servers. Full instructions are on our{" "}
+            <a className="text-correct-bright" href="/delete-account">
+              account deletion page
+            </a>
+            . If you prefer, email{" "}
+            <a className="text-correct-bright" href={`mailto:${SUPPORT_EMAIL}`}>
+              {SUPPORT_EMAIL}
             </a>{" "}
             from your account email and we&apos;ll remove it within 30 days.
           </p>
         </section>
       </div>
+
+      <LegalFooter />
     </main>
   );
 }

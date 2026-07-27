@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { SupabaseLike } from "@jyotir/core";
 import { getSupabase } from "@/lib/supabase";
+import { SUPPORT_EMAIL } from "@/lib/site-config";
 import { useJyotirStore } from "@/lib/store-provider";
 
 type Mode = "login" | "signup" | "magic";
@@ -87,8 +88,8 @@ export default function AccountPage() {
                     .syncNow(supabase as unknown as SupabaseLike, data.user.id);
                   setNotice(`Synced · pushed ${r.pushedProgress}, pulled ${r.pulledProgress}`);
                 }
-              } catch (e) {
-                setNotice(`Sync failed: ${(e as Error).message}`);
+              } catch {
+                setNotice("Couldn't sync just now — your progress is safe on this device. Try again shortly.");
               }
             }}
             className="rounded-xl bg-ink py-3.5 font-bold text-black active:scale-[0.98]"
@@ -181,8 +182,10 @@ export default function AccountPage() {
                       setConfirmDelete(false);
                       setDeleteText("");
                       setNotice("Your account and cloud data have been deleted.");
-                    } catch (e) {
-                      setError(`Couldn't delete the account: ${(e as Error).message}`);
+                    } catch {
+                      setError(
+                        `Couldn't delete your account just now. Please try again, or email ${SUPPORT_EMAIL} and we'll remove it.`
+                      );
                     } finally {
                       setDeleting(false);
                     }
@@ -343,6 +346,19 @@ export default function AccountPage() {
 
       {notice && <p className="mt-4 rounded-xl border border-correct/40 bg-correct-dim/30 px-4 py-3 text-sm text-correct-bright">{notice}</p>}
       {error && <p className="mt-4 text-sm text-wrong-bright">{error}</p>}
+
+      {/* Play requires the policy + terms to be reachable from the auth screen. */}
+      <p className="mt-6 text-center text-[11px] leading-relaxed text-faint">
+        By continuing you agree to our{" "}
+        <Link href="/terms" className="text-muted underline hover:text-ink">
+          Terms
+        </Link>{" "}
+        and{" "}
+        <Link href="/privacy" className="text-muted underline hover:text-ink">
+          Privacy Policy
+        </Link>
+        .
+      </p>
     </Shell>
   );
 }

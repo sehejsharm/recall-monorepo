@@ -242,6 +242,27 @@ export default function SettingsPage() {
         </div>
       </section>
 
+      <section className="mb-5">
+        <h2 className="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-faint">Legal &amp; account</h2>
+        <div className="rounded-2xl border border-edge bg-surface px-4">
+          <Row label="Privacy Policy" hint="How your data is handled.">
+            <Link href="/privacy" className="text-sm font-semibold text-correct">
+              View →
+            </Link>
+          </Row>
+          <Row label="Terms of Service" hint="The terms you agree to.">
+            <Link href="/terms" className="text-sm font-semibold text-correct">
+              View →
+            </Link>
+          </Row>
+          <Row label="Delete account" hint="Permanently remove your account & cloud data.">
+            <Link href="/account" className="text-sm font-semibold text-wrong-bright">
+              Delete →
+            </Link>
+          </Row>
+        </div>
+      </section>
+
       <section>
         <h2 className="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-faint">Danger zone</h2>
         {confirmReset ? (

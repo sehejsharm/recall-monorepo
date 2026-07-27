@@ -18,7 +18,8 @@ export default function LeaderboardPage() {
   const [rows, setRows] = useState<LeaderboardRow[] | null>(null);
   const [me, setMe] = useState<LeaderboardRow | null>(null);
   const [boardSize, setBoardSize] = useState<number | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [failed, setFailed] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
   const [signedIn, setSignedIn] = useState(false);
   // Loaded in an effect, never at render: reading localStorage during render
   // bakes SSR/client differences into the HTML (React #418), and loadSettings
@@ -45,7 +46,7 @@ export default function LeaderboardPage() {
     if (!supabase) return;
     let on = true;
     setRows(null);
-    setError(null);
+    setFailed(false);
     (async () => {
       try {
         const examId = scope || undefined;
@@ -66,14 +67,16 @@ export default function LeaderboardPage() {
           setMe(rank);
           setBoardSize(size);
         }
-      } catch (e) {
-        if (on) setError((e as Error).message);
+      } catch {
+        // Never surface a raw error (e.g. "TypeError: Failed to fetch") to
+        // users — show a calm retry state instead.
+        if (on) setFailed(true);
       }
     })();
     return () => {
       on = false;
     };
-  }, [supabase, scope]);
+  }, [supabase, scope, reloadKey]);
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-24 pt-12">
@@ -124,9 +127,19 @@ export default function LeaderboardPage() {
           Sign in (Account) with cloud sync configured to join the leaderboards. Your local XP is{" "}
           <span className="font-semibold text-ink">{localXp}</span>.
         </div>
-      ) : error ? (
-        <div className="rounded-2xl border border-wrong/40 bg-wrong-dim/30 px-5 py-4 text-sm text-wrong-bright">
-          {error}
+      ) : failed ? (
+        <div className="rounded-2xl border border-edge bg-surface px-5 py-6 text-sm text-muted">
+          <p className="font-semibold text-ink">Ranks are taking a break</p>
+          <p className="mt-1">
+            We couldn&apos;t reach the leaderboard just now. Your progress is safe on this device —
+            your local XP is <span className="font-semibold text-ink">{localXp}</span>.
+          </p>
+          <button
+            onClick={() => setReloadKey((k) => k + 1)}
+            className="mt-3 rounded-xl bg-ink px-4 py-2 text-sm font-bold text-black active:scale-[0.98]"
+          >
+            Try again
+          </button>
         </div>
       ) : rows === null ? (
         <div className="h-40 animate-pulse rounded-2xl border border-edge bg-surface" />

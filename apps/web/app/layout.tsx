@@ -5,6 +5,7 @@ import { Splash } from "@/components/Splash";
 import { Onboarding } from "@/components/Onboarding";
 import { BottomNav } from "@/components/BottomNav";
 import { Analytics } from "@/components/Analytics";
+import { ServiceWorker } from "@/components/ServiceWorker";
 import { jsonLdHtml } from "@/lib/jsonld";
 import { siteUrl as resolveSiteUrl } from "@/lib/site-url";
 import "./globals.css";
@@ -102,6 +103,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }}
         />
         <Analytics />
+        <ServiceWorker />
         <StoreProvider>
           <SyncProvider>
             <Splash />

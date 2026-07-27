@@ -2,6 +2,7 @@ import Link from "next/link";
 import { groupExams } from "@jyotir/core";
 import { repo } from "@/lib/content";
 import { ExamCountdown } from "@/components/ExamCountdown";
+import { LegalFooter } from "@/components/LegalFooter";
 import { ProfileStrip } from "@/components/ProfileStrip";
 import { ReviewBanner } from "@/components/ReviewBanner";
 
@@ -65,6 +66,8 @@ export default function ExamPickerPage() {
           )
         )}
       </ul>
+
+      <LegalFooter />
     </main>
   );
 }

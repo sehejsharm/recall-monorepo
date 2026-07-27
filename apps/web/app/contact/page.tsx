@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { getSupabase } from "@/lib/supabase";
-
-const SUPPORT_EMAIL = "hello@recall.app";
+import { SUPPORT_EMAIL } from "@/lib/site-config";
 
 export default function ContactPage() {
   const supabase = getSupabase();
@@ -27,14 +26,16 @@ export default function ContactPage() {
       return;
     }
     const { data } = await supabase.auth.getUser();
-    const { error: err } = await supabase
-      .from("contact_messages")
-      .insert({ user_id: data.user?.id ?? null, email: email || data.user?.email || null, message });
-    if (err) {
-      setError(err.message);
-      setStatus("error");
-    } else {
+    try {
+      const { error: err } = await supabase
+        .from("contact_messages")
+        .insert({ user_id: data.user?.id ?? null, email: email || data.user?.email || null, message });
+      if (err) throw err;
       setStatus("sent");
+    } catch {
+      // Never show a raw backend error; offer the email fallback instead.
+      setError(`Couldn't send just now — please email ${SUPPORT_EMAIL} directly.`);
+      setStatus("error");
     }
   };
 
