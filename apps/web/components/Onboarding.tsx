@@ -102,12 +102,21 @@ export function Onboarding() {
   if (needName) {
     const trimmed = name.trim();
     const valid = trimmed.length >= 2;
-    const submit = () => {
-      if (!valid) return;
-      saveSettings({ ...loadSettings(), displayName: trimmed, named: true });
+    /** Commit a name (or the anonymous default) and move on. */
+    const proceed = (displayName: string) => {
+      saveSettings({ ...loadSettings(), displayName, named: true });
       setNeedName(false);
       setStep("exam"); // continue straight into the exam picker
     };
+    const submit = () => {
+      if (!valid) return;
+      proceed(trimmed);
+    };
+    // Naming is a nicety, not a gate — the app is usable anonymously with no
+    // account, so a blocked first screen is pure friction. Skipping uses the
+    // same anonymous default as a fresh install and mirrors the
+    // "Just exploring" escape hatch on the next step.
+    const skip = () => proceed("Aspirant");
     return (
       <div className="fixed inset-0 z-[60] flex flex-col bg-oled px-6 pb-8 pt-16">
         <div className="flex flex-1 flex-col items-center justify-center text-center">
@@ -142,6 +151,12 @@ export function Onboarding() {
           className="w-full rounded-2xl py-4 text-base font-bold transition-transform active:scale-[0.98] disabled:cursor-not-allowed enabled:bg-correct enabled:text-black disabled:bg-raised disabled:text-faint"
         >
           Continue
+        </button>
+        <button
+          onClick={skip}
+          className="mt-1 min-h-[44px] w-full text-sm font-semibold text-muted hover:text-ink"
+        >
+          Skip for now
         </button>
       </div>
     );
