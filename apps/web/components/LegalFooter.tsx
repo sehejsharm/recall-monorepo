@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { t } from "@/lib/i18n";
 import { SUPPORT_EMAIL } from "@/lib/site-config";
 
 /**
@@ -11,28 +12,25 @@ export function LegalFooter() {
     <footer className="mt-12 border-t border-edge/60 pt-6 text-center text-[11px] text-faint">
       <nav className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
         <Link href="/privacy" className="hover:text-muted">
-          Privacy
+          {t("footer.privacy")}
         </Link>
         <span aria-hidden>·</span>
         <Link href="/terms" className="hover:text-muted">
-          Terms
+          {t("footer.terms")}
         </Link>
         <span aria-hidden>·</span>
         <Link href="/delete-account" className="hover:text-muted">
-          Delete account
+          {t("footer.deleteAccount")}
         </Link>
         <span aria-hidden>·</span>
         <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-muted">
-          Contact
+          {t("footer.contact")}
         </a>
       </nav>
-      <p className="mt-3">Recall · Drill. Read. Repeat.</p>
+      <p className="mt-3">{t("footer.tagline")}</p>
       {/* No opacity modifier here: text-faint/70 drops below the 4.5:1 AA
           contrast floor on this background. */}
-      <p className="mt-1 text-faint">
-        Not affiliated with, endorsed by, or sponsored by CFA Institute, GARP, UPSC, or any exam
-        body. CFA® and FRM® are trademarks of their respective owners.
-      </p>
+      <p className="mt-1 text-faint">{t("footer.disclaimer")}</p>
     </footer>
   );
 }
