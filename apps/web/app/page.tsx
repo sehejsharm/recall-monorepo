@@ -3,6 +3,7 @@ import { groupExams } from "@jyotir/core";
 import { repo } from "@/lib/content";
 import { ExamCountdown } from "@/components/ExamCountdown";
 import { LegalFooter } from "@/components/LegalFooter";
+import { LocalOnlyBanner } from "@/components/LocalOnlyBanner";
 import { ProfileStrip } from "@/components/ProfileStrip";
 import { ReviewBanner } from "@/components/ReviewBanner";
 
@@ -26,6 +27,7 @@ export default function ExamPickerPage() {
       </header>
 
       <ProfileStrip />
+      <LocalOnlyBanner />
       <ExamCountdown />
       <ReviewBanner />
 

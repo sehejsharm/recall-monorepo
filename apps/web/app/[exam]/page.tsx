@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { repo } from "@/lib/content";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { TopicSearch, type SearchEntry } from "@/components/TopicSearch";
 
 export function generateStaticParams() {
   return repo.exams().map((e) => ({ exam: e.slug }));
@@ -41,6 +42,13 @@ export default async function SubjectsPage({
   const subjects = repo.subjectsByExam(exam.id);
   const topicCount = repo.topicsByExam(exam.id).length;
   const questionCount = repo.questionsByExam(exam.id).length;
+  const searchIndex: SearchEntry[] = subjects.flatMap((subject) =>
+    repo.topicsBySubject(subject.id).map((topic) => ({
+      n: topic.name,
+      s: subject.name,
+      h: `/${exam.slug}/${subject.slug}/${topic.slug}`
+    }))
+  );
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 py-14">
@@ -55,6 +63,10 @@ export default async function SubjectsPage({
           repetition — works fully offline, no sign-up required.
         </p>
       </header>
+
+      {/* Built server-side from bundled content, so search is a pure local
+          filter — no API, fully offline. */}
+      <TopicSearch examName={exam.name} entries={searchIndex} />
 
       <ul className="flex flex-col gap-2.5">
         {subjects.map((subject) => {

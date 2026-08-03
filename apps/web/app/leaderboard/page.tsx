@@ -10,6 +10,36 @@ import { loadSettings } from "@/lib/settings";
 import { useJyotir } from "@/lib/store-provider";
 import { UsersIcon } from "@/components/icons";
 
+/**
+ * Invite CTA for the solo-board state. Uses the Web Share sheet where
+ * available and falls back to copying the link, so it works with no backend.
+ */
+function ShareInvite() {
+  const [copied, setCopied] = useState(false);
+  const onClick = async () => {
+    const url = typeof window === "undefined" ? "" : window.location.origin;
+    const text = `I'm prepping on Recall — free, offline exam drilling. Race me on the leaderboard: ${url}`;
+    try {
+      if (navigator.share) await navigator.share({ text });
+      else {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      }
+    } catch {
+      /* dismissed */
+    }
+  };
+  return (
+    <button
+      onClick={onClick}
+      className="mt-3 rounded-xl bg-correct px-4 py-2 text-sm font-bold text-black active:scale-[0.98]"
+    >
+      {copied ? "Link copied ✓" : "Invite a friend"}
+    </button>
+  );
+}
+
 export default function LeaderboardPage() {
   const supabase = getSupabase();
   const localXp = useJyotir((s) => s.stats.xp);
@@ -143,9 +173,21 @@ export default function LeaderboardPage() {
         </div>
       ) : rows === null ? (
         <div className="h-40 animate-pulse rounded-2xl border border-edge bg-surface" />
-      ) : rows.length === 0 ? (
+      ) : rows.length === 0 || (rows.length === 1 && rows[0]!.handle === myHandle) ? (
+        // A board showing only "1. You" reads like a bug, not an achievement —
+        // treat a solo board as an empty state and give it a next action.
         <div className="rounded-2xl border border-edge bg-surface px-5 py-6 text-sm text-muted">
-          {scope ? (
+          {rows.length === 1 ? (
+            <>
+              <p className="font-semibold text-ink">You&apos;re first in line</p>
+              <p className="mt-1">
+                Nobody else is ranked{scope ? " on this exam" : ""} yet — you&apos;re on{" "}
+                <span className="font-semibold text-ink">{rows[0]!.xp} XP</span>. Invite a friend and
+                see who keeps the longer streak.
+              </p>
+              <ShareInvite />
+            </>
+          ) : scope ? (
             "No one has drilled this exam yet — claim the top spot."
           ) : signedIn ? (
             <>

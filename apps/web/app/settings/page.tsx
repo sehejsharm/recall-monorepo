@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { repo } from "@/lib/content";
+import { downloadExport } from "@/lib/data-export";
 import { getSupabase } from "@/lib/supabase";
 import { useSettings } from "@/lib/settings";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
@@ -71,6 +72,7 @@ export default function SettingsPage() {
   const stats = useJyotir((s) => s.stats);
   const lastSync = useJyotir((s) => s.lastSync);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [exported, setExported] = useState<string | null>(null);
   const [userEmail, setUserEmail] = useState<string | null>(null);
 
   // Honest sync status: report what the last attempt actually did, never a
@@ -294,6 +296,23 @@ export default function SettingsPage() {
               View →
             </Link>
           </Row>
+          <Row label="Download your data" hint="Export your progress, stats and settings as JSON.">
+            <button
+              onClick={() => {
+                const name = downloadExport();
+                setExported(name);
+                setTimeout(() => setExported(null), 3000);
+              }}
+              className="text-sm font-semibold text-correct"
+            >
+              Download →
+            </button>
+          </Row>
+          {exported && (
+            <p role="status" className="px-1 pb-3 text-xs font-semibold text-correct">
+              Saved {exported}
+            </p>
+          )}
           <Row label="Delete account" hint="Permanently remove your account & cloud data.">
             <Link href="/account" className="text-sm font-semibold text-wrong-bright">
               Delete →

@@ -34,7 +34,19 @@ export default function PrivacyPage() {
           <h2 className="mb-1 font-semibold text-ink">What we don&apos;t do</h2>
           <p>
             We don&apos;t sell or share your data, run ads or ad trackers, or collect location,
-            contacts or photos. You can opt out of the leaderboard anytime in Settings.
+            contacts or photos. We do not collect crash reports, analytics or diagnostics from
+            your device. You can opt out of the leaderboard anytime in Settings.
+          </p>
+        </section>
+        <section>
+          <h2 className="mb-1 font-semibold text-ink">Your rights &amp; the law</h2>
+          <p>
+            We handle personal data in line with India&apos;s Digital Personal Data Protection Act,
+            2023 (DPDP) — which is where most of our users are — and apply the same standards
+            everywhere. You can access and port your data (Settings →{" "}
+            <strong>Download your data</strong>, a JSON export generated on your device), correct
+            it (Settings → Display name), and erase it (below). The lawful basis for the optional
+            account is your consent, which you can withdraw at any time by deleting the account.
           </p>
         </section>
         <section>
