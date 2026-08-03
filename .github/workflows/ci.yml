@@ -43,6 +43,49 @@ jobs:
         env:
           CI: "1"
 
+  # WCAG 2.1 AA gate. Runs axe-core against every route plus the first-run
+  # onboarding overlay, and asserts the drill is operable keyboard-only.
+  # Fails on any critical/serious violation, so a11y regressions can't merge.
+  # Also runs the offline suite, which holds the "works fully offline" store
+  # claim honest (drilling with the network cut, progress surviving reconnect).
+  accessibility-and-offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium for Playwright
+        run: pnpm --filter @jyotir/web exec playwright install --with-deps chromium
+
+      - name: Build web
+        run: pnpm --filter @jyotir/web build
+
+      - name: Accessibility (axe-core) + offline e2e
+        run: pnpm --filter @jyotir/web exec playwright test
+        env:
+          CI: "1"
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: apps/web/playwright-report/
+          retention-days: 7
+
   # The backend `questions` table once drifted 8,000+ questions behind the
   # shipped bundle, FK-failing every progress sync for new content. This job
   # makes that class of bug impossible to merge: the committed seed must

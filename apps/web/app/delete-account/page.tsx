@@ -41,7 +41,7 @@ export default function DeleteAccountPage() {
           <h2 className="mb-2 font-semibold text-ink">Option 2 — by email</h2>
           <p>
             Email{" "}
-            <a className="text-correct-bright" href={`mailto:${SUPPORT_EMAIL}?subject=Delete%20my%20Recall%20account`}>
+            <a className="text-correct-bright underline" href={`mailto:${SUPPORT_EMAIL}?subject=Delete%20my%20Recall%20account`}>
               {SUPPORT_EMAIL}
             </a>{" "}
             from the email address on your account with the subject &ldquo;Delete my account&rdquo;.

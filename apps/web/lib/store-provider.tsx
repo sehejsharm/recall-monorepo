@@ -10,6 +10,7 @@ import {
 import { useStore } from "zustand";
 import { createJyotirStore, type JyotirState, type JyotirStore } from "@jyotir/core";
 import { contentSource } from "./content";
+import { runStorageMigrations } from "./storage-migration";
 import { WebStorageAdapter } from "./web-storage";
 
 const StoreContext = createContext<JyotirStore | null>(null);
@@ -17,6 +18,8 @@ const StoreContext = createContext<JyotirStore | null>(null);
 export function StoreProvider({ children }: { children: ReactNode }) {
   const storeRef = useRef<JyotirStore | null>(null);
   if (!storeRef.current) {
+    // Move any legacy `jyotir.*` keys before the adapter reads storage.
+    runStorageMigrations();
     storeRef.current = createJyotirStore({
       adapter: new WebStorageAdapter(),
       content: contentSource

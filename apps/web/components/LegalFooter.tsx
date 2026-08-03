@@ -27,7 +27,9 @@ export function LegalFooter() {
         </a>
       </nav>
       <p className="mt-3">Recall · Drill. Read. Repeat.</p>
-      <p className="mt-1 text-faint/70">
+      {/* No opacity modifier here: text-faint/70 drops below the 4.5:1 AA
+          contrast floor on this background. */}
+      <p className="mt-1 text-faint">
         Not affiliated with, endorsed by, or sponsored by CFA Institute, GARP, UPSC, or any exam
         body. CFA® and FRM® are trademarks of their respective owners.
       </p>

@@ -37,7 +37,7 @@ export default function TermsPage() {
           You&apos;re responsible for keeping your sign-in credentials secure and for activity under
           your account. You may delete your account and all synced data at any time from Settings →
           Account, or via the{" "}
-          <a className="text-correct-bright" href="/delete-account">
+          <a className="text-correct-bright underline" href="/delete-account">
             account deletion page
           </a>
           .
@@ -69,7 +69,7 @@ export default function TermsPage() {
         </Section>
         <Section title="Contact">
           Questions about these terms? Email{" "}
-          <a className="text-correct-bright" href={`mailto:${SUPPORT_EMAIL}`}>
+          <a className="text-correct-bright underline" href={`mailto:${SUPPORT_EMAIL}`}>
             {SUPPORT_EMAIL}
           </a>
           .

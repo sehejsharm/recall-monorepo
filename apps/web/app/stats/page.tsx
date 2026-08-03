@@ -131,7 +131,10 @@ export default function StatsPage() {
                   <li
                     key={a.id}
                     className={`flex items-center justify-between rounded-xl border px-4 py-3 ${
-                      got ? "border-correct/40 bg-correct-dim/30" : "border-edge bg-surface opacity-60"
+                      // No opacity on the locked state: it dropped the row's
+                      // text below the 4.5:1 AA floor. Locked vs unlocked is
+                      // already carried by border + text colour.
+                      got ? "border-correct/40 bg-correct-dim/30" : "border-edge bg-surface"
                     }`}
                   >
                     <div>

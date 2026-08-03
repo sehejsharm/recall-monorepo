@@ -7,11 +7,30 @@ import { getSupabase } from "@/lib/supabase";
 import { useSettings } from "@/lib/settings";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
 
-function Row({ label, hint, children }: { label: string; hint?: string; children: React.ReactNode }) {
+/**
+ * A settings row. When `htmlFor` is given the visible label text is rendered
+ * as a real <label> bound to the control's id, so the control has a
+ * programmatic accessible name (WCAG 1.3.1 / 4.1.2) rather than relying on a
+ * placeholder or its current value.
+ */
+function Row({
+  label,
+  hint,
+  htmlFor,
+  children
+}: {
+  label: string;
+  hint?: string;
+  htmlFor?: string;
+  children: React.ReactNode;
+}) {
+  const Label = htmlFor ? "label" : "div";
   return (
     <div className="flex items-center justify-between gap-4 border-b border-edge/60 px-1 py-4 last:border-0">
       <div className="min-w-0">
-        <div className="text-sm font-semibold">{label}</div>
+        <Label {...(htmlFor ? { htmlFor } : {})} className="block text-sm font-semibold">
+          {label}
+        </Label>
         {hint && <div className="mt-0.5 text-xs text-muted">{hint}</div>}
       </div>
       <div className="shrink-0">{children}</div>
@@ -19,12 +38,20 @@ function Row({ label, hint, children }: { label: string; hint?: string; children
   );
 }
 
-function Toggle({ on, onChange }: { on: boolean; onChange: (v: boolean) => void }) {
+/**
+ * Toggle switch. `label` is required — an icon/graphic-only control with no
+ * accessible name is a WCAG 4.1.2 failure. Uses role="switch" + aria-checked,
+ * the correct semantics for an on/off control.
+ */
+function Toggle({ on, onChange, label }: { on: boolean; onChange: (v: boolean) => void; label: string }) {
   return (
     <button
+      type="button"
+      role="switch"
+      aria-checked={on}
+      aria-label={label}
       onClick={() => onChange(!on)}
       className={`h-6 w-11 rounded-full p-0.5 transition-colors ${on ? "bg-correct" : "bg-raised"}`}
-      aria-pressed={on}
     >
       <span
         className={`block h-5 w-5 rounded-full bg-ink transition-transform ${on ? "translate-x-5" : ""}`}
@@ -120,8 +147,9 @@ export default function SettingsPage() {
       <section className="mb-5">
         <h2 className="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-faint">Profile</h2>
         <div className="rounded-2xl border border-edge bg-surface px-4">
-          <Row label="Display name" hint="Private to you; never shown to others.">
+          <Row label="Display name" hint="Private to you; never shown to others." htmlFor="set-display-name">
             <input
+              id="set-display-name"
               value={nameDraft ?? settings.displayName}
               maxLength={NAME_MAX}
               onChange={(e) => {
@@ -148,8 +176,9 @@ export default function SettingsPage() {
           <Row label="Leaderboard handle" hint="Your anonymized public identity.">
             <span className="text-sm font-semibold text-correct">{settings.handle}</span>
           </Row>
-          <Row label="Daily goal" hint={`Cards per day (${GOAL_MIN}–${GOAL_MAX}).`}>
+          <Row label="Daily goal" hint={`Cards per day (${GOAL_MIN}–${GOAL_MAX}).`} htmlFor="set-daily-goal">
             <input
+              id="set-daily-goal"
               type="number"
               inputMode="numeric"
               min={GOAL_MIN}
@@ -182,8 +211,9 @@ export default function SettingsPage() {
       <section className="mb-5">
         <h2 className="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-faint">Preferences</h2>
         <div className="rounded-2xl border border-edge bg-surface px-4">
-          <Row label="Target exam" hint="Featured on your home screen.">
+          <Row label="Target exam" hint="Featured on your home screen." htmlFor="set-target-exam">
             <select
+              id="set-target-exam"
               value={settings.primaryExamId ?? ""}
               onChange={(e) => update({ primaryExamId: e.target.value || null })}
               className="max-w-[11rem] rounded-lg border border-edge bg-oled px-3 py-1.5 text-right text-sm outline-none focus:border-correct/50"
@@ -196,8 +226,9 @@ export default function SettingsPage() {
               ))}
             </select>
           </Row>
-          <Row label="Exam date" hint="Powers the countdown on your home screen.">
+          <Row label="Exam date" hint="Powers the countdown on your home screen." htmlFor="set-exam-date">
             <input
+              id="set-exam-date"
               type="date"
               value={settings.examDate ?? ""}
               onChange={(e) => update({ examDate: e.target.value || null })}
@@ -205,10 +236,18 @@ export default function SettingsPage() {
             />
           </Row>
           <Row label="Join global leaderboard" hint="Sync your XP to the anonymized ranks.">
-            <Toggle on={settings.leaderboardOptIn} onChange={(v) => update({ leaderboardOptIn: v })} />
+            <Toggle
+              label="Join global leaderboard"
+              on={settings.leaderboardOptIn}
+              onChange={(v) => update({ leaderboardOptIn: v })}
+            />
           </Row>
           <Row label="Reduce motion" hint="Calmer animations.">
-            <Toggle on={settings.reduceMotion} onChange={(v) => update({ reduceMotion: v })} />
+            <Toggle
+              label="Reduce motion"
+              on={settings.reduceMotion}
+              onChange={(v) => update({ reduceMotion: v })}
+            />
           </Row>
         </div>
       </section>

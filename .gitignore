@@ -26,3 +26,7 @@ apps/mobile/credentials.json
 *.p12
 *.mobileprovision
 AuthKey_*.p8
+
+# Playwright
+playwright-report/
+test-results/

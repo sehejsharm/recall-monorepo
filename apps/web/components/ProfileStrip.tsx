@@ -27,7 +27,9 @@ export function ProfileStrip() {
       className="mb-4 flex items-center gap-4 rounded-2xl border border-edge bg-surface px-4 py-3 transition-colors hover:border-correct/40"
     >
       <div className="flex h-11 w-11 shrink-0 flex-col items-center justify-center rounded-xl bg-raised">
-        <span className="text-[9px] font-semibold uppercase tracking-wider text-faint">Lvl</span>
+        {/* 9px is below the practical legibility floor; 11px is the smallest
+            size used elsewhere in the app. */}
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-faint">Lvl</span>
         <span className="-mt-0.5 text-lg font-bold leading-none tabular-nums">{lp.level}</span>
       </div>
 

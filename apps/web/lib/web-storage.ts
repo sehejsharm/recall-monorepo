@@ -1,9 +1,30 @@
 import type { GamificationState, ProgressRecord, ReadRecord, StorageAdapter } from "@jyotir/core";
 
-const PROGRESS_KEY = "jyotir.progress.v1";
-const READS_KEY = "jyotir.reads.v1";
-const STATS_KEY = "jyotir.stats.v1";
-const BOOKMARKS_KEY = "jyotir.bookmarks.v1";
+const PROGRESS_KEY = "recall.progress.v1";
+const READS_KEY = "recall.reads.v1";
+const STATS_KEY = "recall.stats.v1";
+const BOOKMARKS_KEY = "recall.bookmarks.v1";
+
+/**
+ * Legacy `jyotir.*` names. lib/storage-migration.ts moves these to the
+ * `recall.*` namespace on boot; this map is the safety net for the rare case
+ * where the migration couldn't run (storage disabled mid-session, quota), so
+ * a read still finds pre-existing data instead of silently returning empty.
+ */
+const LEGACY_KEY: Record<string, string> = {
+  [PROGRESS_KEY]: "jyotir.progress.v1",
+  [READS_KEY]: "jyotir.reads.v1",
+  [STATS_KEY]: "jyotir.stats.v1",
+  [BOOKMARKS_KEY]: "jyotir.bookmarks.v1"
+};
+
+/** Reads `key`, falling back to its legacy name. */
+function readRaw(key: string): string | null {
+  const direct = window.localStorage.getItem(key);
+  if (direct !== null) return direct;
+  const legacy = LEGACY_KEY[key];
+  return legacy ? window.localStorage.getItem(legacy) : null;
+}
 
 /**
  * localStorage-backed StorageAdapter. Progress is a few KB even after
@@ -15,7 +36,7 @@ export class WebStorageAdapter implements StorageAdapter {
   private read<T>(key: string): Record<string, T> {
     if (typeof window === "undefined") return {};
     try {
-      const raw = window.localStorage.getItem(key);
+      const raw = readRaw(key);
       return raw ? (JSON.parse(raw) as Record<string, T>) : {};
     } catch {
       return {};
@@ -61,7 +82,7 @@ export class WebStorageAdapter implements StorageAdapter {
   async loadStats(): Promise<GamificationState | null> {
     if (typeof window === "undefined") return null;
     try {
-      const raw = window.localStorage.getItem(STATS_KEY);
+      const raw = readRaw(STATS_KEY);
       return raw ? (JSON.parse(raw) as GamificationState) : null;
     } catch {
       return null;
@@ -93,6 +114,11 @@ export class WebStorageAdapter implements StorageAdapter {
 
   async clearAll(): Promise<void> {
     if (typeof window === "undefined") return;
-    for (const k of [PROGRESS_KEY, READS_KEY, STATS_KEY, BOOKMARKS_KEY]) window.localStorage.removeItem(k);
+    // Clear both namespaces so a reset never leaves stale legacy data behind.
+    for (const k of [PROGRESS_KEY, READS_KEY, STATS_KEY, BOOKMARKS_KEY]) {
+      window.localStorage.removeItem(k);
+      const legacy = LEGACY_KEY[k];
+      if (legacy) window.localStorage.removeItem(legacy);
+    }
   }
 }

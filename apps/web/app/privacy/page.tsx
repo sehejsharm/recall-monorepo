@@ -56,11 +56,11 @@ export default function PrivacyPage() {
             time: <strong>Settings → Account, then &ldquo;Delete account &amp; cloud data&rdquo;</strong>.
             This immediately removes your progress, read history, leaderboard entries and sign-in
             identity from our servers. Full instructions are on our{" "}
-            <a className="text-correct-bright" href="/delete-account">
+            <a className="text-correct-bright underline" href="/delete-account">
               account deletion page
             </a>
             . If you prefer, email{" "}
-            <a className="text-correct-bright" href={`mailto:${SUPPORT_EMAIL}`}>
+            <a className="text-correct-bright underline" href={`mailto:${SUPPORT_EMAIL}`}>
               {SUPPORT_EMAIL}
             </a>{" "}
             from your account email and we&apos;ll remove it within 30 days.

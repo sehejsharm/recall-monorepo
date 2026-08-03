@@ -141,14 +141,23 @@ export function TopicShell({
           >
             ← prev
           </button>
-          {/* Carousel dots: the visual cue that this deck swipes. */}
-          <div className="flex min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden" aria-hidden>
+          {/* Carousel dots: the visual cue that this deck swipes. Each dot is a
+              real, named control for assistive tech. Roving tabindex — only the
+              active dot is tabbable — keeps a 100-topic subject from adding 100
+              tab stops; prev/next remain the primary keyboard path. */}
+          <div
+            role="group"
+            aria-label="Topics in this subject"
+            className="flex min-w-0 flex-1 items-center justify-center gap-1 overflow-hidden"
+          >
             {topics.map((t, i) => (
               <button
                 key={t.id}
-                tabIndex={-1}
+                tabIndex={i === active ? 0 : -1}
+                aria-label={`Go to topic ${i + 1}: ${t.name}`}
+                aria-current={i === active ? "true" : undefined}
                 onClick={() => goToIndex(i)}
-                className="shrink-0 py-2"
+                className="shrink-0 py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-correct"
               >
                 <span
                   className={`block rounded-full transition-all ${

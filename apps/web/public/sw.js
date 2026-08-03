@@ -48,6 +48,43 @@ function isImmutableAsset(url) {
   );
 }
 
+/**
+ * Cache warm-up. A service worker does not control the page that registered
+ * it, so on a first visit none of that page's HTML or hashed JS chunks pass
+ * through the fetch handler — leaving the app broken offline until a second
+ * visit. The page therefore reports the exact resources it loaded (via
+ * performance entries) and we cache them immediately, which makes the app
+ * genuinely offline-capable after ONE online visit.
+ *
+ * Doing it at runtime avoids a build-time precache manifest: we cache exactly
+ * the chunks this build actually used, and never guess at hashed filenames.
+ */
+self.addEventListener("message", (event) => {
+  const data = event.data;
+  if (!data || data.type !== "WARM_CACHE" || !Array.isArray(data.urls)) return;
+
+  event.waitUntil(
+    (async () => {
+      const assets = await caches.open(ASSET_CACHE);
+      const shell = await caches.open(SHELL_CACHE);
+      await Promise.all(
+        data.urls.map(async (raw) => {
+          try {
+            const url = new URL(raw, self.location.origin);
+            if (url.origin !== self.location.origin) return;
+            const cache = url.pathname === data.page ? shell : assets;
+            if (await cache.match(url.href)) return; // already cached
+            const res = await fetch(url.href, { credentials: "same-origin" });
+            if (res && res.ok) await cache.put(url.href, res.clone());
+          } catch {
+            /* one asset failing must never abort the warm-up */
+          }
+        })
+      );
+    })()
+  );
+});
+
 self.addEventListener("fetch", (event) => {
   const { request } = event;
   if (request.method !== "GET") return;
