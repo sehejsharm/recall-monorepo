@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { REVIEW_QUEUE_LIMIT, REVIEW_SCOPE } from "@jyotir/core";
 import { DrillEngine } from "@/components/DrillEngine";
 import { useJyotir } from "@/lib/store-provider";
+import { ErrorTrigger } from "@/components/ErrorTrigger";
 
 /**
  * The daily review: one due-only queue spanning every exam. The
@@ -17,6 +18,7 @@ export default function ReviewPage() {
   const due = useJyotir((s) => (s.ready ? s.dueTotal() : 0));
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-6 pt-10">
+      <ErrorTrigger route="/review" />
       <header className="mb-6">
         <Link href="/" className="text-xs text-muted hover:text-ink">
           ← Home

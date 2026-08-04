@@ -6,6 +6,7 @@ import type { SupabaseLike } from "@jyotir/core";
 import { getSupabase } from "@/lib/supabase";
 import { SUPPORT_EMAIL } from "@/lib/site-config";
 import { useJyotirStore } from "@/lib/store-provider";
+import { ErrorTrigger } from "@/components/ErrorTrigger";
 
 type Mode = "login" | "signup" | "magic";
 
@@ -17,6 +18,7 @@ type Mode = "login" | "signup" | "magic";
 function Shell({ children }: { children: React.ReactNode }) {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-24 pt-14">
+      <ErrorTrigger route="/account" />
       <Link href="/" className="text-xs text-muted hover:text-ink">
         ← Home
       </Link>

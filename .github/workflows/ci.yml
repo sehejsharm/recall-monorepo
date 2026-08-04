@@ -70,13 +70,19 @@ jobs:
       - name: Install Chromium for Playwright
         run: pnpm --filter @jyotir/web exec playwright install --with-deps chromium
 
-      - name: Build web
+      # NEXT_PUBLIC_E2E_ERROR_HOOK compiles in the ?__boom=1 render-throw used
+      # to prove the route error boundary catches. It is set ONLY here — never
+      # in the Vercel production build — so the throw is unreachable in prod.
+      - name: Build web (with e2e error hook)
         run: pnpm --filter @jyotir/web build
+        env:
+          NEXT_PUBLIC_E2E_ERROR_HOOK: "1"
 
-      - name: Accessibility (axe-core) + offline e2e
+      - name: Accessibility (axe-core) + offline + error-boundary e2e
         run: pnpm --filter @jyotir/web exec playwright test
         env:
           CI: "1"
+          NEXT_PUBLIC_E2E_ERROR_HOOK: "1"
 
       - name: Upload Playwright report on failure
         if: failure()

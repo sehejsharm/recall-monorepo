@@ -6,11 +6,13 @@ import { LegalFooter } from "@/components/LegalFooter";
 import { LocalOnlyBanner } from "@/components/LocalOnlyBanner";
 import { ProfileStrip } from "@/components/ProfileStrip";
 import { ReviewBanner } from "@/components/ReviewBanner";
+import { ErrorTrigger } from "@/components/ErrorTrigger";
 
 export default function ExamPickerPage() {
   const groups = groupExams(repo.exams());
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-24 pt-14">
+      <ErrorTrigger route="/" />
       <header className="mb-8 flex items-start justify-between">
         <div>
           <h1 className="text-3xl font-bold tracking-tight">Recall</h1>

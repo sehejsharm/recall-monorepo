@@ -4,6 +4,7 @@ import { repo } from "@/lib/content";
 import { TopicShell } from "@/components/TopicShell";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { jsonLdHtml } from "@/lib/jsonld";
+import { ErrorTrigger } from "@/components/ErrorTrigger";
 
 export function generateStaticParams() {
   return repo.exams().flatMap((e) =>
@@ -85,6 +86,7 @@ export default async function TopicPage({
 
   return (
     <>
+      <ErrorTrigger route="/topic" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: jsonLdHtml(jsonLd) }}

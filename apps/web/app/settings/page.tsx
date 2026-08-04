@@ -7,6 +7,7 @@ import { downloadExport } from "@/lib/data-export";
 import { getSupabase } from "@/lib/supabase";
 import { useSettings } from "@/lib/settings";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
+import { ErrorTrigger } from "@/components/ErrorTrigger";
 
 /**
  * A settings row. When `htmlFor` is given the visible label text is rendered
@@ -144,6 +145,7 @@ export default function SettingsPage() {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-xl flex-col px-5 pb-24 pt-12">
+      <ErrorTrigger route="/settings" />
       <h1 className="mb-6 text-2xl font-bold tracking-tight">Settings</h1>
 
       <section className="mb-5">
