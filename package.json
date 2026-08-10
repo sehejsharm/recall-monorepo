@@ -11,7 +11,8 @@
     "typecheck": "turbo typecheck",
     "seed:generate": "tsx scripts/generate-seed.ts",
     "seed:apply": "psql \"$DATABASE_URL\" -v ON_ERROR_STOP=1 -f supabase/seed.sql",
-    "preflight:store": "node scripts/preflight-store.mjs"
+    "preflight:store": "node scripts/preflight-store.mjs",
+    "catalog:generate": "tsx scripts/generate-catalog.ts"
   },
   "devDependencies": {
     "@jyotir/content": "workspace:*",
@@ -21,7 +22,10 @@
     "typescript": "~5.9.3"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "sharp"],
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ],
     "overrides": {
       "react": "19.2.7",
       "react-dom": "19.2.7"

@@ -124,3 +124,16 @@ jobs:
             echo "::error::supabase/seed.sql is stale — run 'pnpm seed:generate' and commit the result."
             exit 1
           fi
+
+      # packages/content/src/catalog.ts duplicates exam metadata so the exam
+      # pickers don't drag the 5.7 MB question corpus into the client bundle.
+      # A duplicate is only safe while it cannot drift.
+      - name: Regenerate the exam catalog
+        run: pnpm catalog:generate
+
+      - name: Fail if packages/content/src/catalog.ts is out of date
+        run: |
+          if ! git diff --exit-code -- packages/content/src/catalog.ts; then
+            echo "::error::catalog.ts is stale — run 'pnpm catalog:generate' and commit the result."
+            exit 1
+          fi

@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { repo } from "@/lib/content";
+import { examCatalog, firstTopicPathByExam } from "@jyotir/content/catalog";
 import { loadSettings, saveSettings } from "@/lib/settings";
 import { BoltIcon, FlameIcon, RecallMark, TrophyIcon, UsersIcon } from "./icons";
 
@@ -87,16 +87,12 @@ export function Onboarding() {
     setStep(null);
   };
 
-  /** The chosen exam's very first topic — the taste session destination. */
-  const firstTopicPath = (examId: string): string | null => {
-    const exam = repo.exams().find((e) => e.id === examId);
-    if (!exam) return null;
-    const subject = repo.subjectsByExam(exam.id)[0];
-    if (!subject) return null;
-    const topic = repo.topicsBySubject(subject.id)[0];
-    if (!topic) return null;
-    return `/${exam.slug}/${subject.slug}/${topic.slug}`;
-  };
+  /** The chosen exam's very first topic — the taste session destination.
+   *  Precomputed at build time (see scripts/generate-catalog.ts): resolving it
+   *  from the repo would pull the whole question corpus into the root layout,
+   *  and therefore into every route. */
+  const firstTopicPath = (examId: string): string | null =>
+    firstTopicPathByExam[examId] ?? null;
 
   // ── Mandatory name gate ────────────────────────────────────────────────
   if (needName) {
@@ -174,7 +170,7 @@ export function Onboarding() {
             We&apos;ll feature it on your home screen. You can study any of the others too.
           </p>
           <div className="mt-6 flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto pb-4">
-            {repo.exams().map((e) => (
+            {examCatalog.map((e) => (
               <button
                 key={e.id}
                 onClick={() => {

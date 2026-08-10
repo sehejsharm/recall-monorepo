@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { levelForXp, rankName } from "@jyotir/core";
-import { repo } from "@/lib/content";
+import { examCatalog } from "@jyotir/content/catalog";
 import { getSupabase } from "@/lib/supabase";
 import { fetchLeaderboard, fetchMyRank, type LeaderboardRow } from "@/lib/leaderboard";
 import { loadSettings } from "@/lib/settings";
@@ -43,7 +43,7 @@ function ShareInvite() {
 export default function LeaderboardPage() {
   const supabase = getSupabase();
   const localXp = useJyotir((s) => s.stats.xp);
-  const exams = useMemo(() => repo.exams(), []);
+  const exams = examCatalog;
   const [scope, setScope] = useState<string>(""); // "" = overall, else examId
   const [rows, setRows] = useState<LeaderboardRow[] | null>(null);
   const [me, setMe] = useState<LeaderboardRow | null>(null);

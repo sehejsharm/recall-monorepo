@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { repo } from "@/lib/content";
+import { examCatalog } from "@jyotir/content/catalog";
 import { downloadExport } from "@/lib/data-export";
 import { getSupabase } from "@/lib/supabase";
 import { useSettings } from "@/lib/settings";
@@ -223,7 +223,7 @@ export default function SettingsPage() {
               className="max-w-[11rem] rounded-lg border border-edge bg-oled px-3 py-1.5 text-right text-sm outline-none focus:border-correct/50"
             >
               <option value="">None</option>
-              {repo.exams().map((e) => (
+              {examCatalog.map((e) => (
                 <option key={e.id} value={e.id}>
                   {e.name}
                 </option>

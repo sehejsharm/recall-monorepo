@@ -9,7 +9,6 @@ import {
 } from "react";
 import { useStore } from "zustand";
 import { createJyotirStore, type JyotirState, type JyotirStore } from "@jyotir/core";
-import { contentSource } from "./content";
 import { runStorageMigrations } from "./storage-migration";
 import { WebStorageAdapter } from "./web-storage";
 
@@ -22,7 +21,13 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     runStorageMigrations();
     storeRef.current = createJyotirStore({
       adapter: new WebStorageAdapter(),
-      content: contentSource
+      // Deferred, not static. StoreProvider is mounted in the root layout, so
+      // a static import put the entire ~5.7 MB question corpus (1.66 MB gzip,
+      // ~88% of all client JS) into the shell chunk that /privacy, /terms and
+      // every other non-study route had to download and parse before painting.
+      // hydrate() awaits this, so `ready` still means "content + storage are
+      // both available" and no consumer needs to know it became async.
+      loadContent: () => import("./content").then((m) => m.contentSource)
     });
   }
 

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { repo } from "@/lib/content";
+import { examCatalog } from "@jyotir/content/catalog";
 import { loadSettings, type Settings } from "@/lib/settings";
 
 /**
@@ -16,7 +16,7 @@ export function ExamCountdown() {
   useEffect(() => setSettings(loadSettings()), []);
 
   if (!settings?.primaryExamId) return null;
-  const exam = repo.exams().find((e) => e.id === settings.primaryExamId);
+  const exam = examCatalog.find((e) => e.id === settings.primaryExamId);
   if (!exam) return null;
 
   let days: number | null = null;

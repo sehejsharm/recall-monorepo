@@ -129,7 +129,19 @@ export interface JyotirState {
 
 export interface StoreDeps {
   adapter: StorageAdapter;
-  content: ContentSource;
+  /**
+   * Content available synchronously. Provide this OR `loadContent`.
+   *
+   * On web this pulls the whole ~5.7 MB corpus into whatever chunk imports
+   * the store — which is the root layout — so prefer `loadContent` there.
+   */
+  content?: ContentSource;
+  /**
+   * Deferred content, so the corpus can be code-split out of the app shell.
+   * Awaited by `hydrate()`, which means `ready === true` still guarantees
+   * content is present; nothing downstream has to learn a new state.
+   */
+  loadContent?: () => Promise<ContentSource>;
   /** Platform feedback hooks (e.g. expo-haptics). Fired synchronously. */
   onReveal?: () => void;
   /** Fired when a card is graded; `correct` reflects the tapped option. */
@@ -158,8 +170,39 @@ const countMastered = (progress: Record<string, ProgressRecord>): number => {
 export type JyotirStore = StoreApi<JyotirState> & { repo: ContentRepo };
 
 export function createJyotirStore(deps: StoreDeps): JyotirStore {
-  const repo = createContentRepo(deps.content);
   const { adapter } = deps;
+
+  if (!deps.content && !deps.loadContent) {
+    throw new Error("[jyotir] createJyotirStore needs either `content` or `loadContent`");
+  }
+
+  // Content is either here from the start or fetched once by hydrate(). Every
+  // consumer already gates rendering on `ready`, and hydrate() does not flip
+  // `ready` until content has landed, so no caller can observe the null window.
+  let content: ContentSource | null = deps.content ?? null;
+  let contentRepo: ContentRepo | null = content ? createContentRepo(content) : null;
+  let inFlight: Promise<ContentSource> | null = null;
+
+  const ensureContent = (): Promise<ContentSource> => {
+    if (content) return Promise.resolve(content);
+    inFlight ??= deps.loadContent!().then((loaded) => {
+      content = loaded;
+      contentRepo = createContentRepo(loaded);
+      return loaded;
+    });
+    return inFlight;
+  };
+
+  const repo = (): ContentRepo => {
+    if (!contentRepo) {
+      throw new Error("[jyotir] content is not loaded yet — await hydrate() first");
+    }
+    return contentRepo;
+  };
+  const loadedContent = (): ContentSource => {
+    if (!content) throw new Error("[jyotir] content is not loaded yet — await hydrate() first");
+    return content;
+  };
 
   const persist = (p: Promise<void>) =>
     p.catch((err) => console.error("[jyotir] persistence failed:", err));
@@ -171,8 +214,8 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
   let knownIds: { questions: Set<string>; materials: Set<string> } | null = null;
   const knownContentIds = () =>
     (knownIds ??= {
-      questions: new Set(deps.content.questions.map((q) => q.id)),
-      materials: new Set(deps.content.materials.map((m) => m.id))
+      questions: new Set(loadedContent().questions.map((q) => q.id)),
+      materials: new Set(loadedContent().materials.map((m) => m.id))
     });
 
   const store = createStore<JyotirState>()((set, get) => ({
@@ -186,7 +229,10 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
     lastSync: null,
 
     async hydrate() {
-      const [progress, reads, bookmarks, stats] = await Promise.all([
+      // Content is loaded alongside storage rather than before it, so the
+      // deferred-content path costs no extra round trip.
+      const [, progress, reads, bookmarks, stats] = await Promise.all([
+        ensureContent(),
         adapter.loadProgress(),
         adapter.loadReadHistory(),
         adapter.loadBookmarks(),
@@ -196,7 +242,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
     },
 
     startDrill(topicId, limit = DEFAULT_QUEUE_LIMIT) {
-      const questions = repo.questionsByTopic(topicId);
+      const questions = repo().questionsByTopic(topicId);
       // "ifEmpty": the session serves exactly the due+new cards the topic
       // badge/CTA promised; not-yet-due cards only appear when the user is
       // fully caught up (pure practice, labelled "ahead of schedule").
@@ -212,7 +258,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
     },
 
     startReview(limit = REVIEW_QUEUE_LIMIT) {
-      const queue = buildReviewQueue(repo.allQuestions(), get().progress, new Date(), limit);
+      const queue = buildReviewQueue(repo().allQuestions(), get().progress, new Date(), limit);
       set({
         drill: {
           ...emptyDrill(),
@@ -224,7 +270,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
     },
 
     startCustomDrill(topicIds, limit = DEFAULT_QUEUE_LIMIT) {
-      const queue = buildQueue(repo.questionsByTopics(topicIds), get().progress, new Date(), limit);
+      const queue = buildQueue(repo().questionsByTopics(topicIds), get().progress, new Date(), limit);
       set({
         drill: {
           ...emptyDrill(),
@@ -237,7 +283,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
 
     startBookmarkedDrill(limit = DEFAULT_QUEUE_LIMIT) {
       const ids = new Set(Object.keys(get().bookmarks));
-      const questions = repo.allQuestions().filter((q) => ids.has(q.id));
+      const questions = repo().allQuestions().filter((q) => ids.has(q.id));
       const queue = buildQueue(questions, get().progress, new Date(), limit);
       set({
         drill: {
@@ -275,7 +321,7 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
       // --- gamification ---
       const outcome = applyGradeToStats(stats, correct, combo, dayKey());
       // Attribute this card's XP to its exam (per-exam leaderboards).
-      const examId = repo.examIdForTopic(card.question.topicId);
+      const examId = repo().examIdForTopic(card.question.topicId);
       const examXp = examId
         ? { ...outcome.state.examXp, [examId]: (outcome.state.examXp[examId] ?? 0) + outcome.xpAwarded }
         : outcome.state.examXp;
@@ -364,12 +410,18 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
       return Object.keys(get().bookmarks).length;
     },
 
+    // These two are read during render, including on the first paint before
+    // hydrate() resolves. With deferred content that window is real, so they
+    // report "nothing known yet" rather than throwing — the UI already
+    // re-renders once `ready` flips.
     countsForTopic(topicId) {
-      return topicCounts(repo.questionsByTopic(topicId), get().progress);
+      if (!contentRepo) return topicCounts([], get().progress);
+      return topicCounts(contentRepo.questionsByTopic(topicId), get().progress);
     },
 
     dueTotal() {
-      return dueCount(repo.allQuestions(), get().progress);
+      if (!contentRepo) return 0;
+      return dueCount(contentRepo.allQuestions(), get().progress);
     },
 
     masteredCount() {
@@ -447,5 +499,13 @@ export function createJyotirStore(deps: StoreDeps): JyotirStore {
     }
   }));
 
-  return Object.assign(store, { repo });
+  // `repo` stays on the store for parity with the old surface, but it is now
+  // a getter: reading it before hydrate() throws rather than handing back a
+  // repo built over missing content.
+  // defineProperty, not Object.assign: assign COPIES the getter's value, which
+  // would invoke it at construction time — before content exists — and throw.
+  return Object.defineProperty(store, "repo", {
+    get: repo,
+    enumerable: true
+  }) as JyotirStore;
 }
