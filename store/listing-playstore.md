@@ -54,8 +54,8 @@ Start with five quick cards and feel it working in two minutes.
 
 ## Contact details
 - Email: `sharmasehej2104@gmail.com`
-- Website: `https://<your-domain>`
-- Privacy Policy: `https://<your-domain>/privacy`  (required)
+- Website: `https://recall-monorepo-web.vercel.app`
+- Privacy Policy: `https://recall-monorepo-web.vercel.app/privacy`  (required)
 
 ## Content rating
 Complete the IARC questionnaire → expected **Everyone**. No violence, no

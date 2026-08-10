@@ -70,9 +70,9 @@ Welcome to Recall 1.0.
 ```
 
 ## Support & marketing URLs
-- Support URL: `https://<your-domain>/contact`
-- Marketing URL: `https://<your-domain>`
-- Privacy Policy URL: `https://<your-domain>/privacy`  (required)
+- Support URL: `https://recall-monorepo-web.vercel.app/contact`
+- Marketing URL: `https://recall-monorepo-web.vercel.app`
+- Privacy Policy URL: `https://recall-monorepo-web.vercel.app/privacy`  (required)
 
 ## Category
 - Primary: **Education**

@@ -362,7 +362,14 @@ by row-level security) but it means **sync is always on** for a signed-in
 user, in every build, with no env wiring — so the data-safety answers can
 never be "we didn't configure a backend".
 
-**E7 — Stale references elsewhere.** `STORE.md` still describes only the Expo
-path and prints a stale `jyotir-web.vercel.app` privacy URL;
-`store/listing-playstore.md` has `https://<your-domain>` placeholders. Both
-need the outcome of decisions C1/C2/C9 before they are accurate.
+**E7 — Listing URLs.** The `https://<your-domain>` placeholders in
+`store/listing-playstore.md` and `store/listing-appstore.md` have been
+replaced with the live deployment URL,
+`https://recall-monorepo-web.vercel.app`. Play rejects a privacy-policy URL
+that does not resolve, so this could not stay a placeholder.
+
+If you later move to a custom domain, these two files, `SITE_URL` in
+`apps/mobile/lib/site-config.ts`, `store/twa/twa-manifest.json` (`host` and
+`startUrl`), and the `NEXT_PUBLIC_SITE_URL` env var on both Vercel projects
+all have to move together — and the TWA must be rebuilt, because its verified
+origin is compiled into the Android app.
