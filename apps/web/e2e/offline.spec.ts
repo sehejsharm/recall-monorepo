@@ -27,6 +27,25 @@ const ONBOARDED = {
 
 const TOPIC = "/upsc/polity/fundamental-rights";
 
+/**
+ * Open the Drill tab on the active topic card.
+ *
+ * The offline reload serves cached SSR HTML, which paints the tab strip
+ * ~180ms before React finishes hydrating and attaches its listeners (measured
+ * on this build). A click dispatched inside that window is swallowed, so the
+ * click is retried until the tab actually reports itself selected. Without
+ * this the test is a coin flip on machine speed, not a signal about offline
+ * support.
+ */
+async function openDrillTab(page: import("@playwright/test").Page) {
+  const tab = page.getByRole("tab", { name: /drill engine/i });
+  await expect(tab).toBeVisible({ timeout: 15_000 });
+  await expect(async () => {
+    await tab.click();
+    await expect(tab).toHaveAttribute("aria-selected", "true", { timeout: 1_000 });
+  }).toPass({ timeout: 15_000 });
+}
+
 test("app shell + drill work with the network fully disabled", async ({ page, context }) => {
   await page.addInitScript((s) => {
     window.localStorage.setItem("recall.settings.v1", JSON.stringify(s));
@@ -66,7 +85,7 @@ test("app shell + drill work with the network fully disabled", async ({ page, co
   });
 
   // A full drill cycle must work offline.
-  await page.getByRole("tab", { name: /drill engine/i }).click();
+  await openDrillTab(page);
   const optionA = page.getByRole("button", { name: /^A\b/ }).first();
   await expect(optionA).toBeVisible({ timeout: 15_000 });
   await optionA.click();
@@ -104,7 +123,7 @@ test("progress recorded offline persists and the app recovers online", async ({ 
   await context.setOffline(true);
   await page.reload({ waitUntil: "domcontentloaded" });
 
-  await page.getByRole("tab", { name: /drill engine/i }).click();
+  await openDrillTab(page);
   const optionA = page.getByRole("button", { name: /^A\b/ }).first();
   await expect(optionA).toBeVisible({ timeout: 15_000 });
   await optionA.click();

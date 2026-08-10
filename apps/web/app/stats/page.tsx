@@ -19,7 +19,18 @@ function Stat({
 }) {
   return (
     <div className="rounded-2xl border border-edge bg-surface px-4 py-3" title={hint}>
-      <div className={`text-2xl font-bold tabular-nums ${accent ? "text-correct" : ""}`}>{value}</div>
+      {/* Word values ("Resting", "On track") are far wider than a 2–3 digit
+          number and overflowed this tile at 360px. Numbers keep the large
+          tabular treatment; text steps down a size and wraps instead. */}
+      <div
+        className={`font-bold ${accent ? "text-correct" : ""} ${
+          typeof value === "number"
+            ? "text-2xl tabular-nums"
+            : "text-lg leading-tight break-words"
+        }`}
+      >
+        {value}
+      </div>
       <div className="mt-0.5 text-[11px] uppercase tracking-wider text-faint">{label}</div>
       {hint && <div className="mt-0.5 text-[10px] leading-tight text-faint">{hint}</div>}
     </div>
@@ -34,7 +45,12 @@ export default function StatsPage() {
 
   const lp = levelProgress(stats.xp);
   const unlocked = new Set(stats.achievements);
-  const nextRank = RANKS[Math.min(lp.level, RANKS.length - 1)];
+  // Levels are unbounded (50·(L-1)²) but RANKS stops at Legend, so past the
+  // cap `RANKS[level]` clamps back to the rank you already hold — the label
+  // then read "180 XP to Legend" to someone the same screen called a Legend.
+  // Beyond the cap, count toward the next level number instead.
+  const atMaxRank = lp.level >= RANKS.length;
+  const nextRank = atMaxRank ? `level ${lp.level + 1}` : RANKS[lp.level];
 
   const onShare = async () => {
     const text = shareCard(stats, { url: typeof window !== "undefined" ? window.location.origin : undefined });
