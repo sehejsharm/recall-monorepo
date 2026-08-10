@@ -1,0 +1,53 @@
+{
+  "packageId": "app.recall.twa",
+  "host": "recall-monorepo-web.vercel.app",
+  "name": "Recall — Drill. Read. Repeat.",
+  "launcherName": "Recall",
+  "display": "standalone",
+  "orientation": "portrait",
+  "themeColor": "#000000",
+  "themeColorDark": "#000000",
+  "navigationColor": "#000000",
+  "navigationColorDark": "#000000",
+  "navigationDividerColor": "#000000",
+  "navigationDividerColorDark": "#000000",
+  "backgroundColor": "#000000",
+  "startUrl": "/",
+  "fullScopeUrl": "https://recall-monorepo-web.vercel.app/",
+  "webManifestUrl": "https://recall-monorepo-web.vercel.app/manifest.webmanifest",
+  "iconUrl": "https://recall-monorepo-web.vercel.app/icon-512.png",
+  "maskableIconUrl": "https://recall-monorepo-web.vercel.app/icon-maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "enableNotifications": false,
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "isMetaQuest": false,
+  "fallbackType": "customtabs",
+  "launchHandlerClientMode": "auto",
+  "additionalTrustedOrigins": [],
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "features": {},
+  "shortcuts": [
+    {
+      "name": "Daily review",
+      "shortName": "Review",
+      "url": "https://recall-monorepo-web.vercel.app/review",
+      "chosenIconUrl": "https://recall-monorepo-web.vercel.app/icon-192.png"
+    },
+    {
+      "name": "Stats",
+      "shortName": "Stats",
+      "url": "https://recall-monorepo-web.vercel.app/stats",
+      "chosenIconUrl": "https://recall-monorepo-web.vercel.app/icon-192.png"
+    }
+  ],
+  "appVersionName": "1.0.0",
+  "appVersionCode": 1,
+  "signingKey": {
+    "path": "REPLACE_WITH_ABSOLUTE_PATH_TO_YOUR_KEYSTORE",
+    "alias": "REPLACE_WITH_KEYSTORE_ALIAS"
+  },
+  "generatorApp": "bubblewrap-cli"
+}

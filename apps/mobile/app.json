@@ -3,6 +3,7 @@
     "name": "Recall",
     "slug": "jyotir",
     "version": "1.0.0",
+    "runtimeVersion": { "policy": "appVersion" },
     "description": "Active-recall exam drilling with spaced repetition for UPSC, JEE, NEET, SSC CGL, GATE, CFA and FRM.",
     "scheme": "recall",
     "orientation": "portrait",

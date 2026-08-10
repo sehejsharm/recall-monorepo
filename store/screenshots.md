@@ -1,6 +1,6 @@
 # Screenshot set
 
-Both stores reward **captioned marketing screenshots** (a headline band над a
+Both stores reward **captioned marketing screenshots** (a headline band over a
 device frame), not raw captures. Ship 6 in this order — the narrative is
 "see the loop, see why it's smart, see it stick".
 
@@ -24,6 +24,14 @@ device frame), not raw captures. Ship 6 in this order — the narrative is
 **Play Store (required):**
 - Phone: min 2, up to 8 (1080 × 1920 or higher, 16:9 or 9:16)
 - Feature graphic: **1024 × 500** (required, no device frame — logo + tagline)
+
+**PWA install prompt (`apps/web/public/screenshots/`):** `apps/web/app/manifest.ts`
+declares `drill.png`, `note.png` and `stats.png` at **exactly `1080x1920`**.
+Chrome silently discards the entire screenshot set if any declared file 404s
+or if a file's real pixel dimensions differ from the declared `sizes`, so
+either match 1080×1920 exactly or update the `sizes` values in `manifest.ts`
+to whatever is actually generated. `node store/twa/validate.mjs` warns while
+these files are missing.
 
 ## How to capture
 `eas build --profile preview` → install on a device/simulator, or run the

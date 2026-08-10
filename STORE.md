@@ -5,6 +5,17 @@ Play Store and Apple App Store. Code, icons, splash and EAS profiles are ready
 (app version **1.0.0**); the steps below are the account-gated actions only you
 can perform.
 
+> ## 📍 For **Google Play**, use `store/submission-checklist.md` instead
+>
+> This file covers the Expo path only. Play has a second candidate artifact —
+> a Bubblewrap **TWA** wrapping the deployed PWA — and the choice between the
+> two is unmade. The two are different Android packages, they cannot share a
+> Play listing, and **a package name is permanent after the first upload**.
+> `store/submission-checklist.md` is the ordered Play runbook covering both
+> paths; `store/twa-play-submission.md` and `store/twa/` cover the TWA.
+>
+> This file remains the runbook for the **Apple App Store**.
+
 ## 0. One-time prerequisites
 - **Expo account** (free): https://expo.dev — run `npx expo login`.
 - **Apple Developer Program** ($99/yr): https://developer.apple.com/programs/
