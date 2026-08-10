@@ -82,7 +82,7 @@ The **Q-value** is the energy released; a reaction is spontaneous when Q > 0.`, 
 ## Error propagation
 - **Sum/difference**: absolute errors add.
 - **Product/quotient**: relative (fractional) errors add.
-- **Power** Z = Aᵖ Bᑫ / Cʳ: ΔZ/Z = p(ΔA/A) + q(ΔB/B) + r(ΔC/C).
+- **Power** Z = Aᵖ Bq / Cʳ: ΔZ/Z = p(ΔA/A) + q(ΔB/B) + r(ΔC/C).
 
 ## Common JEE-Advanced experiments
 - **Metre-bridge / Wheatstone bridge**: unknown R from balance point; error minimised near the middle of the wire.

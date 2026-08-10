@@ -5431,7 +5431,7 @@ The **Q-value** is the energy released; a reaction is spontaneous when Q > 0.', 
 ## Error propagation
 - **Sum/difference**: absolute errors add.
 - **Product/quotient**: relative (fractional) errors add.
-- **Power** Z = Aᵖ Bᑫ / Cʳ: ΔZ/Z = p(ΔA/A) + q(ΔB/B) + r(ΔC/C).
+- **Power** Z = Aᵖ Bq / Cʳ: ΔZ/Z = p(ΔA/A) + q(ΔB/B) + r(ΔC/C).
 
 ## Common JEE-Advanced experiments
 - **Metre-bridge / Wheatstone bridge**: unknown R from balance point; error minimised near the middle of the wire.
@@ -15417,7 +15417,7 @@ Adjusts for the business''s beta so comparisons account for systematic risk, com
 
 Copulas are essential in credit portfolio and structured-product modelling where joint defaults matter.', 2, 0),
   ('frm-quantitative-analysis-bayesian-m01', 'frm-quantitative-analysis-bayesian', 'Bayesian Analysis & Estimation', '**Bayesian analysis** updates beliefs with new evidence using **Bayes'' theorem**:
-P(A│B) = P(B│A)·P(A) / P(B).
+P(A|B) = P(B|A)·P(A) / P(B).
 
 ## Terminology
 - **Prior**: initial belief before data.
@@ -20254,7 +20254,7 @@ Which is/are correct?', 'Both 1 and 2', '2 only', '1 only', 'Neither 1 nor 2', '
   ('jee-adv-math-definite-integrals-q15', 'jee-adv-math-definite-integrals', 'For an odd function f, ∫₋a^a f(x) dx equals:', '0', '2∫₀^a f(x) dx', 'a²', '1', 'A', 'The integral of an odd function over a symmetric interval is zero.', 14),
   ('jee-adv-math-definite-integrals-q16', 'jee-adv-math-definite-integrals', 'The area under y = f(x) from a to b is given by:', '∫ₐ^b f(x) dx', 'f(b) − f(a)', 'f''(x)', 'The average of f', 'A', 'The definite integral gives the (signed) area under the curve.', 15),
   ('jee-adv-math-probability-q13', 'jee-adv-math-probability', 'For independent events A and B, P(A ∩ B) equals:', 'P(A)·P(B)', 'P(A) + P(B)', 'P(A) − P(B)', 'P(A)/P(B)', 'A', 'Independent events multiply: P(A ∩ B) = P(A)P(B).', 12),
-  ('jee-adv-math-probability-q14', 'jee-adv-math-probability', 'Bayes'' theorem gives P(A│B) = P(B│A)·P(A) /', 'P(B)', 'P(A)', 'P(B│A)', '1', 'A', 'The denominator is the total probability of the evidence, P(B).', 13),
+  ('jee-adv-math-probability-q14', 'jee-adv-math-probability', 'Bayes'' theorem gives P(A|B) = P(B|A)·P(A) /', 'P(B)', 'P(A)', 'P(B|A)', '1', 'A', 'The denominator is the total probability of the evidence, P(B).', 13),
   ('jee-adv-math-probability-q15', 'jee-adv-math-probability', 'For mutually exclusive events, P(A ∪ B) equals:', 'P(A) + P(B)', 'P(A)·P(B)', 'P(A) − P(B)', '0', 'A', 'Mutually exclusive events cannot co-occur, so probabilities add.', 14),
   ('jee-adv-math-probability-q16', 'jee-adv-math-probability', 'The mean (expected value) of a binomial distribution B(n, p) is:', 'np', 'np(1−p)', 'p/n', 'n/p', 'A', 'The mean of a binomial distribution is np.', 15),
   ('jee-adv-math-conics-q13', 'jee-adv-math-conics', 'The eccentricity of a parabola is:', '1', '0', 'Between 0 and 1', 'Greater than 1', 'A', 'A parabola has eccentricity exactly 1.', 12),
@@ -27031,7 +27031,7 @@ Which is/are correct?', 'Both 1 and 2', '2 only', '1 only', 'Neither 1 nor 2', '
   ('frm-quantitative-analysis-bayesian-q08', 'frm-quantitative-analysis-bayesian', 'Bayes'' theorem can revise a borrower''s:', 'Probability of default after new information', 'Coupon rate', 'Maturity', 'Face value', 'A', 'New payment behaviour updates the estimated probability of default.', 7),
   ('frm-quantitative-analysis-bayesian-q09', 'frm-quantitative-analysis-bayesian', 'A prior that reflects strong existing beliefs is called:', 'Informative', 'Uninformative', 'Posterior', 'Frequentist', 'A', 'An informative prior encodes substantial prior knowledge.', 8),
   ('frm-quantitative-analysis-bayesian-q10', 'frm-quantitative-analysis-bayesian', 'Ignoring base rates when judging probabilities is the:', 'Base-rate fallacy', 'Central limit theorem', 'Law of large numbers', 'Efficient market', 'A', 'The base-rate fallacy neglects prior probabilities, which Bayes corrects.', 9),
-  ('frm-quantitative-analysis-bayesian-q11', 'frm-quantitative-analysis-bayesian', 'In Bayes'' theorem P(A│B) = P(B│A)·P(A) / ____.', 'P(B)', 'P(A)', 'P(B│A)', '1', 'A', 'The denominator is the total probability of the evidence, P(B).', 10),
+  ('frm-quantitative-analysis-bayesian-q11', 'frm-quantitative-analysis-bayesian', 'In Bayes'' theorem P(A|B) = P(B|A)·P(A) / ____.', 'P(B)', 'P(A)', 'P(B|A)', '1', 'A', 'The denominator is the total probability of the evidence, P(B).', 10),
   ('frm-quantitative-analysis-bayesian-q12', 'frm-quantitative-analysis-bayesian', 'Combining expert judgement with data is a strength of the ____ approach.', 'Bayesian', 'Purely frequentist', 'Non-statistical', 'Deterministic', 'A', 'Bayesian methods formally blend prior judgement with observed data.', 11),
   ('frm-financial-markets-commodity-forwards-q01', 'frm-financial-markets-commodity-forwards', 'The convenience yield reflects the benefit of holding the:', 'Physical commodity', 'Futures contract', 'Cash bond', 'Option', 'A', 'Convenience yield is the benefit of holding the physical asset (e.g., avoiding stock-outs).', 0),
   ('frm-financial-markets-commodity-forwards-q02', 'frm-financial-markets-commodity-forwards', 'A market where futures prices exceed the spot price is in:', 'Contango', 'Backwardation', 'Equilibrium only', 'Default', 'A', 'Contango is when futures trade above spot (carry costs dominate).', 1),

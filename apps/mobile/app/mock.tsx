@@ -4,6 +4,7 @@ import { Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   OPTION_KEYS,
+  optionOrder,
   optionText,
   sampleQuestions,
   scoreMock,
@@ -138,7 +139,7 @@ export default function MockScreen() {
           <ScrollView className="mt-5 flex-1" showsVerticalScrollIndicator={false}>
             <Text className="text-lg font-semibold leading-snug text-ink">{q.text}</Text>
             <View className="mt-5 gap-2.5">
-              {OPTION_KEYS.map((k) => {
+              {optionOrder(q.id).map((k, i) => {
                 const on = picked === k;
                 return (
                   <Pressable
@@ -148,7 +149,9 @@ export default function MockScreen() {
                       on ? "border-correct bg-correct-dim/30" : "border-edge bg-surface"
                     }`}
                   >
-                    <Text className={`text-sm font-bold ${on ? "text-correct" : "text-faint"}`}>{k}</Text>
+                    <Text className={`text-sm font-bold ${on ? "text-correct" : "text-faint"}`}>
+                      {OPTION_KEYS[i]}
+                    </Text>
                     <Text className="flex-1 text-sm text-ink">{optionText(q, k)}</Text>
                   </Pressable>
                 );

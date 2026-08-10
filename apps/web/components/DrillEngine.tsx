@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import {
   achievementById,
   OPTION_KEYS,
+  displayedLabel,
+  optionOrder,
   optionText,
   scheduleExplanation,
   type AnsweredCard,
@@ -64,14 +66,21 @@ export function DrillEngine({
     const onKey = (e: KeyboardEvent) => {
       const phase = drill.phase;
       if (phase === "question") {
+        // Keys address what the user SEES, so both paths go through the same
+        // shuffle the options were rendered in. Pressing "A" must pick the
+        // option displayed first, not authored option A.
+        const current = drill.queue[drill.index]?.question;
+        if (!current) return;
+        const order = optionOrder(current.id);
         const letter = e.key.toUpperCase();
+        const letterIndex = (OPTION_KEYS as readonly string[]).indexOf(letter);
         const numIndex = "1234".indexOf(e.key);
-        if ((OPTION_KEYS as readonly string[]).includes(letter)) {
+        if (letterIndex >= 0) {
           e.preventDefault();
-          answer(letter as OptionKey);
+          answer(order[letterIndex]!);
         } else if (numIndex >= 0) {
           e.preventDefault();
-          answer(OPTION_KEYS[numIndex]!);
+          answer(order[numIndex]!);
         }
       } else if (phase === "answered" && (e.key === "Enter" || e.key === " " || e.key === "ArrowRight")) {
         e.preventDefault();
@@ -80,7 +89,7 @@ export function DrillEngine({
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [drill.phase, answer, next]);
+  }, [drill.phase, drill.queue, drill.index, answer, next]);
 
   if (!ready || drill.topicId !== topicId) {
     return <div className="flex-1" aria-busy="true" />;
@@ -251,7 +260,10 @@ export function DrillEngine({
         <p className="whitespace-pre-line text-lg font-semibold leading-relaxed">{question.text}</p>
 
         <ul className="mt-6 flex flex-col gap-2.5">
-          {OPTION_KEYS.map((key) => {
+          {/* Rendered in the per-question shuffled order, labelled by
+              position — see optionOrder(). `key` stays the authored letter,
+              so everything recorded downstream is unchanged. */}
+          {optionOrder(question.id).map((key, i) => {
             const isCorrect = answered && key === question.correctOption;
             const isWrongPick = answered && key === selected && key !== question.correctOption;
             const dimmed = answered && !isCorrect && !isWrongPick;
@@ -283,7 +295,7 @@ export function DrillEngine({
                       isCorrect ? "text-correct" : isWrongPick ? "text-wrong-bright" : "text-faint"
                     }`}
                   >
-                    {key}
+                    {OPTION_KEYS[i]}
                   </span>
                   <span className="flex-1">{optionText(question, key)}</span>
                   {isCorrect && <span aria-hidden>✓</span>}
@@ -304,7 +316,7 @@ export function DrillEngine({
               selected !== question.correctOption &&
               question.distractors?.[selected] && (
                 <p className="border-l-2 border-wrong pl-3 text-sm leading-relaxed text-wrong-bright">
-                  Why not {selected}: {question.distractors[selected]}
+                  Why not {displayedLabel(question.id, selected)}: {question.distractors[selected]}
                 </p>
               )}
             <p className="border-l-2 border-correct pl-3 text-sm leading-relaxed text-muted">
@@ -345,7 +357,11 @@ export function DrillEngine({
 /** One row on the review screen. */
 function ReviewRow({ answer, index }: { answer: AnsweredCard; index: number }) {
   const { question, selected, correct, wasCorrect } = answer;
-  const label = (key: OptionKey) => `${key}. ${optionText(question, key)}`;
+  // Letters here must match what was on screen during the drill, not the
+  // authored key — otherwise the review says "Correct: C" about an option
+  // the user saw labelled A.
+  const label = (key: OptionKey) =>
+    `${displayedLabel(question.id, key)}. ${optionText(question, key)}`;
   return (
     <li
       className={`rounded-2xl border px-4 py-3 ${
@@ -367,7 +383,7 @@ function ReviewRow({ answer, index }: { answer: AnsweredCard; index: number }) {
         {!wasCorrect && <p className="mt-0.5 text-xs text-correct-bright">Correct: {label(correct)}</p>}
         {!wasCorrect && question.distractors?.[selected] && (
           <p className="mt-1 text-[11px] leading-normal text-wrong-bright">
-            Why not {selected}: {question.distractors[selected]}
+            Why not {displayedLabel(question.id, selected)}: {question.distractors[selected]}
           </p>
         )}
         <p className="mt-1.5 text-[11px] leading-normal text-muted">{question.explanation}</p>

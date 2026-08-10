@@ -118,7 +118,7 @@ Adjusts for the business's beta so comparisons account for systematic risk, comp
 
 Copulas are essential in credit portfolio and structured-product modelling where joint defaults matter.`, estimatedReadTime: 2, orderIndex: 0 },
   { id: "frm-quantitative-analysis-bayesian-m01", topicId: "frm-quantitative-analysis-bayesian", title: "Bayesian Analysis & Estimation", content: `**Bayesian analysis** updates beliefs with new evidence using **Bayes' theorem**:
-P(A│B) = P(B│A)·P(A) / P(B).
+P(A|B) = P(B|A)·P(A) / P(B).
 
 ## Terminology
 - **Prior**: initial belief before data.
@@ -580,7 +580,7 @@ export const expansionQuestions: Question[] = [
   { id: "frm-quantitative-analysis-bayesian-q08", topicId: "frm-quantitative-analysis-bayesian", text: "Bayes' theorem can revise a borrower's:", optionA: "Probability of default after new information", optionB: "Coupon rate", optionC: "Maturity", optionD: "Face value", correctOption: "A", explanation: "New payment behaviour updates the estimated probability of default.", orderIndex: 7 },
   { id: "frm-quantitative-analysis-bayesian-q09", topicId: "frm-quantitative-analysis-bayesian", text: "A prior that reflects strong existing beliefs is called:", optionA: "Informative", optionB: "Uninformative", optionC: "Posterior", optionD: "Frequentist", correctOption: "A", explanation: "An informative prior encodes substantial prior knowledge.", orderIndex: 8 },
   { id: "frm-quantitative-analysis-bayesian-q10", topicId: "frm-quantitative-analysis-bayesian", text: "Ignoring base rates when judging probabilities is the:", optionA: "Base-rate fallacy", optionB: "Central limit theorem", optionC: "Law of large numbers", optionD: "Efficient market", correctOption: "A", explanation: "The base-rate fallacy neglects prior probabilities, which Bayes corrects.", orderIndex: 9 },
-  { id: "frm-quantitative-analysis-bayesian-q11", topicId: "frm-quantitative-analysis-bayesian", text: "In Bayes' theorem P(A│B) = P(B│A)·P(A) / ____.", optionA: "P(B)", optionB: "P(A)", optionC: "P(B│A)", optionD: "1", correctOption: "A", explanation: "The denominator is the total probability of the evidence, P(B).", orderIndex: 10 },
+  { id: "frm-quantitative-analysis-bayesian-q11", topicId: "frm-quantitative-analysis-bayesian", text: "In Bayes' theorem P(A|B) = P(B|A)·P(A) / ____.", optionA: "P(B)", optionB: "P(A)", optionC: "P(B|A)", optionD: "1", correctOption: "A", explanation: "The denominator is the total probability of the evidence, P(B).", orderIndex: 10 },
   { id: "frm-quantitative-analysis-bayesian-q12", topicId: "frm-quantitative-analysis-bayesian", text: "Combining expert judgement with data is a strength of the ____ approach.", optionA: "Bayesian", optionB: "Purely frequentist", optionC: "Non-statistical", optionD: "Deterministic", correctOption: "A", explanation: "Bayesian methods formally blend prior judgement with observed data.", orderIndex: 11 },
 
   // ── Commodity Forwards & Futures ──

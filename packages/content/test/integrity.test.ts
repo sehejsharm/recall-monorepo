@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { OPTION_KEYS, displayedLabel } from "@jyotir/core";
 import { exams, subjects, topics, materials, questions } from "../src/index";
 
 /**
@@ -98,5 +99,45 @@ describe("referential integrity", () => {
     const l1Qs = new Set(questions.filter((q) => q.topicId === l1!.id).map((q) => q.id));
     const l2Qs = questions.filter((q) => q.topicId === l2!.id).map((q) => q.id);
     expect(l2Qs.some((id) => l1Qs.has(id))).toBe(false);
+  });
+});
+
+/**
+ * Answer-key exploitability, measured as the user experiences it.
+ *
+ * The authored banks skew hard toward option A (~65% corpus-wide, ~90% on
+ * JEE Advanced) and 306 topics were authored with a single correct letter
+ * for every card. That is only harmless because the drill renders options in
+ * a deterministic per-question shuffle (`optionOrder`), so what matters — and
+ * what this guards — is the distribution of the letter the user actually
+ * SEES. If someone reverts the shuffle, or adds a bank skewed badly enough to
+ * survive it, these fail.
+ */
+describe("answer key is not guessable as presented", () => {
+  const shown = questions.map((q) => displayedLabel(q.id, q.correctOption));
+
+  it("no displayed position is correct much more often than chance", () => {
+    for (const key of OPTION_KEYS) {
+      const share = shown.filter((k) => k === key).length / questions.length;
+      expect(share, `option ${key} share`).toBeGreaterThan(0.15);
+      expect(share, `option ${key} share`).toBeLessThan(0.35);
+    }
+  });
+
+  it("no topic deck has a single displayed letter for every card", () => {
+    const byTopic = new Map<string, Set<string>>();
+    questions.forEach((q, i) => {
+      if (!byTopic.has(q.topicId)) byTopic.set(q.topicId, new Set());
+      byTopic.get(q.topicId)!.add(shown[i]!);
+    });
+    const singleLetter = [...byTopic]
+      .filter(([, letters]) => letters.size === 1)
+      .map(([topicId]) => topicId);
+    expect(singleLetter).toEqual([]);
+  });
+
+  it("always tapping the first option scores no better than chance", () => {
+    const firstOption = shown.filter((k) => k === "A").length / questions.length;
+    expect(firstOption).toBeLessThan(0.35);
   });
 });

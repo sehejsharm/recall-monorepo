@@ -4,6 +4,8 @@ import { Ionicons } from "@expo/vector-icons";
 import {
   achievementById,
   OPTION_KEYS,
+  displayedLabel,
+  optionOrder,
   optionText,
   scheduleExplanation,
   type AnsweredCard,
@@ -225,7 +227,9 @@ export function DrillEngine({
         <Text className="text-lg font-semibold leading-7 text-ink">{question.text}</Text>
 
         <View className="mt-6 gap-2.5">
-          {OPTION_KEYS.map((key) => {
+          {/* Shuffled per question, labelled by position — see optionOrder().
+              `key` remains the authored letter, so recorded answers are unchanged. */}
+          {optionOrder(question.id).map((key, i) => {
             const isCorrect = answered && key === question.correctOption;
             const isWrongPick = answered && key === selected && key !== question.correctOption;
             const dimmed = answered && !isCorrect && !isWrongPick;
@@ -254,7 +258,7 @@ export function DrillEngine({
                     isCorrect ? "text-correct" : isWrongPick ? "text-wrong-bright" : "text-faint"
                   }`}
                 >
-                  {key}
+                  {OPTION_KEYS[i]}
                 </Text>
                 <Text
                   className={`flex-1 text-[15px] ${
@@ -285,7 +289,7 @@ export function DrillEngine({
               question.distractors?.[selected] && (
                 <View className="border-l-2 border-wrong pl-3">
                   <Text className="text-sm leading-5 text-wrong-bright">
-                    Why not {selected}: {question.distractors[selected]}
+                    Why not {displayedLabel(question.id, selected)}: {question.distractors[selected]}
                   </Text>
                 </View>
               )}
@@ -325,7 +329,9 @@ export function DrillEngine({
 /** One row on the review screen: the question, the user's pick and the answer. */
 function ReviewRow({ answer, index }: { answer: AnsweredCard; index: number }) {
   const { question, selected, correct, wasCorrect } = answer;
-  const label = (key: OptionKey) => `${key}. ${optionText(question, key)}`;
+  // Must match the letters shown during the drill, not the authored key.
+  const label = (key: OptionKey) =>
+    `${displayedLabel(question.id, key)}. ${optionText(question, key)}`;
   return (
     <View
       className={`rounded-2xl border px-4 py-3 ${
@@ -351,7 +357,7 @@ function ReviewRow({ answer, index }: { answer: AnsweredCard; index: number }) {
         )}
         {!wasCorrect && question.distractors?.[selected] && (
           <Text className="mt-1 text-[11px] leading-4 text-wrong-bright">
-            Why not {selected}: {question.distractors[selected]}
+            Why not {displayedLabel(question.id, selected)}: {question.distractors[selected]}
           </Text>
         )}
         <Text className="mt-1.5 text-[11px] leading-4 text-muted">{question.explanation}</Text>

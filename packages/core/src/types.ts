@@ -207,3 +207,59 @@ export const optionText = (q: Question, key: OptionKey): string =>
   key === "A" ? q.optionA : key === "B" ? q.optionB : key === "C" ? q.optionC : q.optionD;
 
 export const OPTION_KEYS: readonly OptionKey[] = ["A", "B", "C", "D"];
+
+/**
+ * Deterministic per-question presentation order for the four options.
+ *
+ * The authored banks skew hard toward option A — corpus-wide it is correct
+ * ~65% of the time, ~90% on JEE Advanced, and in 306 topics *every* card in
+ * the deck shares one correct letter. Rendering the stored A→D order makes
+ * the app trivially gameable (tap A, score 65%) and poisons the SM-2
+ * schedule, because cards get graded "correct" for reasons that have nothing
+ * to do with recall.
+ *
+ * Shuffling at presentation time fixes that without rewriting ~11k stored
+ * answer keys: progress stays keyed to the authored letter, seed.sql is
+ * untouched, and content authored later is covered automatically.
+ *
+ * The permutation is derived from the question id rather than random, so a
+ * card looks identical every time a user meets it. A deck that reshuffled
+ * between reviews would change the memory cue mid-schedule, which is exactly
+ * what spaced repetition must not do.
+ */
+export function optionOrder(questionId: string): readonly OptionKey[] {
+  // FNV-1a — small, dependency-free, and stable across JS engines so web and
+  // native show the same card in the same order.
+  let h = 0x811c9dc5;
+  for (let i = 0; i < questionId.length; i++) {
+    h ^= questionId.charCodeAt(i);
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  const keys = [...OPTION_KEYS];
+  // Fisher-Yates, stepped by xorshift32 so each swap uses fresh bits.
+  for (let i = keys.length - 1; i > 0; i--) {
+    h ^= h << 13;
+    h >>>= 0;
+    h ^= h >>> 17;
+    h ^= h << 5;
+    h >>>= 0;
+    const j = h % (i + 1);
+    const tmp = keys[i]!;
+    keys[i] = keys[j]!;
+    keys[j] = tmp;
+  }
+  return keys;
+}
+
+/**
+ * The letter the user actually saw for `key` on this question.
+ *
+ * Stored answers (and the end-of-session review) reference the *authored*
+ * letter, so anything that shows a letter back to the user has to translate
+ * it through the same permutation — otherwise the review screen says
+ * "Correct: C" about an option that was displayed as A.
+ */
+export function displayedLabel(questionId: string, key: OptionKey): OptionKey {
+  const idx = optionOrder(questionId).indexOf(key);
+  return OPTION_KEYS[idx < 0 ? 0 : idx]!;
+}

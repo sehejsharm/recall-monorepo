@@ -60,7 +60,7 @@ export const advDepthQuestions: Question[] = [
 
   // ── Mathematics: Probability & Bayes' Theorem ──
   { id: "jee-adv-math-probability-q13", topicId: "jee-adv-math-probability", text: "For independent events A and B, P(A ∩ B) equals:", optionA: "P(A)·P(B)", optionB: "P(A) + P(B)", optionC: "P(A) − P(B)", optionD: "P(A)/P(B)", correctOption: "A", explanation: "Independent events multiply: P(A ∩ B) = P(A)P(B).", orderIndex: 12 },
-  { id: "jee-adv-math-probability-q14", topicId: "jee-adv-math-probability", text: "Bayes' theorem gives P(A│B) = P(B│A)·P(A) /", optionA: "P(B)", optionB: "P(A)", optionC: "P(B│A)", optionD: "1", correctOption: "A", explanation: "The denominator is the total probability of the evidence, P(B).", orderIndex: 13 },
+  { id: "jee-adv-math-probability-q14", topicId: "jee-adv-math-probability", text: "Bayes' theorem gives P(A|B) = P(B|A)·P(A) /", optionA: "P(B)", optionB: "P(A)", optionC: "P(B|A)", optionD: "1", correctOption: "A", explanation: "The denominator is the total probability of the evidence, P(B).", orderIndex: 13 },
   { id: "jee-adv-math-probability-q15", topicId: "jee-adv-math-probability", text: "For mutually exclusive events, P(A ∪ B) equals:", optionA: "P(A) + P(B)", optionB: "P(A)·P(B)", optionC: "P(A) − P(B)", optionD: "0", correctOption: "A", explanation: "Mutually exclusive events cannot co-occur, so probabilities add.", orderIndex: 14 },
   { id: "jee-adv-math-probability-q16", topicId: "jee-adv-math-probability", text: "The mean (expected value) of a binomial distribution B(n, p) is:", optionA: "np", optionB: "np(1−p)", optionC: "p/n", optionD: "n/p", correctOption: "A", explanation: "The mean of a binomial distribution is np.", orderIndex: 15 },
 
