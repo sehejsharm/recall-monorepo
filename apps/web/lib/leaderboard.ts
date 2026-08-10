@@ -24,10 +24,15 @@ export async function pushStats(
   if (!s.leaderboardOptIn) return false;
   const now = new Date().toISOString();
 
+  // The display name is deliberately NOT uploaded. Onboarding promises it
+  // "stays on your device", and nothing — no client query, no leaderboard
+  // RPC — ever reads user_stats.display_name back. Sending it would make
+  // that promise false and would force a "Name" disclosure on the Play
+  // data-safety form. The public identity is `handle`, which is generated,
+  // not user-typed. Keep it that way.
   const { error } = await supabase.from("user_stats").upsert(
     {
       user_id: userId,
-      display_name: s.displayName,
       handle: s.handle,
       xp: stats.xp,
       level: levelForXp(stats.xp),

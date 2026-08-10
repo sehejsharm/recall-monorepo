@@ -27,7 +27,14 @@ export default function PrivacyPage() {
             spaced-repetition schedule, XP, streaks and bookmarks live only on your device. If you
             choose to create an account, we store your email (for sign-in), your progress and read
             history (to sync across devices), and an <strong>anonymized</strong> leaderboard handle
-            with your XP, level and streak. Your real name and email are never shown publicly.
+            with your XP, level and streak. Your display name stays on your device — it is never
+            uploaded, and your email is never shown publicly.
+          </p>
+          <p className="mt-2">
+            If you send us a message through <strong>Contact</strong> or{" "}
+            <strong>Request an exam</strong>, we receive what you typed, plus your email address if
+            you supplied one or were signed in, so that we can reply. That is the only data you
+            send us that is not part of drilling.
           </p>
         </section>
         <section>

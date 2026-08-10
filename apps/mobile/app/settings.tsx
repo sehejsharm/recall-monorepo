@@ -1,8 +1,9 @@
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, ScrollView, Switch, Text, TextInput, View } from "react-native";
+import { Linking, Pressable, ScrollView, Switch, Text, TextInput, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { repo } from "@/lib/content";
+import { DELETE_ACCOUNT_URL, PRIVACY_URL, TERMS_URL } from "@/lib/site-config";
 import { getSupabase } from "@/lib/supabase";
 import { useSettings, type ThemeChoice } from "@/lib/settings";
 import { useJyotir, useJyotirStore } from "@/lib/store-provider";
@@ -25,6 +26,21 @@ function Row({ label, hint, children }: { label: string; hint?: string; children
       </View>
       <View className="shrink-0">{children}</View>
     </View>
+  );
+}
+/** Opens a legal page in the system browser. Failing to open a link must
+ *  never crash Settings, so the rejection is swallowed deliberately. */
+function LinkRow({ label, url }: { label: string; url: string }) {
+  return (
+    <Pressable
+      accessibilityRole="link"
+      accessibilityLabel={`${label} (opens in your browser)`}
+      onPress={() => void Linking.openURL(url).catch(() => {})}
+      className="flex-row items-center justify-between gap-4 border-b border-edge/60 py-4"
+    >
+      <Text className="text-sm font-semibold text-ink">{label}</Text>
+      <Text className="text-sm text-faint">↗</Text>
+    </Pressable>
   );
 }
 
@@ -292,6 +308,18 @@ export default function SettingsScreen() {
           </Pressable>
         </Section>
 
+        {/* Play and the App Store both require the privacy policy to be
+            reachable from inside the app, not only from the store listing. */}
+        <Section title="Legal">
+          <LinkRow label="Privacy policy" url={PRIVACY_URL} />
+          <LinkRow label="Terms of use" url={TERMS_URL} />
+          <LinkRow label="Delete your account" url={DELETE_ACCOUNT_URL} />
+        </Section>
+
+        <Text className="mt-2 text-center text-[11px] text-faint">
+          Not affiliated with, endorsed by, or sponsored by CFA Institute, GARP, UPSC, or any exam
+          body. CFA® and FRM® are trademarks of their respective owners.
+        </Text>
         <Text className="mt-2 text-center text-[11px] text-faint">Recall · Drill. Read. Repeat.</Text>
       </ScrollView>
     </SafeAreaView>
