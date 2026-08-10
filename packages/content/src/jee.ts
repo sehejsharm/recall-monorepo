@@ -4381,18 +4381,6 @@ h = d * tan(theta)
       orderIndex: 4
     },
     {
-      id: "jee-physics-thermodynamics-q06",
-      topicId: "jee-physics-thermodynamics",
-      text: "The average kinetic energy of a gas molecule is proportional to:",
-      optionA: "Pressure",
-      optionB: "Volume",
-      optionC: "Absolute temperature",
-      optionD: "Molar mass",
-      correctOption: "C",
-      explanation: "Average KE = (3/2)kT, proportional to absolute temperature.",
-      orderIndex: 5
-    },
-    {
       id: "jee-physics-thermodynamics-q07",
       topicId: "jee-physics-thermodynamics",
       text: "Mayer's relation for an ideal gas is:",

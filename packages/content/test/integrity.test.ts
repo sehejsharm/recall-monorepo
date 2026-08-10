@@ -141,3 +141,58 @@ describe("answer key is not guessable as presented", () => {
     expect(firstOption).toBeLessThan(0.35);
   });
 });
+
+/**
+ * Duplicate questions.
+ *
+ * A "duplicate" here is canonical, not textual: same stem, the same SET of
+ * options (order-insensitive, since a re-emitted copy often shuffles them),
+ * and the same correct answer TEXT. That definition matters — several topics
+ * legitimately reuse a stem with different options (eight distinct "Choose the
+ * correctly spelt word." items), and matching on the stem alone would condemn
+ * real content.
+ *
+ * Scope is per-exam. Cross-exam repeats are fine: JEE/NEET syllabi genuinely
+ * overlap and a user only ever drills one exam at a time.
+ */
+describe("no duplicate questions within an exam", () => {
+  const norm = (s: string) => s.replace(/\s+/g, " ").trim().toLowerCase();
+  const optionText = (q: (typeof questions)[number], key: string) =>
+    ({ A: q.optionA, B: q.optionB, C: q.optionC, D: q.optionD })[key] ?? "";
+  const examOf = new Map(subjects.map((s) => [s.id, s.examId]));
+  const topicExam = new Map(topics.map((t) => [t.id, examOf.get(t.subjectId)!]));
+  const canonical = (q: (typeof questions)[number]) =>
+    [
+      norm(q.text),
+      [q.optionA, q.optionB, q.optionC, q.optionD].map(norm).sort().join("|"),
+      norm(optionText(q, q.correctOption))
+    ].join("##");
+
+  const groups = new Map<string, string[]>();
+  for (const q of questions) {
+    const key = `${topicExam.get(q.topicId)}@@${canonical(q)}`;
+    groups.set(key, [...(groups.get(key) ?? []), q.id]);
+  }
+
+  it("has no repeated question inside one exam", () => {
+    const dupes = [...groups.values()].filter((ids) => ids.length > 1);
+    expect(dupes).toEqual([]);
+  });
+
+  it("never gives two different correct answers to the same question", () => {
+    // A contradiction teaches the user something false, so it is stricter
+    // than redundancy: group by stem+options ACROSS exams and require the
+    // designated answer to agree.
+    const byQuestion = new Map<string, Set<string>>();
+    for (const q of questions) {
+      const key = `${norm(q.text)}##${[q.optionA, q.optionB, q.optionC, q.optionD].map(norm).sort().join("|")}`;
+      const answers = byQuestion.get(key) ?? new Set<string>();
+      answers.add(norm(optionText(q, q.correctOption)));
+      byQuestion.set(key, answers);
+    }
+    const conflicting = [...byQuestion.entries()]
+      .filter(([, answers]) => answers.size > 1)
+      .map(([key]) => key.slice(0, 80));
+    expect(conflicting).toEqual([]);
+  });
+});

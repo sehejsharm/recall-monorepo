@@ -24,7 +24,6 @@ export const sscTopUp: Question[] = [
 
   // ── Quant: Averages ──
   { id: "ssc-cgl-quant-averages-q09", topicId: "ssc-cgl-quant-averages", text: "The average of the first 5 natural numbers is:", optionA: "3", optionB: "2.5", optionC: "4", optionD: "5", correctOption: "A", explanation: "(1+2+3+4+5)/5 = 15/5 = 3.", orderIndex: 8 },
-  { id: "ssc-cgl-quant-averages-q10", topicId: "ssc-cgl-quant-averages", text: "The average of 10, 20, 30, 40 and 50 is:", optionA: "30", optionB: "25", optionC: "35", optionD: "40", correctOption: "A", explanation: "Average = sum ÷ count = (10+20+30+40+50)/5 = 150/5 = 30.", orderIndex: 9 },
   { id: "ssc-cgl-quant-averages-q11", topicId: "ssc-cgl-quant-averages", text: "The average of 4 numbers is 25. Their sum is:", optionA: "100", optionB: "50", optionC: "125", optionD: "75", correctOption: "A", explanation: "Sum = average × count = 25 × 4 = 100.", orderIndex: 10 },
   { id: "ssc-cgl-quant-averages-q12", topicId: "ssc-cgl-quant-averages", text: "The average of the first 10 even numbers (2 to 20) is:", optionA: "11", optionB: "10", optionC: "12", optionD: "20", correctOption: "A", explanation: "Sum = 110; average = 110/10 = 11.", orderIndex: 11 },
 
@@ -61,7 +60,6 @@ export const sscTopUp: Question[] = [
   // ── Quant: Trigonometry ──
   { id: "ssc-cgl-quant-trigonometry-q09", topicId: "ssc-cgl-quant-trigonometry", text: "The value of sin 30° is:", optionA: "1/2", optionB: "√3/2", optionC: "1", optionD: "0", correctOption: "A", explanation: "The standard trigonometric value of sin 30° is 1/2.", orderIndex: 8 },
   { id: "ssc-cgl-quant-trigonometry-q10", topicId: "ssc-cgl-quant-trigonometry", text: "The value of cos 60° is:", optionA: "1/2", optionB: "√3/2", optionC: "1", optionD: "0", correctOption: "A", explanation: "The standard trigonometric value of cos 60° is 1/2 (equal to sin 30°).", orderIndex: 9 },
-  { id: "ssc-cgl-quant-trigonometry-q11", topicId: "ssc-cgl-quant-trigonometry", text: "The value of tan 45° is:", optionA: "1", optionB: "0", optionC: "√3", optionD: "1/√3", correctOption: "A", explanation: "The standard trigonometric value of tan 45° is 1, since sin 45° = cos 45°.", orderIndex: 10 },
   { id: "ssc-cgl-quant-trigonometry-q12", topicId: "ssc-cgl-quant-trigonometry", text: "The value of sin²θ + cos²θ is:", optionA: "1", optionB: "0", optionC: "2", optionD: "θ", correctOption: "A", explanation: "The identity sin²θ + cos²θ = 1 holds for all θ.", orderIndex: 11 },
 
   // ── Quant: Geometry ──
@@ -137,7 +135,6 @@ export const sscTopUp: Question[] = [
   { id: "ssc-cgl-english-idioms-one-word-q12", topicId: "ssc-cgl-english-idioms-one-word", text: "One word for 'a place where books are kept for reading' is:", optionA: "Library", optionB: "Laboratory", optionC: "Gallery", optionD: "Studio", correctOption: "A", explanation: "A library is a place where books are kept.", orderIndex: 11 },
 
   // ── English: Synonyms & Antonyms ──
-  { id: "ssc-cgl-english-synonyms-antonyms-q09", topicId: "ssc-cgl-english-synonyms-antonyms", text: "Choose the synonym of 'HAPPY':", optionA: "Joyful", optionB: "Sad", optionC: "Angry", optionD: "Tired", correctOption: "A", explanation: "'Joyful' is a synonym of 'happy'.", orderIndex: 8 },
   { id: "ssc-cgl-english-synonyms-antonyms-q10", topicId: "ssc-cgl-english-synonyms-antonyms", text: "Choose the antonym of 'ANCIENT':", optionA: "Modern", optionB: "Old", optionC: "Historic", optionD: "Aged", correctOption: "A", explanation: "'Modern' is the opposite of 'ancient'.", orderIndex: 9 },
   { id: "ssc-cgl-english-synonyms-antonyms-q11", topicId: "ssc-cgl-english-synonyms-antonyms", text: "Choose the synonym of 'BRAVE':", optionA: "Courageous", optionB: "Fearful", optionC: "Weak", optionD: "Timid", correctOption: "A", explanation: "'Courageous' is a synonym of 'brave'.", orderIndex: 10 },
   { id: "ssc-cgl-english-synonyms-antonyms-q12", topicId: "ssc-cgl-english-synonyms-antonyms", text: "Choose the antonym of 'EXPAND':", optionA: "Contract", optionB: "Enlarge", optionC: "Grow", optionD: "Widen", correctOption: "A", explanation: "'Contract' is the opposite of 'expand'.", orderIndex: 11 },
@@ -150,7 +147,6 @@ export const sscTopUp: Question[] = [
 
   // ── English: Sentence Improvement & Spelling ──
   { id: "ssc-cgl-english-sentence-improvement-spelling-q09", topicId: "ssc-cgl-english-sentence-improvement-spelling", text: "Choose the correctly spelt word:", optionA: "Receive", optionB: "Recieve", optionC: "Receeve", optionD: "Receve", correctOption: "A", explanation: "The rule 'i before e except after c' gives 'receive'.", orderIndex: 8 },
-  { id: "ssc-cgl-english-sentence-improvement-spelling-q10", topicId: "ssc-cgl-english-sentence-improvement-spelling", text: "Choose the correctly spelt word:", optionA: "Accommodate", optionB: "Acommodate", optionC: "Accomodate", optionD: "Acomodate", correctOption: "A", explanation: "'Accommodate' has double c and double m.", orderIndex: 9 },
   { id: "ssc-cgl-english-sentence-improvement-spelling-q11", topicId: "ssc-cgl-english-sentence-improvement-spelling", text: "Choose the correctly spelt word:", optionA: "Definitely", optionB: "Definately", optionC: "Definatly", optionD: "Definitly", correctOption: "A", explanation: "The correct spelling is 'definitely'.", orderIndex: 10 },
   { id: "ssc-cgl-english-sentence-improvement-spelling-q12", topicId: "ssc-cgl-english-sentence-improvement-spelling", text: "Choose the correctly spelt word:", optionA: "Occurrence", optionB: "Occurence", optionC: "Ocurrence", optionD: "Occurance", correctOption: "A", explanation: "'Occurrence' has double c, double r and ends in -ence.", orderIndex: 11 },
 
@@ -188,13 +184,9 @@ export const sscTopUp: Question[] = [
   { id: "ssc-cgl-general-awareness-geography-q09", topicId: "ssc-cgl-general-awareness-geography", text: "The longest river in India is the:", optionA: "Ganga", optionB: "Yamuna", optionC: "Godavari", optionD: "Narmada", correctOption: "A", explanation: "The Ganga is the longest river within India.", orderIndex: 8 },
   { id: "ssc-cgl-general-awareness-geography-q10", topicId: "ssc-cgl-general-awareness-geography", text: "The highest mountain peak located in India is:", optionA: "Kanchenjunga", optionB: "Mount Everest", optionC: "Nanda Devi", optionD: "K2", correctOption: "A", explanation: "Kanchenjunga is the highest peak lying within India's borders.", orderIndex: 9 },
   { id: "ssc-cgl-general-awareness-geography-q11", topicId: "ssc-cgl-general-awareness-geography", text: "The Tropic of Cancer passes through how many Indian states?", optionA: "8", optionB: "5", optionC: "10", optionD: "6", correctOption: "A", explanation: "The Tropic of Cancer passes through 8 Indian states.", orderIndex: 10 },
-  { id: "ssc-cgl-general-awareness-geography-q12", topicId: "ssc-cgl-general-awareness-geography", text: "The largest Indian state by area is:", optionA: "Rajasthan", optionB: "Madhya Pradesh", optionC: "Maharashtra", optionD: "Uttar Pradesh", correctOption: "A", explanation: "Rajasthan is the largest Indian state by area.", orderIndex: 11 },
 
   // ── General Awareness: General Science Facts ──
-  { id: "ssc-cgl-general-awareness-general-science-q09", topicId: "ssc-cgl-general-awareness-general-science", text: "The chemical symbol for gold is:", optionA: "Au", optionB: "Ag", optionC: "Gd", optionD: "Go", correctOption: "A", explanation: "Gold's symbol is Au (from the Latin 'aurum').", orderIndex: 8 },
-  { id: "ssc-cgl-general-awareness-general-science-q10", topicId: "ssc-cgl-general-awareness-general-science", text: "The 'powerhouse of the cell' is the:", optionA: "Mitochondria", optionB: "Nucleus", optionC: "Ribosome", optionD: "Golgi body", correctOption: "A", explanation: "Mitochondria produce ATP and are called the powerhouse of the cell.", orderIndex: 9 },
   { id: "ssc-cgl-general-awareness-general-science-q11", topicId: "ssc-cgl-general-awareness-general-science", text: "The most abundant gas in Earth's atmosphere is:", optionA: "Nitrogen", optionB: "Oxygen", optionC: "Carbon dioxide", optionD: "Hydrogen", correctOption: "A", explanation: "Nitrogen makes up about 78% of the atmosphere.", orderIndex: 10 },
-  { id: "ssc-cgl-general-awareness-general-science-q12", topicId: "ssc-cgl-general-awareness-general-science", text: "The SI unit of force is the:", optionA: "Newton", optionB: "Joule", optionC: "Watt", optionD: "Pascal", correctOption: "A", explanation: "Force is measured in newtons (N).", orderIndex: 11 },
 
   // ── General Awareness: Indian Economy Basics ──
   { id: "ssc-cgl-general-awareness-economy-basics-q09", topicId: "ssc-cgl-general-awareness-economy-basics", text: "The Reserve Bank of India was established in the year:", optionA: "1935", optionB: "1947", optionC: "1950", optionD: "1991", correctOption: "A", explanation: "The RBI was established in 1935.", orderIndex: 8 },

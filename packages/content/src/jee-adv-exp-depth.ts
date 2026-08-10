@@ -18,7 +18,6 @@ export const advDepthQuestions: Question[] = [
 
   // ── Physics: Modern Physics: Photoelectric & Atomic ──
   { id: "jee-adv-phy-modern-physics-q13", topicId: "jee-adv-phy-modern-physics", text: "The maximum kinetic energy of a photoelectron equals hν minus the:", optionA: "Work function", optionB: "Rest energy", optionC: "Binding energy of the nucleus", optionD: "Kinetic energy of the photon", correctOption: "A", explanation: "Einstein's equation: KE_max = hν − φ (the work function).", orderIndex: 12 },
-  { id: "jee-adv-phy-modern-physics-q14", topicId: "jee-adv-phy-modern-physics", text: "The de Broglie wavelength of a particle of momentum p is:", optionA: "h/p", optionB: "p/h", optionC: "hp", optionD: "h/p²", correctOption: "A", explanation: "λ = h/p, the de Broglie relation.", orderIndex: 13 },
   { id: "jee-adv-phy-modern-physics-q15", topicId: "jee-adv-phy-modern-physics", text: "The energy of the nth hydrogen level is proportional to:", optionA: "−1/n²", optionB: "−n²", optionC: "−1/n", optionD: "−n", correctOption: "A", explanation: "The Bohr energy level is Eₙ = −13.6/n² eV, scaling as −1/n².", orderIndex: 14 },
   { id: "jee-adv-phy-modern-physics-q16", topicId: "jee-adv-phy-modern-physics", text: "The stopping potential in the photoelectric effect depends on the light's:", optionA: "Frequency", optionB: "Intensity", optionC: "Polarisation", optionD: "Phase", correctOption: "A", explanation: "Stopping potential depends on frequency, not intensity.", orderIndex: 15 },
 
@@ -72,7 +71,6 @@ export const advDepthQuestions: Question[] = [
 
   // ── Mathematics: Complex Numbers & Roots of Unity ──
   { id: "jee-adv-math-complex-numbers-q13", topicId: "jee-adv-math-complex-numbers", text: "The modulus of the complex number 3 + 4i is:", optionA: "5", optionB: "7", optionC: "12", optionD: "1", correctOption: "A", explanation: "|3 + 4i| = √(3² + 4²) = √25 = 5.", orderIndex: 12 },
-  { id: "jee-adv-math-complex-numbers-q14", topicId: "jee-adv-math-complex-numbers", text: "The value of i² is:", optionA: "−1", optionB: "1", optionC: "i", optionD: "0", correctOption: "A", explanation: "By definition of the imaginary unit, i² = −1.", orderIndex: 13 },
   { id: "jee-adv-math-complex-numbers-q15", topicId: "jee-adv-math-complex-numbers", text: "The sum of the n nth roots of unity is:", optionA: "0", optionB: "1", optionC: "n", optionD: "−1", correctOption: "A", explanation: "The n nth roots of unity sum to zero for n > 1.", orderIndex: 14 },
   { id: "jee-adv-math-complex-numbers-q16", topicId: "jee-adv-math-complex-numbers", text: "By De Moivre's theorem, (cos θ + i sin θ)ⁿ equals:", optionA: "cos nθ + i sin nθ", optionB: "cos θ + i sin nθ", optionC: "n cos θ", optionD: "cos(θ/n)", correctOption: "A", explanation: "De Moivre's theorem: (cos θ + i sin θ)ⁿ = cos nθ + i sin nθ.", orderIndex: 15 },
 

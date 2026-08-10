@@ -71,8 +71,6 @@ export const sscDepthQuestions: Question[] = [
   { id: "ssc-cgl-quant-time-and-work-q16", topicId: "ssc-cgl-quant-time-and-work", text: "A pipe fills a tank in 6 hours. In 2 hours it fills what fraction?", optionA: "1/3", optionB: "1/2", optionC: "1/6", optionD: "2/3", correctOption: "A", explanation: "In 2 of the 6 hours it fills 2/6 = 1/3 of the tank.", orderIndex: 15 },
 
   // ── Quant: Mensuration ──
-  { id: "ssc-cgl-quant-mensuration-q13", topicId: "ssc-cgl-quant-mensuration", text: "The area of a rectangle 8 cm by 5 cm is:", optionA: "40 cm²", optionB: "26 cm²", optionC: "13 cm²", optionD: "45 cm²", correctOption: "A", explanation: "Area = length × breadth = 8 × 5 = 40 cm².", orderIndex: 12 },
-  { id: "ssc-cgl-quant-mensuration-q14", topicId: "ssc-cgl-quant-mensuration", text: "The area of a circle of radius 7 cm (π = 22/7) is:", optionA: "154 cm²", optionB: "44 cm²", optionC: "49 cm²", optionD: "22 cm²", correctOption: "A", explanation: "Area = πr² = 22/7 × 49 = 154 cm².", orderIndex: 13 },
   { id: "ssc-cgl-quant-mensuration-q15", topicId: "ssc-cgl-quant-mensuration", text: "The volume of a cube of side 3 cm is:", optionA: "27 cm³", optionB: "9 cm³", optionC: "54 cm³", optionD: "18 cm³", correctOption: "A", explanation: "Volume = side³ = 3³ = 27 cm³.", orderIndex: 14 },
   { id: "ssc-cgl-quant-mensuration-q16", topicId: "ssc-cgl-quant-mensuration", text: "The perimeter of a square of side 6 cm is:", optionA: "24 cm", optionB: "36 cm", optionC: "12 cm", optionD: "30 cm", correctOption: "A", explanation: "Perimeter = 4 × side = 4 × 6 = 24 cm.", orderIndex: 15 },
 
@@ -89,9 +87,6 @@ export const sscDepthQuestions: Question[] = [
   { id: "ssc-cgl-reasoning-direction-sense-q16", topicId: "ssc-cgl-reasoning-direction-sense", text: "Facing east and turning 180°, you now face:", optionA: "West", optionB: "North", optionC: "South", optionD: "East", correctOption: "A", explanation: "A 180° turn from east faces west.", orderIndex: 15 },
 
   // ── English: Synonyms & Antonyms ──
-  { id: "ssc-cgl-english-synonyms-antonyms-q13", topicId: "ssc-cgl-english-synonyms-antonyms", text: "Choose the synonym of 'Happy':", optionA: "Joyful", optionB: "Sad", optionC: "Angry", optionD: "Tired", correctOption: "A", explanation: "'Joyful' is a synonym of 'happy'.", orderIndex: 12 },
-  { id: "ssc-cgl-english-synonyms-antonyms-q14", topicId: "ssc-cgl-english-synonyms-antonyms", text: "Choose the antonym of 'Ancient':", optionA: "Modern", optionB: "Old", optionC: "Historic", optionD: "Aged", correctOption: "A", explanation: "'Modern' is the opposite of 'ancient'.", orderIndex: 13 },
-  { id: "ssc-cgl-english-synonyms-antonyms-q15", topicId: "ssc-cgl-english-synonyms-antonyms", text: "Choose the synonym of 'Brave':", optionA: "Courageous", optionB: "Timid", optionC: "Weak", optionD: "Fearful", correctOption: "A", explanation: "'Courageous' is a synonym of 'brave'.", orderIndex: 14 },
   { id: "ssc-cgl-english-synonyms-antonyms-q16", topicId: "ssc-cgl-english-synonyms-antonyms", text: "Choose the antonym of 'Expand':", optionA: "Contract", optionB: "Enlarge", optionC: "Grow", optionD: "Increase", correctOption: "A", explanation: "'Contract' is the opposite of 'expand'.", orderIndex: 15 },
 
   // ── English: Idioms & One-Word Substitution ──

@@ -2636,18 +2636,6 @@ Characteristic eqn: x^2 = c1*x + c2
       orderIndex: 2
     },
     {
-      id: "gate-engineering-mathematics-combinatorics-q04",
-      topicId: "gate-engineering-mathematics-combinatorics",
-      text: "The number of circular permutations of 5 distinct objects is:",
-      optionA: "120",
-      optionB: "24",
-      optionC: "20",
-      optionD: "60",
-      correctOption: "B",
-      explanation: "Circular permutations of n objects number (n minus 1) factorial, so 4 factorial is 24.",
-      orderIndex: 3
-    },
-    {
       id: "gate-engineering-mathematics-combinatorics-q05",
       topicId: "gate-engineering-mathematics-combinatorics",
       text: "The pigeonhole principle guarantees that placing 10 items into 9 boxes forces:",
@@ -4614,18 +4602,6 @@ Characteristic eqn: x^2 = c1*x + c2
       correctOption: "C",
       explanation: "In row-major order the linear offset of a[i][j] is i*C + j elements from the base.",
       orderIndex: 7
-    },
-    {
-      id: "gate-programming-ds-recursion-backtracking-q01",
-      topicId: "gate-programming-ds-recursion-backtracking",
-      text: "Every correct recursive function must include a:",
-      optionA: "Base case",
-      optionB: "Loop",
-      optionC: "Global variable",
-      optionD: "Pointer argument",
-      correctOption: "A",
-      explanation: "A base case stops the recursion; without it the calls never terminate.",
-      orderIndex: 0
     },
     {
       id: "gate-programming-ds-recursion-backtracking-q02",

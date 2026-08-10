@@ -308,10 +308,5 @@ export const stemDistractors: Record<string, Distractors> = {
     B: "Rank is not the total entry count.",
     C: "Rank counts the nonzero independent rows, not the zero rows.",
     D: "Diagonal entries are not the rank of a matrix."
-  },
-  "gate-engineering-mathematics-linear-algebra-q16": {
-    B: "The determinant is the PRODUCT of the eigenvalues; the sum is the trace.",
-    C: "Rank is not the sum of the eigenvalues.",
-    D: "The norm is unrelated to the eigenvalue sum."
   }
 };
