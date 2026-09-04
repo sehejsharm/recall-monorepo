@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       // Personal/utility routes carry no SEO value.
-      disallow: ["/account", "/stats", "/review", "/settings"]
+      disallow: ["/account", "/stats", "/review", "/settings", "/leaderboard"]
     },
     sitemap: `${origin}/sitemap.xml`,
     host: origin

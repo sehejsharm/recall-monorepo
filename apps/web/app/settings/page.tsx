@@ -178,7 +178,7 @@ export default function SettingsPage() {
             </p>
           )}
           <Row label="Leaderboard handle" hint="Your anonymized public identity.">
-            <span className="text-sm font-semibold text-correct">{settings.handle}</span>
+            <span className="text-sm font-semibold text-correct">{settings.handle || "—"}</span>
           </Row>
           <Row label="Daily goal" hint={`Cards per day (${GOAL_MIN}–${GOAL_MAX}).`} htmlFor="set-daily-goal">
             <input
@@ -356,7 +356,13 @@ export default function SettingsPage() {
         )}
       </section>
 
-      <p className="mt-8 text-center text-[11px] text-faint">Recall · Drill. Read. Repeat.</p>
+      <p className="mt-8 text-center text-[11px] text-faint">
+        Recall · Drill. Read. Repeat.
+        <br />
+        <span aria-label={`App version ${process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0"}`}>
+          v{process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0"}
+        </span>
+      </p>
     </main>
   );
 }

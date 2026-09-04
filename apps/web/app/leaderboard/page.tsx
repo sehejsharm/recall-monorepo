@@ -116,7 +116,7 @@ export default function LeaderboardPage() {
           <h1 className="text-2xl font-bold tracking-tight">Ranks</h1>
         </div>
         <p className="mt-1 text-xs text-muted">
-          Anonymized by XP. You are <span className="text-correct">{myHandle}</span>.
+          Anonymized by XP. You are <span className="text-correct">{myHandle || "you"}</span>.
         </p>
       </header>
 

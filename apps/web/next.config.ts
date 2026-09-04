@@ -1,7 +1,38 @@
 import type { NextConfig } from "next";
+import { readFileSync } from "node:fs";
+
+// Single source of truth for the displayed app version: package.json. Read at
+// build and inlined as NEXT_PUBLIC_APP_VERSION so Settings can show it without
+// a second place to keep in step.
+const { version } = JSON.parse(
+  readFileSync(new URL("./package.json", import.meta.url), "utf8")
+) as { version: string };
 
 const nextConfig: NextConfig = {
   transpilePackages: ["@jyotir/core", "@jyotir/content"],
+  env: { NEXT_PUBLIC_APP_VERSION: version },
+  // Digital Asset Links. Android's verifier fetches
+  // /.well-known/assetlinks.json and rejects the association unless it is a
+  // 200 with Content-Type: application/json and no redirect. Vercel already
+  // infers the type from the .json extension, but that implicit default fails
+  // invisibly — the only symptom is a URL bar in the shipped TWA — so pin it.
+  // The short max-age matters because the fingerprint is a placeholder until
+  // the signing key exists; a long cache would keep serving the placeholder to
+  // the verifier after the real value ships. None of the redirects() below
+  // match /.well-known/*, and there is no trailingSlash — a redirect here
+  // would break verification.
+  async headers() {
+    return [
+      {
+        source: "/.well-known/assetlinks.json",
+        headers: [
+          { key: "Content-Type", value: "application/json" },
+          { key: "Cache-Control", value: "public, max-age=300, must-revalidate" },
+          { key: "X-Content-Type-Options", value: "nosniff" }
+        ]
+      }
+    ];
+  },
   // The marketing copy says "UPSC, JEE, NEET, CFA & FRM" but the routes are
   // versioned slugs (/jee-main, /cfa-1, …). Anyone typing or backlinking the
   // obvious short form must land somewhere useful, not a 404 — 308s preserve
@@ -13,32 +44,6 @@ const nextConfig: NextConfig = {
       { source: "/cfa", destination: "/cfa-1", permanent: true },
       { source: "/frm", destination: "/frm-1", permanent: true },
       { source: "/ssc", destination: "/ssc-cgl", permanent: true }
-    ];
-  },
-  // Digital Asset Links. Android's verifier fetches
-  // https://<host>/.well-known/assetlinks.json and REJECTS the association
-  // unless the response is (a) HTTPS, (b) a 200 with no redirect, and (c)
-  // Content-Type: application/json. Vercel already infers application/json
-  // from the .json extension, but that is an implicit default we would only
-  // discover was wrong by seeing a URL bar in the shipped TWA — so pin it.
-  //
-  // The short max-age matters too: the fingerprint in that file is a
-  // placeholder until the owner's signing key exists, and a long-lived cache
-  // entry would keep serving the placeholder to Android's verifier long after
-  // the real value is deployed.
-  //
-  // NOTE: none of the redirects above match /.well-known/*, and there is no
-  // trailingSlash rewrite — a redirect here would silently break verification.
-  async headers() {
-    return [
-      {
-        source: "/.well-known/assetlinks.json",
-        headers: [
-          { key: "Content-Type", value: "application/json" },
-          { key: "Cache-Control", value: "public, max-age=300, must-revalidate" },
-          { key: "X-Content-Type-Options", value: "nosniff" }
-        ]
-      }
     ];
   }
 };
