@@ -1,4 +1,5 @@
 import { SUPPORT_EMAIL } from "@/lib/site-config";
+import Link from "next/link";
 import { LegalFooter } from "@/components/LegalFooter";
 
 export const metadata = {
@@ -10,9 +11,9 @@ export const metadata = {
 export default function DeleteAccountPage() {
   return (
     <main className="mx-auto w-full max-w-xl px-5 pb-24 pt-14">
-      <a href="/" className="text-xs text-muted hover:text-ink">
+      <Link href="/" className="text-xs text-muted hover:text-ink">
         ← Home
-      </a>
+      </Link>
       <h1 className="mb-1 mt-3 text-2xl font-bold tracking-tight">Delete your account</h1>
       <p className="mb-8 text-xs text-muted">Recall · account &amp; data deletion</p>
 

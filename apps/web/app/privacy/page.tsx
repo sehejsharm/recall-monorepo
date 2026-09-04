@@ -1,4 +1,5 @@
 import { SUPPORT_EMAIL, MIN_AGE } from "@/lib/site-config";
+import Link from "next/link";
 import { LegalFooter } from "@/components/LegalFooter";
 
 export const metadata = {
@@ -9,9 +10,9 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <main className="mx-auto w-full max-w-xl px-5 pb-24 pt-14">
-      <a href="/" className="text-xs text-muted hover:text-ink">
+      <Link href="/" className="text-xs text-muted hover:text-ink">
         ← Home
-      </a>
+      </Link>
       <h1 className="mb-1 mt-3 text-2xl font-bold tracking-tight">Privacy Policy</h1>
       <p className="mb-8 text-xs text-muted">Last updated: 27 July 2026</p>
 

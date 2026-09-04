@@ -60,6 +60,7 @@ export default function ContactPage() {
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            maxLength={320}
             placeholder="Your email (optional)"
             className="rounded-xl border border-edge bg-surface px-4 py-3 text-sm outline-none focus:border-correct/50"
           />
@@ -67,6 +68,7 @@ export default function ContactPage() {
             required
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            maxLength={4000}
             placeholder="What's on your mind?"
             rows={6}
             className="rounded-xl border border-edge bg-surface px-4 py-3 text-sm outline-none focus:border-correct/50"

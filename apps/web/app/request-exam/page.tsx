@@ -57,6 +57,7 @@ export default function RequestExamPage() {
             required
             value={examName}
             onChange={(e) => setExamName(e.target.value)}
+            maxLength={120}
             placeholder="Exam name (e.g. CAT, GMAT)"
             className="rounded-xl border border-edge bg-surface px-4 py-3 text-sm outline-none focus:border-correct/50"
           />
@@ -75,6 +76,7 @@ export default function RequestExamPage() {
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
+            maxLength={2000}
             placeholder="Anything specific (subjects, level)? Optional."
             rows={4}
             className="rounded-xl border border-edge bg-surface px-4 py-3 text-sm outline-none focus:border-correct/50"
